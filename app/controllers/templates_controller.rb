@@ -69,6 +69,8 @@ class TemplatesController < ApplicationController
       @template.account = current_account
     end
 
+    Templates.maybe_assign_access(@template)
+
     if @template.save
       Templates::CloneAttachments.call(template: @template, original_template: @base_template) if @base_template
 
@@ -122,9 +124,10 @@ class TemplatesController < ApplicationController
                   :required, :readonly, :default_value,
                   :title, :description, :prefillable,
                   { preferences: {},
+                    default_value: [],
                     conditions: [%i[field_uuid value action operation]],
                     options: [%i[value uuid]],
-                    validation: %i[message pattern],
+                    validation: %i[message pattern min max step],
                     areas: [%i[x y w h cell_w attachment_uuid option_uuid page]] }]] }
     )
   end

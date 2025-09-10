@@ -18,10 +18,12 @@ module Api
                                                  combined_document_attachment: :blob,
                                                  audit_trail_attachment: :blob))
 
+      expires_at = Accounts.link_expires_at(current_account)
+
       render json: {
         data: submissions.map do |s|
           Submissions::SerializeForApi.call(s, s.submitters, params,
-                                            with_events: false, with_documents: false, with_values: false)
+                                            with_events: false, with_documents: false, with_values: false, expires_at:)
         end,
         pagination: {
           count: submissions.size,
@@ -189,7 +191,7 @@ module Api
                         { metadata: {}, values: {}, roles: [], readonly_fields: [], message: %i[subject body],
                           fields: [:name, :uuid, :default_value, :value, :title, :description,
                                    :readonly, :required, :validation_pattern, :invalid_message,
-                                   { default_value: [], value: [], preferences: {} }] }]]
+                                   { default_value: [], value: [], preferences: {}, validation: {} }] }]]
         }
       ]
 

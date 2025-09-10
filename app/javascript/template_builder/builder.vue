@@ -1065,7 +1065,7 @@ export default {
       }
 
       if (['select', 'multiple', 'radio'].includes(type)) {
-        field.options = [{ value: '', uuid: v4() }]
+        field.options = [{ value: '', uuid: v4() }, { value: '', uuid: v4() }]
       }
 
       if (type === 'stamp') {
@@ -1109,7 +1109,7 @@ export default {
         }
 
         if (['select', 'multiple', 'radio'].includes(type)) {
-          field.options = [{ value: '', uuid: v4() }]
+          field.options = [{ value: '', uuid: v4() }, { value: '', uuid: v4() }]
         }
 
         if (type === 'stamp') {
@@ -1265,24 +1265,31 @@ export default {
       if (!field.areas.length) {
         this.template.fields.splice(this.template.fields.indexOf(field), 1)
 
-        this.template.fields.forEach((f) => {
-          (f.conditions || []).forEach((c) => {
+        this.removeFieldConditions(field)
+      }
+
+      this.save()
+    },
+    removeFieldConditions (field) {
+      this.template.fields.forEach((f) => {
+        if (f.conditions) {
+          f.conditions.forEach((c) => {
             if (c.field_uuid === field.uuid) {
               f.conditions.splice(f.conditions.indexOf(c), 1)
             }
           })
-        })
+        }
+      })
 
-        this.template.schema.forEach((item) => {
-          (item.conditions || []).forEach((c) => {
+      this.template.schema.forEach((item) => {
+        if (item.conditions) {
+          item.conditions.forEach((c) => {
             if (c.field_uuid === field.uuid) {
               item.conditions.splice(item.conditions.indexOf(c), 1)
             }
           })
-        })
-      }
-
-      this.save()
+        }
+      })
     },
     pasteField () {
       const field = this.template.fields.find((f) => f.areas?.includes(this.copiedArea))
@@ -1301,7 +1308,13 @@ export default {
           this.copiedArea.option_uuid ||= field.options[0].uuid
           area.option_uuid = v4()
 
-          field.options.push({ uuid: area.option_uuid })
+          const lastOption = field.options[field.options.length - 1]
+
+          if (!field.areas.find((a) => lastOption.uuid === a.option_uuid)) {
+            area.option_uuid = lastOption.uuid
+          } else {
+            field.options.push({ uuid: area.option_uuid })
+          }
 
           field.areas.push(area)
         } else {
@@ -1477,7 +1490,7 @@ export default {
           if (this.dragField?.options?.length) {
             field.options = this.dragField.options.map(option => ({ value: option, uuid: v4() }))
           } else {
-            field.options = [{ value: '', uuid: v4() }]
+            field.options = [{ value: '', uuid: v4() }, { value: '', uuid: v4() }]
           }
         }
 
@@ -1709,8 +1722,15 @@ export default {
           })
         })
 
-        this.template.fields =
-          this.template.fields.filter((f) => !removedFieldUuids.includes(f.uuid) || f.areas?.length)
+        this.template.fields = this.template.fields.reduce((acc, f) => {
+          if (removedFieldUuids.includes(f.uuid) && !f.areas?.length) {
+            this.removeFieldConditions(f)
+          } else {
+            acc.push(f)
+          }
+
+          return acc
+        }, [])
 
         this.save()
       }

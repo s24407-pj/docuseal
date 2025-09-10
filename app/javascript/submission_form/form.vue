@@ -572,6 +572,7 @@ import FormCompleted from './completed'
 import { IconInnerShadowTop, IconArrowsDiagonal, IconWritingSign, IconArrowsDiagonalMinimize2 } from '@tabler/icons-vue'
 import AppearsOn from './appears_on'
 import i18n from './i18n'
+import { sanitizeUrl } from '@braintree/sanitize-url'
 
 const isEmpty = (obj) => {
   if (obj == null) return true
@@ -1014,7 +1015,11 @@ export default {
           const aArea = (fieldAreasIndex[aField.uuid] ||= [...(aField.areas || [])].sort(sortArea)[0])
           const bArea = (fieldAreasIndex[bField.uuid] ||= [...(bField.areas || [])].sort(sortArea)[0])
 
-          return sortArea(aArea, bArea)
+          if (aArea && bArea) {
+            return sortArea(aArea, bArea)
+          } else {
+            return 0
+          }
         })
       }
 
@@ -1476,7 +1481,7 @@ export default {
       }
 
       if (this.completedRedirectUrl) {
-        window.location.href = this.completedRedirectUrl
+        window.location.href = sanitizeUrl(this.completedRedirectUrl)
       }
     }
   }

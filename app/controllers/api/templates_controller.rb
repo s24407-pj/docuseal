@@ -24,13 +24,14 @@ module Api
                                         name: :preview_images)
                                  .preload(:blob)
 
+      expires_at = Accounts.link_expires_at(current_account)
+
       render json: {
         data: templates.map do |t|
-          Templates::SerializeForApi.call(
-            t,
-            schema_documents.select { |e| e.record_id == t.id },
-            preview_image_attachments
-          )
+          Templates::SerializeForApi.call(t,
+                                          schema_documents: schema_documents.select { |e| e.record_id == t.id },
+                                          preview_image_attachments:,
+                                          expires_at:)
         end,
         pagination: {
           count: templates.size,
@@ -111,9 +112,10 @@ module Api
                     :required, :readonly, :default_value,
                     :title, :description, :prefillable,
                     { preferences: {},
+                      default_value: [],
                       conditions: [%i[field_uuid value action operation]],
                       options: [%i[value uuid]],
-                      validation: %i[message pattern],
+                      validation: %i[message pattern min max step],
                       areas: [%i[x y w h cell_w attachment_uuid option_uuid page]] }]]
         }
       ]
