@@ -1,0 +1,201 @@
+# Polish Submissions Translations
+pl:
+  # Submissions Management
+  submissions: Przesłania
+  submission: Przesłanie
+  submissions_not_found: Nie znaleziono przesłań
+  there_are_no_submissions: Nie ma żadnych przesłań
+  
+  # Submission Actions
+  send_to_recipients: Wyślij do odbiorców
+  send_an_invitation_to_fill_and_complete_the_form: Wyślij zaproszenie do wypełnienia i ukończenia formularza
+  add_recipients: Dodaj odbiorców
+  add_new_recipients: Dodaj nowych odbiorców
+  add_recipients_html: '<span>Dodaj <span class="hidden md:inline">odbiorców</span></span>'
+  new_recipients_have_been_added: Nowi odbiorcy zostali dodani
+  
+  # Submission Status
+  pending: Oczekujące
+  pending_by_me: Oczekujące ode mnie
+  completed: Zakończono
+  partially_completed: Częściowo zakończono
+  archived: Zarchiwizowane
+  expired: Wygasło
+  awaiting: Oczekiwanie
+  sent: Wysłano
+  opened: Otwarto
+  
+  # Submission Messages
+  submission_has_been_removed: Przesłanie zostało usunięte
+  submission_has_been_archived: Przesłanie zostało zarchiwizowane
+  submission_has_been_unarchived: Przesłanie zostało odarchiwizowane
+  submission_deletion_is_irreversible_and_will_permanently_remove_all_associated_signed_documents_with_it_are_you_sure_: Usunięcie przesłania jest nieodwracalne i trwale usunie wszystkie powiązane podpisane dokumenty. Czy jesteś pewien?
+  count_submissions_have_been_created: '%{count} przesłań zostało utworzonych.'
+  
+  # Submission Details
+  submission_requester: Żądający przesłania
+  submission_created_by_email_html: '<b>Przesłanie utworzone</b> przez %{email}'
+  submission_created_by_email_via_source_html: '<b>Przesłanie utworzone</b> przez %{email} przez %{source}'
+  submission_created_via_source_html: '<b>Przesłanie utworzone</b> przez %{source}'
+  this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: To przesłanie ma wielu sygnatariuszy, co uniemożliwia użycie linku do udostępniania, ponieważ nie jest jasne, który sygnatariusz jest odpowiedzialny za konkretne pola. Aby to rozwiązać, postępuj zgodnie z tym <a href="https://www.docuseal.com/resources/pre-filling-recipients" class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">przewodnikiem</a>, aby zdefiniować domyślne szczegóły sygnatariusza.
+  
+  # Submission Sources
+  submission_sources:
+    api: API
+    bulk: Wysyłka masowa
+    embed: Osadzanie
+    invite: Zaproszenie
+    link: Link
+  
+  # Recipients
+  recipients: Odbiorcy
+  recipient_field: Pole odbiorcy
+  edit_recipient: Edytuj odbiorcę
+  update_recipient: Zaktualizuj odbiorcę
+  submitter_cannot_be_updated: Przesyłający nie może być zaktualizowany
+  ensure_unique_recipients: Zapewnij unikalnych odbiorców
+  require_all_recipients: Wymagaj wszystkich odbiorców
+  
+  # Recipients Order
+  enforce_recipients_order: Wymuś kolejność odbiorców
+  preserve_order: Zachowaj kolejność
+  always_enforce_signing_order: Zawsze wymuś kolejność podpisywania
+  make_the_recipients_signing_order_always_enforced_so_that_the_second_signer_can_start_signing_their_part_only_after_the_first_signer_has_completed_signing: Ustaw, aby kolejność podpisywania odbiorców była zawsze wymuszona, tak aby drugi sygnatariusz mógł rozpocząć podpisywanie swojej części dopiero po zakończeniu podpisywania przez pierwszego sygnatariusza.
+  when_checked_notifications_will_be_sent_to_the_second_party_once_the_form_is_completed_by_the_previous_party_uncheck_this_option_to_send_notifications_to_all_parties_simultaneously_right_away: Gdy zaznaczone, powiadomienia zostaną wysłane do drugiej strony po zakończeniu formularza przez poprzednią stronę. Odznacz tę opcję, aby wysłać powiadomienia do wszystkich stron jednocześnie od razu.
+  
+  # Recipient Invitations
+  not_invited_yet: Jeszcze nie zaproszono
+  not_completed_yet: Jeszcze nie zakończono
+  send_for_signing: Wyślij do podpisania
+  
+  # Signers
+  signers: Sygnatariusze
+  sign_document: Podpisz dokument
+  
+  # Name Completion
+  name_has_been_completed_by_submitters: '"%{name}" został ukończony przez %{submitters}.'
+  
+  # Email Invitations
+  submitter_invitation_email_sign_body: |
+    Cześć,
+
+    Zostałeś zaproszony do podpisania "{template.name}".
+
+    [Przejrzyj i podpisz]({submitter.link})
+
+    Skontaktuj się z nami, odpowiadając na ten e-mail, jeśli masz jakieś pytania.
+
+    Dziękujemy,
+    {account.name}
+    
+  submitter_completed_email_body: |
+    Cześć,
+
+    "{template.name}" został ukończony przez {submission.submitters}
+
+    {submission.link}
+    
+  submitter_documents_copy_email_body: |
+    Cześć,
+
+    Sprawdź kopię Twojego "{template.name}" w załącznikach e-mail.
+    Alternatywnie możesz przejrzeć i pobrać swoją kopię, korzystając z poniższego linku:
+
+    [{template.name}]({documents.link})
+
+    Dziękujemy,
+    {account.name}
+  
+  # SMS
+  submitter_invitation_sms_body_sign: '{account.name} zaprosił Cię do podpisania dokumentu: {submitter.link}'
+  verification_code_sms_body: 'Kod weryfikacyjny: {code}'
+  
+  # Submission Form
+  submission_form: Formularz przesłania
+  start_now: Rozpocznij teraz
+  
+  # Expiration
+  expire_on_time: 'Wygasa %{time}'
+  default_expiration: Domyślne wygaśnięcie
+  specified_date: Określona data
+  one_day: 1 dzień
+  two_days: 2 dni
+  three_days: 3 dni
+  four_days: 4 dni
+  five_days: 5 dni
+  six_days: 6 dni
+  seven_days: 7 dni
+  eight_days: 8 dni
+  nine_days: 9 dni
+  ten_days: 10 dni
+  two_weeks: 2 tygodnie
+  three_weeks: 3 tygodnie
+  four_weeks: 4 tygodnie
+  one_month: 1 miesiąc
+  two_months: 2 miesiące
+  three_months: 3 miesiące
+  
+  # Reminders
+  resend_pending: Wyślij ponownie oczekujące
+  
+  # Archive
+  view_archived: Zobacz zarchiwizowane
+  archive: Archiwizuj
+  archiving: Archiwizowanie
+  unarchive: Odarchiwizuj
+  restore: Przywróć
+  restoring: Przywracanie
+  back_to_active: Wróć do aktywnych
+  
+  # Preview
+  preview: Podgląd
+  exit_preview: Wyjdź z podglądu
+  
+  # Clone
+  clone: Sklonuj
+  
+  # Export
+  export: Eksportuj
+  
+  # Move
+  move: Przenieś
+  moving: Przenoszenie
+  
+  # Audit Log
+  audit_log: Dziennik audytu
+  event_log: Dziennik zdarzeń
+  events_log: Dziennik zdarzeń
+  there_are_no_events: Nie ma żadnych zdarzeń
+  
+  # Envelope
+  envelope_id: ID koperty
+  
+  # Detailed
+  detailed: Szczegółowy
+  
+  # Submission Event Names
+  submission_event_names:
+    send_email_to_html: '<b>E-mail wysłany</b> do %{submitter_name}'
+    bounce_email_html: '<b>E-mail odbił się</b> %{submitter_name}'
+    complaint_email_html: '<b>Zgłoszenie spam</b> %{submitter_name}'
+    send_reminder_email_to_html: '<b>E-mail przypominający wysłany</b> do %{submitter_name}'
+    send_sms_to_html: '<b>SMS wysłany</b> do %{submitter_name}'
+    send_2fa_sms_to_html: '<b>SMS weryfikacyjny wysłany</b> do %{submitter_name}'
+    open_email_by_html: '<b>E-mail otwarty</b> przez %{submitter_name}'
+    click_email_by_html: '<b>Link e-mail kliknięty</b> przez %{submitter_name}'
+    click_sms_by_html: '<b>Link SMS kliknięty</b> przez %{submitter_name}'
+    phone_verified_by_html: '<b>Telefon zweryfikowany</b> przez %{submitter_name}'
+    email_verified_by_html: '<b>E-mail zweryfikowany</b> przez %{submitter_name}'
+    start_form_by_html: '<b>Przesłanie rozpoczęte</b> przez %{submitter_name}'
+    view_form_by_html: '<b>Formularz wyświetlony</b> przez %{submitter_name}'
+    invite_party_by_html: '<b>Zaproszono</b> %{invited_submitter_name} przez %{submitter_name}'
+    complete_form_by_html: '<b>Przesłanie ukończone</b> przez %{submitter_name}'
+    start_verification_by_html: '<b>Weryfikacja tożsamości rozpoczęta</b> przez %{submitter_name}'
+    complete_verification_by_html: '<b>Weryfikacja tożsamości ukończona</b> przez %{submitter_name} z %{provider}'
+    api_complete_form_by_html: '<b>Przesłanie ukończone przez API</b> przez %{submitter_name}'
+  
+  # Events
+  succeeded: Powiodło się
+  failed: Niepowodzenie
+  resend: Wyślij ponownie
+  next_attempt_in_time_in_words: Następna próba za %{time_in_words}

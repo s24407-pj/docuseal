@@ -1,0 +1,264 @@
+# Polish Settings & Configuration Translations
+pl:
+  # Account Settings
+  account: Konto
+  settings: Ustawienia
+  preferences: Preferencje
+  advanced_settings: Zastawienia zaawansowane
+  general: Ogólne
+  
+  # Profile Settings
+  name: Nazwa
+  owner: Właściciel
+  time_zone: Strefa czasowa
+  language: Język
+  app_url: URL aplikacji
+  
+  # Company Settings
+  logo: Logo
+  company_logo: Logo firmy
+  upload_logo: Prześlij logo
+  logo_has_been_uploaded: Logo zostało przesłane
+  with_logo: Z logo
+  
+  # Notifications
+  notifications: Powiadomienia
+  email_notifications: Powiadomienia e-mail
+  receive_notification_emails_on_completed_submission: Otrzymuj powiadomienia e-mail o ukończonych przesłaniach
+  completed_documents_notification_bcc_address: Adres BCC powiadomienia o ukończonych dokumentach
+  send_emails_automatically_on_completion: Wysyłaj e-maile automatycznie po ukończeniu
+  bcc_recipients: Odbiorcy BCC
+  send_email_copy_with_completed_documents_to_a_specified_bcc_address: Wyślij kopię e-mail z ukończonymi dokumentami na określony adres BCC
+  
+  # Email Reminders
+  sign_request_email_reminders: Przypomnienia e-mail o prośbie o podpis
+  send_automatic_email_reminders_to_your_recipients: Wysyłaj automatyczne przypomnienia e-mail do swoich odbiorców
+  first_reminder_in: Pierwsze przypomnienie za
+  second_reminder_in: Drugie przypomnienie za
+  third_reminder_in: Trzecie przypomnienie za
+  automated_reminders: Automatyczne przypomnienia
+  
+  # Time Options
+  one_hour: 1 godzina
+  two_hours: 2 godziny
+  four_hours: 4 godziny
+  eight_hours: 8 godzin
+  twelve_hours: 12 godzin
+  twenty_four_hours: 24 godziny
+  fifteen_days: 15 dni
+  twenty_one_days: 21 dni
+  thirty_days: 30 dni
+  
+  # Storage
+  storage: Przechowywanie
+  store_all_files_on_disk: Przechowuj wszystkie pliki na dysku
+  no_configs_are_needed_but_make_sure_your_disk_is_persistent: Nie są potrzebne żadne konfiguracje, ale upewnij się, że Twój dysk jest trwały
+  not_suitable_for_heroku_and_other_paas: Nieodpowiednie dla Heroku i innych PaaS
+  for_aws_s3_compatible_apis_like_minio: 'Dla API zgodnych z AWS S3, takich jak MinIO.'
+  
+  # Document Settings
+  expirable_file_download_links: Wygasające linki do pobierania plików
+  make_document_download_links_expire_after_40_minutes_to_prevent_long_term_access_and_enhance_security: Ustaw, aby linki do pobierania dokumentów wygasały po 40 minutach, aby zapobiec długoterminowemu dostępowi i zwiększyć bezpieczeństwo.
+  use_direct_file_attachment_links_in_the_documents: Użyj bezpośrednich linków do załączników w dokumentach
+  require_authentication_for_file_download_links: Wymagaj uwierzytelniania dla linków do pobierania plików
+  require_authentication_with_user_login_or_api_key_to_access_the_document_download_links: Wymagaj uwierzytelniania za pomocą loginu użytkownika lub klucza API, aby uzyskać dostęp do linków do pobierania dokumentów.
+  combine_completed_documents_and_audit_log: Połącz ukończone dokumenty i dziennik audytu
+  combine_signed_documents_and_the_audit_log_into_a_single_pdf_file_for_easier_recordkeeping_and_compliance: Połącz podpisane dokumenty i dziennik audytu w jeden plik PDF dla łatwiejszego prowadzenia dokumentacji i zgodności.
+  download_combined_pdf: Pobierz połączony PDF
+  document_download_filename_format: Format nazwy pliku pobierania dokumentu
+  
+  # Form Settings
+  form_preferences: Preferencje formularza
+  completion_message: Komunikat o ukończeniu
+  completed_form_message: Komunikat o ukończeniu formularza
+  completed_form_redirect_button: Przycisk przekierowania ukończonego formularza
+  redirect_on_completion_url: URL przekierowania po ukończeniu
+  show_confetti_on_successful_completion: Pokazuj konfetti po pomyślnym ukończeniu
+  form_custom_css: Niestandardowy CSS formularza
+  
+  # Display Settings
+  title: Tytuł
+  button_title: Tytuł przycisku
+  button_url: URL przycisku
+  display_title: Wyświetl tytuł
+  description: Opis
+  heading: Nagłówek
+  
+  # Integration Settings
+  integration: Integracja
+  integrations: Integracje
+  
+  # Stripe Integration
+  stripe_integration: Integracja Stripe
+  stripe_account_has_been_connected: Konto Stripe zostało połączone
+  re_connect_stripe: Połącz ponownie Stripe
+  
+  # Salesforce Integration
+  salesforce_integration: Integracja Salesforce
+  salesforce_has_been_connected: Salesforce zostało połączone
+  connect_salesforce_account_to_integrate_with_docuseal: Połącz konto Salesforce, aby zintegrować z DocuSeal
+  re_connect_salesforce: Połącz ponownie Salesforce
+  connect_salesforce: Połącz Salesforce
+  
+  # Make.com Integration
+  make_com_integration: Integracja Make.com
+  seamlessly_automate_your_document_signing_process_with_make_com: Zautomatyzuj bezproblemowo proces podpisywania dokumentów za pomocą Make.com
+  
+  # Zapier Integration
+  zapier_integration: Integracja Zapier
+  find_suitable_zapier_templates_to_automate_your_workflow: Znajdź odpowiednie szablony Zapier, aby zautomatyzować swój przepływ pracy
+  get_started: Rozpocznij
+  
+  # Google Drive
+  add_from_google_drive: Dodaj z Google Drive
+  or_add_from: Lub dodaj z
+  connect_google_drive: Połącz Google Drive
+  google_drive_has_been_connected: Google Drive zostało połączone
+  the_file_is_missing_make_sure_you_have_access_to_it_on_google_drive: Plik jest brakujący. Upewnij się, że masz do niego dostęp na Google Drive.
+  
+  # Webhook Settings
+  webhook_settings: Ustawienia webhook
+  webhook_secret: Sekret webhook
+  webhook_url_has_been_saved: URL webhook został zapisany
+  webhook_url_has_been_updated: URL webhook został zaktualizowany
+  webhook_url_has_been_deleted: URL webhook został usunięty
+  webhook_request_has_been_sent: Żądanie webhook zostało wysłane
+  webhook_secret_has_been_saved: Sekret webhook został zapisany
+  unable_to_resend_webhook_request: Nie można ponownie wysłać żądania webhook
+  new_webhook: Nowy webhook
+  delete_webhook: Usuń webhook
+  
+  # SMS Settings
+  send_signature_requests_via_sms: Wysyłaj prośby o podpis przez SMS
+  twilio_settings: Ustawienia Twilio
+  sending_sms: Wysyłanie SMS
+  from: Od
+  account_sid: SID konta
+  send_sms_via_webhook: Wyślij SMS przez webhook
+  webhook_integration_allows_to_send_sms_using_any_provider: Integracja webhook pozwala na wysyłanie SMS za pomocą dowolnego dostawcy
+  sms_not_configured: SMS nie skonfigurowane
+  configure_sms_settings_in_order_to_send_text_messages_: 'Skonfiguruj ustawienia SMS, aby wysyłać wiadomości tekstowe:'
+  go_to_sms_settings: Przejdź do ustawień SMS
+  sms_has_been_sent: SMS został wysłany
+  re_send_sms: Wyślij ponownie SMS
+  send_sms: Wyślij SMS
+  sms_length_cant_be_longer_than_120_bytes: Długość SMS nie może być dłuższa niż 120 bajtów
+  
+  # Email Settings
+  email_integration: Integracja e-mail
+  send_via_connected_email: Wyślij przez połączony e-mail
+  connect_your_email_to_send_html_emails: Połącz swój e-mail, aby wysyłać e-maile HTML
+  connect_your_email_or_outlook_account_or_add_smtp_settings_to_send_custom_html_emails: Połącz swoje konto Gmail lub Outlook lub dodaj ustawienia SMTP, aby wysyłać niestandardowe e-maile HTML
+  connect_your_email_to_bulk_send: Połącz swój e-mail do wysyłki masowej
+  connect_your_email_or_outlook_account_or_add_smtp_settings_to_bulk_send: Połącz swoje konto Gmail lub Outlook lub dodaj ustawienia SMTP do wysyłki masowej
+  connect_gmail: Połącz Gmail
+  re_connect_gmail: Połącz ponownie Gmail
+  gmail_has_been_connected: Gmail zostało połączone
+  connect_microsoft: Połącz Microsoft
+  re_connect_microsoft: Połącz ponownie Microsoft
+  microsoft_account_has_been_connected: Konto Microsoft zostało połączone
+  connect_gmail_or_outlook: Połącz Gmail lub Outlook
+  smtp_not_configured: SMTP nie skonfigurowane
+  configure_smtp_settings_in_order_to_send_emails_: 'Skonfiguruj ustawienia SMTP, aby wysyłać e-maile:'
+  go_to_smtp_settings: Przejdź do ustawień SMTP
+  
+  # Custom HTML Emails
+  custom_html_emails: Niestandardowe e-maile HTML
+  code: Kod
+  
+  # SSO Settings
+  single_sign_on_with_saml_2_0: Single Sign-On z SAML 2.0
+  force_sso_disable_login_with_email_and_password: Wymuś SSO (wyłącz logowanie przez e-mail i hasło)
+  sso_settings_have_been_updated: Ustawienia SSO zostały zaktualizowane
+  
+  # API Settings
+  api_key: Klucz API
+  api_key_access_code: Kod dostępu do klucza API
+  use_otp_code_to_access_the_api_key_html: 'Użyj kodu <b>%{code}</b>, aby uzyskać dostęp do klucza API.'
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Odpowiedz na ten e-mail, jeśli nie rozpoznajesz tego żądania.
+  reveal_api_key: Ujawnij klucz API
+  enter_your_password_to_reveal_the_api_key: Wprowadź swoje hasło, aby ujawnić klucz API
+  
+  # Personalization
+  personalization: Personalizacja
+  display_your_company_name_and_logo_when_signing_documents: Wyświetlaj nazwę i logo swojej firmy podczas podpisywania dokumentów
+  
+  # E-Signature Settings
+  e_signature: Podpis elektroniczny
+  docuseal_trusted_signature: Zaufany podpis DocuSeal
+  sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature: Podpisuj dokumenty za pomocą zaufanego certyfikatu dostarczonego przez DocuSeal. Twoje dokumenty i dane nigdy nie są udostępniane DocuSeal. Suma kontrolna PDF jest dostarczana w celu wygenerowania zaufanego podpisu.
+  
+  # PDF Signature
+  pdf_signature: Podpis PDF
+  signing_certificates: Certyfikaty podpisywania
+  upload_certificate: Prześlij certyfikat
+  upload_cert: Prześlij cert
+  use_a_valid_der_p12_or_pfx_file: 'Użyj prawidłowego pliku .der, .p12 lub .pfx.'
+  certificate_has_been_successfully_added: Certyfikat został pomyślnie dodany
+  default_certificate_has_been_selected: Wybrano domyślny certyfikat
+  certificate_has_been_removed: Certyfikat został usunięty
+  use_your_own_certificates_to_sign_and_verify_pdf_files: Użyj własnych certyfikatów do podpisywania i weryfikowania plików PDF
+  verify_signed_pdf: Weryfikuj podpisany PDF
+  upload_signed_pdf_file_to_validate_its_signature_: 'Prześlij podpisany plik PDF, aby zweryfikować jego podpis:'
+  analyzing: Analiza
+  analyzing_: 'Analiza...'
+  valid_to: Ważny do
+  status: Status
+  make_default: Ustaw jako domyślny
+  default: Domyślny
+  timestamp_server: Serwer znacznika czasu
+  timeserver_url: URL serwera czasu
+  url_of_the_trusted_rfc_3161_timeserver_to_be_used_to_generate_timestamp_signatures: URL zaufanego serwera czasu RFC 3161 do użycia do generowania podpisów znaczników czasu
+  apply_multiple_pdf_digital_signatures_in_the_document_per_each_signer: Zastosuj wiele podpisów cyfrowych PDF w dokumencie dla każdego sygnatariusza
+  remove_pdf_form_fillable_fields_from_the_signed_pdf_flatten_form: Usuń wypełnialne pola formularza PDF z podpisanego pliku PDF (spłaszcz formularz)
+  invalid_timeserver: Nieprawidłowy serwer czasu
+  verify: Weryfikuj
+  verify_pdf: Weryfikuj PDF
+  
+  # Danger Zone
+  danger_zone: Strefa zagrożenia
+  delete_my_account: Usuń moje konto
+  you_are_scheduling_your_account_for_deletion_after_deletion_your_data_will_be_permanently_removed_and_cannot_be_recovered_click_ok_if_you_would_like_to_continue: "Planujesz usunięcie swojego konta. Po usunięciu Twoje dane zostaną trwale usunięte i nie będą mogły zostać odzyskane.\n\nKliknij OK, jeśli chcesz kontynuować."
+  your_account_removal_request_will_be_processed_within_2_months_please_contact_us_if_you_want_to_keep_your_account: Twoje żądanie usunięcia konta zostanie przetworzone w ciągu 2 miesięcy. Skontaktuj się z nami, jeśli chcesz zachować swoje konto.
+  
+  # Update Messages
+  account_information_has_been_updated: Informacje o koncie zostały zaktualizowane
+  settings_have_been_saved: Ustawienia zostały zapisane
+  changes_have_been_saved: Zmiany zostały zapisane
+  should_be_a_valid_url: powinien być prawidłowym URL
+  unable_to_save: Nie można zapisać
+  
+  # Data Residency
+  eu_data_residency: Dane w UE
+  select_data_residency: Wybierz lokalizację danych
+  
+  # Policy Links
+  policy_links: Linki do polityk
+  markdown_content_e_g: 'Treść Markdown, np.'
+  
+  # Secrets
+  add_secret: Dodaj sekret
+  edit_secret: Edytuj sekret
+  key: Klucz
+  value: Wartość
+  
+  # Test Mode
+  test_mode: Tryb testowy
+  developer_sandbox: Piaskownica deweloperska
+  upgrade_to_start_using_in_production_html: '<a href="%{url}" target="_blank" class="link font-semibold">Uaktualnij</a>, aby zacząć używać w produkcji.'
+  test_mode_emails_limit_will_be_reset_within_24_hours: Limit e-maili w trybie testowym zostanie zresetowany w ciągu 24 godzin.
+  
+  # Miscellaneous Settings
+  are_you_sure_: Czy jesteś pewien?
+  learn_more: Dowiedz się więcej
+  copied: Skopiowano
+  copied_to_clipboard: Skopiowano do schowka
+  copy: Kopiuj
+  test: Test
+  connected_successfully: Połączono pomyślnie
+  has_been_connected: zostało połączone
+  but_not_activated: ale nieaktywowane
+  activate_with_docuseal_pro: Aktywuj z DocuSeal Pro
+  available_only_in_pro: Dostępne tylko w Pro
+  available_in_pro: Dostępne w Pro
+  unlock_with_docuseal_pro: Odblokuj z DocuSeal Pro

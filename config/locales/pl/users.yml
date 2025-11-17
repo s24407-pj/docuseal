@@ -1,0 +1,95 @@
+# Polish Users & Team Management Translations
+pl:
+  # Users
+  users: Użytkownicy
+  user_has_been_invited: Użytkownik został zaproszony
+  user_has_been_updated: Użytkownik został zaktualizowany
+  user_has_been_removed: Użytkownik został usunięty
+  unable_to_update_user: Nie można zaktualizować użytkownika
+  unable_to_remove_user: Nie można usunąć użytkownika
+  select_user: Wybierz użytkownika
+  edit_user: Edytuj użytkownika
+  new_user: Nowy użytkownik
+  last_session: Ostatnia sesja
+  archived_users: Zarchiwizowani użytkownicy
+  embedding_users: Użytkownicy osadzania
+  view_embedding_users: Zobacz użytkowników osadzania
+  
+  # User Roles
+  role: Rola
+  admin: Administrator
+  tenant_admin: Administrator najemcy
+  editor: Edytor
+  viewer: Przeglądający
+  member: Członek
+  agent: Agent
+  superadmin: Superadministrator
+  team_member_permissions: Uprawnienia członka zespołu
+  unlock_more_user_roles_with_docuseal_pro: Odblokuj więcej ról użytkowników za pomocą DocuSeal Pro
+  click_here_to_learn_more_about_user_roles_and_permissions_html: '<a href="https://www.docuseal.com/resources/manage-users-and-roles" class="link" rel="noopener noreferrer nofollow" target="_blank">Kliknij tutaj</a>, aby dowiedzieć się więcej o rolach użytkowników i uprawnieniach.'
+  
+  # Teams & Tenants
+  teams: Zespoły
+  team_account: Konto zespołu
+  team_accounts: Konta zespołów
+  new_team: Nowy zespół
+  remove_team: Usuń zespół
+  entire_team: Cały zespół
+  admin_only: Tylko administrator
+  manage_multiple_teams: Zarządzaj wieloma zespołami
+  use_the_edit_form_to_move_it_to_another_team: Użyj formularza edycji, aby przenieść to do innego zespołu
+  team_access: Dostęp zespołu
+  
+  tenants: Najemcy
+  tenant_account: Konto najemcy
+  tenant_accounts: Konta najemców
+  new_tenant: Nowy najemca
+  remove_tenant: Usuń najemcę
+  allow_tenant_admins_to_invite_new_users: Zezwalaj administratorom najemców na zapraszanie nowych użytkowników
+  
+  # Invitations & Access
+  invite: Zaproś
+  invite_form_fields: Pola formularza zaproszenia
+  invite_by_name: 'Zaproś przez %{name}'
+  same_as_name: 'Tak samo jak %{name}'
+  
+  # Account Management
+  accounts: Konta
+  account_has_been_created: Konto zostało utworzone
+  account_has_been_updated: Konto zostało zaktualizowane
+  account_has_been_removed: Konto zostało usunięte
+  edit_account: Edytuj konto
+  impersonate: Impersonifikuj
+  impersonated_as: Impersonowany jako
+  accessiable_by: Dostępny dla
+  
+  # User Limits
+  users_management: Zarządzanie użytkownikami
+  users_count_total_users_count_pro_users_limit_was_reached_to_invite_additional_users_please_purchase_more_pro_user_seats_via_the_manage_plan_button: '%{users_count}/%{total_users_count} Osiągnięto limit użytkowników Pro. Aby zaprosić dodatkowych użytkowników, kup więcej miejsc użytkowników Pro za pomocą przycisku "Zarządzaj planem".'
+  upgrade_your_plan_to_invite_more_users_contact_email: 'Uaktualnij swój plan, aby zaprosić więcej użytkowników (kontakt %{email}).'
+  contact_your_admin_email_to_invite_more_users: 'Skontaktuj się ze swoim administratorem %{email}, aby zaprosić więcej użytkowników.'
+  contact_your_administrator_to_add_new_users: Skontaktuj się ze swoim administratorem, aby dodać nowego użytkownika
+  pro_user_seats_used: Wykorzystane miejsca użytkowników Pro
+  
+  # Support & Help
+  need_help_ask_a_question_: 'Potrzebujesz pomocy? Zadaj pytanie:'
+  docuseal_support: Wsparcie DocuSeal
+  support: Wsparcie
+  discord_community: Społeczność Discord
+  ask_ai: Zapytaj AI
+  ai_assistant: Asystent AI
+  
+  # Console & Navigation
+  console: Konsola
+  exit: Wyjście
+  leave: Opuść
+  home: Start
+  dashboard: Panel
+  
+  # Author
+  author: Autor
+  to: Do
+  created_at: Utworzono o
+  
+  # Viewing
+  view_active: Zobacz aktywne

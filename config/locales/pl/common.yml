@@ -1,0 +1,107 @@
+# Polish Common Translations
+pl:
+  # Actions
+  add: Dodaj
+  adding: Dodawanie
+  save: Zapisz
+  saving: Zapisywanie
+  update: Aktualizuj
+  updating: Aktualizowanie
+  delete: Usuń
+  deleting: Usuwanie
+  remove: Usuń
+  removing: Usuwanie
+  create: Utwórz
+  creating: Tworzenie
+  edit: Edytuj
+  editing: Edytowanie
+  view: Widok
+  viewing: Przeglądanie
+  download: Pobierz
+  downloading: Pobieranie
+  upload: Prześlij
+  uploading: Przesyłanie
+  send: Wyślij
+  sending: Wysyłanie
+  start: Rozpocznij
+  starting: Rozpoczynanie
+  stop: Zatrzymaj
+  stopping: Zatrzymywanie
+  continue: Kontynuuj
+  cancel: Anuluj
+  close: Zamknij
+  closing: Zamykanie
+  open: Otwórz
+  opening: Otwieranie
+  submit: Prześlij
+  submitting: Przesyłanie
+  apply: Zastosuj
+  applying: Stosowanie
+  
+  # Status
+  enabled: Włączono
+  disabled: Wyłączono
+  required: Wymagane
+  optional: opcjonalne
+  completed: Zakończono
+  pending: Oczekujące
+  processing: Przetwarzanie
+  loading: Ładowanie
+  success: Sukces
+  error: Błąd
+  warning: Ostrzeżenie
+  info: Informacja
+  
+  # Common UI
+  yes: Tak
+  no: Nie
+  ok: OK
+  or: lub
+  and: i
+  back: Wstecz
+  next: Dalej
+  previous: Poprzedni
+  search: Szukaj
+  filter: Filtruj
+  sort: Sortuj
+  select: Wybierz
+  none: Brak
+  all: Wszystkie
+  page: Strona
+  
+  # Greetings
+  hi_there: Cześć
+  thanks: Dziękujemy
+  hello_name: "Witaj %{name}"
+  
+  # General
+  powered_by: "Napędzany przez"
+  count_documents_signed_with_html: "<b>%{count}</b> dokumentów podpisanych za pomocą"
+  open_source_documents_software: "oprogramowanie do dokumentów open source"
+  privacy_policy: Polityka Prywatności
+  esignature_disclosure: Ujawnienie e-podpisu
+  company_name: Nazwa firmy
+  
+  # Languages
+  language_en: English
+  language_en-US: English (US)
+  language_en-GB: English (UK)
+  language_es: Español
+  language_es-ES: Español
+  language_it: Italiano
+  language_it-IT: Italiano
+  language_de: Deutsch
+  language_de-DE: Deutsch
+  language_fr: Français
+  language_fr-FR: Français
+  language_pl: Polski
+  language_uk: Українська
+  language_cs: Čeština
+  language_pt: Português
+  language_pt-PT: Português
+  language_he: עברית
+  language_nl: Nederlands
+  language_nl-NL: Nederlands
+  language_ar: العربية
+  language_ko: 한국어
+  language_ja: 日本語
