@@ -1,0 +1,127 @@
+---
+pt:
+  send_verification_code: Enviar código de verificação
+  code_has_been_resent: Código foi reenviado
+  invalid_code: Código inválido
+  you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Você
+    foi convidado para %{account_name} %{product_name}. Inscreva-se usando o link
+    abaixo:'
+  show_send_with_docuseal_pro_attribution_in_emails_html: Mostrar "Enviado com <span
+    class="link">DocuSeal Pro</span>" nos e-mails
+  please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Por favor,
+    entre em contato conosco respondendo a este e-mail se você tiver alguma dúvida.
+  verification_code_sms_body: 'Código de verificação: {code}'
+  submitter_invitation_email_sign_body: |
+    Olá,
+
+    Você foi convidado a assinar "{template.name}".
+
+    [Revisar e assinar]({submitter.link})
+
+    Por favor, entre em contato conosco respondendo a este e-mail se você tiver alguma dúvida.
+
+    Obrigado,
+    {account.name}
+  submitter_completed_email_body: |
+    Olá,
+
+    "{template.name}" foi concluído por {submission.submitters}.
+
+    {submission.link}
+  email: Email
+  verification_code_code: 'Código de verificação: %{code}'
+  provide_your_email: Informe seu e-mail
+  sign_in: Entrar
+  sign_in_with_microsoft: Entrar com Microsoft
+  sign_in_with_google: Entrar com Google
+  first_name: Nome
+  last_name: Sobrenome
+  sign_up: Inscrever-se
+  profile_details: Detalhes do perfil
+  sign_up_with_google: Inscrever-se com Google
+  sign_up_with_microsoft: Inscrever-se com Microsoft
+  sign_in_with_name_account: Entrar com conta %{name}
+  send_from_email: Enviar do e-mail
+  verify_signed_pdf: Verificar PDF assinado
+  setup_2fa: Configurar 2FA
+  2fa_has_been_configured: 2FA foi configurado.
+  code_is_invalid: O código é inválido
+  2fa_has_been_set_up_already: 2FA já foi configurado.
+  sign_request_email_reminders: Lembretes de solicitação de assinatura por e-mail
+  send_automatic_email_reminders_to_your_recipients: Enviar lembretes automáticos
+    por e-mail para seus destinatários.
+  email_templates: Modelos de e-mail
+  signature_request_email: E-mail de solicitação de assinatura
+  verification_code_sms: SMS com código de verificação
+  profile: Perfil
+  set_up_2fa: Configurar 2FA
+  email_integration: Integração de e-mail
+  send_via_connected_email: Enviar via e-mail conectado
+  send_signature_request_to_your_recipients_directly_from_your_email: Envie solicitações
+    de assinatura diretamente do seu e-mail
+  email_has_been_sent: O e-mail foi enviado.
+  email_has_been_sent_already: O e-mail já foi enviado.
+  verify_pdf: Verificar PDF
+  sign_out: Sair
+  type_emails_here: Digite os e-mails aqui
+  phone: Telefone
+  send_emails: Enviar e-mails
+  send_signature_request_emails_without_limits_with_docuseal_pro: Enviar e-mails de
+    solicitação de assinatura sem limites com o DocuSeal Pro
+  count_emails_used: "%{count} e-mails usados"
+  email_subject: Assunto do e-mail
+  email_body: Corpo do e-mail
+  attach_audit_log_pdf_to_the_email: Anexar PDF do log de auditoria ao e-mail
+  attach_documents_to_the_email: Anexar documentos ao e-mail
+  specified_email: E-mail especificado
+  default_email: E-mail padrão
+  last_session: Última sessão
+  please_sign_in: Por favor, entre.
+  ten_signature_request_emails_per_month: 10 e-mails/mês
+  unlimited_signature_request_emails: E-mails ilimitados de solicitação
+  personalize_email_content: Personalizar conteúdo do e-mail
+  identify_verification_via_sms: Verificação de identidade via SMS
+  sign_in_person: Assinar pessoalmente
+  re_send_email: Reenviar e-mail
+  send_email: Enviar e-mail
+  via_email: via E-mail
+  via_phone: via Telefone
+  verify: Verificar
+  email_verification: Verificação de e-mail
+  phone_verification: Verificação de Telefone
+  session_id: ID da Sessão
+  phone_field: Campo de Telefone
+  verification_field: Verificação de Identidade
+  identity_verification: Verificação de identidade
+  the_code_has_been_sent_to_your_email: O código foi enviado para seu e-mail.
+  enter_the_verification_code_from_your_email: Insira o código de verificação do seu
+    e-mail.
+  verification_code: Código de Verificação
+  resend_code: Reenviar Código
+  verify_new_sign_in: Verificar novo login
+  complete_sign_in: Concluir Login
+  please_reply_to_this_email_if_you_dont_recognize_this_sign_in_attempt: Responda
+    a este e-mail se você não reconhecer esta tentativa de login.
+  number_phone_number_is_invalid: O número de telefone +%{number} é inválido
+  count_10_signature_request_emails_sent_this_month_upgrade_to_pro_to_send_unlimited_signature_request_email: "%{count}
+    / 10 e-mails de solicitação de assinatura enviados este mês. Faça upgrade para
+    Pro para enviar solicitações de assinatura ilimitadas."
+  test_mode_emails_limit_will_be_reset_within_24_hours: O limite de e-mails no modo
+    de teste será redefinido em 24 horas.
+  request_email_otp_verification_with_shared_link: Solicitar verificação de OTP por
+    e-mail com link compartilhado
+  invalid_phone_number: Número de telefone inválido
+  re_send_code: Reenviar código
+  your_verification_code_to_access_the_name: 'Seu código de verificação para acessar
+    "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: Responda a este e-mail se
+    você não solicitou isso.
+  code: Código
+  custom_html_emails: E-mails HTML personalizados
+  connect_your_email_to_send_html_emails: Conecte seu e-mail para enviar e-mails HTML
+  connect_your_email_to_bulk_send: Conecte seu e-mail para envio em massa
+  api_key_access_code: Código de acesso da chave API
+  use_otp_code_to_access_the_api_key_html: Use o código <b>%{code}</b> para acessar
+    a chave API.
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Responda a este e-mail
+    se você não reconhecer esta solicitação.

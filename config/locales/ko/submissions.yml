@@ -1,0 +1,5 @@
+---
+ko:
+  invited_by_html: <span class="font-semibold">%{name}</span>에 의해 초대되었습니다.
+  signed_on_time: "%{time}에 서명됨"
+  count_documents_signed_with_html: "<b>%{count}</b>개의 문서가 다음을 통해 서명됨"

@@ -1,0 +1,27 @@
+---
+de:
+  party: Partei
+  first_party: Erste Partei
+  awaiting_completion_by_the_other_party: Warten auf die Fertigstellung durch die
+    andere Partei
+  embedding: Einbettung
+  templates: Vorlagen
+  rename_folder: Ordner umbenennen
+  folder_name: Ordnername
+  clone: Klonen
+  clone_template: Vorlage klonen
+  change_folder: Ordner wechseln
+  shared: Geteilt
+  embedding_url: Einbettungs-URL
+  move_into_folder: In Ordner verschieben
+  new_folder_name: Neuer Ordnername
+  new_subfolder_name: Neuer Unterordnername
+  change_parent_folder: Übergeordneten Ordner ändern
+  folder: Ordner
+  api_key: API-Schlüssel
+  unable_to_rename_folder: Der Ordner konnte nicht umbenannt werden.
+  embedding_users: Einbettende Benutzer
+  zapier_integration: Zapier-Integration
+  share_link: Freigabelink
+  enable_shared_link: Freigabelink aktivieren
+  reveal_api_key: API-Schlüssel anzeigen

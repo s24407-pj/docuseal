@@ -1,0 +1,68 @@
+---
+pt:
+  resend_pending: Re-enviar pendente
+  ensure_unique_recipients: Garantir destinatários únicos
+  bcc_recipients: Destinatários BCC
+  signed: Assinado
+  pending_by_me: Pendente por mim
+  you_are_invited_to_product_name: Você está convidado para %{product_name}
+  sent_using_product_name_in_testing_mode_html: Enviado usando <a href="%{product_url}">%{product_name}</a>
+    no Modo de Teste
+  sent_with_docuseal_pro_html: Enviado com <a href="%{product_url}">DocuSeal Pro</a>
+  you_have_been_invited_to_sign_the_name: Você foi convidado a assinar "%{name}".
+  you_are_invited_to_sign_a_document: Você foi convidado a assinar um documento
+  you_are_invited_to_sign_documents: Você foi convidado a assinar documentos
+  invited_by_html: Convidado por <span class="font-semibold">%{name}</span>
+  signed_on_time: Assinado em %{time}
+  first_reminder_in: Primeiro lembrete em
+  second_reminder_in: Segundo lembrete em
+  third_reminder_in: Terceiro lembrete em
+  attach_audit_log_pdf: Anexar PDF do log de auditoria
+  count_documents_signed_with_html: "<b>%{count}</b> documentos assinados com"
+  pending: Pendente
+  expired: Expirado
+  send_to_recipients: Enviar para destinatários
+  recipients: Destinatários
+  submission_requester: Solicitante de submissão
+  invite_by_name: Convidado por %{name}
+  submission_example_payload: Exemplo de payload de submissão
+  signed_with_trusted_certificate: Assinado com certificado confiável
+  signed_with_external_certificate: Assinado com certificado externo
+  you_are_already_signed_in: Você já está conectado.
+  submission_has_been_archived: A submissão foi arquivada.
+  submission_has_been_unarchived: A submissao foi desarquivada.
+  user_has_been_invited: O usuário foi convidado.
+  sms_has_been_sent: O SMS foi enviado.
+  automated_reminders: Lembretes automáticos
+  audit_log: Log de auditoria
+  signers: Signatários
+  sent: Enviado
+  awaiting: Aguardando
+  envelope_id: ID do Envelope
+  event_log: Log de Eventos
+  submission_sources:
+    api: API
+    bulk: Envio em massa
+    embed: Incorporação
+    invite: Convite
+    link: Link
+  submission_event_names:
+    send_email_to_html: "<b>Email enviado</b> para %{submitter_name}"
+    bounce_email_html: "<b>Email não entregue</b> %{submitter_name}"
+    complaint_email_html: "<b>Reclamação de spam</b> %{submitter_name}"
+    send_reminder_email_to_html: "<b>Email de lembrete enviado</b> para %{submitter_name}"
+    send_sms_to_html: "<b>SMS enviado</b> para %{submitter_name}"
+    send_2fa_sms_to_html: "<b>SMS de verificação enviado</b> para %{submitter_name}"
+    open_email_by_html: "<b>E-mail aberto</b> por %{submitter_name}"
+    click_email_by_html: "<b>Link do e-mail clicado</b> por %{submitter_name}"
+    click_sms_by_html: "<b>Link do SMS clicado</b> por %{submitter_name}"
+    phone_verified_by_html: "<b>Telefone verificado</b> por %{submitter_name}"
+    email_verified_by_html: "<b>Email verificado</b> por %{submitter_name}"
+    start_form_by_html: "<b>Submissão iniciada</b> por %{submitter_name}"
+    view_form_by_html: "<b>Formulário visualizado</b> por %{submitter_name}"
+    invite_party_by_html: "<b>Convidado</b> %{invited_submitter_name} por %{submitter_name}"
+    complete_form_by_html: "<b>Submissão concluída</b> por %{submitter_name}"
+    start_verification_by_html: "<b>Verificação de identidade iniciada</b> por %{submitter_name}"
+    complete_verification_by_html: "<b>Verificação de identidade concluída</b> por
+      %{submitter_name} com %{provider}"
+    api_complete_form_by_html: "<b>Submissão concluída via API</b> por %{submitter_name}"

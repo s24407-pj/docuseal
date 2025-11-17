@@ -1,0 +1,11 @@
+---
+he:
+  declined: דחוי
+  name_declined_by_submitter: '"%{name}" נדחה על ידי %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" נדחה על ידי %{submitter}
+    עם הסיבה הבאה:'
+  completed_on_time: הושלם ב-%{time}
+  document_has_been_signed_already: המסמך כבר נחתם
+  resubmit: שלח מחדש
+  esignature_disclosure: גילוי חתימה אלקטרונית
+  submit: שלח

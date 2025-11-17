@@ -1,0 +1,117 @@
+---
+nl:
+  upload_a_new_document: Nieuw document uploaden
+  use_direct_file_attachment_links_in_the_documents: Gebruik directe bijlage-links
+    in de documenten
+  docuseal_trusted_signature: DocuSeal Vertrouwde handtekening
+  sent_using_product_name_free_document_signing_html: Verzonden met <a href="%{product_url}">%{product_name}</a>
+    gratis documentondertekening.
+  submitter_invitation_sms_body_sign: "{account.name} heeft u uitgenodigd om een document
+    te ondertekenen: {submitter.link}"
+  name_has_been_completed_by_submitters: '"%{name}" is voltooid door %{submitters}.'
+  template_name_has_been_completed_by_submitters: "{template.name} is voltooid door
+    {submission.submitters}"
+  completed_on_time: Voltooid op %{time}
+  document_has_been_signed_already: Document is al ondertekend
+  resubmit: Opnieuw indienen
+  declined: Geweigerd
+  name_declined_by_submitter: '"%{name}" geweigerd door %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" is geweigerd door
+    %{submitter} met de volgende reden:'
+  request_signature_multiple_submitters_with_default_values: Handtekening aanvragen,
+    meerdere inzenders met standaardwaarden
+  request_signature_single_submitter: Handtekening aanvragen, één inzender
+  template_details: Sjabloondetails
+  upload_certificate: Certificaat uploaden
+  file: Bestand
+  submit: Indienen
+  submitting: Indienen
+  pdf_signature: PDF-handtekening
+  upload_signed_pdf_file_to_validate_its_signature_: 'Upload een ondertekend PDF-bestand
+    om de handtekening te valideren:'
+  upload_cert: Certificaat uploaden
+  timestamp_server: Tijdstempelserver
+  url_of_the_trusted_rfc_3161_timeserver_to_be_used_to_generate_timestamp_signatures: URL
+    van de vertrouwde RFC 3161-tijdserver die wordt gebruikt om tijdstempelhandtekeningen
+    te genereren.
+  apply_multiple_pdf_digital_signatures_in_the_document_per_each_signer: Meerdere
+    PDF-digitale handtekeningen in het document toepassen, per ondertekenaar
+  signature_request_sms: SMS voor handtekeningverzoek
+  text_message: Tekstbericht
+  upload_logo: Logo uploaden
+  signature: Handtekening
+  initials: Initialen
+  page_number: Pagina %{number}
+  e_signature: E-handtekening
+  send_signature_requests_via_sms: Ondertekenverzoeken via SMS verzenden
+  upgrade_to_send_unlimited_signature_requests: Upgrade om onbeperkte ondertekenverzoeken
+    te verzenden
+  document_templates_html: <span class="hidden md:inline">Document</span>sjablonen
+  completed: Voltooid
+  draw_signature: Handtekening tekenen
+  signature_uploaded: Handtekening geüpload
+  upload_new_document: Nieuw document uploaden
+  upload: Uploaden
+  new_document_template: Nieuwe documentsjabloon
+  document_name: Documentnaam
+  template_id: Sjabloon-ID
+  share_template_with_test_mode: Sjabloon delen met testmodus
+  use_following_placeholders_text_: 'Gebruik de volgende placeholder-teksten:'
+  upload_initials: Initialen uploaden
+  draw: Tekenen
+  upload_signature: Handtekening uploaden
+  manage_multiple_teams: Meerdere teams beheren
+  file_is_missing: Bestand ontbreekt
+  template_has_been_archived: Sjabloon is gearchiveerd.
+  template_has_been_cloned: Sjabloon is gekloond.
+  document_template_has_been_moved: Documentsjabloon is verplaatst.
+  unable_to_move_template_into_folder: Kan sjabloon niet naar map verplaatsen.
+  template_has_been_unarchived: Sjabloon is gedearchiveerd.
+  logo_has_been_uploaded: Logo is geüpload.
+  invalid_file_type: Ongeldig bestandstype
+  upload_file: Bestand uploaden
+  ten_filed_types: 10 veldtypen
+  multiple_signers: Meerdere ondertekenaars
+  automatic_esignature: Automatische e-handtekening
+  declined_on_time: Geweigerd op %{time}
+  upload_list: Lijst uploaden
+  document_id: Document-ID
+  option: Optie
+  text_field: Tekstveld
+  signature_field: Handtekeningveld
+  initials_field: Initialenveld
+  date_field: Datumveld
+  number_field: Getalveld
+  image_field: Afbeeldingsveld
+  file_field: Bestandsveld
+  checkbox_field: Aankruisvakje
+  multiple_field: Meerkeuzeveld
+  radio_field: Radiogroepveld
+  cells_field: Cellenveld
+  stamp_field: Stempelveld
+  payment_field: Betalingsveld
+  completed_at: Voltooid op
+  at_least_one_field_must_be_filled: Er moet minstens één veld worden ingevuld.
+  seamlessly_automate_your_document_signing_process_with_make_com: Automatiseer uw
+    documentondertekeningsproces naadloos met Make.com.
+  your_pro_plan_payment_is_overdue: Uw betaling voor het Pro-abonnement is achterstallig.
+  overdue_payment: Achterstallige betaling
+  this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: Deze
+    inzending heeft meerdere ondertekenaars, waardoor het gebruik van een deellink
+    niet mogelijk is omdat onduidelijk is welke ondertekenaar verantwoordelijk is
+    voor specifieke velden. Volg deze <a href="https://www.docuseal.com/resources/pre-filling-recipients"
+    class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">handleiding</a>
+    om de standaardgegevens van de ondertekenaar te definiëren.
+  specified_date: Opgegeven datum
+  esignature_disclosure: Verklaring e-handtekening
+  this_template_has_multiple_parties_which_prevents_the_use_of_a_sharing_link: Dit
+    sjabloon heeft meerdere partijen, waardoor het gebruik van een gedeelde link niet
+    mogelijk is omdat onduidelijk is welke partij verantwoordelijk is voor specifieke
+    velden. Definieer de standaardpartijdetails om dit op te lossen.
+  text: Tekst
+  template_name_has_been_completed_by_submitters_html: '"<strong>{template.name}</strong>"
+    is voltooid door <strong>{submission.submitters}</strong>'
+  you_have_been_invited_to_sign_the_template_name_html: U bent uitgenodigd om "<strong>{template.name}</strong>"
+    te ondertekenen.
+  the_file_is_missing_make_sure_you_have_access_to_it_on_google_drive: Het bestand
+    ontbreekt. Zorg ervoor dat je er toegang toe hebt op Google Drive.

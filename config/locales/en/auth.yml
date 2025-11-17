@@ -1,0 +1,127 @@
+---
+en:
+  send_verification_code: Send verification code
+  code_has_been_resent: Code has been re-sent
+  invalid_code: Invalid code
+  you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'You
+    have been invited to %{account_name} %{product_name}. Please sign up using the
+    link below:'
+  show_send_with_docuseal_pro_attribution_in_emails_html: Show "Sent with <span class="link">DocuSeal
+    Pro</span>" attribution in emails
+  please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Please contact
+    us by replying to this email if you have any questions.
+  verification_code_sms_body: 'Verification code: {code}'
+  submitter_invitation_email_sign_body: |
+    Hi there,
+
+    You have been invited to sign the "{template.name}".
+
+    [Review and Sign]({submitter.link})
+
+    Please contact us by replying to this email if you have any questions.
+
+    Thanks,
+    {account.name}
+  submitter_completed_email_body: |
+    Hi,
+
+    "{template.name}" has been completed by {submission.submitters}
+
+    {submission.link}
+  email: Email
+  verification_code_code: 'Verification code: %{code}'
+  provide_your_email: Provide your email
+  sign_in: Sign In
+  sign_in_with_microsoft: Sign in with Microsoft
+  sign_in_with_google: Sign in with Google
+  first_name: First name
+  last_name: Last name
+  sign_up: Sign up
+  profile_details: Profile Details
+  sign_up_with_google: Sign up with Google
+  sign_up_with_microsoft: Sign up with Microsoft
+  sign_in_with_name_account: Sign in with %{name} account
+  send_from_email: Send from Email
+  verify_signed_pdf: Verify Signed PDF
+  setup_2fa: Setup 2FA
+  2fa_has_been_configured: 2FA has been configured.
+  code_is_invalid: Code is invalid
+  2fa_has_been_set_up_already: 2FA has been set up already.
+  sign_request_email_reminders: Sign Request Email Reminders
+  send_automatic_email_reminders_to_your_recipients: Send automatic email reminders
+    to your recipients.
+  email_templates: Email Templates
+  signature_request_email: Signature request email
+  verification_code_sms: Verification Code SMS
+  profile: Profile
+  set_up_2fa: Set up 2FA
+  email_integration: Email Integration
+  send_via_connected_email: Send via connected email
+  send_signature_request_to_your_recipients_directly_from_your_email: Send signature
+    request to your recipients directly from your email
+  email_has_been_sent: Email has been sent.
+  email_has_been_sent_already: Email has been sent already.
+  verify_pdf: Verify PDF
+  sign_out: Sign out
+  type_emails_here: Type emails here
+  phone: Phone
+  send_emails: Send emails
+  send_signature_request_emails_without_limits_with_docuseal_pro: Send signature request
+    emails without limits with DocuSeal Pro
+  count_emails_used: "%{count} emails used"
+  email_subject: Email subject
+  email_body: Email body
+  attach_audit_log_pdf_to_the_email: Attach Audit Log PDF to the email
+  attach_documents_to_the_email: Attach documents to the email
+  specified_email: Specified email
+  default_email: Default Email
+  last_session: Last session
+  please_sign_in: Please sign in.
+  ten_signature_request_emails_per_month: 10 signature request emails per month
+  unlimited_signature_request_emails: Unlimited signature request emails
+  personalize_email_content: Personalize email content
+  identify_verification_via_sms: Identify verification via SMS
+  sign_in_person: Sign In-person
+  re_send_email: Re-send Email
+  send_email: Send Email
+  via_email: via Email
+  via_phone: via Phone
+  verify: Verify
+  email_verification: Email verification
+  phone_verification: Phone verification
+  session_id: Session ID
+  phone_field: Phone Field
+  verification_field: Identity Verification
+  identity_verification: Identity verification
+  the_code_has_been_sent_to_your_email: The code has been sent to your email.
+  enter_the_verification_code_from_your_email: Enter the verification code from your
+    email.
+  verification_code: Verification Code
+  resend_code: Resend Code
+  verify_new_sign_in: Verify new sign in
+  complete_sign_in: Complete Sign In
+  please_reply_to_this_email_if_you_dont_recognize_this_sign_in_attempt: Please reply
+    to this email if you don't recognize this sign in attempt.
+  number_phone_number_is_invalid: "+%{number} phone number is invalid"
+  count_10_signature_request_emails_sent_this_month_upgrade_to_pro_to_send_unlimited_signature_request_email: "%{count}
+    / 10 signature request emails sent this month. Upgrade to Pro to send unlimited
+    signature request email."
+  test_mode_emails_limit_will_be_reset_within_24_hours: Test mode emails limit will
+    be reset within 24 hours.
+  request_email_otp_verification_with_shared_link: Request email OTP verification
+    with shared link
+  invalid_phone_number: Invalid phone number
+  re_send_code: Re-send Code
+  your_verification_code_to_access_the_name: 'Your verification code to access the
+    "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: Please reply to this email
+    if you didn't request this.
+  code: Code
+  custom_html_emails: Custom HTML emails
+  connect_your_email_to_send_html_emails: Connect your email to send HTML emails
+  connect_your_email_to_bulk_send: Connect your email to bulk send
+  api_key_access_code: API key access code
+  use_otp_code_to_access_the_api_key_html: Use <b>%{code}</b> code to access the API
+    key.
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Please reply to this
+    email if you don't recognize this request.

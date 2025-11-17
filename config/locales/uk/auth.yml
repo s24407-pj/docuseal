@@ -1,0 +1,28 @@
+---
+uk:
+  send_verification_code: Надіслати код підтвердження
+  code_has_been_resent: Код повторно надіслано
+  invalid_code: Невірний код
+  email: E-mail
+  verification_code_code: 'Код підтвердження: %{code}'
+  provide_your_email: Введіть свій емейл
+  sign_in: Увійти
+  sign_in_with_microsoft: Увійти через Microsoft
+  sign_in_with_google: Увійти через Google
+  first_name: Ім'я
+  last_name: Прізвище
+  sign_up: Зареєструватися
+  profile_details: Дані профілю
+  sign_up_with_google: Зареєструватися через Google
+  sign_up_with_microsoft: Зареєструватися через Microsoft
+  the_code_has_been_sent_to_your_email: Код було надіслано на вашу електронну пошту.
+  enter_the_verification_code_from_your_email: Введіть код перевірки з вашої електронної
+    пошти.
+  verification_code: Код перевірки
+  resend_code: Відправити код знову
+  invalid_phone_number: Невірний номер телефону
+  re_send_code: Надіслати код повторно
+  email_verification: Підтвердження електронної пошти
+  your_verification_code_to_access_the_name: 'Ваш код доступу до "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: Відповідайте на цей лист,
+    якщо ви цього не запитували.

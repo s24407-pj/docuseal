@@ -1,0 +1,26 @@
+---
+ja:
+  send_verification_code: 認証コードを送信
+  code_has_been_resent: コードが再送信されました
+  invalid_code: 無効なコードです
+  email: メール
+  provide_your_email: メールアドレスを入力してください
+  verification_code_code: '認証コード: %{code}'
+  sign_in: サインイン
+  sign_in_with_microsoft: Microsoftでサインイン
+  sign_in_with_google: Googleでサインイン
+  first_name: 名
+  last_name: 姓
+  sign_up: 登録
+  profile_details: プロフィールの詳細
+  sign_up_with_google: Googleで登録
+  sign_up_with_microsoft: Microsoftで登録
+  the_code_has_been_sent_to_your_email: コードがあなたのメールに送信されました
+  enter_the_verification_code_from_your_email: メールに記載された認証コードを入力してください
+  verification_code: 認証コード
+  resend_code: コードを再送信
+  invalid_phone_number: 無効な電話番号です
+  re_send_code: コードを再送信
+  email_verification: メール認証
+  your_verification_code_to_access_the_name: '"%{name}"へのアクセスコード：'
+  please_reply_to_this_email_if_you_didnt_request_this: このリクエストを行っていない場合は、このメールに返信してください。

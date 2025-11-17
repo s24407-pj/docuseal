@@ -1,0 +1,5 @@
+---
+cs:
+  invited_by_html: Pozván uživatelem <span class="font-semibold">%{name}</span>
+  signed_on_time: Podepsáno %{time}
+  count_documents_signed_with_html: "<b>%{count}</b> dokumentů podepsáno pomocí"

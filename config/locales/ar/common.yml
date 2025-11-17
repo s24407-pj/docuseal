@@ -1,0 +1,64 @@
+---
+ar:
+  require_phone_2fa_to_open: تطلب فتح عبر تحقق الهاتف ذو العاملين
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: المرسل
+    طلب تحقق ذو عاملين عبر كلمة مرور لمرة واحدة مرسل إلى رقم هاتفك <b>%{phone}</b>.
+  view: عرض
+  hi_there: مرحبا,
+  download: تحميل
+  notify_the_sender_with_the_reason_you_declined: أخطر المرسل بسبب الرفض
+  form_has_been_declined_on_html: تم رفض النموذج في <span class="font-semibold">%{time}</span>
+  digitally_signed_by: تم التوقيع الرقمي بواسطة
+  provide_your_email_to_start: أدخل بريدك الإلكتروني للبدء
+  provide_your_name_to_start: أدخل اسمك للبدء
+  provide_your_phone_in_international_format_to_start: أدخل رقم هاتفك بصيغة دولية
+    للبدء
+  provide_your_phone_in_international_format: أدخل رقم هاتفك بصيغة دولية
+  use_international_format_1xxx_: 'استخدم التنسيق الدولي: +1xxx...'
+  start: بدء
+  starting: بداية
+  form_expired_at_html: استمارة انتهت صلاحيتها في <span class="font-semibold">%{time}</span>
+  you_have_been_invited_to_submit_a_form: تمت دعوتك لتقديم استمارة
+  form_has_been_submitted_already: تم تقديم الاستمارة بالفعل
+  send_copy_to_email: إرسال نسخة إلى البريد الإلكتروني
+  sending: جارٍ الإرسال
+  form_has_been_deleted_by_html: تم حذف الاستمارة بواسطة <span class="font-semibold">%{name}</span>.
+  or: أو
+  download_documents: تحميل الوثائق
+  downloading: جارٍ التحميل
+  completed_successfully: تم الانتهاء بنجاح
+  password: كلمة المرور
+  forgot_your_password_: هل نسيت كلمة المرور؟
+  create_free_account: إنشاء حساب مجاني
+  by_creating_an_account_you_agree_to_our_html: من خلال إنشاء حساب، فإنك توافق على
+    <a target="_blank" href="https://www.docuseal.com/privacy">سياسة الخصوصية</a>
+    و<a target="_blank" href="https://www.docuseal.com/terms">شروط الخدمة</a> الخاصة
+    بنا.
+  enter_email_to_continue: أدخل البريد الإلكتروني للمتابعة
+  powered_by: مشغل بواسطة
+  open_source_documents_software: برنامج مستندات مفتوح المصدر
+  please_enter_your_email_address_associated_with_the_completed_submission: يرجى إدخال
+    عنوان البريد الإلكتروني المرتبط بالإرسال المكتمل.
+  privacy_policy: سياسة الخصوصية
+  select_data_residency: اختر موقع تخزين البيانات
+  optional: اختياري
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: يرجى
+    الاتصال بالمرسل لتحديد رقم هاتفك للمصادقة الثنائية.
+  we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: أرسلنا
+    رمز تحقق لمرة واحدة إلى بريدك الإلكتروني. الرجاء إدخاله أدناه للمتابعة.
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: تم
+    أرشفة حسابك. يرجى التواصل مع المسؤول لاستعادة الوصول إلى حسابك.
+  ? your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in
+  : تعذّر الوصول إلى بريدك الإلكتروني. قد يحدث هذا في حال وجود خطأ في العنوان أو إذا
+    كانت صندوق البريد غير متاح. يرجى التواصل مع support@docuseal.com لتسجيل الدخول.
+  decline: رفض
+  decline_reason: سبب الرفض
+  provide_a_reason: قدم سببًا
+  provide_your_name: أدخل اسمك
+  reason: سبب
+  signing_in: تسجيل الدخول
+  already_have_an_account: هل لديك حساب؟
+  signing_up: الاشتراك
+  too_many_attempts: عدد المحاولات كبير جدًا.
+  eu_data_residency: بيانات في الاتحاد الأوروبي
+  company_name: اسم الشركة

@@ -1,0 +1,128 @@
+---
+fr:
+  send_verification_code: Envoyer le code de vérification
+  code_has_been_resent: Le code a été renvoyé
+  invalid_code: Code invalide
+  you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Vous
+    avez été invité à %{account_name} %{product_name}. Veuillez vous inscrire en utilisant
+    le lien ci-dessous :'
+  show_send_with_docuseal_pro_attribution_in_emails_html: Afficher l’attribution "Envoyé
+    avec <span class="link">DocuSeal Pro</span>" dans les e‑mails
+  please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Veuillez
+    nous contacter en répondant à cet e‑mail si vous avez des questions.
+  verification_code_sms_body: 'Code de vérification : {code}'
+  submitter_invitation_email_sign_body: |
+    Bonjour,
+
+    Vous avez été invité à signer "{template.name}".
+
+    [Examiner et signer]({submitter.link})
+
+    Veuillez nous contacter en répondant à cet e‑mail si vous avez des questions.
+
+    Merci,
+    {account.name}
+  submitter_completed_email_body: |
+    Bonjour,
+
+    "{template.name}" a été complété par {submission.submitters}
+
+    {submission.link}
+  email: E‑mail
+  verification_code_code: 'Code de vérification : %{code}'
+  provide_your_email: Indiquez votre e‑mail
+  sign_in: Se connecter
+  sign_in_with_microsoft: Se connecter avec Microsoft
+  sign_in_with_google: Se connecter avec Google
+  first_name: Prénom
+  last_name: Nom
+  sign_up: S’inscrire
+  profile_details: Détails du profil
+  sign_up_with_google: S’inscrire avec Google
+  sign_up_with_microsoft: S’inscrire avec Microsoft
+  sign_in_with_name_account: Se connecter avec le compte %{name}
+  send_from_email: Envoyer depuis l’e‑mail
+  verify_signed_pdf: Vérifier un PDF signé
+  setup_2fa: Configurer la 2FA
+  2fa_has_been_configured: La 2FA a été configurée.
+  code_is_invalid: Le code est invalide
+  2fa_has_been_set_up_already: La 2FA est déjà configurée.
+  sign_request_email_reminders: Rappels par e‑mail de demande de signature
+  send_automatic_email_reminders_to_your_recipients: Envoyer automatiquement des e‑mails
+    de rappel à vos destinataires.
+  email_templates: Modèles d’e‑mail
+  signature_request_email: E‑mail de demande de signature
+  verification_code_sms: SMS de code de vérification
+  profile: Profil
+  set_up_2fa: Configurer la 2FA
+  email_integration: Intégration e‑mail
+  send_via_connected_email: Envoyer via l’e‑mail connecté
+  send_signature_request_to_your_recipients_directly_from_your_email: Envoyez des
+    demandes de signature directement depuis votre e‑mail
+  email_has_been_sent: L’e‑mail a été envoyé.
+  email_has_been_sent_already: L’e‑mail a déjà été envoyé.
+  verify_pdf: Vérifier le PDF
+  sign_out: Se déconnecter
+  type_emails_here: Saisissez les e‑mails ici
+  phone: Téléphone
+  send_emails: Envoyer les e‑mails
+  send_signature_request_emails_without_limits_with_docuseal_pro: Envoyez des e‑mails
+    de demande de signature sans limites avec DocuSeal Pro
+  count_emails_used: "%{count} e‑mails utilisés"
+  email_subject: Objet de l’e‑mail
+  email_body: Corps de l’e‑mail
+  attach_audit_log_pdf_to_the_email: Joindre le PDF du journal d’audit à l’e‑mail
+  attach_documents_to_the_email: Joindre les documents à l’e‑mail
+  specified_email: E‑mail spécifié
+  default_email: E‑mail par défaut
+  last_session: Dernière session
+  please_sign_in: Veuillez vous connecter.
+  ten_signature_request_emails_per_month: 10 e‑mails de demande de signature/mois
+  unlimited_signature_request_emails: Demandes de signature illimitées
+  personalize_email_content: Personnaliser le contenu des e‑mails
+  identify_verification_via_sms: Vérification d’identité par SMS
+  sign_in_person: Signer en personne
+  re_send_email: Renvoyer l’e‑mail
+  send_email: Envoyer l’e‑mail
+  via_email: Par e‑mail
+  via_phone: Par téléphone
+  verify: Vérifier
+  email_verification: Vérification par e‑mail
+  phone_verification: Vérification par téléphone
+  session_id: ID de session
+  phone_field: Champ téléphone
+  verification_field: Champ de vérification
+  identity_verification: Vérification d’identité
+  the_code_has_been_sent_to_your_email: Le code a été envoyé à votre e‑mail.
+  enter_the_verification_code_from_your_email: Saisissez le code de vérification reçu
+    par e‑mail.
+  verification_code: Code de vérification
+  resend_code: Renvoyer le code
+  verify_new_sign_in: Vérifier une nouvelle connexion
+  complete_sign_in: Terminer la connexion
+  please_reply_to_this_email_if_you_dont_recognize_this_sign_in_attempt: Veuillez
+    répondre à cet e‑mail si vous ne reconnaissez pas cette tentative de connexion.
+  number_phone_number_is_invalid: Le numéro de téléphone +%{number} est invalide
+  count_10_signature_request_emails_sent_this_month_upgrade_to_pro_to_send_unlimited_signature_request_email: "%{count}
+    / 10 e‑mails de demande de signature envoyés ce mois‑ci. Passez à Pro pour envoyer
+    des e‑mails de demande de signature illimités."
+  test_mode_emails_limit_will_be_reset_within_24_hours: La limite d’e‑mails en mode
+    test sera réinitialisée sous 24 heures.
+  request_email_otp_verification_with_shared_link: Demander la vérification OTP par
+    e‑mail avec le lien partagé
+  invalid_phone_number: Numéro de téléphone invalide
+  re_send_code: Renvoyer le code
+  your_verification_code_to_access_the_name: 'Votre code de vérification pour accéder
+    à "%{name}" :'
+  please_reply_to_this_email_if_you_didnt_request_this: Veuillez répondre à cet e‑mail
+    si vous n’avez pas fait cette demande.
+  code: Code
+  custom_html_emails: E‑mails HTML personnalisés
+  connect_your_email_to_send_html_emails: Connectez votre e‑mail pour envoyer des
+    e‑mails HTML
+  connect_your_email_to_bulk_send: Connectez votre e‑mail pour l’envoi en masse
+  api_key_access_code: Code d’accès à la clé API
+  use_otp_code_to_access_the_api_key_html: Utilisez le code <b>%{code}</b> pour accéder
+    à la clé API.
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Veuillez répondre
+    à cet e‑mail si vous ne reconnaissez pas cette demande.

@@ -1,0 +1,26 @@
+---
+ko:
+  send_verification_code: 인증 코드 보내기
+  code_has_been_resent: 코드가 재전송되었습니다.
+  invalid_code: 잘못된 코드
+  email: 이메일
+  provide_your_email: 이메일을 입력하세요
+  verification_code_code: '확인 코드: %{code}'
+  sign_in: 로그인
+  sign_in_with_microsoft: Microsoft로 로그인
+  sign_in_with_google: Google로 로그인
+  first_name: 이름
+  last_name: 성
+  sign_up: 가입하기
+  profile_details: 프로필 세부 정보
+  sign_up_with_google: Google로 가입
+  sign_up_with_microsoft: Microsoft로 가입
+  the_code_has_been_sent_to_your_email: 코드가 이메일로 전송되었습니다.
+  enter_the_verification_code_from_your_email: 이메일에서 인증 코드를 입력하세요.
+  verification_code: 인증 코드
+  resend_code: 코드 재전송
+  invalid_phone_number: 잘못된 전화번호입니다
+  re_send_code: 코드 재전송
+  email_verification: 이메일 인증
+  your_verification_code_to_access_the_name: '"%{name}"에 액세스하기 위한 인증 코드:'
+  please_reply_to_this_email_if_you_didnt_request_this: 요청하지 않았다면 이 이메일에 회신하세요.

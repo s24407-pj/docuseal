@@ -1,0 +1,27 @@
+---
+it:
+  party: Parte
+  awaiting_completion_by_the_other_party: In attesa di completamento da parte dell'altra
+    parte
+  first_party: Prima parte
+  embedding: Incorporazione
+  templates: Modelli
+  rename_folder: Rinomina cartella
+  folder_name: Nome della cartella
+  clone: Clona
+  clone_template: Clona modello
+  change_folder: Cambia cartella
+  shared: condiviso
+  embedding_url: URL di incorporazione
+  move_into_folder: Sposta nella cartella
+  new_folder_name: Nuovo nome della cartella
+  new_subfolder_name: Nuovo nome della sottocartella
+  change_parent_folder: Cambia cartella principale
+  folder: Cartella
+  api_key: Chiave API
+  unable_to_rename_folder: Impossibile rinominare la cartella.
+  embedding_users: Utenti Incorporati
+  zapier_integration: Integrazione con Zapier
+  share_link: Link di condivisione
+  enable_shared_link: Abilita link condiviso
+  reveal_api_key: Mostra chiave API
