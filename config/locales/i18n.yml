@@ -17,6 +17,7 @@ en: &en
   language_pt: Português
   language_he: עברית
   language_nl: Nederlands
+  language_pl-PL: Polski
   language_ar: العربية
   language_ko: 한국어
   language_ja: 日本語
@@ -5586,7 +5587,7 @@ de: &de
       range_with_total: "%{from}-%{to} von %{count} Ereignissen"
       range_without_total: "%{from}-%{to} Ereignisse"
 
-pl:
+pl: &pl
   require_phone_2fa_to_open: Wymagaj uwierzytelniania telefonicznego 2FA do otwarcia
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Nadawca zażądał uwierzytelnienia dwuetapowego poprzez jednorazowe hasło wysłane na Twój <b>%{phone}</b> numer telefonu.
   send_verification_code: Wyślij kod weryfikacyjny
@@ -7178,3 +7179,6 @@ it-IT:
 
 nl-NL:
   <<: *nl
+
+pl-PL:
+  <<: *pl
