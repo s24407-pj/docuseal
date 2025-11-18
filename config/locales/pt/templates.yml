@@ -1,0 +1,26 @@
+---
+pt:
+  party: Parte
+  awaiting_completion_by_the_other_party: Aguardando a conclusão pela outra parte
+  first_party: Primeira Parte
+  embedding: Incorporação
+  templates: Modelos
+  rename_folder: Renomear pasta
+  folder_name: Nome da pasta
+  clone: Clonar
+  clone_template: Clonar modelo
+  change_folder: Alterar pasta
+  shared: Compartilhado
+  embedding_url: URL de incorporação
+  move_into_folder: Mover para pasta
+  new_folder_name: Novo nome da pasta
+  new_subfolder_name: Novo nome da subpasta
+  change_parent_folder: Alterar pasta pai
+  folder: Pasta
+  api_key: Chave API
+  unable_to_rename_folder: Não foi possível renomear a pasta.
+  embedding_users: Usuários Incorporados
+  zapier_integration: Integração com Zapier
+  share_link: Link de compartilhamento
+  enable_shared_link: Ativar link compartilhado
+  reveal_api_key: Revelar chave API

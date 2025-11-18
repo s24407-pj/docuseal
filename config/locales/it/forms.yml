@@ -1,0 +1,117 @@
+---
+it:
+  upload_a_new_document: Carica nuovo documento
+  use_direct_file_attachment_links_in_the_documents: Usa i link diretti per gli allegati
+    nei documenti
+  docuseal_trusted_signature: Firma Fiduciaria DocuSeal
+  sent_using_product_name_free_document_signing_html: Inviato utilizzando la firma
+    di documenti gratuita di <a href="%{product_url}">%{product_name}</a>.
+  submitter_invitation_sms_body_sign: "{account.name} ti ha invitato a firmare un
+    documento: {submitter.link}"
+  name_has_been_completed_by_submitters: '"%{name}" è stato completato da %{submitters}.'
+  template_name_has_been_completed_by_submitters: "{template.name} è stato completato
+    da {submission.submitters}"
+  completed_on_time: Completato il %{time}
+  document_has_been_signed_already: Il documento è già stato firmato
+  resubmit: Reinvia
+  declined: Rifiutato
+  name_declined_by_submitter: '"%{name}" rifiutato da %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" è stato rifiutato
+    da %{submitter} per il seguente motivo:'
+  request_signature_multiple_submitters_with_default_values: Richiedi firma, più firmatari
+    con valori predefiniti
+  request_signature_single_submitter: Richiedi firma, un solo firmatario
+  template_details: Dettagli del modello
+  upload_certificate: Carica certificato
+  file: File
+  submit: Invia
+  submitting: Invio in corso
+  pdf_signature: Firma PDF
+  upload_signed_pdf_file_to_validate_its_signature_: 'Carica il file PDF firmato per
+    validarne la firma:'
+  upload_cert: Carica certificato
+  timestamp_server: Server di timestamp
+  url_of_the_trusted_rfc_3161_timeserver_to_be_used_to_generate_timestamp_signatures: URL
+    del server di timestamp RFC 3161 affidabile da utilizzare per generare firme di
+    timestamp.
+  apply_multiple_pdf_digital_signatures_in_the_document_per_each_signer: Applica più
+    firme digitali PDF nel documento per ogni firmatario
+  signature_request_sms: SMS di richiesta di firma
+  text_message: Messaggio di testo
+  upload_logo: Carica logo
+  signature: Firma
+  initials: Iniziali
+  page_number: Pagina %{number}
+  e_signature: Firma elettronica
+  send_signature_requests_via_sms: Invia richieste di firma via SMS
+  upgrade_to_send_unlimited_signature_requests: Aggiorna per inviare richieste di
+    firma illimitate
+  document_templates_html: <span class="hidden md:inline">Documenti</span> Modelli
+  completed: Completato
+  draw_signature: Disegna firma
+  signature_uploaded: Firma caricata
+  upload_new_document: Carica nuovo documento
+  upload: Carica
+  new_document_template: Nuovo modello di documento
+  document_name: Nome del documento
+  template_id: ID modello
+  share_template_with_test_mode: Condividi modello con la modalità di test
+  use_following_placeholders_text_: 'Usa i seguenti segnaposto:'
+  upload_initials: Carica iniziali
+  draw: Disegna
+  upload_signature: Carica firma
+  manage_multiple_teams: Gestisci più squadre
+  file_is_missing: File mancante
+  template_has_been_archived: Il modello è stato archiviato.
+  template_has_been_cloned: Il modello è stato clonato.
+  document_template_has_been_moved: Il modello di documento è stato spostato.
+  unable_to_move_template_into_folder: Impossibile spostare il modello nella cartella.
+  template_has_been_unarchived: Il modello è stato disarchiviato.
+  logo_has_been_uploaded: Il logo è stato caricato.
+  invalid_file_type: Tipo di file non valido
+  upload_file: Carica file
+  ten_filed_types: 10 tipi di campi
+  multiple_signers: Firmatari multipli
+  automatic_esignature: Firma elettronica automatica
+  declined_on_time: Rifiutato il %{time}
+  upload_list: Carica elenco
+  document_id: ID del Documento
+  option: Opzione
+  text_field: Campo di Testo
+  signature_field: Campo di Firma
+  initials_field: Campo di Iniziali
+  date_field: Campo Data
+  number_field: Campo Numero
+  image_field: Campo Immagine
+  file_field: Campo File
+  checkbox_field: Campo di Checkbox
+  multiple_field: Campo Selezione Multipla
+  radio_field: Campo di Gruppo Radio
+  cells_field: Campo Celle
+  stamp_field: Campo Timbro
+  payment_field: Campo Pagamento
+  completed_at: Completato il
+  at_least_one_field_must_be_filled: Almeno un campo deve essere compilato.
+  seamlessly_automate_your_document_signing_process_with_make_com: Automatizza senza
+    problemi il tuo processo di firma dei documenti con Make.com.
+  your_pro_plan_payment_is_overdue: Il pagamento del tuo piano Pro è in ritardo.
+  overdue_payment: Pagamento Scaduto
+  this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: Questa
+    sottomissione ha più firmatari, il che impedisce l'uso di un link di condivisione
+    poiché non è chiaro quale firmatario sia responsabile di specifici campi. Per
+    risolvere questo problema, segui questa <a href="https://www.docuseal.com/resources/pre-filling-recipients"
+    class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">guida</a>
+    per definire i dettagli predefiniti del firmatario.
+  specified_date: Data specificata
+  esignature_disclosure: Uso della firma elettronica
+  this_template_has_multiple_parties_which_prevents_the_use_of_a_sharing_link: Questo
+    modello ha più parti, il che impedisce l'uso di un link di condivisione perché
+    non è chiaro quale parte sia responsabile di campi specifici. Per risolvere, definisci
+    i dettagli predefiniti della parte.
+  text: Testo
+  template_name_has_been_completed_by_submitters_html: '"<strong>{template.name}</strong>"
+    è stato completato da <strong>{submission.submitters}</strong>'
+  you_have_been_invited_to_sign_the_template_name_html: Sei stato invitato a firmare
+    il "<strong>{template.name}</strong>".
+  the_file_is_missing_make_sure_you_have_access_to_it_on_google_drive: Il file è mancante.
+    Assicurati di avere accesso a esso su Google Drive.

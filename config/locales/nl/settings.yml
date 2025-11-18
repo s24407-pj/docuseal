@@ -1,0 +1,28 @@
+---
+nl:
+  stripe_integration: Stripe-integratie
+  stripe_account_has_been_connected: Stripe-account is verbonden.
+  re_connect_stripe: Stripe opnieuw verbinden
+  preferences: Voorkeuren
+  signing_certificates: Ondertekeningscertificaten
+  connect_gmail: Gmail verbinden
+  re_connect_gmail: Gmail opnieuw verbinden
+  connect_microsoft: Microsoft verbinden
+  re_connect_microsoft: Microsoft opnieuw verbinden
+  settings: Instellingen
+  personalization: Personalisatie
+  integrations: Integraties
+  twilio_settings: Twilio-instellingen
+  go_to_smtp_settings: Ga naar SMTP-instellingen
+  re_send_sms: SMS opnieuw verzenden
+  send_sms: SMS verzenden
+  go_to_sms_settings: Ga naar SMS-instellingen
+  integration: Integratie
+  sms_length_cant_be_longer_than_120_bytes: SMS-lengte mag niet langer zijn dan 120
+    bytes
+  too_many_sms_attempts_try_again_in_a_few_seconds: Te veel SMS-pogingen. Probeer
+    het over enkele seconden opnieuw.
+  make_com_integration: Make.com-integratie
+  sms_rate_limit_exceeded: SMS-snelheidslimiet overschreden
+  advanced_settings: Geavanceerde instellingen
+  connect_google_drive: Verbind Google Drive

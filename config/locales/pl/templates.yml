@@ -1,0 +1,86 @@
+# Polish Templates Translations
+pl:
+  # Template Management
+  templates: Szablony
+  template: Szablon
+  template_id: ID szablonu
+  template_details: Szczegóły szablonu
+  document_templates_html: '<span class="hidden md:inline">Szablony</span> dokumentów'
+  new_document_template: Nowy szablon dokumentu
+  templates_not_found: Nie znaleziono szablonów
+  
+  # Template Actions
+  clone_template: Sklonuj szablon
+  template_has_been_cloned: Szablon został sklonowany
+  template_has_been_removed: Szablon został usunięty
+  template_has_been_archived: Szablon został zarchiwizowany
+  template_has_been_unarchived: Szablon został odarchiwizowany
+  template_deletion_is_irreversible_and_will_permanently_remove_all_associated_signed_documents_with_it_are_you_sure_: Usunięcie szablonu jest nieodwracalne i trwale usunie wszystkie powiązane podpisane dokumenty. Czy jesteś pewien?
+  
+  # Template Properties
+  share_template_with_test_mode: Udostępnij szablon w trybie testowym
+  share_template_with_all_tenants: Udostępnij szablon wszystkim najemcom
+  create_templates_with_private_access_by_default: Twórz szablony z prywatnym dostępem domyślnie
+  make_all_newly_created_templates_private_to_their_creator_by_default: Uczyń wszystkie nowo utworzone szablony prywatnymi dla ich twórcy domyślnie
+  this_template_has_multiple_parties_which_prevents_the_use_of_a_sharing_link: Ten szablon ma wiele stron, co uniemożliwia użycie linku do udostępniania, ponieważ nie jest jasne, która strona jest odpowiedzialna za konkretne pola. Aby to rozwiązać, zdefiniuj domyślne szczegóły strony.
+  
+  # Template Name & Description
+  template_name_has_been_completed_by_submitters: '{template.name} został ukończony przez {submission.submitters}'
+  template_name_has_been_completed_by_submitters_html: '"<strong>{template.name}</strong>" został ukończony przez <strong>{submission.submitters}</strong>'
+  you_have_been_invited_to_sign_the_template_name_html: 'Zostałeś zaproszony do podpisania "<strong>{template.name}</strong>".'
+  please_check_the_copy_of_your_template_name_in_the_email_attachments_html: 'Sprawdź kopię Twojego "<strong>{template.name}</strong>" w załącznikach e-mail.'
+  
+  # Parties
+  party: Strona
+  first_party: 'Pierwsza strona'
+  second_party: 'Druga strona'
+  third_party: 'Trzecia strona'
+  fourth_party: 'Czwarta strona'
+  fifth_party: 'Piąta strona'
+  sixth_party: 'Szósta strona'
+  seventh_party: 'Siódma strona'
+  eighth_party: 'Ósma strona'
+  ninth_party: 'Dziewiąta strona'
+  tenth_party: 'Dziesiąta strona'
+  eleventh_party: 'Jedenasta strona'
+  twelfth_party: 'Dwunasta strona'
+  thirteenth_party: 'Trzynasta strona'
+  fourteenth_party: 'Czternasta strona'
+  fifteenth_party: 'Piętnasta strona'
+  sixteenth_party: 'Szesnasta strona'
+  seventeenth_party: 'Siedemnasta strona'
+  eighteenth_party: 'Osiemnasta strona'
+  nineteenth_party: 'Dziewiętnasta strona'
+  twentieth_party: 'Dwudziesta strona'
+  default_parties: Domyślne strony
+  edit_per_party: Edytuj per strona
+  
+  # Folders
+  folder: Folder
+  folder_name: Nazwa folderu
+  rename_folder: Zmień nazwę folderu
+  create_a_new_folder: Utwórz nowy folder
+  new_folder_name: Nazwa nowego folderu
+  new_subfolder_name: Nazwa nowego podfolderu
+  change_folder: Zmień folder
+  change_parent_folder: Zmień folder nadrzędny
+  move_into_folder: Przenieś do folderu
+  folder_name_has_been_updated: Nazwa folderu została zaktualizowana
+  unable_to_rename_folder: Nie można zmienić nazwy folderu
+  document_template_has_been_moved: Szablon dokumentu został przeniesiony
+  unable_to_move_template_into_folder: Nie można przenieść szablonu do folderu
+  
+  # Template Sharing
+  shared: udostępniony
+  share_link: Link do udostępnienia
+  copy_share_link: Skopiuj link do udostępnienia
+  enable_shared_link: Włącz link do udostępnienia
+  share_link_is_currently_disabled: Link do udostępnienia jest obecnie wyłączony
+  copy_link: Skopiuj link
+  
+  # API & Embedding
+  api_and_embedding: API i osadzanie
+  embedding: Osadzanie
+  embedding_url: URL osadzania
+  authenticate_embedded_form_preview_with_token: Uwierzytelnij podgląd osadzonego formularza za pomocą tokena
+  require_a_jwt_authorization_to_preview_embedded_forms_ensuring_only_authorized_users_can_view_them: Wymagaj autoryzacji JWT do podglądu osadzonych formularzy, zapewniając, że tylko autoryzowani użytkownicy mogą je przeglądać.

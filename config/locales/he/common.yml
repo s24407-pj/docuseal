@@ -1,0 +1,63 @@
+---
+he:
+  require_phone_2fa_to_open: דרוש אימות דו-שלבי באמצעות טלפון לפתיחה
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: השולח
+    ביקש אימות דו-שלבי באמצעות סיסמה חד פעמית שנשלחה למספר הטלפון שלך <b>%{phone}</b>.
+  view: תצוגה
+  hi_there: שלום,
+  download: הורד
+  notify_the_sender_with_the_reason_you_declined: הודע לשולח על הסיבה לדחייה
+  form_has_been_declined_on_html: הטופס נדחה בתאריך <span class="font-semibold">%{time}</span>
+  digitally_signed_by: חתום דיגיטלית על ידי
+  provide_your_email_to_start: הזן את האימייל שלך כדי להתחיל
+  provide_your_name_to_start: הזן את שמך כדי להתחיל
+  provide_your_phone_in_international_format_to_start: הזן את מספר הטלפון שלך בפורמט
+    בינלאומי כדי להתחיל
+  provide_your_phone_in_international_format: הזן את מספר הטלפון שלך בפורמט בינלאומי
+  use_international_format_1xxx_: 'השתמש בפורמט בינלאומי: +1xxx...'
+  start: התחל
+  starting: מתחיל
+  form_expired_at_html: הטופס פג תוקף ב- <span class="font-semibold">%{time}</span>
+  form_has_been_deleted_by_html: הטופס נמחק על ידי <span class="font-semibold">%{name}</span>.
+  you_have_been_invited_to_submit_a_form: הוזמנת להגיש טופס
+  form_has_been_submitted_already: הטופס כבר נשלח
+  send_copy_to_email: שלח עותק לדוא"ל
+  sending: שולח
+  or: או
+  download_documents: הורד מסמכים
+  downloading: מוריד
+  completed_successfully: הושלם בהצלחה
+  password: סיסמה
+  forgot_your_password_: שכחת את הסיסמה?
+  create_free_account: צור חשבון חינם
+  by_creating_an_account_you_agree_to_our_html: על ידי יצירת חשבון, אתה מסכים ל<a
+    target="_blank" href="https://www.docuseal.com/privacy">מדיניות הפרטיות</a> ול<a
+    target="_blank" href="https://www.docuseal.com/terms">תנאי השירות</a> שלנו.
+  enter_email_to_continue: הכנס דוא"ל כדי להמשיך
+  powered_by: מופעל על ידי
+  open_source_documents_software: תוכנה בקוד פתוח למסמכים
+  please_enter_your_email_address_associated_with_the_completed_submission: אנא הזן
+    את כתובת הדוא"ל המשויכת למשלוח שהושלם.
+  privacy_policy: מדיניות פרטיות
+  select_data_residency: בחר מיקום נתונים
+  optional: אופציונלי
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: פנה
+    לשולח כדי לציין את מספרך לאימות דו-שלבי.
+  we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: שלחנו
+    קוד אימות חד-פעמי לדוא"ל שלך. הזן את הקוד למטה כדי להמשיך.
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: החשבון
+    שלך הועבר לארכיון. פנה למנהל המערכת כדי לשחזר את הגישה.
+  ? your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in
+  : לא ניתן היה לגשת לדוא"ל שלך. ייתכן שזה קרה עקב שגיאת כתיב בכתובת או אם תיבת הדואר
+    אינה זמינה. אנא פנה ל־support@docuseal.com כדי להתחבר.
+  decline: דחייה
+  decline_reason: סיבת דחייה
+  provide_a_reason: אנא ספק סיבה
+  reason: סיבה
+  provide_your_name: הזן את שמך
+  signing_in: מתחבר
+  already_have_an_account: כבר יש לך חשבון?
+  signing_up: נרשם
+  too_many_attempts: יותר מדי ניסיונות.
+  eu_data_residency: "נתונים באיחוד האירופי\t"
+  company_name: שם החברה

@@ -1,0 +1,26 @@
+---
+en:
+  party: Party
+  first_party: First Party
+  awaiting_completion_by_the_other_party: Awaiting completion by the other party
+  embedding: Embedding
+  templates: Templates
+  rename_folder: Rename Folder
+  folder_name: Folder Name
+  clone: Clone
+  clone_template: Clone Template
+  change_folder: Change Folder
+  shared: shared
+  embedding_url: Embedding URL
+  move_into_folder: Move Into Folder
+  new_folder_name: New Folder Name
+  new_subfolder_name: New Subfolder Name
+  change_parent_folder: Change Parent Folder
+  folder: Folder
+  api_key: API Key
+  unable_to_rename_folder: Unable to rename folder.
+  embedding_users: Embedding Users
+  zapier_integration: Zapier Integration
+  share_link: Share link
+  enable_shared_link: Enable shared link
+  reveal_api_key: Reveal API Key

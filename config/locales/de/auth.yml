@@ -1,0 +1,128 @@
+---
+de:
+  send_verification_code: Verifizierungscode senden
+  code_has_been_resent: Code wurde erneut gesendet
+  invalid_code: Ungültiger Code
+  you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Sie
+    wurden zu %{account_name} %{product_name} eingeladen. Bitte registrieren Sie sich
+    über den folgenden Link:'
+  show_send_with_docuseal_pro_attribution_in_emails_html: '"Gesendet mit <span class="link">DocuSeal
+    Pro</span>" in E-Mails anzeigen'
+  please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Bitte kontaktieren
+    Sie uns, indem Sie auf diese E-Mail antworten, falls Sie Fragen haben.
+  verification_code_sms_body: 'Verifizierungscode: {code}'
+  submitter_invitation_email_sign_body: |
+    Hallo,
+
+    Sie wurden eingeladen, "{template.name}" zu unterschreiben.
+
+    [Prüfen und unterschreiben]({submitter.link})
+
+    Bitte kontaktieren Sie uns, indem Sie auf diese E-Mail antworten, falls Sie Fragen haben.
+
+    Danke,
+    {account.name}
+  submitter_completed_email_body: |
+    Hallo,
+
+    "{template.name}" wurde von {submission.submitters} abgeschlossen.
+
+    {submission.link}
+  email: E-Mail
+  verification_code_code: 'Verifizierungscode: %{code}'
+  provide_your_email: Geben Sie Ihre E-Mail-Adresse ein
+  sign_in: Anmelden
+  sign_in_with_microsoft: Mit Microsoft anmelden
+  sign_in_with_google: Mit Google anmelden
+  first_name: Vorname
+  last_name: Nachname
+  sign_up: Registrieren
+  profile_details: Profildetails
+  sign_up_with_google: Mit Google registrieren
+  sign_up_with_microsoft: Mit Microsoft registrieren
+  sign_in_with_name_account: Mit %{name}-Konto anmelden
+  send_from_email: Von E-Mail senden
+  verify_signed_pdf: Signiertes PDF verifizieren
+  setup_2fa: 2FA einrichten
+  2fa_has_been_configured: 2FA wurde eingerichtet.
+  code_is_invalid: Der Code ist ungültig
+  2fa_has_been_set_up_already: 2FA wurde bereits eingerichtet.
+  sign_request_email_reminders: E-Mail-Erinnerungen für Signaturanfragen
+  send_automatic_email_reminders_to_your_recipients: Automatische E-Mail-Erinnerungen
+    an Ihre Empfänger senden.
+  email_templates: E-Mail-Vorlagen
+  signature_request_email: E-Mail für Signaturanfrage
+  verification_code_sms: SMS mit Verifizierungscode
+  profile: Profil
+  set_up_2fa: 2FA einrichten
+  email_integration: E-Mail-Integration
+  send_via_connected_email: Über verbundenes E-Mail-Konto senden
+  send_signature_request_to_your_recipients_directly_from_your_email: Senden Sie Signaturanfragen
+    direkt aus Ihrem E-Mail-Konto
+  email_has_been_sent: Die E-Mail wurde gesendet.
+  email_has_been_sent_already: Die E-Mail wurde bereits gesendet.
+  verify_pdf: PDF verifizieren
+  sign_out: Abmelden
+  type_emails_here: E-Mail-Adressen hier eingeben
+  phone: Telefon
+  send_emails: E-Mails senden
+  send_signature_request_emails_without_limits_with_docuseal_pro: Signaturanfragen
+    per E-Mail ohne Limits mit DocuSeal Pro senden
+  count_emails_used: "%{count} E-Mails verwendet"
+  email_subject: E-Mail-Betreff
+  email_body: E-Mail-Inhalt
+  attach_audit_log_pdf_to_the_email: Prüfprotokoll-PDF an die E-Mail anhängen
+  attach_documents_to_the_email: Dokumente an die E-Mail anhängen
+  specified_email: Angegebene E-Mail
+  default_email: Standard-E-Mail
+  last_session: Letzte Sitzung
+  please_sign_in: Bitte melden Sie sich an.
+  ten_signature_request_emails_per_month: 10 E-Mails für Signaturanfragen pro Monat
+  unlimited_signature_request_emails: Unbegrenzte Signaturanfrage-E-Mails
+  personalize_email_content: E-Mail-Inhalt personalisieren
+  identify_verification_via_sms: Identitätsüberprüfung per SMS
+  sign_in_person: Vor Ort unterschreiben
+  re_send_email: E-Mail erneut senden
+  send_email: E-Mail senden
+  via_email: per E-Mail
+  via_phone: per Telefon
+  verify: Überprüfen
+  email_verification: E-Mail-Verifizierung
+  phone_verification: Telefonverifizierung
+  session_id: Sitzungs-ID
+  phone_field: Telefonfeld
+  verification_field: Identitätsüberprüfung
+  identity_verification: Identitätsüberprüfung
+  the_code_has_been_sent_to_your_email: Der Code wurde an Ihre E-Mail gesendet.
+  enter_the_verification_code_from_your_email: Geben Sie den Verifizierungscode aus
+    Ihrer E-Mail ein.
+  verification_code: Verifizierungscode
+  resend_code: Code erneut senden
+  verify_new_sign_in: Neue Anmeldung verifizieren
+  complete_sign_in: Anmeldung abschließen
+  please_reply_to_this_email_if_you_dont_recognize_this_sign_in_attempt: Bitte antworten
+    Sie auf diese E-Mail, wenn Sie diesen Anmeldeversuch nicht erkennen.
+  number_phone_number_is_invalid: Die Telefonnummer +%{number} ist ungültig
+  count_10_signature_request_emails_sent_this_month_upgrade_to_pro_to_send_unlimited_signature_request_email: "%{count}
+    / 10 E-Mails für Signaturanfragen wurden diesen Monat gesendet. Upgraden Sie zu
+    Pro, um unbegrenzte Signaturanfragen zu senden."
+  test_mode_emails_limit_will_be_reset_within_24_hours: Das Limit für E-Mails im Testmodus
+    wird innerhalb von 24 Stunden zurückgesetzt.
+  request_email_otp_verification_with_shared_link: E-Mail-OTP-Verifizierung mit Freigabelink
+    anfordern
+  invalid_phone_number: Ungültige Telefonnummer
+  re_send_code: Code erneut senden
+  your_verification_code_to_access_the_name: 'Ihr Verifizierungscode für den Zugriff
+    auf "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: Bitte antworten Sie auf diese
+    E-Mail, wenn Sie dies nicht angefordert haben.
+  code: Code
+  custom_html_emails: Benutzerdefinierte HTML-E-Mails
+  connect_your_email_to_send_html_emails: Verbinden Sie Ihr E-Mail-Konto, um HTML-E-Mails
+    zu senden
+  connect_your_email_to_bulk_send: E-Mail-Konto für Massenversand verbinden
+  api_key_access_code: API-Schlüssel-Zugangscode
+  use_otp_code_to_access_the_api_key_html: Verwenden Sie den Code <b>%{code}</b>,
+    um auf den API-Schlüssel zuzugreifen.
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Bitte antworten Sie
+    auf diese E-Mail, wenn Sie diese Anfrage nicht erkennen.

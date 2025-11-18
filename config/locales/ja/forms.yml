@@ -1,0 +1,11 @@
+---
+ja:
+  declined: 辞退済み
+  name_declined_by_submitter: '"%{name}" は %{submitter} により辞退されました'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" は %{submitter}
+    により次の理由で辞退されました:'
+  completed_on_time: "%{time} に完了"
+  document_has_been_signed_already: ドキュメントはすでに署名されています
+  resubmit: 再送信
+  esignature_disclosure: 電子署名に関する開示
+  submit: 送信

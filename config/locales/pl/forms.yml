@@ -1,0 +1,230 @@
+# Polish Forms & Documents Translations
+pl:
+  # Form Status
+  form_has_been_completed_already: Formularz został już przesłany
+  form_has_been_submitted_already: Formularz został już przesłany
+  form_has_been_archived: Formularz został zarchiwizowany
+  form_has_been_expired: Formularz wygasł
+  form_has_been_declined: Formularz został odrzucony
+  form_expired_at_html: 'Formularz wygasł o <span class="font-semibold">%{time}</span>'
+  form_has_been_declined_on_html: 'Formularz został odrzucony o <span class="font-semibold">%{time}</span>'
+  form_has_been_deleted_by_html: 'Formularz został usunięty przez <span class="font-semibold">%{name}</span>.'
+  form_has_been_completed: 'Formularz został wypełniony!'
+  
+  # Document Status
+  document_has_been_signed: 'Dokument został podpisany!'
+  documents_have_been_signed: 'Dokumenty zostały podpisane!'
+  document_has_been_signed_already: 'Dokument został już podpisany'
+  document: Dokument
+  documents: Dokumenty
+  document_name: Nazwa dokumentu
+  document_id: ID dokumentu
+  
+  # Form Actions
+  you_have_been_invited_to_submit_a_form: Zostałeś zaproszony do przesłania formularza
+  you_have_been_invited_to_submit_the_name_form: 'Zostałeś zaproszony do przesłania formularza "%{name}".'
+  you_are_invited_to_submit_a_form: 'Zostałeś zaproszony do przesłania formularza'
+  review_and_submit: Przejrzyj i prześlij
+  fill_all_required_fields_to_complete: Uzupełnij wszystkie wymagane pola, aby zakończyć
+  please_fill_all_required_fields: Proszę wypełnić wszystkie wymagane pola
+  at_least_one_field_must_be_filled: Przynajmniej jedno pole musi być wypełnione
+  at_least_one_field_must_be_displayed_in_the_form: Przynajmniej jedno pole musi być wyświetlone w formularzu
+  
+  # Document Actions
+  you_have_been_invited_to_sign_the_name: 'Zostałeś zaproszony do podpisania "%{name}".'
+  you_have_been_invited_to_sign_the_template_name_html: 'Zostałeś zaproszony do podpisania "<strong>{template.name}</strong>".'
+  you_are_invited_to_sign_a_document: 'Zostałeś zaproszony do podpisania dokumentu'
+  you_are_invited_to_sign_documents: 'Zostałeś zaproszony do podpisania dokumentów'
+  review_and_sign: Przejrzyj i podpisz
+  sign_now: Podpisz teraz
+  sign_yourself: Podpisz sam
+  sign_it_yourself: Podpisz to sam
+  sign_in_person: Podpisz osobiście
+  sign_the_document: Podpisz dokument
+  sign_and_complete: Podpisz i zakończ
+  
+  # Field Types
+  text: Tekst
+  text_field: Pole tekstowe
+  number: Numer
+  number_field: Pole numeryczne
+  signature: Podpis
+  signature_field: Pole podpisu
+  initials: Inicjały
+  initials_field: Pole inicjałów
+  date: Data
+  date_field: Pole daty
+  image: Obraz
+  image_field: Pole obrazu
+  file: Plik
+  file_field: Pole pliku
+  select: Wybierz
+  select_field: Pole wyboru
+  checkbox: Pole wyboru
+  checkbox_field: Pole wyboru
+  multiple: Wielokrotne
+  multiple_field: Pole wielokrotnego wyboru
+  radio: Radio
+  radio_field: Pole grupy radio
+  cells: Komórki
+  cells_field: Pole komórek
+  stamp: Pieczątka
+  stamp_field: Pole pieczątki
+  payment: Płatność
+  payment_field: Pole płatności
+  phone_field: Pole telefonu
+  verification_field: Weryfikacja tożsamości
+  
+  # Field Actions
+  draw: Rysuj
+  draw_signature: Rysuj podpis
+  draw_initials: Narysuj inicjały
+  type: Wprowadź
+  type_text: Wprowadź tekst
+  type_signature_here: Wpisz podpis tutaj
+  type_initial_here: Wpisz inicjały tutaj
+  type_here_: 'Wpisz tutaj...'
+  upload_signature: Prześlij podpis
+  upload_initials: Prześlij inicjały
+  update_signature: Zaktualizuj podpis
+  update_initials: Zaktualizuj inicjały
+  signature_uploaded: Podpis przesłany
+  signature_has_been_saved: Podpis został zapisany
+  signature_has_been_removed: Podpis został usunięty
+  initials_has_been_saved: Inicjały zostały zapisane
+  initials_has_been_removed: Inicjały zostały usunięte
+  unable_to_save_signature: Nie można zapisać podpisu
+  unable_to_save_initials: Nie można zapisać inicjałów
+  signature_is_too_small_or_simple_please_redraw: 'Podpis jest zbyt mały lub zbyt prosty. Proszę narysować go ponownie.'
+  
+  # Drawing Actions
+  clear: Wyczyść
+  redraw: Przerysuj
+  
+  # Signing Options
+  drawn: Rysowany
+  drawn_or_typed: Rysowany lub pisany
+  drawn_or_upload: Rysowany lub przesłany
+  typed: Pisany
+  any: Dowolny
+  method: Metoda
+  
+  # Signature Information
+  digitally_signed_by: Podpisany cyfrowo przez
+  signed: Podpisany
+  signed_on_time: 'Podpisano %{time}'
+  date_signed: Data podpisu
+  signing_date: Data podpisu
+  set_signing_date: Ustaw datę podpisu
+  reason: Powód
+  
+  # Signature ID & Verification
+  signature_id: ID podpisu
+  add_signature_id_to_the_documents: Dodaj ID podpisu do dokumentów
+  add_a_unique_signature_id_and_timestamp_to_each_signature_for_audit_and_traceability_purposes_along_with_the_timestamp_part_of_docuseals_21_cfr_part_11_compliance_settings: "Dodaj unikalny ID podpisu i znacznik czasu do każdego podpisu w celach audytowych i identyfikowalności wraz ze znacznikiem czasu. Część ustawień zgodności 21 CFR Part 11 DocuSeal."
+  require_signing_reason: Wymagaj podania powodu podpisu
+  require_signer_to_provide_a_reason_for_signing_before_completing_their_signature_e_g_approvals_certifications_part_of_docuseals_21_cfr_part_11_compliance_settings: "Wymagaj od sygnatariuszy podania powodu podpisu przed zakończeniem ich podpisu (np. zatwierdzenia, certyfikaty). Część ustawień zgodności 21 CFR Part 11 DocuSeal."
+  
+  # Document Upload
+  upload_a_new_document: Prześlij nowy dokument
+  upload_new_document: Prześlij nowy dokument
+  upload_document: Prześlij dokument
+  add_document: Dodaj dokument
+  add_documents_or_images: Dodaj dokumenty lub obrazy
+  add_pdf_documents_or_images: Dodaj dokumenty PDF lub obrazy
+  click_to_upload: Kliknij, aby przesłać
+  or_drag_and_drop_files: lub przeciągnij i upuść pliki
+  click_to_upload_or_drag_and_drop_html: 'Kliknij, aby przesłać lub przeciągnij i upuść'
+  click_to_upload_or_drag_and_drop_files_html: '<span class="font-medium">Kliknij, aby przesłać</span> lub przeciągnij i upuść pliki'
+  file_is_missing: Plik jest brakujący
+  unable_to_update_file: Nie można zaktualizować pliku
+  invalid_file_type: Nieprawidłowy typ pliku
+  upload_file: Prześlij plik
+  only_pdf_and_images_are_supported: 'Tylko pliki PDF i obrazy są obsługiwane.'
+  files: Pliki
+  
+  # Photo
+  take_photo: Zrób zdjęcie
+  please_upload_an_image_file: Proszę przesłać plik obrazu
+  
+  # Completion
+  complete: Zakończ
+  completed: Zakończono
+  completed_successfully: Zakończono pomyślnie
+  completed_on_time: 'Zakończono %{time}'
+  completed_at: Zakończono o
+  completion_message: Komunikat o zakończeniu
+  
+  # Submission
+  resubmit: Prześlij ponownie
+  send_copy_to_email: Wyślij kopię na e-mail
+  send_copy_via_email: Wyślij kopię drogą mailową
+  
+  # Status Messages
+  awaiting: Oczekiwanie
+  awaiting_completion_by_the_other_party: "Oczekiwanie na dokończenie przez drugą stronę"
+  
+  # Decline
+  decline: Odrzuć
+  declined: Odrzucono
+  decline_reason: Powód odrzucenia
+  provide_a_reason: Podaj powód
+  notify_the_sender_with_the_reason_you_declined: Powiadom nadawcę o powodzie, dla którego odrzuciłeś
+  name_declined_by_submitter: '"%{name}" odrzucono przez %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" został odrzucony przez %{submitter} z następującym powodem:'
+  allow_to_decline_documents: Zezwalaj na odrzucanie dokumentów
+  allow_recipients_to_decline_signing_a_document_the_decline_reason_notification_will_be_sent_to_the_signature_requester: Zezwól odbiorcom na odrzucanie podpisywania dokumentu. Powiadomienie z powodem odrzucenia zostanie wysłane do osoby żądającej podpisu.
+  
+  # Resubmit
+  allow_to_resubmit_completed_forms: Zezwalaj na ponowne przesyłanie wypełnionych formularzy
+  allow_signers_to_resubmit_forms_after_completion_useful_when_corrections_or_multiple_submissions_are_needed: Zezwól sygnatariuszom na ponowne przesyłanie formularzy po zakończeniu, przydatne gdy potrzebne są poprawki lub wielokrotne przesłania.
+  
+  # Signatures
+  allow_typed_text_signatures: Zezwalaj na podpisy tekstowe pisane
+  allow_signers_to_create_signatures_by_typing_their_name_instead_of_drawing_or_uploading_one: Zezwól sygnatariuszom na tworzenie podpisów przez wpisanie swojego imienia zamiast rysowania lub przesyłania.
+  remember_and_pre_fill_signatures: Zapamiętaj i wstępnie wypełnij podpisy
+  save_a_users_signature_and_automatically_pre_fill_it_in_future_signing_sessions: Zapisz podpis użytkownika i automatycznie wstępnie wypełnij go w przyszłych sesjach podpisywania.
+  drawn_signature_on_a_touchscreen_device: 'Podpis odręczny na urządzeniu z ekranem dotykowym'
+  scan_the_qr_code_with_the_camera_app_to_open_the_form_on_mobile_and_draw_your_signature: 'Zeskanuj kod QR za pomocą aplikacji aparatu, aby otworzyć formularz na telefonie i narysować swój podpis'
+  
+  # Validation
+  value_is_invalid: Wartość jest nieprawidłowa
+  must_be_characters_length: 'Musi mieć długość {number} znaków'
+  
+  # Identity Verification
+  identity_verification: Weryfikacja tożsamości
+  verify_id: Zweryfikuj ID
+  complete_all_required_fields_to_proceed_with_identity_verification: Uzupełnij wszystkie wymagane pola, aby kontynuować weryfikację tożsamości.
+  verified: Zweryfikowano
+  unverified: Niezweryfikowano
+  
+  # Payment
+  pay: Zapłać
+  paid_price: 'Zapłacono %{price}'
+  already_paid: Już zapłacono
+  pay_with_stripe: Płatność za pomocą Stripe
+  
+  # Invitation
+  invited_by_html: 'Zaproszony przez <span class="font-semibold">%{name}</span>'
+  invite: Zaproś
+  approved: Zaakceptowany
+  reviewed: Przejrzany
+  other: Inny
+  authored_by_me: Napisane przeze mnie
+  approved_by: Zaakceptowany przez
+  reviewed_by: Przejrzany przez
+  authored_by: Napisane przez
+  select_a_reason: Wybierz powód
+  
+  # Download
+  download_documents: Pobierz dokumenty
+  your_document_copy: 'Twoja kopia dokumentu'
+  please_check_the_copy_of_your_name_in_the_email_attachments: 'Sprawdź kopię Twojego "%{name}" w załącznikach e-mail.'
+  alternatively_you_can_review_and_download_your_copy_using_the_link_below: "Alternatywnie możesz przejrzeć i pobrać swoją kopię, korzystając z poniższego linku:"
+  
+  # Misc
+  role: Rola
+  option: Opcja
+  options: Opcje
+  appears_on: Pojawia się na
+  select_your_option: Wybierz swoją opcję
