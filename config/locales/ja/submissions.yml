@@ -1,0 +1,5 @@
+---
+ja:
+  invited_by_html: <span class="font-semibold">%{name}</span> により招待されました
+  signed_on_time: "%{time} に署名済み"
+  count_documents_signed_with_html: "<b>%{count}</b> 件のドキュメントが以下で署名されました"

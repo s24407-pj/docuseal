@@ -1,0 +1,26 @@
+---
+he:
+  send_verification_code: שלח קוד אימות
+  code_has_been_resent: הקוד נשלח מחדש
+  invalid_code: קוד שגוי
+  email: דוא"ל
+  verification_code_code: 'קוד אימות: %{code}'
+  provide_your_email: הזן את האימייל שלך
+  sign_in: התחבר
+  sign_in_with_microsoft: התחבר עם מיקרוסופט
+  sign_in_with_google: התחבר עם גוגל
+  first_name: שם פרטי
+  last_name: שם משפחה
+  sign_up: הירשם
+  profile_details: פרטי הפרופיל
+  sign_up_with_google: הירשם עם גוגל
+  sign_up_with_microsoft: הירשם עם מיקרוסופט
+  the_code_has_been_sent_to_your_email: הקוד נשלח לדוא"ל שלך.
+  enter_the_verification_code_from_your_email: הזן את קוד האימות מדוא"ל שלך.
+  verification_code: קוד אימות
+  resend_code: שלח קוד מחדש
+  invalid_phone_number: מספר טלפון לא תקין
+  re_send_code: שלח קוד מחדש
+  email_verification: אימות דוא"ל
+  your_verification_code_to_access_the_name: 'קוד האימות שלך לגישה ל-%{name}:'
+  please_reply_to_this_email_if_you_didnt_request_this: השב למייל זה אם לא ביקשת זאת.

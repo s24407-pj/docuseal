@@ -1,0 +1,5 @@
+---
+ar:
+  invited_by_html: تمت الدعوة بواسطة <span class="font-semibold">%{name}</span>
+  signed_on_time: تم التوقيع في %{time}
+  count_documents_signed_with_html: "<b>%{count}</b> مستندات تم توقيعها باستخدام"

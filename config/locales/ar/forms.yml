@@ -1,0 +1,11 @@
+---
+ar:
+  declined: مرفوض
+  name_declined_by_submitter: '"%{name}" مرفوض بواسطة %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" تم رفضه بواسطة
+    %{submitter} مع السبب التالي:'
+  completed_on_time: تم إكماله في %{time}
+  document_has_been_signed_already: تم توقيع الوثيقة بالفعل
+  resubmit: إعادة التقديم
+  esignature_disclosure: إفصاح التوقيع الإلكتروني
+  submit: إرسال

@@ -1,0 +1,28 @@
+---
+en:
+  owner: Owner
+  team_member_permissions: Team member permissions
+  admin_only: Admin only
+  team_access: Team access
+  role: Role
+  your_account_removal_request_will_be_processed_within_2_months_please_contact_us_if_you_want_to_keep_your_account: Your
+    account removal request will be processed within 2 months. Please contact us if
+    you want to keep your account.
+  microsoft_account_has_been_connected: Microsoft Account has been connected.
+  impersonated_as: Impersonated as
+  account_sid: Account SID
+  admin: Admin
+  tenant_admin: Tenant Admin
+  member: Member
+  agent: Agent
+  superadmin: Superadmin
+  team_account: Team account
+  team_accounts: Team Accounts
+  tenant_account: Tenant account
+  tenant_accounts: Tenant Accounts
+  impersonate: Impersonate
+  users_management: Users management
+  user_month: user / month
+  manage_subscription: Manage Subscription
+  pro_user_seats_used: Pro user seats used
+  manage_plan: Manage plan

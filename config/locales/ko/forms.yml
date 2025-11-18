@@ -1,0 +1,11 @@
+---
+ko:
+  declined: 거절됨
+  name_declined_by_submitter: '"%{name}"이(가) %{submitter}에 의해 거절되었습니다.'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}"이(가) %{submitter}에
+    의해 다음과 같은 사유로 거절되었습니다:'
+  completed_on_time: "%{time}에 완료됨"
+  document_has_been_signed_already: 문서가 이미 서명되었습니다
+  resubmit: 다시 제출
+  esignature_disclosure: 전자서명 공개
+  submit: 제출

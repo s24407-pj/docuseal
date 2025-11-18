@@ -1,0 +1,68 @@
+---
+en:
+  bcc_recipients: BCC recipients
+  resend_pending: Re-send pending
+  ensure_unique_recipients: Ensure unique recipients
+  pending_by_me: Pending by me
+  signed: Signed
+  you_are_invited_to_product_name: You are invited to %{product_name}
+  sent_using_product_name_in_testing_mode_html: Sent using <a href="%{product_url}">%{product_name}</a>
+    in testing mode
+  sent_with_docuseal_pro_html: Sent with <a href="%{product_url}">DocuSeal Pro</a>
+  you_have_been_invited_to_sign_the_name: You have been invited to sign the "%{name}".
+  you_are_invited_to_sign_a_document: You are invited to sign a document
+  you_are_invited_to_sign_documents: You are invited to sign documents
+  invited_by_html: Invited by <span class="font-semibold">%{name}</span>
+  signed_on_time: Signed on %{time}
+  first_reminder_in: First reminder in
+  second_reminder_in: Second reminder in
+  third_reminder_in: Third reminder in
+  attach_audit_log_pdf: Attach audit log PDF
+  count_documents_signed_with_html: "<b>%{count}</b> documents signed with"
+  pending: Pending
+  expired: Expired
+  send_to_recipients: Send to Recipients
+  recipients: Recipients
+  submission_requester: Submission requester
+  invite_by_name: Invite by %{name}
+  submission_example_payload: Submission example payload
+  signed_with_trusted_certificate: Signed with trusted certificate
+  signed_with_external_certificate: Signed with external certificate
+  you_are_already_signed_in: You are already signed in.
+  submission_has_been_archived: Submission has been archived.
+  submission_has_been_unarchived: Submission has been unarchived.
+  user_has_been_invited: User has been invited.
+  sms_has_been_sent: SMS has been sent.
+  automated_reminders: Automated reminders
+  audit_log: Audit Log
+  signers: Signers
+  sent: Sent
+  awaiting: Awaiting
+  envelope_id: Envelope ID
+  event_log: Event Log
+  submission_sources:
+    api: API
+    bulk: Bulk Send
+    embed: Embedding
+    invite: Invite
+    link: Link
+  submission_event_names:
+    send_email_to_html: "<b>Email sent</b> to %{submitter_name}"
+    bounce_email_html: "<b>Email bounced</b> %{submitter_name}"
+    complaint_email_html: "<b>Spam complaint</b> %{submitter_name}"
+    send_reminder_email_to_html: "<b>Reminder email sent</b> to %{submitter_name}"
+    send_sms_to_html: "<b>SMS sent</b> to %{submitter_name}"
+    send_2fa_sms_to_html: "<b>Verification SMS sent</b> to %{submitter_name}"
+    open_email_by_html: "<b>Email opened</b> by %{submitter_name}"
+    click_email_by_html: "<b>Email link clicked</b> by %{submitter_name}"
+    click_sms_by_html: "<b>SMS link clicked</b> by %{submitter_name}"
+    phone_verified_by_html: "<b>Phone verified</b> by %{submitter_name}"
+    email_verified_by_html: "<b>Email verified</b> by %{submitter_name}"
+    start_form_by_html: "<b>Submission started</b> by %{submitter_name}"
+    view_form_by_html: "<b>Form viewed</b> by %{submitter_name}"
+    invite_party_by_html: "<b>Invited</b> %{invited_submitter_name} by %{submitter_name}"
+    complete_form_by_html: "<b>Submission completed</b> by %{submitter_name}"
+    start_verification_by_html: "<b>Identity verification started</b> by %{submitter_name}"
+    complete_verification_by_html: "<b>Identity verification completed</b> by %{submitter_name}
+      with %{provider}"
+    api_complete_form_by_html: "<b>Submission completed via API</b> by %{submitter_name}"

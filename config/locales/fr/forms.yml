@@ -1,0 +1,117 @@
+---
+fr:
+  upload_a_new_document: Téléverser un nouveau document
+  use_direct_file_attachment_links_in_the_documents: Utiliser des liens directs de
+    pièces jointes dans les documents
+  docuseal_trusted_signature: Signature de confiance DocuSeal
+  sent_using_product_name_free_document_signing_html: Envoyé avec <a href="%{product_url}">%{product_name}</a>
+    signature de documents gratuite.
+  submitter_invitation_sms_body_sign: "{account.name} vous a invité à signer un document
+    : {submitter.link}"
+  name_has_been_completed_by_submitters: '"%{name}" a été complété par %{submitters}.'
+  template_name_has_been_completed_by_submitters: "{template.name} a été complété
+    par {submission.submitters}"
+  completed_on_time: Terminé le %{time}
+  document_has_been_signed_already: Le document a déjà été signé
+  resubmit: Soumettre à nouveau
+  declined: Refusé
+  name_declined_by_submitter: '"%{name}" refusé par %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" a été refusé par
+    %{submitter} pour le motif suivant :'
+  request_signature_multiple_submitters_with_default_values: Demander une signature,
+    plusieurs soumissionnaires avec valeurs par défaut
+  request_signature_single_submitter: Demander une signature, un seul soumissionnaire
+  template_details: Détails du modèle
+  upload_certificate: Téléverser un certificat
+  file: Fichier
+  submit: Soumettre
+  submitting: Soumission en cours
+  pdf_signature: Signature PDF
+  upload_signed_pdf_file_to_validate_its_signature_: 'Téléchargez un fichier PDF signé
+    pour valider sa signature :'
+  upload_cert: Téléverser un certificat
+  timestamp_server: Serveur d’horodatage
+  url_of_the_trusted_rfc_3161_timeserver_to_be_used_to_generate_timestamp_signatures: URL
+    du serveur d’horodatage RFC 3161 de confiance à utiliser pour générer des signatures
+    horodatées.
+  apply_multiple_pdf_digital_signatures_in_the_document_per_each_signer: Appliquer
+    plusieurs signatures numériques PDF dans le document pour chaque signataire
+  signature_request_sms: SMS de demande de signature
+  text_message: Message texte
+  upload_logo: Téléverser le logo
+  signature: Signature
+  initials: Initiales
+  page_number: Page %{number}
+  e_signature: E-Signature
+  send_signature_requests_via_sms: Envoyer des demandes de signature par SMS
+  upgrade_to_send_unlimited_signature_requests: Passez à la version Pro pour envoyer
+    un nombre illimité de demandes de signature
+  document_templates_html: Modèles <span class="hidden md:inline">de documents</span>
+  completed: Terminé
+  draw_signature: Dessiner la signature
+  signature_uploaded: Signature téléversée
+  upload_new_document: Téléverser un nouveau document
+  upload: Téléverser
+  new_document_template: Nouveau modèle de document
+  document_name: Nom du document
+  template_id: ID du modèle
+  share_template_with_test_mode: Partager le modèle avec le mode test
+  use_following_placeholders_text_: 'Utilisez les espaces réservés suivants :'
+  upload_initials: Téléverser les initiales
+  draw: Dessiner
+  upload_signature: Téléverser la signature
+  manage_multiple_teams: Gérer plusieurs équipes
+  file_is_missing: Fichier manquant
+  template_has_been_archived: Le modèle a été archivé.
+  template_has_been_cloned: Le modèle a été cloné.
+  document_template_has_been_moved: Le modèle de document a été déplacé.
+  unable_to_move_template_into_folder: Impossible de déplacer le modèle dans le dossier.
+  template_has_been_unarchived: Le modèle a été désarchivé.
+  logo_has_been_uploaded: Le logo a été téléversé.
+  invalid_file_type: Type de fichier invalide
+  upload_file: Téléverser un fichier
+  ten_filed_types: 10 types de champs
+  multiple_signers: Plusieurs signataires
+  automatic_esignature: Signature électronique automatique
+  declined_on_time: Refusé le %{time}
+  upload_list: Téléverser une liste
+  document_id: ID du document
+  option: Option
+  text_field: Champ texte
+  signature_field: Champ signature
+  initials_field: Champ initiales
+  date_field: Champ date
+  number_field: Champ nombre
+  image_field: Champ image
+  file_field: Champ fichier
+  checkbox_field: Case à cocher
+  multiple_field: Champ sélection multiple
+  radio_field: Groupe de boutons radio
+  cells_field: Champ cellules
+  stamp_field: Champ tampon
+  payment_field: Champ paiement
+  completed_at: Terminé le
+  at_least_one_field_must_be_filled: Au moins un champ doit être rempli.
+  seamlessly_automate_your_document_signing_process_with_make_com: Automatisez en
+    toute fluidité votre processus de signature de documents avec Make.com.
+  your_pro_plan_payment_is_overdue: Le paiement de votre offre Pro est en retard.
+  overdue_payment: Paiement en retard
+  this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: Cette
+    soumission comporte plusieurs signataires, ce qui empêche l’utilisation d’un lien
+    de partage car il n’est pas clair quel signataire est responsable de quels champs.
+    Pour résoudre cela, suivez ce <a href="https://www.docuseal.com/resources/pre-filling-recipients"
+    class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">guide</a>
+    pour définir les détails du signataire par défaut.
+  specified_date: Date spécifiée
+  esignature_disclosure: Divulgation de signature électronique
+  this_template_has_multiple_parties_which_prevents_the_use_of_a_sharing_link: Ce
+    modèle comporte plusieurs parties, ce qui empêche l’utilisation d’un lien de partage
+    car il n’est pas clair quelle partie est responsable de quels champs. Définissez
+    les détails de la partie par défaut.
+  text: Texte
+  template_name_has_been_completed_by_submitters_html: '"<strong>{template.name}</strong>"
+    a été complété par <strong>{submission.submitters}</strong>'
+  you_have_been_invited_to_sign_the_template_name_html: Vous avez été invité à signer
+    "<strong>{template.name}</strong>".
+  the_file_is_missing_make_sure_you_have_access_to_it_on_google_drive: Le fichier
+    est manquant. Assurez‑vous d’y avoir accès sur Google Drive.

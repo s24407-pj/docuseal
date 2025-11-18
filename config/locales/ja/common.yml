@@ -1,0 +1,57 @@
+---
+ja:
+  require_phone_2fa_to_open: 電話による2段階認証が必要です
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: 送信者は、<b>%{phone}</b>
+    に送信されたワンタイムパスワードによる2段階認証を要求しました。
+  view: 表示
+  hi_there: こんにちは
+  download: ダウンロード
+  notify_the_sender_with_the_reason_you_declined: 辞退理由を送信者に通知してください
+  form_has_been_declined_on_html: <span class="font-semibold">%{time}</span> にフォームが辞退されました
+  digitally_signed_by: 電子署名者
+  provide_your_email_to_start: 開始するにはメールアドレスを入力してください
+  provide_your_name_to_start: 開始するには名前を入力してください
+  provide_your_phone_in_international_format_to_start: 開始するには国際形式の電話番号を入力してください
+  provide_your_phone_in_international_format: 国際形式の電話番号を入力してください
+  use_international_format_1xxx_: 国際形式を使用してください：+1xxx...
+  start: 開始
+  starting: 開始中
+  form_expired_at_html: <span class="font-semibold">%{time}</span> にフォームの有効期限が切れました
+  you_have_been_invited_to_submit_a_form: フォームの提出に招待されました
+  form_has_been_submitted_already: フォームはすでに送信されています
+  send_copy_to_email: メールにコピーを送信
+  sending: 送信中
+  form_has_been_deleted_by_html: <span class="font-semibold">%{name}</span> によりフォームが削除されました。
+  or: または
+  download_documents: ドキュメントをダウンロード
+  downloading: ダウンロード中
+  completed_successfully: 正常に完了しました
+  password: パスワード
+  forgot_your_password_: パスワードをお忘れですか？
+  create_free_account: 無料アカウントを作成
+  by_creating_an_account_you_agree_to_our_html: <a target="_blank" href="https://www.docuseal.com/privacy">プライバシーポリシー</a>および<a
+    target="_blank" href="https://www.docuseal.com/terms">利用規約</a>に同意の上、アカウントを作成します。
+  enter_email_to_continue: 続行するにはメールを入力してください
+  powered_by: 提供元：
+  open_source_documents_software: オープンソースのドキュメントソフトウェア
+  please_enter_your_email_address_associated_with_the_completed_submission: 完了した提出に関連付けられたメールアドレスを入力してください。
+  privacy_policy: プライバシーポリシー
+  select_data_residency: データ保存場所を選択
+  optional: 任意
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: 二要素認証のため、リクエスターに電話番号を指定してください。
+  we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: ワンタイム認証コードをメールアドレスに送信しました。続行するには、以下にコードを入力してください。
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: あなたのユーザーアカウントはアーカイブされました。アクセスを復元するには管理者に連絡してください。
+  ? your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in
+  : メールにアクセスできませんでした。アドレスの入力ミスやメールボックスが利用できない場合に発生することがあります。ログインするには support@docuseal.com
+    に連絡してください。
+  decline: 辞退
+  decline_reason: 辞退の理由
+  provide_a_reason: 理由を入力してください
+  provide_your_name: 名前を入力してください
+  reason: 理由
+  signing_in: サインイン中
+  already_have_an_account: すでにアカウントをお持ちですか？
+  signing_up: 登録中
+  too_many_attempts: 試行回数が多すぎます
+  eu_data_residency: EU データ居住
+  company_name: 会社名

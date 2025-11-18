@@ -1,0 +1,27 @@
+---
+cs:
+  send_verification_code: Odeslat ověřovací kód
+  code_has_been_resent: Kód byl znovu odeslán
+  invalid_code: Neplatný kód
+  email: E-mail
+  verification_code_code: 'Ověřovací kód: %{code}'
+  provide_your_email: Zadejte svůj e-mail
+  sign_in: Přihlásit se
+  sign_in_with_microsoft: Přihlásit se pomocí Microsoftu
+  sign_in_with_google: Přihlásit se pomocí Googlu
+  first_name: Jméno
+  last_name: Příjmení
+  sign_up: Zaregistrovat se
+  profile_details: Detaily profilu
+  sign_up_with_google: Zaregistrovat se pomocí Googlu
+  sign_up_with_microsoft: Zaregistrovat se pomocí Microsoftu
+  the_code_has_been_sent_to_your_email: Kód byl odeslán na váš e-mail.
+  enter_the_verification_code_from_your_email: Zadejte ověřovací kód z vašeho e-mailu.
+  verification_code: Ověřovací Kód
+  resend_code: Znovu Odeslat Kód
+  invalid_phone_number: Neplatné telefonní číslo
+  re_send_code: Znovu odeslat kód
+  email_verification: Ověření e-mailu
+  your_verification_code_to_access_the_name: 'Váš ověřovací kód pro přístup k "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: Odpovězte na tento e-mail,
+    pokud jste o to nežádali.

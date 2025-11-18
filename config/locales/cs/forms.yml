@@ -1,0 +1,11 @@
+---
+cs:
+  declined: Odmítnuto
+  name_declined_by_submitter: '"%{name}" odmítnuto %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" bylo odmítnuto
+    %{submitter} s následujícím důvodem:'
+  completed_on_time: Dokončeno %{time}
+  document_has_been_signed_already: Dokument již byl podepsán
+  resubmit: Odeslat znovu
+  esignature_disclosure: Použití e-podpisu
+  submit: Odeslat
