@@ -5700,6 +5700,7 @@ de: &de
       range_without_total: "%{from}-%{to} Ereignisse"
 
 pl:
+  billing: Fakturowanie
   require_phone_2fa_to_open: Wymagaj uwierzytelniania telefonicznego 2FA do otwarcia
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Nadawca zażądał uwierzytelnienia dwuetapowego poprzez jednorazowe hasło wysłane na Twój <b>%{phone}</b> numer telefonu.
   send_verification_code: Wyślij kod weryfikacyjny
@@ -5789,6 +5790,23 @@ pl:
   please_reply_to_this_email_if_you_didnt_request_this: Odpowiedz na ten e-mail, jeśli nie prosiłeś o to.
   your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: Twoje konto użytkownika zostało zarchiwizowane. Skontaktuj się z administratorem, aby przywrócić dostęp do konta.
   your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in: Nie udało się uzyskać dostępu do Twojego adresu e-mail. Może to być spowodowane literówką w adresie lub niedostępnością skrzynki. Skontaktuj się z support@docuseal.com, aby się zalogować.
+  last_3_months: Ostatnie 3 miesiące
+  last_6_months: Ostatnich 6 miesięcy
+  last_year: Ostatni rok
+  all_time: Cały czas
+  everyone: Wszyscy
+  daily: Codziennie
+  weekly: Co tydzień
+  monthly: Co miesiąc
+  api: API
+  embed: Osadzanie
+  bulk: Masowe
+  invite: Zaproszenie
+  api_and_embed: API i Osadzanie
+  period: Okres
+  reports: Raporty
+  completed_submissions: Zakończone zgłoszenia
+  sms: SMS
 
 uk:
   require_phone_2fa_to_open: Вимагати двофакторну автентифікацію через телефон для відкриття
