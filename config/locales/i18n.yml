@@ -5779,95 +5779,787 @@ de: &de
       range_without_total: "%{from}-%{to} Ereignisse"
 
 pl: &pl
-  require_phone_2fa_to_open: Wymagaj uwierzytelniania telefonicznego 2FA do otwarcia
-  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Nadawca zażądał uwierzytelnienia dwuetapowego poprzez jednorazowe hasło wysłane na Twój <b>%{phone}</b> numer telefonu.
-  send_verification_code: Wyślij kod weryfikacyjny
+  accessiable_by: Dostępny dla
+  account: Konto
+  account_has_been_created: Konto zostało utworzone
+  account_has_been_removed: Konto zostało usunięte
+  account_has_been_updated: Konto zostało zaktualizowane
+  account_information_has_been_updated: Informacje o koncie zostały zaktualizowane
+  account_sid: SID konta
+  accounts: Konta
+  activate_with_docuseal_pro: Aktywuj z DocuSeal Pro
+  add: Dodaj
+  add_document: Dodaj dokument
+  add_documents_or_images: Dodaj dokumenty lub obrazy
+  add_from_google_drive: Dodaj z Google Drive
+  add_new_recipients: Dodaj nowych odbiorców
+  add_pdf_documents_or_images: Dodaj dokumenty PDF lub obrazy
+  add_recipients: Dodaj odbiorców
+  add_recipients_html: '<span>Dodaj <span class="hidden md:inline">odbiorców</span></span>'
+  add_secret: Dodaj sekret
+  add_signature_id_to_the_documents: Dodaj ID podpisu do dokumentów
+  adding: Dodawanie
+  admin: Administrator
+  admin_only: Tylko administrator
+  advanced_settings: Zastawienia zaawansowane
+  agent: Agent
+  ai_assistant: Asystent AI
+  all: Wszystkie
+  allow_recipients_to_decline_signing_a_document_the_decline_reason_notification_will_be_sent_to_the_signature_requester: Zezwól odbiorcom na odrzucanie podpisywania dokumentu. Powiadomienie z powodem odrzucenia zostanie wysłane do osoby żądającej podpisu.
+  allow_signers_to_create_signatures_by_typing_their_name_instead_of_drawing_or_uploading_one: Zezwól sygnatariuszom na tworzenie podpisów przez wpisanie swojego imienia zamiast rysowania lub przesyłania.
+  allow_signers_to_resubmit_forms_after_completion_useful_when_corrections_or_multiple_submissions_are_needed: Zezwól sygnatariuszom na ponowne przesyłanie formularzy po zakończeniu, przydatne gdy potrzebne są poprawki lub wielokrotne przesłania.
+  allow_tenant_admins_to_invite_new_users: Zezwalaj administratorom najemców na zapraszanie nowych użytkowników
+  allow_to_decline_documents: Zezwalaj na odrzucanie dokumentów
+  allow_to_resubmit_completed_forms: Zezwalaj na ponowne przesyłanie wypełnionych formularzy
+  allow_typed_text_signatures: Zezwalaj na podpisy tekstowe pisane
+  already_have_an_account: Masz już konto?
+  already_paid: Już zapłacono
+  alternatively_you_can_review_and_download_your_copy_using_the_link_below: "Alternatywnie możesz przejrzeć i pobrać swoją kopię, korzystając z poniższego linku:"
+  always_enforce_signing_order: Zawsze wymuś kolejność podpisywania
+  an_email_with_password_reset_instructions_has_been_sent: Wysłano e-mail z instrukcjami resetowania hasła.
+  analyzing: Analiza
+  analyzing_: 'Analiza...'
+  and: i
+  any: Dowolny
+  api_and_embedding: API i osadzanie
+  api_key: Klucz API
+  api_key_access_code: Kod dostępu do klucza API
+  app_url: URL aplikacji
+  appears_on: Pojawia się na
+  apply: Zastosuj
+  apply_multiple_pdf_digital_signatures_in_the_document_per_each_signer: Zastosuj wiele podpisów cyfrowych PDF w dokumencie dla każdego sygnatariusza
+  applying: Stosowanie
+  approved: Zaakceptowany
+  approved_by: Zaakceptowany przez
+  archive: Archiwizuj
+  archived: Zarchiwizowane
+  archived_users: Zarchiwizowani użytkownicy
+  archiving: Archiwizowanie
+  are_you_sure_: Czy jesteś pewien?
+  ask_ai: Zapytaj AI
+  at_least_one_field_must_be_displayed_in_the_form: Przynajmniej jedno pole musi być wyświetlone w formularzu
+  at_least_one_field_must_be_filled: Przynajmniej jedno pole musi być wypełnione
+  audit_log: Dziennik audytu
+  authenticate_embedded_form_preview_with_token: Uwierzytelnij podgląd osadzonego formularza za pomocą tokena
+  author: Autor
+  authored_by: Napisane przez
+  authored_by_me: Napisane przeze mnie
+  automated_reminders: Automatyczne przypomnienia
+  available_in_pro: Dostępne w Pro
+  available_only_in_pro: Dostępne tylko w Pro
+  awaiting: Oczekiwanie
+  awaiting_completion_by_the_other_party: "Oczekiwanie na dokończenie przez drugą stronę"
+  back: Wstecz
+  back_to_active: Wróć do aktywnych
+  bcc_recipients: Odbiorcy BCC
+  but_not_activated: ale nieaktywowane
+  button_title: Tytuł przycisku
+  button_url: URL przycisku
+  by_creating_an_account_you_agree_to_our_html: 'Tworząc konto, akceptujesz naszą <a target="_blank" href="https://www.docuseal.com/privacy">Politykę Prywatności</a> i <a target="_blank" href="https://www.docuseal.com/terms">Regulamin</a>.'
+  cancel: Anuluj
+  cells: Komórki
+  cells_field: Pole komórek
+  certificate_has_been_removed: Certyfikat został usunięty
+  certificate_has_been_successfully_added: Certyfikat został pomyślnie dodany
+  change_folder: Zmień folder
+  change_parent_folder: Zmień folder nadrzędny
+  change_password: Zmień hasło
+  change_phone_number: Zmień numer telefonu
+  changes_have_been_saved: Zmiany zostały zapisane
+  changing_password: Zmiana hasła
+  checkbox: Pole wyboru
+  checkbox_field: Pole wyboru
+  clear: Wyczyść
+  click_here_to_learn_more_about_user_roles_and_permissions_html: '<a href="https://www.docuseal.com/resources/manage-users-and-roles" class="link" rel="noopener noreferrer nofollow" target="_blank">Kliknij tutaj</a>, aby dowiedzieć się więcej o rolach użytkowników i uprawnieniach.'
+  click_here_to_send_a_reset_password_email_html: '<label class="link" for="resend_password_button">Kliknij tutaj</label>, aby wysłać e-mail z resetowaniem hasła.'
+  click_to_upload: Kliknij, aby przesłać
+  click_to_upload_or_drag_and_drop_files_html: '<span class="font-medium">Kliknij, aby przesłać</span> lub przeciągnij i upuść pliki'
+  click_to_upload_or_drag_and_drop_html: 'Kliknij, aby przesłać lub przeciągnij i upuść'
+  clone: Sklonuj
+  clone_template: Sklonuj szablon
+  close: Zamknij
+  closing: Zamykanie
+  code: Kod
   code_has_been_resent: Kod został wysłany ponownie
-  invalid_code: Niepoprawny kod
-  awaiting_completion_by_the_other_party: "Oczekuje na dokończenie przez drugą stronę"
-  view: Widok
-  hi_there: Cześć,
-  download: Pobierz
-  decline: Odrzuć
-  declined: Odrzucono
-  decline_reason: Powód odrzucenia
-  provide_a_reason: Podaj powód
-  notify_the_sender_with_the_reason_you_declined: Powiadom nadawcę o powodzie, dla którego odrzuciłeś
-  form_has_been_declined_on_html: 'Formularz został odrzucony o <span class="font-semibold">%{time}</span>'
-  name_declined_by_submitter: '"%{name}" odrzucono przez %{submitter}'
-  name_declined_by_submitter_with_the_following_reason: '"%{name}" został odrzucony przez %{submitter} z następującym powodem:'
-  email: E-mail
-  verification_code_code: 'Kod weryfikacyjny: %{code}'
-  digitally_signed_by: Podpis cyfrowy przez
-  form_expired_at_html: 'Formularz wygasł o <span class="font-semibold">%{time}</span>'
-  role: Rola
-  provide_your_email_to_start: Podaj swój e-mail, aby rozpocząć
-  provide_your_email: Podaj swój e-mail
-  provide_your_name_to_start: Podaj swoje imię, aby rozpocząć
-  provide_your_name: Podaj swoje imię
-  provide_your_phone_in_international_format_to_start: Podaj numer telefonu w formacie międzynarodowym, aby rozpocząć
-  provide_your_phone_in_international_format: Podaj numer telefonu w formacie międzynarodowym
-  use_international_format_1xxx_: 'Użyj formatu międzynarodowego: +1xxx...'
-  start: Rozpocznij
-  reason: Powód
-  starting: Rozpoczynanie
-  form_has_been_deleted_by_html: 'Formularz został usunięty przez <span class="font-semibold">%{name}</span>.'
-  invited_by_html: 'Zaproszony przez <span class="font-semibold">%{name}</span>'
-  you_have_been_invited_to_submit_a_form: Zostałeś zaproszony do przesłania formularza
-  signed_on_time: 'Podpisano %{time}'
+  code_is_invalid: Kod jest nieprawidłowy
+  combine_completed_documents_and_audit_log: Połącz ukończone dokumenty i dziennik audytu
+  combine_signed_documents_and_the_audit_log_into_a_single_pdf_file_for_easier_recordkeeping_and_compliance: Połącz podpisane dokumenty i dziennik audytu w jeden plik PDF dla łatwiejszego prowadzenia dokumentacji i zgodności.
+  company_logo: Logo firmy
+  company_name: Nazwa firmy
+  complete: Zakończ
+  complete_all_required_fields_to_proceed_with_identity_verification: Uzupełnij wszystkie wymagane pola, aby kontynuować weryfikację tożsamości.
+  complete_sign_in: Ukończ logowanie
+  completed: Zakończono
+  completed_at: Zakończono o
+  completed_documents_notification_bcc_address: Adres BCC powiadomienia o ukończonych dokumentach
+  completed_form_message: Komunikat o ukończeniu formularza
+  completed_form_redirect_button: Przycisk przekierowania ukończonego formularza
   completed_on_time: 'Zakończono %{time}'
+  completed_successfully: Zakończono pomyślnie
+  completion_message: Komunikat o ukończeniu
+  configure_sms_settings_in_order_to_send_text_messages_: 'Skonfiguruj ustawienia SMS, aby wysyłać wiadomości tekstowe:'
+  configure_smtp_settings_in_order_to_send_emails_: 'Skonfiguruj ustawienia SMTP, aby wysyłać e-maile:'
+  confirm_new_password: Potwierdź nowe hasło
+  confirm_password: Potwierdź hasło
+  connect_gmail: Połącz Gmail
+  connect_gmail_or_outlook: Połącz Gmail lub Outlook
+  connect_google_drive: Połącz Google Drive
+  connect_microsoft: Połącz Microsoft
+  connect_salesforce: Połącz Salesforce
+  connect_salesforce_account_to_integrate_with_docuseal: Połącz konto Salesforce, aby zintegrować z DocuSeal
+  connect_your_email_or_outlook_account_or_add_smtp_settings_to_bulk_send: Połącz swoje konto Gmail lub Outlook lub dodaj ustawienia SMTP do wysyłki masowej
+  connect_your_email_or_outlook_account_or_add_smtp_settings_to_send_custom_html_emails: Połącz swoje konto Gmail lub Outlook lub dodaj ustawienia SMTP, aby wysyłać niestandardowe e-maile HTML
+  connect_your_email_to_bulk_send: Połącz swój e-mail do wysyłki masowej
+  connect_your_email_to_send_html_emails: Połącz swój e-mail, aby wysyłać e-maile HTML
+  connected_successfully: Połączono pomyślnie
+  console: Konsola
+  contact_information_has_been_update: Informacje kontaktowe zostały zaktualizowane
+  contact_your_admin_email_to_invite_more_users: 'Skontaktuj się ze swoim administratorem %{email}, aby zaprosić więcej użytkowników.'
+  contact_your_administrator_to_add_new_users: Skontaktuj się ze swoim administratorem, aby dodać nowego użytkownika
+  continue: Kontynuuj
+  copied: Skopiowano
+  copied_to_clipboard: Skopiowano do schowka
+  copy: Kopiuj
+  copy_link: Skopiuj link
+  copy_share_link: Skopiuj link do udostępnienia
+  count_documents_signed_with_html: "<b>%{count}</b> dokumentów podpisanych za pomocą"
+  count_submissions_have_been_created: '%{count} przesłań zostało utworzonych.'
+  create: Utwórz
+  create_a_new_account: Utwórz nowe konto
+  create_a_new_folder: Utwórz nowy folder
+  create_free_account: Utwórz darmowe konto
+  create_templates_with_private_access_by_default: Twórz szablony z prywatnym dostępem domyślnie
+  created_at: Utworzono o
+  creating: Tworzenie
+  current_password: Obecne hasło
+  custom_html_emails: Niestandardowe e-maile HTML
+  danger_zone: Strefa zagrożenia
+  dashboard: Panel
+  date: Data
+  date_field: Pole daty
+  date_signed: Data podpisu
+  decline: Odrzuć
+  decline_reason: Powód odrzucenia
+  declined: Odrzucono
+  default: Domyślny
+  default_certificate_has_been_selected: Wybrano domyślny certyfikat
+  default_expiration: Domyślne wygaśnięcie
+  default_parties: Domyślne strony
+  delete: Usuń
+  delete_my_account: Usuń moje konto
+  delete_webhook: Usuń webhook
+  deleting: Usuwanie
+  description: Opis
+  detailed: Szczegółowy
+  developer_sandbox: Piaskownica deweloperska
+  digitally_signed_by: Podpisany cyfrowo przez
+  disabled: Wyłączono
+  discord_community: Społeczność Discord
+  display_title: Wyświetl tytuł
+  display_your_company_name_and_logo_when_signing_documents: Wyświetlaj nazwę i logo swojej firmy podczas podpisywania dokumentów
+  document: Dokument
+  document_download_filename_format: Format nazwy pliku pobierania dokumentu
+  document_has_been_signed: 'Dokument został podpisany!'
   document_has_been_signed_already: 'Dokument został już podpisany'
-  form_has_been_submitted_already: Formularz został już przesłany
-  send_copy_to_email: Wyślij kopię na Email
-  sending: Wysyłanie
-  resubmit: Prześlij ponownie
-  or: lub
+  document_id: ID dokumentu
+  document_name: Nazwa dokumentu
+  document_template_has_been_moved: Szablon dokumentu został przeniesiony
+  document_templates_html: '<span class="hidden md:inline">Szablony</span> dokumentów'
+  documents: Dokumenty
+  documents_have_been_signed: 'Dokumenty zostały podpisane!'
+  docuseal_support: Wsparcie DocuSeal
+  docuseal_trusted_signature: Zaufany podpis DocuSeal
+  dont_remember_your_current_password_click_here_to_reset_it_html: 'Nie pamiętasz obecnego hasła? <label class="link" for="resend_password_button">Kliknij tutaj</label>, aby je zresetować.'
+  download: Pobierz
+  download_combined_pdf: Pobierz połączony PDF
   download_documents: Pobierz dokumenty
   downloading: Pobieranie
-  completed_successfully: Zakończono pomyślnie
-  password: Hasło
-  sign_in: Zaloguj się
-  signing_in: Logowanie
-  sign_in_with_microsoft: Zaloguj się przez Microsoft
-  sign_in_with_google: Zaloguj się przez Google
-  forgot_your_password_: Zapomniałeś hasła?
-  create_free_account: Utwórz darmowe konto
-  already_have_an_account: Masz już konto?
+  draw: Rysuj
+  draw_initials: Narysuj inicjały
+  draw_signature: Rysuj podpis
+  drawn: Rysowany
+  drawn_or_typed: Rysowany lub pisany
+  drawn_or_upload: Rysowany lub przesłany
+  drawn_signature_on_a_touchscreen_device: 'Podpis odręczny na urządzeniu z ekranem dotykowym'
+  e_signature: Podpis elektroniczny
+  edit: Edytuj
+  edit_account: Edytuj konto
+  edit_per_party: Edytuj per strona
+  edit_recipient: Edytuj odbiorcę
+  edit_secret: Edytuj sekret
+  edit_user: Edytuj użytkownika
+  editing: Edytowanie
+  editor: Edytor
+  eight_days: 8 dni
+  eight_hours: 8 godzin
+  eighteenth_party: 'Osiemnasta strona'
+  eighth_party: 'Ósma strona'
+  eleventh_party: 'Jedenasta strona'
+  email: E-mail
+  email_integration: Integracja e-mail
+  email_notifications: Powiadomienia e-mail
+  email_verification: Weryfikacja e-mail
+  embedding: Osadzanie
+  embedding_url: URL osadzania
+  embedding_users: Użytkownicy osadzania
+  enable_shared_link: Włącz link do udostępnienia
+  enabled: Włączono
+  enforce_recipients_order: Wymuś kolejność odbiorców
+  ensure_unique_recipients: Zapewnij unikalnych odbiorców
+  enter_email_to_continue: Wprowadź e-mail, aby kontynuować
+  enter_the_verification_code_from_your_email: Wprowadź kod weryfikacyjny z Twojego e-maila.
+  enter_your_password_to_reveal_the_api_key: Wprowadź swoje hasło, aby ujawnić klucz API
+  entire_team: Cały zespół
+  envelope_id: ID koperty
+  error: Błąd
+  esignature_disclosure: Ujawnienie e-podpisu
+  eu_data_residency: Dane w UE
+  event_log: Dziennik zdarzeń
+  events_log: Dziennik zdarzeń
+  exit: Wyjście
+  exit_preview: Wyjdź z podglądu
+  expirable_file_download_links: Wygasające linki do pobierania plików
+  expire_on_time: 'Wygasa %{time}'
+  expired: Wygasło
+  export: Eksportuj
+  failed: Niepowodzenie
+  fifteen_days: 15 dni
+  fifteenth_party: 'Piętnasta strona'
+  fifth_party: 'Piąta strona'
+  file: Plik
+  file_field: Pole pliku
+  file_is_missing: Plik jest brakujący
+  files: Pliki
+  fill_all_required_fields_to_complete: Uzupełnij wszystkie wymagane pola, aby zakończyć
+  filter: Filtruj
+  find_suitable_zapier_templates_to_automate_your_workflow: Znajdź odpowiednie szablony Zapier, aby zautomatyzować swój przepływ pracy
   first_name: Imię
+  first_party: 'Pierwsza strona'
+  first_reminder_in: Pierwsze przypomnienie za
+  five_days: 5 dni
+  folder: Folder
+  folder_name: Nazwa folderu
+  folder_name_has_been_updated: Nazwa folderu została zaktualizowana
+  force_sso_disable_login_with_email_and_password: Wymuś SSO (wyłącz logowanie przez e-mail i hasło)
+  forgot_your_password_: Zapomniałeś hasła?
+  form_custom_css: Niestandardowy CSS formularza
+  form_expired_at_html: 'Formularz wygasł o <span class="font-semibold">%{time}</span>'
+  form_has_been_archived: Formularz został zarchiwizowany
+  form_has_been_completed: 'Formularz został wypełniony!'
+  form_has_been_completed_already: Formularz został już przesłany
+  form_has_been_declined: Formularz został odrzucony
+  form_has_been_declined_on_html: 'Formularz został odrzucony o <span class="font-semibold">%{time}</span>'
+  form_has_been_deleted_by_html: 'Formularz został usunięty przez <span class="font-semibold">%{name}</span>.'
+  form_has_been_expired: Formularz wygasł
+  form_has_been_submitted_already: Formularz został już przesłany
+  form_preferences: Preferencje formularza
+  four_days: 4 dni
+  four_hours: 4 godziny
+  four_weeks: 4 tygodnie
+  fourteenth_party: 'Czternasta strona'
+  fourth_party: 'Czwarta strona'
+  from: Od
+  general: Ogólne
+  get_started: Rozpocznij
+  gmail_has_been_connected: Gmail zostało połączone
+  go_to_sms_settings: Przejdź do ustawień SMS
+  go_to_smtp_settings: Przejdź do ustawień SMTP
+  google_drive_has_been_connected: Google Drive zostało połączone
+  has_been_connected: zostało połączone
+  heading: Nagłówek
+  hello_name: "Witaj %{name}"
+  hi_there: Cześć
+  home: Start
+  identity_verification: Weryfikacja tożsamości
+  image: Obraz
+  image_field: Pole obrazu
+  impersonate: Impersonifikuj
+  impersonated_as: Impersonowany jako
+  info: Informacja
+  initials: Inicjały
+  initials_field: Pole inicjałów
+  initials_has_been_removed: Inicjały zostały usunięte
+  initials_has_been_saved: Inicjały zostały zapisane
+  integration: Integracja
+  integrations: Integracje
+  invalid_code: Nieprawidłowy kod
+  invalid_file_type: Nieprawidłowy typ pliku
+  invalid_phone_number: Nieprawidłowy numer telefonu
+  invalid_timeserver: Nieprawidłowy serwer czasu
+  invite: Zaproś
+  invite_by_name: 'Zaproś przez %{name}'
+  invite_form_fields: Pola formularza zaproszenia
+  invited_by_html: 'Zaproszony przez <span class="font-semibold">%{name}</span>'
+  key: Klucz
+  language: Język
+  language_ar: العربية
+  language_cs: Čeština
+  language_de: Deutsch
+  language_en: English
+  language_es: Español
+  language_fr: Français
+  language_he: עברית
+  language_it: Italiano
+  language_ja: 日本語
+  language_ko: 한국어
+  language_nl: Nederlands
+  language_pl: Polski
+  language_pt: Português
+  language_uk: Українська
   last_name: Nazwisko
-  sign_up: Zarejestruj się
-  signing_up: Rejestracja
+  last_session: Ostatnia sesja
+  learn_more: Dowiedz się więcej
+  leave: Opuść
+  loading: Ładowanie
+  logo: Logo
+  logo_has_been_uploaded: Logo zostało przesłane
+  make_all_newly_created_templates_private_to_their_creator_by_default: Uczyń wszystkie nowo utworzone szablony prywatnymi dla ich twórcy domyślnie
+  make_com_integration: Integracja Make.com
+  make_default: Ustaw jako domyślny
+  make_the_recipients_signing_order_always_enforced_so_that_the_second_signer_can_start_signing_their_part_only_after_the_first_signer_has_completed_signing: Ustaw, aby kolejność podpisywania odbiorców była zawsze wymuszona, tak aby drugi sygnatariusz mógł rozpocząć podpisywanie swojej części dopiero po zakończeniu podpisywania przez pierwszego sygnatariusza.
+  manage_multiple_teams: Zarządzaj wieloma zespołami
+  markdown_content_e_g: 'Treść Markdown, np.'
+  member: Członek
+  method: Metoda
+  microsoft_account_has_been_connected: Konto Microsoft zostało połączone
+  minimum_password_length_characters_minimum: 'Minimum %{minimum_password_length} znaków'
+  move: Przenieś
+  move_into_folder: Przenieś do folderu
+  moving: Przenoszenie
+  multiple: Wielokrotne
+  multiple_field: Pole wielokrotnego wyboru
+  must_be_characters_length: 'Musi mieć długość {number} znaków'
+  name: Imię i nazwisko
+  name_declined_by_submitter: '"%{name}" odrzucono przez %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" został odrzucony przez %{submitter} z następującym powodem:'
+  name_has_been_completed_by_submitters: '"%{name}" został ukończony przez %{submitters}.'
+  need_help_ask_a_question_: 'Potrzebujesz pomocy? Zadaj pytanie:'
+  new_document_template: Nowy szablon dokumentu
+  new_folder_name: Nazwa nowego folderu
+  new_password: Nowe hasło
+  new_recipients_have_been_added: Nowi odbiorcy zostali dodani
+  new_subfolder_name: Nazwa nowego podfolderu
+  new_team: Nowy zespół
+  new_tenant: Nowy najemca
+  new_user: Nowy użytkownik
+  new_webhook: Nowy webhook
+  next: Dalej
+  next_attempt_in_time_in_words: Następna próba za %{time_in_words}
+  nine_days: 9 dni
+  nineteenth_party: 'Dziewiętnasta strona'
+  ninth_party: 'Dziewiąta strona'
+  no: Nie
+  no_configs_are_needed_but_make_sure_your_disk_is_persistent: Nie są potrzebne żadne konfiguracje, ale upewnij się, że Twój dysk jest trwały
+  none: Brak
+  not_completed_yet: Jeszcze nie zakończono
+  not_invited_yet: Jeszcze nie zaproszono
+  not_suitable_for_heroku_and_other_paas: Nieodpowiednie dla Heroku i innych PaaS
+  notifications: Powiadomienia
+  notify_the_sender_with_the_reason_you_declined: Powiadom nadawcę o powodzie, dla którego odrzuciłeś
+  number: Numer
+  number_field: Pole numeryczne
+  number_phone_number_is_invalid: "+%{number} numer telefonu jest nieprawidłowy"
+  ok: OK
+  one_day: 1 dzień
+  one_hour: 1 godzina
+  one_month: 1 miesiąc
+  only_pdf_and_images_are_supported: 'Tylko pliki PDF i obrazy są obsługiwane.'
+  open: Otwórz
+  open_source_documents_software: "oprogramowanie do dokumentów open source"
+  opened: Otwarto
+  opening: Otwieranie
+  option: Opcja
+  optional: opcjonalne
+  options: Opcje
+  or: lub
+  or_add_from: Lub dodaj z
+  or_drag_and_drop_files: lub przeciągnij i upuść pliki
+  other: Inny
+  owner: Właściciel
+  page: Strona
+  paid_price: 'Zapłacono %{price}'
+  partially_completed: Częściowo zakończono
+  party: Strona
+  password: Hasło
+  password_has_been_changed: Hasło zostało zmienione
+  pay: Zapłać
+  pay_with_stripe: Płatność za pomocą Stripe
+  payment: Płatność
+  payment_field: Pole płatności
+  pdf_signature: Podpis PDF
+  pending: Oczekujące
+  pending_by_me: Oczekujące ode mnie
+  personalization: Personalizacja
+  phone: Telefon
+  phone_field: Pole telefonu
+  phone_verification: Weryfikacja telefonu
+  please_check_the_copy_of_your_name_in_the_email_attachments: 'Sprawdź kopię Twojego "%{name}" w załącznikach e-mail.'
+  please_check_the_copy_of_your_template_name_in_the_email_attachments_html: 'Sprawdź kopię Twojego "<strong>{template.name}</strong>" w załącznikach e-mail.'
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: Skontaktuj się z nadawcą, aby podać numer telefonu do uwierzytelniania dwuskładnikowego.
+  please_fill_all_required_fields: Proszę wypełnić wszystkie wymagane pola
+  please_reply_to_this_email_if_you_didnt_request_this: Odpowiedz na ten e-mail, jeśli nie prosiłeś o to.
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Odpowiedz na ten e-mail, jeśli nie rozpoznajesz tego żądania.
+  please_reply_to_this_email_if_you_dont_recognize_this_sign_in_attempt: Odpowiedz na ten e-mail, jeśli nie rozpoznajesz tej próby logowania.
+  please_sign_in: Proszę się zalogować
+  please_upload_an_image_file: Proszę przesłać plik obrazu
+  policy_links: Linki do polityk
+  powered_by: "Napędzany przez"
+  preferences: Preferencje
+  preserve_order: Zachowaj kolejność
+  preview: Podgląd
+  previous: Poprzedni
+  privacy_policy: Polityka Prywatności
+  pro_user_seats_used: Wykorzystane miejsca użytkowników Pro
+  processing: Przetwarzanie
+  profile: Profil
   profile_details: Szczegóły profilu
+  provide_a_reason: Podaj powód
+  provide_your_email: Podaj swój e-mail
+  provide_your_email_to_start: Podaj swój e-mail, aby rozpocząć
+  provide_your_name: Podaj swoje imię
+  provide_your_name_to_start: Podaj swoje imię i nazwisko, aby rozpocząć
+  provide_your_phone_in_international_format: Podaj numer telefonu w formacie międzynarodowym
+  provide_your_phone_in_international_format_to_start: Podaj numer telefonu w formacie międzynarodowym, aby rozpocząć
+  radio: Radio
+  radio_field: Pole grupy radio
+  re_connect_gmail: Połącz ponownie Gmail
+  re_connect_microsoft: Połącz ponownie Microsoft
+  re_connect_salesforce: Połącz ponownie Salesforce
+  re_connect_stripe: Połącz ponownie Stripe
+  re_send_code: Wyślij ponownie kod
+  re_send_sms: Wyślij ponownie SMS
+  reason: Powód
+  receive_notification_emails_on_completed_submission: Otrzymuj powiadomienia e-mail o ukończonych przesłaniach
+  recipient_field: Pole odbiorcy
+  recipients: Odbiorcy
+  redirect_on_completion_url: URL przekierowania po ukończeniu
+  redraw: Przerysuj
+  remember_and_pre_fill_signatures: Zapamiętaj i wstępnie wypełnij podpisy
+  remove: Usuń
+  remove_pdf_form_fillable_fields_from_the_signed_pdf_flatten_form: Usuń wypełnialne pola formularza PDF z podpisanego pliku PDF (spłaszcz formularz)
+  remove_team: Usuń zespół
+  remove_tenant: Usuń najemcę
+  removing: Usuwanie
+  rename_folder: Zmień nazwę folderu
+  request_email_otp_verification_with_shared_link: Wymagaj weryfikacji OTP e-mail przy linku udostępnionym
+  require_a_jwt_authorization_to_preview_embedded_forms_ensuring_only_authorized_users_can_view_them: Wymagaj autoryzacji JWT do podglądu osadzonych formularzy, zapewniając, że tylko autoryzowani użytkownicy mogą je przeglądać.
+  require_all_recipients: Wymagaj wszystkich odbiorców
+  require_authentication_for_file_download_links: Wymagaj uwierzytelniania dla linków do pobierania plików
+  require_authentication_with_user_login_or_api_key_to_access_the_document_download_links: Wymagaj uwierzytelniania za pomocą loginu użytkownika lub klucza API, aby uzyskać dostęp do linków do pobierania dokumentów.
+  require_signing_reason: Wymagaj podania powodu podpisu
+  required: Wymagane
+  resend: Wyślij ponownie
+  resend_code: Wyślij kod ponownie
+  resend_pending: Wyślij ponownie oczekujące
+  reset_password: Resetuj hasło
+  resetting_password: Resetowanie hasła
+  restore: Przywróć
+  restoring: Przywracanie
+  resubmit: Prześlij ponownie
+  reveal_api_key: Ujawnij klucz API
+  review_and_sign: Przejrzyj i podpisz
+  review_and_submit: Przejrzyj i prześlij
+  reviewed: Przejrzany
+  reviewed_by: Przejrzany przez
+  role: Rola
+  salesforce_has_been_connected: Salesforce zostało połączone
+  salesforce_integration: Integracja Salesforce
+  same_as_name: 'Tak samo jak %{name}'
+  save: Zapisz
+  save_a_users_signature_and_automatically_pre_fill_it_in_future_signing_sessions: Zapisz podpis użytkownika i automatycznie wstępnie wypełnij go w przyszłych sesjach podpisywania.
+  save_password_and_sign_in: Zapisz hasło i zaloguj się
+  saving: Zapisywanie
+  scan_the_qr_code_with_the_camera_app_to_open_the_form_on_mobile_and_draw_your_signature: 'Zeskanuj kod QR za pomocą aplikacji aparatu, aby otworzyć formularz na telefonie i narysować swój podpis'
+  seamlessly_automate_your_document_signing_process_with_make_com: Zautomatyzuj bezproblemowo proces podpisywania dokumentów za pomocą Make.com
+  search: Szukaj
+  second_party: 'Druga strona'
+  second_reminder_in: Drugie przypomnienie za
+  select: Wybierz
+  select_a_reason: Wybierz powód
+  select_data_residency: Wybierz lokalizację danych
+  select_field: Pole wyboru
+  select_user: Wybierz użytkownika
+  select_your_option: Wybierz swoją opcję
+  send: Wyślij
+  send_an_invitation_to_fill_and_complete_the_form: Wyślij zaproszenie do wypełnienia i ukończenia formularza
+  send_automatic_email_reminders_to_your_recipients: Wysyłaj automatyczne przypomnienia e-mail do swoich odbiorców
+  send_copy_to_email: Wyślij kopię na e-mail
+  send_copy_via_email: Wyślij kopię drogą mailową
+  send_email_copy_with_completed_documents_to_a_specified_bcc_address: Wyślij kopię e-mail z ukończonymi dokumentami na określony adres BCC
+  send_emails_automatically_on_completion: Wysyłaj e-maile automatycznie po ukończeniu
+  send_for_signing: Wyślij do podpisania
+  send_signature_requests_via_sms: Wysyłaj prośby o podpis przez SMS
+  send_sms: Wyślij SMS
+  send_sms_via_webhook: Wyślij SMS przez webhook
+  send_to_recipients: Wyślij do odbiorców
+  send_verification_code: Wyślij kod weryfikacyjny
+  send_via_connected_email: Wyślij przez połączony e-mail
+  sending: Wysyłanie
+  sending_sms: Wysyłanie SMS
+  sent: Wysłano
+  set_password: Ustaw hasło
+  set_signing_date: Ustaw datę podpisu
+  settings: Ustawienia
+  settings_have_been_saved: Ustawienia zostały zapisane
+  seven_days: 7 dni
+  seventeenth_party: 'Siedemnasta strona'
+  seventh_party: 'Siódma strona'
+  share_link: Link do udostępnienia
+  share_link_is_currently_disabled: Link do udostępnienia jest obecnie wyłączony
+  share_template_with_all_tenants: Udostępnij szablon wszystkim najemcom
+  share_template_with_test_mode: Udostępnij szablon w trybie testowym
+  shared: udostępniony
+  should_be_a_valid_url: powinien być prawidłowym URL
+  show_confetti_on_successful_completion: Pokazuj konfetti po pomyślnym ukończeniu
+  sign_and_complete: Podpisz i zakończ
+  sign_document: Podpisz dokument
+  sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature: Podpisuj dokumenty za pomocą zaufanego certyfikatu dostarczonego przez DocuSeal. Twoje dokumenty i dane nigdy nie są udostępniane DocuSeal. Suma kontrolna PDF jest dostarczana w celu wygenerowania zaufanego podpisu.
+  sign_in: Zaloguj się
+  sign_in_person: Podpisz osobiście
+  sign_in_with_google: Zaloguj się przez Google
+  sign_in_with_microsoft: Zaloguj się przez Microsoft
+  sign_it_yourself: Podpisz to sam
+  sign_now: Podpisz teraz
+  sign_out: Wyloguj się
+  sign_request_email_reminders: Przypomnienia e-mail o prośbie o podpis
+  sign_the_document: Podpisz dokument
+  sign_up: Zarejestruj się
   sign_up_with_google: Zarejestruj się przez Google
   sign_up_with_microsoft: Zarejestruj się przez Microsoft
-  by_creating_an_account_you_agree_to_our_html: 'Tworząc konto, akceptujesz naszą <a target="_blank" href="https://www.docuseal.com/privacy">Politykę Prywatności</a> i <a target="_blank" href="https://www.docuseal.com/terms">Regulamin</a>.'
-  enter_email_to_continue: Wprowadź e-mail, aby kontynuować
-  the_code_has_been_sent_to_your_email: Kod został wysłany na Twój e-mail.
-  enter_the_verification_code_from_your_email: Wprowadź kod weryfikacyjny z Twojego e-maila.
-  too_many_attempts: Zbyt wiele prób.
-  verification_code: Kod Weryfikacyjny
-  resend_code: Wyślij Kod Ponownie
-  powered_by: 'Napędzany prze'
-  count_documents_signed_with_html: '<b>%{count}</b> dokumentów podpisanych za pomocą'
-  open_source_documents_software: 'oprogramowanie do dokumentów open source'
-  eu_data_residency: Dane w UE
-  please_enter_your_email_address_associated_with_the_completed_submission: Wprowadź adres e-mail powiązany z ukończonym zgłoszeniem.
-  privacy_policy: Polityka Prywatności
-  esignature_disclosure: Użycie e-podpisu
-  select_data_residency: Wybierz lokalizację danych
-  company_name: Nazwa firmy
-  optional: opcjonalne
-  submit: Prześlij
+  sign_yourself: Podpisz sam
+  signature: Podpis
+  signature_field: Pole podpisu
+  signature_has_been_removed: Podpis został usunięty
+  signature_has_been_saved: Podpis został zapisany
+  signature_id: ID podpisu
+  signature_is_too_small_or_simple_please_redraw: 'Podpis jest zbyt mały lub zbyt prosty. Proszę narysować go ponownie.'
+  signature_uploaded: Podpis przesłany
+  signed: Podpisany
+  signed_on_time: 'Podpisano %{time}'
+  signers: Sygnatariusze
+  signing_certificates: Certyfikaty podpisywania
+  signing_date: Data podpisu
+  signing_in: Logowanie
+  signing_up: Rejestracja
+  six_days: 6 dni
+  six_digits_code: '6-cyfrowy kod'
+  sixteenth_party: 'Szesnasta strona'
+  sixth_party: 'Szósta strona'
+  sms_has_been_sent: SMS został wysłany
+  sms_not_configured: SMS nie skonfigurowane
   sms_rate_limit_exceeded: Przekroczono limit wiadomości SMS
-  invalid_phone_number: Nieprawidłowy numer telefonu
-  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: Skontaktuj się z nadawcą, aby podać numer telefonu do uwierzytelniania dwuskładnikowego.
+  smtp_not_configured: SMTP nie skonfigurowane
+  sort: Sortuj
+  specified_date: Określona data
+  sso_settings_have_been_updated: Ustawienia SSO zostały zaktualizowane
+  stamp: Pieczątka
+  stamp_field: Pole pieczątki
+  start: Rozpocznij
+  start_now: Rozpocznij teraz
+  starting: Rozpoczynanie
+  status: Status
+  stop: Zatrzymaj
+  stopping: Zatrzymywanie
+  storage: Przechowywanie
+  store_all_files_on_disk: Przechowuj wszystkie pliki na dysku
+  stripe_account_has_been_connected: Konto Stripe zostało połączone
+  stripe_integration: Integracja Stripe
+  submission: Przesłanie
+  submission_created_by_email_html: '<b>Przesłanie utworzone</b> przez %{email}'
+  submission_created_by_email_via_source_html: '<b>Przesłanie utworzone</b> przez %{email} przez %{source}'
+  submission_created_via_source_html: '<b>Przesłanie utworzone</b> przez %{source}'
+  submission_deletion_is_irreversible_and_will_permanently_remove_all_associated_signed_documents_with_it_are_you_sure_: Usunięcie przesłania jest nieodwracalne i trwale usunie wszystkie powiązane podpisane dokumenty. Czy jesteś pewien?
+  submission_event_names: 
+  submission_form: Formularz przesłania
+  submission_has_been_archived: Przesłanie zostało zarchiwizowane
+  submission_has_been_removed: Przesłanie zostało usunięte
+  submission_has_been_unarchived: Przesłanie zostało odarchiwizowane
+  submission_requester: Żądający przesłania
+  submission_sources: 
+  submissions: Przesłania
+  submissions_not_found: Nie znaleziono przesłań
+  submit: Prześlij
+  submitter_cannot_be_updated: Przesyłający nie może być zaktualizowany
+  submitter_completed_email_body: |
+    Cześć,
+    "{template.name}" został ukończony przez {submission.submitters}
+    {submission.link}
+  submitter_documents_copy_email_body: |
+    Cześć,
+    Sprawdź kopię Twojego "{template.name}" w załącznikach e-mail.
+  submitter_invitation_email_sign_body: |
+    Cześć,
+    Zostałeś zaproszony do podpisania "{template.name}".
+    [Przejrzyj i podpisz]({submitter.link})
+    Skontaktuj się z nami, odpowiadając na ten e-mail, jeśli masz jakieś pytania.
+    Dziękujemy,
+    {account.name}
+  submitter_invitation_sms_body_sign: '{account.name} zaprosił Cię do podpisania dokumentu: {submitter.link}'
+  submitting: Przesyłanie
+  succeeded: Powiodło się
+  success: Sukces
+  superadmin: Superadministrator
+  support: Wsparcie
+  take_photo: Zrób zdjęcie
+  team_access: Dostęp zespołu
+  team_account: Konto zespołu
+  team_accounts: Konta zespołów
+  team_member_permissions: Uprawnienia członka zespołu
+  teams: Zespoły
+  template: Szablon
+  template_deletion_is_irreversible_and_will_permanently_remove_all_associated_signed_documents_with_it_are_you_sure_: Usunięcie szablonu jest nieodwracalne i trwale usunie wszystkie powiązane podpisane dokumenty. Czy jesteś pewien?
+  template_details: Szczegóły szablonu
+  template_has_been_archived: Szablon został zarchiwizowany
+  template_has_been_cloned: Szablon został sklonowany
+  template_has_been_removed: Szablon został usunięty
+  template_has_been_unarchived: Szablon został odarchiwizowany
+  template_id: ID szablonu
+  template_name_has_been_completed_by_submitters: '{template.name} został ukończony przez {submission.submitters}'
+  template_name_has_been_completed_by_submitters_html: '"<strong>{template.name}</strong>" został ukończony przez <strong>{submission.submitters}</strong>'
+  templates: Szablony
+  templates_not_found: Nie znaleziono szablonów
+  ten_days: 10 dni
+  tenant_account: Konto najemcy
+  tenant_accounts: Konta najemców
+  tenant_admin: Administrator najemcy
+  tenants: Najemcy
+  tenth_party: 'Dziesiąta strona'
+  test: Test
+  test_mode: Tryb testowy
+  text: Tekst
+  text_field: Pole tekstowe
+  thanks: Dziękujemy
+  the_code_has_been_sent_to_your_email: Kod został wysłany na Twój e-mail.
+  the_file_is_missing_make_sure_you_have_access_to_it_on_google_drive: Plik jest brakujący. Upewnij się, że masz do niego dostęp na Google Drive.
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Nadawca zażądał uwierzytelnienia dwuetapowego poprzez jednorazowe hasło wysłane na Twój <b>%{phone}</b> numer telefonu.
+  there_are_no_events: Nie ma żadnych zdarzeń
+  there_are_no_submissions: Nie ma żadnych przesłań
+  third_party: 'Trzecia strona'
+  third_reminder_in: Trzecie przypomnienie za
+  thirteenth_party: 'Trzynasta strona'
+  thirty_days: 30 dni
+  this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: To przesłanie ma wielu sygnatariuszy, co uniemożliwia użycie linku do udostępniania, ponieważ nie jest jasne, który sygnatariusz jest odpowiedzialny za konkretne pola. Aby to rozwiązać, postępuj zgodnie z tym <a href="https://www.docuseal.com/resources/pre-filling-recipients" class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">przewodnikiem</a>, aby zdefiniować domyślne szczegóły sygnatariusza.
+  this_template_has_multiple_parties_which_prevents_the_use_of_a_sharing_link: Ten szablon ma wiele stron, co uniemożliwia użycie linku do udostępniania, ponieważ nie jest jasne, która strona jest odpowiedzialna za konkretne pola. Aby to rozwiązać, zdefiniuj domyślne szczegóły strony.
+  three_days: 3 dni
+  three_months: 3 miesiące
+  three_weeks: 3 tygodnie
+  time_zone: Strefa czasowa
+  timeserver_url: URL serwera czasu
+  timestamp_server: Serwer znacznika czasu
+  title: Tytuł
+  to: Do
+  too_many_attempts: Zbyt wiele prób
+  twelfth_party: 'Dwunasta strona'
+  twelve_hours: 12 godzin
+  twentieth_party: 'Dwudziesta strona'
+  twenty_four_hours: 24 godziny
+  twenty_one_days: 21 dni
+  twilio_settings: Ustawienia Twilio
+  two_days: 2 dni
+  two_factor_authentication: Uwierzytelnianie dwuetapowe
+  two_factor_code_from_authenticator_app: Kod dwuetapowy z aplikacji uwierzytelniającej
+  two_hours: 2 godziny
+  two_months: 2 miesiące
+  two_weeks: 2 tygodnie
+  type: Wprowadź
+  type_here_: 'Wpisz tutaj...'
+  type_initial_here: Wpisz inicjały tutaj
+  type_signature_here: Wpisz podpis tutaj
+  type_text: Wprowadź tekst
+  typed: Pisany
+  unable_to_identify_reset_your_password_to_sign_in: Nie można zidentyfikować. Zresetuj hasło, aby się zalogować.
+  unable_to_move_template_into_folder: Nie można przenieść szablonu do folderu
+  unable_to_remove_user: Nie można usunąć użytkownika
+  unable_to_rename_folder: Nie można zmienić nazwy folderu
+  unable_to_resend_webhook_request: Nie można ponownie wysłać żądania webhook
+  unable_to_save: Nie można zapisać
+  unable_to_save_initials: Nie można zapisać inicjałów
+  unable_to_save_signature: Nie można zapisać podpisu
+  unable_to_update_file: Nie można zaktualizować pliku
+  unable_to_update_user: Nie można zaktualizować użytkownika
+  unarchive: Odarchiwizuj
+  unlock_more_user_roles_with_docuseal_pro: Odblokuj więcej ról użytkowników za pomocą DocuSeal Pro
+  unlock_with_docuseal_pro: Odblokuj z DocuSeal Pro
+  unverified: Niezweryfikowano
+  update: Aktualizuj
+  update_initials: Zaktualizuj inicjały
+  update_recipient: Zaktualizuj odbiorcę
+  update_signature: Zaktualizuj podpis
+  updating: Aktualizowanie
+  upgrade_to_start_using_in_production_html: '<a href="%{url}" target="_blank" class="link font-semibold">Uaktualnij</a>, aby zacząć używać w produkcji.'
+  upgrade_your_plan_to_invite_more_users_contact_email: 'Uaktualnij swój plan, aby zaprosić więcej użytkowników (kontakt %{email}).'
+  upload: Prześlij
+  upload_a_new_document: Prześlij nowy dokument
+  upload_cert: Prześlij cert
+  upload_certificate: Prześlij certyfikat
+  upload_document: Prześlij dokument
+  upload_file: Prześlij plik
+  upload_initials: Prześlij inicjały
+  upload_logo: Prześlij logo
+  upload_new_document: Prześlij nowy dokument
+  upload_signature: Prześlij podpis
+  upload_signed_pdf_file_to_validate_its_signature_: 'Prześlij podpisany plik PDF, aby zweryfikować jego podpis:'
+  uploading: Przesyłanie
+  use_direct_file_attachment_links_in_the_documents: Użyj bezpośrednich linków do załączników w dokumentach
+  use_international_format: 'Użyj formatu międzynarodowego: +1xxx'
+  use_otp_code_to_access_the_api_key_html: 'Użyj kodu <b>%{code}</b>, aby uzyskać dostęp do klucza API.'
+  use_otp_code_to_sign_in_or_click_the_link_below_html: 'Użyj kodu <b>%{code}</b>, aby się zalogować lub kliknij link poniżej:'
+  use_the_edit_form_to_move_it_to_another_team: Użyj formularza edycji, aby przenieść to do innego zespołu
+  use_your_own_certificates_to_sign_and_verify_pdf_files: Użyj własnych certyfikatów do podpisywania i weryfikowania plików PDF
+  user_has_been_invited: Użytkownik został zaproszony
+  user_has_been_removed: Użytkownik został usunięty
+  user_has_been_updated: Użytkownik został zaktualizowany
+  users: Użytkownicy
+  users_count_total_users_count_pro_users_limit_was_reached_to_invite_additional_users_please_purchase_more_pro_user_seats_via_the_manage_plan_button: '%{users_count}/%{total_users_count} Osiągnięto limit użytkowników Pro. Aby zaprosić dodatkowych użytkowników, kup więcej miejsc użytkowników Pro za pomocą przycisku "Zarządzaj planem".'
+  users_management: Zarządzanie użytkownikami
+  valid_to: Ważny do
+  value: Wartość
+  value_is_invalid: Wartość jest nieprawidłowa
+  verification_code: Kod weryfikacyjny
+  verification_code_code: 'Kod weryfikacyjny: %{code}'
+  verification_code_sms_body: 'Kod weryfikacyjny: {code}'
+  verification_field: Weryfikacja tożsamości
+  verified: Zweryfikowano
+  verified_phone_number: Zweryfikuj numer telefonu
+  verify: Weryfikuj
+  verify_id: Zweryfikuj ID
+  verify_new_sign_in: Zweryfikuj nowe logowanie
+  verify_pdf: Weryfikuj PDF
+  verify_signed_pdf: Weryfikuj podpisany PDF
+  view: Widok
+  view_active: Zobacz aktywne
+  view_archived: Zobacz zarchiwizowane
+  view_embedding_users: Zobacz użytkowników osadzania
+  viewer: Przeglądający
+  viewing: Przeglądanie
+  warning: Ostrzeżenie
   we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: Wysłaliśmy jednorazowy kod weryfikacyjny na Twój adres e-mail. Wprowadź go poniżej, aby kontynuować.
-  re_send_code: Wyślij ponownie kod
-  email_verification: Weryfikacja e-mail
-  your_verification_code_to_access_the_name: 'Twój kod weryfikacyjny do uzyskania dostępu do "%{name}":'
-  please_reply_to_this_email_if_you_didnt_request_this: Odpowiedz na ten e-mail, jeśli nie prosiłeś o to.
-  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: Twoje konto użytkownika zostało zarchiwizowane. Skontaktuj się z administratorem, aby przywrócić dostęp do konta.
+  webhook_integration_allows_to_send_sms_using_any_provider: Integracja webhook pozwala na wysyłanie SMS za pomocą dowolnego dostawcy
+  webhook_request_has_been_sent: Żądanie webhook zostało wysłane
+  webhook_secret: Sekret webhook
+  webhook_secret_has_been_saved: Sekret webhook został zapisany
+  webhook_settings: Ustawienia webhook
+  webhook_url_has_been_deleted: URL webhook został usunięty
+  webhook_url_has_been_saved: URL webhook został zapisany
+  webhook_url_has_been_updated: URL webhook został zaktualizowany
+  when_checked_notifications_will_be_sent_to_the_second_party_once_the_form_is_completed_by_the_previous_party_uncheck_this_option_to_send_notifications_to_all_parties_simultaneously_right_away: Gdy zaznaczone, powiadomienia zostaną wysłane do drugiej strony po zakończeniu formularza przez poprzednią stronę. Odznacz tę opcję, aby wysłać powiadomienia do wszystkich stron jednocześnie od razu.
+  with_logo: Z logo
+  wrong_password: Nieprawidłowe hasło
+  yes: Tak
+  you_are_already_signed_in: Jesteś już zalogowany
+  you_are_invited_to_sign_a_document: 'Zostałeś zaproszony do podpisania dokumentu'
+  you_are_invited_to_sign_documents: 'Zostałeś zaproszony do podpisania dokumentów'
+  you_are_invited_to_submit_a_form: 'Zostałeś zaproszony do przesłania formularza'
+  you_are_scheduling_your_account_for_deletion_after_deletion_your_data_will_be_permanently_removed_and_cannot_be_recovered_click_ok_if_you_would_like_to_continue: "Planujesz usunięcie swojego konta. Po usunięciu Twoje dane zostaną trwale usunięte i nie będą mogły zostać odzyskane.\n\nKliknij OK, jeśli chcesz kontynuować."
+  you_have_been_invited_to_sign_the_name: 'Zostałeś zaproszony do podpisania "%{name}".'
+  you_have_been_invited_to_sign_the_template_name_html: 'Zostałeś zaproszony do podpisania "<strong>{template.name}</strong>".'
+  you_have_been_invited_to_submit_a_form: Zostałeś zaproszony do przesłania formularza
+  you_have_been_invited_to_submit_the_name_form: 'Zostałeś zaproszony do przesłania formularza "%{name}".'
+  your_document_copy: 'Twoja kopia dokumentu'
   your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in: Nie udało się uzyskać dostępu do Twojego adresu e-mail. Może to być spowodowane literówką w adresie lub niedostępnością skrzynki. Skontaktuj się z support@docuseal.com, aby się zalogować.
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: Twoje konto użytkownika zostało zarchiwizowane. Skontaktuj się z administratorem, aby przywrócić dostęp do konta.
+  your_verification_code_to_access_the_name: 'Twój kod weryfikacyjny do uzyskania dostępu do "%{name}":'
+  zapier_integration: Integracja Zapier
 
 uk:
   require_phone_2fa_to_open: Вимагати двофакторну автентифікацію через телефон для відкриття
