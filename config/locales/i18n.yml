@@ -6060,7 +6060,7 @@ pl: &pl
   unlock_with_docuseal_pro: Odblokuj w DocuSeal Pro
   use_your_own_certificates_to_sign_and_verify_pdf_files: Użyj własnych certyfikatów do podpisywania i weryfikacji plików PDF.
   upload_certificate: Prześlij certyfikat
-  name: Nazwa
+  name: Imię i nazwisko
   file: Plik
   use_a_valid_der_p12_or_pfx_file: Użyj prawidłowego pliku .der, .p12 lub .pfx.
   submit: Prześlij
@@ -6485,7 +6485,7 @@ pl: &pl
   role: Rola
   provide_your_email_to_start: Podaj swój e-mail, aby rozpocząć
   provide_your_email: Podaj swój e-mail
-  provide_your_name_to_start: Podaj swoje imię, aby rozpocząć
+  provide_your_name_to_start: Podaj swoje imię i nazwisko, aby rozpocząć
   provide_your_name: Podaj swoje imię
   provide_your_phone_in_international_format_to_start: Podaj numer telefonu w formacie międzynarodowym, aby rozpocząć
   provide_your_phone_in_international_format: Podaj numer telefonu w formacie międzynarodowym
