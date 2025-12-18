@@ -6252,7 +6252,7 @@ pl: &pl
   all: Wszystkie
   pending: Oczekujące
   completed: Zakończone
-  primarily_opened_with_microsoft_excel_other_options_include_google_sheets_libreoffice_calc_and_openoffice_calc: Najczęściej otwierane w Microsoft Excel. Inne opcje: Google Sheets, LibreOffice Calc i OpenOffice Calc.
+  primarily_opened_with_microsoft_excel_other_options_include_google_sheets_libreoffice_calc_and_openoffice_calc: "Najczęściej otwierane w Microsoft Excel. Inne opcje: Google Sheets, LibreOffice Calc i OpenOffice Calc."
   can_be_opened_with_microsoft_excel_google_sheets_or_any_text_editor_like_notepad: Można otworzyć w Microsoft Excel, Google Sheets lub dowolnym edytorze tekstu, np. Notepad.
   draw_signature: Narysuj podpis
   clear: Wyczyść
