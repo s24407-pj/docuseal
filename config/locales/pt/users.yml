@@ -1,0 +1,28 @@
+---
+pt:
+  owner: Proprietário
+  team_member_permissions: Permissões de membro da equipe
+  admin_only: Somente admin
+  team_access: Acesso à equipe
+  role: Função
+  your_account_removal_request_will_be_processed_within_2_months_please_contact_us_if_you_want_to_keep_your_account: Seu
+    pedido de remoção da conta será processado em até 2 meses. Entre em contato conosco
+    se você quiser manter sua conta.
+  microsoft_account_has_been_connected: A conta Microsoft foi conectada.
+  impersonated_as: Impersonado como
+  account_sid: SID da conta
+  admin: Administrador
+  tenant_admin: Tenant Administrador
+  member: Membro
+  agent: Agente
+  superadmin: Superadministrador
+  team_account: Conta de equipe
+  team_accounts: Contas de equipe
+  tenant_account: Conta de locatário
+  tenant_accounts: Contas de locatário
+  impersonate: Usurpar
+  users_management: Gerenciamento de usuários
+  user_month: usuário / mês
+  manage_subscription: Gerenciar Assinatura
+  pro_user_seats_used: Lugares de usuário Pro em uso
+  manage_plan: Gerenciar plano

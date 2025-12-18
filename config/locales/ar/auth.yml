@@ -1,0 +1,27 @@
+---
+ar:
+  send_verification_code: إرسال رمز التحقق
+  code_has_been_resent: تم إعادة إرسال الرمز
+  invalid_code: رمز غير صالح
+  email: البريد الإلكتروني
+  provide_your_email: أدخل بريدك الإلكتروني
+  verification_code_code: 'رمز التحقق: %{code}'
+  sign_in: تسجيل الدخول
+  sign_in_with_microsoft: تسجيل الدخول باستخدام مايكروسوفت
+  sign_in_with_google: تسجيل الدخول باستخدام جوجل
+  first_name: الاسم الأول
+  last_name: الاسم الأخير
+  sign_up: اشتراك
+  profile_details: تفاصيل الملف الشخصي
+  sign_up_with_google: الاشتراك باستخدام جوجل
+  sign_up_with_microsoft: الاشتراك باستخدام مايكروسوفت
+  the_code_has_been_sent_to_your_email: تم إرسال الرمز إلى بريدك الإلكتروني.
+  enter_the_verification_code_from_your_email: أدخل رمز التحقق من بريدك الإلكتروني.
+  verification_code: رمز التحقق
+  resend_code: إعادة إرسال الرمز
+  invalid_phone_number: رقم الهاتف غير صالح
+  re_send_code: إعادة إرسال الرمز
+  email_verification: التحقق من البريد الإلكتروني
+  your_verification_code_to_access_the_name: 'رمز التحقق الخاص بك للوصول إلى "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: يرجى الرد على هذا البريد إذا
+    لم تطلب ذلك.

@@ -1,0 +1,68 @@
+---
+cs:
+  require_phone_2fa_to_open: Vyžadovat otevření pomocí telefonního 2FA
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Odesílatel
+    požádal o dvoufaktorové ověření pomocí jednorázového hesla zaslaného na vaše telefonní
+    číslo <b>%{phone}</b>.
+  view: Zobrazit
+  hi_there: Ahoj,
+  download: Stáhnout
+  notify_the_sender_with_the_reason_you_declined: Informujte odesílatele o důvodu
+    odmítnutí
+  form_has_been_declined_on_html: Formulář byl odmítnut dne <span class="font-semibold">%{time}</span>
+  digitally_signed_by: Digitálně podepsáno uživatelem
+  provide_your_email_to_start: Zadejte svůj e-mail pro zahájení
+  provide_your_name_to_start: Zadejte své jméno pro zahájení
+  provide_your_phone_in_international_format_to_start: Zadejte své telefonní číslo
+    v mezinárodním formátu pro zahájení
+  provide_your_phone_in_international_format: Zadejte své telefonní číslo v mezinárodním
+    formátu
+  use_international_format_1xxx_: 'Použijte mezinárodní formát: +1xxx...'
+  form_expired_at_html: Formulář vypršel <span class="font-semibold">%{time}</span>
+  start: Zahájit
+  starting: Zahajování
+  form_has_been_deleted_by_html: Formulář byl smazán uživatelem <span class="font-semibold">%{name}</span>.
+  you_have_been_invited_to_submit_a_form: Byli jste pozváni k odeslání formuláře
+  form_has_been_submitted_already: Formulář již byl odeslán
+  send_copy_to_email: Odeslat kopii na Email
+  sending: Odesílání
+  or: nebo
+  download_documents: Stáhnout dokumenty
+  downloading: Stahování
+  completed_successfully: Úspěšně dokončeno
+  password: Heslo
+  forgot_your_password_: Zapomněli jste heslo?
+  create_free_account: Vytvořit bezplatný účet
+  by_creating_an_account_you_agree_to_our_html: Vytvořením účtu souhlasíte s našimi
+    <a target="_blank" href="https://www.docuseal.com/privacy">Zásadami ochrany osobních
+    údajů</a> a <a target="_blank" href="https://www.docuseal.com/terms">Podmínkami
+    služby</a>.
+  enter_email_to_continue: Zadejte e-mail pro pokračování
+  powered_by: Poháněno
+  open_source_documents_software: open source software pro dokumenty
+  please_enter_your_email_address_associated_with_the_completed_submission: Zadejte
+    e-mailovou adresu spojenou s dokončeným odesláním.
+  privacy_policy: Zásady Ochrany Osobních Údajů
+  select_data_residency: Vyberte umístění dat
+  optional: volitelné
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: Kontaktujte
+    odesílatele kvůli zadání vašeho čísla pro dvoufázové ověření.
+  we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: Poslali
+    jsme jednorázový ověřovací kód na váš e-mail. Zadejte ho níže pro pokračování.
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: Váš
+    uživatelský účet byl archivován. Kontaktujte svého administrátora pro obnovení
+    přístupu.
+  ? your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in
+  : Nepodařilo se dosáhnout na váš e-mail. To se může stát, pokud je v adrese překlep
+    nebo vaše schránka není dostupná. Kontaktujte support@docuseal.com pro přihlášení.
+  decline: Odmítnout
+  decline_reason: Důvod odmítnutí
+  provide_a_reason: Uveďte důvod
+  provide_your_name: Zadejte své jméno
+  reason: Důvod
+  signing_in: Přihlašování
+  already_have_an_account: Už máte účet?
+  signing_up: Registrace
+  too_many_attempts: Příliš mnoho pokusů.
+  eu_data_residency: Uložení dat v EU
+  company_name: Název společnosti

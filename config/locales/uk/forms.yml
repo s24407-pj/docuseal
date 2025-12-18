@@ -1,0 +1,11 @@
+---
+uk:
+  declined: Відхилено
+  name_declined_by_submitter: '"%{name}" відхилено %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" було відхилено
+    %{submitter} з такою причиною:'
+  completed_on_time: Завершено %{time}
+  document_has_been_signed_already: Документ уже був підписаний
+  resubmit: Подати знову
+  esignature_disclosure: Використання e-підпису
+  submit: Надіслати

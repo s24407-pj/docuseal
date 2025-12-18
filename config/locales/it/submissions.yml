@@ -1,0 +1,68 @@
+---
+it:
+  resend_pending: Reinvia in sospeso
+  ensure_unique_recipients: Assicurarsi destinatari unici
+  bcc_recipients: Destinatari BCC
+  signed: Firmato
+  pending_by_me: In sospeso da me
+  you_are_invited_to_product_name: Sei stato invitato a %{product_name}
+  sent_using_product_name_in_testing_mode_html: Inviato utilizzando <a href="%{product_url}">%{product_name}</a>
+    in Modalità di Test
+  sent_with_docuseal_pro_html: Inviato con <a href="%{product_url}">DocuSeal Pro</a>
+  you_have_been_invited_to_sign_the_name: Sei stato invitato a firmare il "%{name}".
+  you_are_invited_to_sign_a_document: Sei stato invitato a firmare un documento
+  you_are_invited_to_sign_documents: Sei stato invitato a firmare dei documenti
+  invited_by_html: Invitato da <span class="font-semibold">%{name}</span>
+  signed_on_time: Firmato alle %{time}
+  first_reminder_in: Primo promemoria in
+  second_reminder_in: Secondo promemoria in
+  third_reminder_in: Terzo promemoria in
+  attach_audit_log_pdf: Allegare il PDF del registro di audit
+  count_documents_signed_with_html: "<b>%{count}</b> documenti firmati con"
+  pending: In sospeso
+  expired: Scaduto
+  send_to_recipients: Invia ai destinatari
+  recipients: Destinatari
+  submission_requester: Richiedente dell'invio
+  invite_by_name: Invito da %{name}
+  submission_example_payload: Esempio di payload di invio
+  signed_with_trusted_certificate: Firmato con certificato affidabile
+  signed_with_external_certificate: Firmato con certificato esterno
+  you_are_already_signed_in: Hai già effettuato l'accesso.
+  submission_has_been_archived: L'invio è stato archiviato.
+  submission_has_been_unarchived: La sottomissione è stata dearchiviata.
+  user_has_been_invited: L'utente è stato invitato.
+  sms_has_been_sent: L'SMS è stato inviato.
+  automated_reminders: Promemoria automatici
+  audit_log: Registro di audit
+  signers: Firmatari
+  sent: Inviato
+  awaiting: In attesa
+  envelope_id: ID della Busta
+  event_log: Registro degli Eventi
+  submission_sources:
+    api: API
+    bulk: Invio massivo
+    embed: Incorporamento
+    invite: Invito
+    link: Link
+  submission_event_names:
+    send_email_to_html: "<b>Email inviata</b> a %{submitter_name}"
+    bounce_email_html: "<b>Email respinta</b> %{submitter_name}"
+    complaint_email_html: "<b>Segnalazione spam</b> %{submitter_name}"
+    send_reminder_email_to_html: "<b>E-mail di promemoria inviato</b> a %{submitter_name}"
+    send_sms_to_html: "<b>SMS inviato</b> a %{submitter_name}"
+    send_2fa_sms_to_html: "<b>SMS di verifica inviato</b> a %{submitter_name}"
+    open_email_by_html: "<b>E-mail aperta</b> da %{submitter_name}"
+    click_email_by_html: "<b>Link dell'e-mail cliccato</b> da %{submitter_name}"
+    click_sms_by_html: "<b>Link dell'SMS cliccato</b> da %{submitter_name}"
+    phone_verified_by_html: "<b>Telefono verificato</b> da %{submitter_name}"
+    email_verified_by_html: "<b>Email verificata</b> da %{submitter_name}"
+    start_form_by_html: "<b>Invio iniziato</b> da %{submitter_name}"
+    view_form_by_html: "<b>Modulo visualizzato</b> da %{submitter_name}"
+    invite_party_by_html: "<b>Invitato</b> %{invited_submitter_name} da %{submitter_name}"
+    complete_form_by_html: "<b>Invio completato</b> da %{submitter_name}"
+    api_complete_form_by_html: "<b>Invio completato tramite API</b> da %{submitter_name}"
+    start_verification_by_html: "<b>Verifica dell'identità iniziata</b> da %{submitter_name}"
+    complete_verification_by_html: "<b>Verifica dell'identità completata</b> da %{submitter_name}
+      con %{provider}"

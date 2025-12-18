@@ -1,0 +1,5 @@
+---
+uk:
+  invited_by_html: Запрошений користувачем <span class="font-semibold">%{name}</span>
+  signed_on_time: Підписаний %{time}
+  count_documents_signed_with_html: "<b>%{count}</b> документів підписано за допомогою"

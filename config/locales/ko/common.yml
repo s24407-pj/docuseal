@@ -1,0 +1,64 @@
+---
+ko:
+  require_phone_2fa_to_open: 휴대폰 2FA를 열 때 요구함
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: 발신자가
+    <b>%{phone}</b> 전화번호로 보내진 일회용 비밀번호를 통해 이중 인증을 요청했습니다.
+  view: 보기
+  hi_there: 안녕하세요,
+  download: 다운로드
+  notify_the_sender_with_the_reason_you_declined: 거절한 이유로 발신자에게 알리기
+  form_has_been_declined_on_html: 양식이 <span class="font-semibold">%{time}</span>에
+    거절되었습니다.
+  digitally_signed_by: 디지털로 서명됨
+  provide_your_email_to_start: 시작하려면 이메일을 입력하세요
+  provide_your_name_to_start: 시작하려면 이름을 입력하세요
+  provide_your_phone_in_international_format_to_start: 시작하려면 국제 형식의 전화번호를 입력하세요
+  provide_your_phone_in_international_format: 국제 형식의 전화번호를 입력하세요
+  use_international_format_1xxx_: '국제 형식을 사용하세요: +1xxx...'
+  start: 시작
+  starting: 시작 중
+  form_expired_at_html: 양식이 만료되었습니다 <span class="font-semibold">%{time}</span>
+  you_have_been_invited_to_submit_a_form: 양식을 제출하도록 초대되었습니다.
+  form_has_been_submitted_already: 양식이 이미 제출되었습니다.
+  send_copy_to_email: 이메일로 사본 보내기
+  sending: 전송 중
+  form_has_been_deleted_by_html: <span class="font-semibold">%{name}</span>에 의해 양식이
+    삭제되었습니다.
+  or: 또는
+  download_documents: 문서 다운로드
+  downloading: 다운로드 중
+  completed_successfully: 성공적으로 완료됨
+  password: 비밀번호
+  forgot_your_password_: 비밀번호를 잊으셨나요?
+  create_free_account: 무료 계정 생성
+  by_creating_an_account_you_agree_to_our_html: 계정을 생성함으로써, 귀하는 우리의 <a target="_blank"
+    href="https://www.docuseal.com/privacy">개인정보 보호정책</a> 및 <a target="_blank" href="https://www.docuseal.com/terms">서비스
+    약관</a>에 동의하는 것입니다.
+  enter_email_to_continue: 계속하려면 이메일을 입력하세요
+  powered_by: '제공:'
+  open_source_documents_software: 오픈소스 문서 소프트웨어
+  please_enter_your_email_address_associated_with_the_completed_submission: 완료된 제출과
+    연결된 이메일 주소를 입력하세요.
+  privacy_policy: 개인정보 처리방침
+  select_data_residency: 데이터 저장 위치 선택
+  optional: 선택 사항
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: 이중
+    인증을 위해 전화번호를 지정하려면 요청자에게 문의하세요.
+  we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: 일회용
+    인증 코드를 이메일로 보냈습니다. 계속하려면 아래에 입력하세요.
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: 사용자
+    계정이 보관되었습니다. 계정 접근을 복원하려면 관리자에게 문의하세요.
+  ? your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in
+  : 이메일에 접근할 수 없습니다. 주소에 오타가 있거나 메일박스가 사용 불가능한 경우 발생할 수 있습니다. 로그인하려면 support@docuseal.com에
+    문의하세요.
+  decline: 거절
+  decline_reason: 거절 사유
+  provide_a_reason: 사유를 제공하세요
+  provide_your_name: 이름을 입력하세요
+  reason: 이유
+  signing_in: 로그인 중
+  already_have_an_account: 이미 계정이 있으신가요?
+  signing_up: 가입 중
+  too_many_attempts: 시도 횟수가 너무 많습니다.
+  eu_data_residency: EU 데이터 보관
+  company_name: 회사 이름

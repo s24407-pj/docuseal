@@ -1,0 +1,117 @@
+---
+de:
+  upload_a_new_document: Neues Dokument hochladen
+  use_direct_file_attachment_links_in_the_documents: Direkte Dateianhang-Links in
+    den Dokumenten verwenden
+  docuseal_trusted_signature: DocuSeal-Vertrauenssignatur
+  sent_using_product_name_free_document_signing_html: Gesendet mit der kostenlosen
+    Dokumentensignierung von <a href="%{product_url}">%{product_name}</a>.
+  submitter_invitation_sms_body_sign: "{account.name} hat Sie eingeladen, ein Dokument
+    zu unterschreiben: {submitter.link}"
+  name_has_been_completed_by_submitters: '"%{name}" wurde von %{submitters} abgeschlossen.'
+  template_name_has_been_completed_by_submitters: "{template.name} wurde von {submission.submitters}
+    abgeschlossen"
+  completed_on_time: Abgeschlossen am %{time}
+  document_has_been_signed_already: Das Dokument wurde bereits unterschrieben
+  resubmit: Erneut einreichen
+  declined: Abgelehnt
+  name_declined_by_submitter: '"%{name}" wurde von %{submitter} abgelehnt'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" wurde von %{submitter}
+    mit folgendem Grund abgelehnt:'
+  request_signature_multiple_submitters_with_default_values: Signatur anfordern, mehrere
+    Einreicher mit Standardwerten
+  request_signature_single_submitter: Signatur anfordern, ein Einreicher
+  template_details: Vorlagendetails
+  upload_certificate: Zertifikat hochladen
+  file: Datei
+  submit: Einreichen
+  submitting: Wird eingereicht
+  pdf_signature: PDF-Signatur
+  upload_signed_pdf_file_to_validate_its_signature_: 'Signierte PDF-Datei hochladen,
+    um ihre Signatur zu validieren:'
+  upload_cert: Zertifikat hochladen
+  timestamp_server: Zeitstempel-Server
+  url_of_the_trusted_rfc_3161_timeserver_to_be_used_to_generate_timestamp_signatures: URL
+    des vertrauenswürdigen RFC-3161-Zeitstempelservers zur Generierung von Zeitstempelsignaturen.
+  apply_multiple_pdf_digital_signatures_in_the_document_per_each_signer: Mehrere PDF-Digitalsignaturen
+    im Dokument pro Unterzeichner anwenden
+  signature_request_sms: SMS für Signaturanfrage
+  text_message: Textnachricht
+  upload_logo: Logo hochladen
+  signature: Unterschrift
+  initials: Initialen
+  page_number: Seite %{number}
+  e_signature: E-Signatur
+  send_signature_requests_via_sms: Signaturanfragen per SMS senden
+  upgrade_to_send_unlimited_signature_requests: Upgrade durchführen, um unbegrenzte
+    Signaturanfragen zu senden
+  document_templates_html: <span class="hidden md:inline">Dokument-</span>Vorlagen
+  completed: Fertig
+  draw_signature: Unterschrift zeichnen
+  signature_uploaded: Unterschrift hochgeladen
+  upload_new_document: Neues Dokument hochladen
+  upload: Hochladen
+  new_document_template: Neue Dokumentvorlage
+  document_name: Dokumentname
+  template_id: Vorlagen-ID
+  share_template_with_test_mode: Vorlage im Testmodus teilen
+  use_following_placeholders_text_: 'Verwenden Sie die folgenden Platzhaltertexte:'
+  upload_initials: Initialen hochladen
+  draw: Zeichnen
+  upload_signature: Unterschrift hochladen
+  manage_multiple_teams: Mehrere Teams verwalten
+  file_is_missing: Datei fehlt
+  template_has_been_archived: Die Vorlage wurde archiviert.
+  template_has_been_cloned: Die Vorlage wurde geklont.
+  document_template_has_been_moved: Die Dokumentvorlage wurde verschoben.
+  unable_to_move_template_into_folder: Vorlage konnte nicht in den Ordner verschoben
+    werden.
+  template_has_been_unarchived: Die Vorlage wurde entarchiviert.
+  logo_has_been_uploaded: Das Logo wurde hochgeladen.
+  invalid_file_type: Ungültiger Dateityp
+  upload_file: Datei hochladen
+  ten_filed_types: 10 Feldtypen
+  multiple_signers: Mehrere Unterzeichner
+  automatic_esignature: Automatische E‑Signatur
+  declined_on_time: Abgelehnt am %{time}
+  upload_list: Liste hochladen
+  document_id: Dokumenten-ID
+  option: Option
+  text_field: Textfeld
+  signature_field: Unterschriftsfeld
+  initials_field: Initialenfeld
+  date_field: Datumsfeld
+  number_field: Zahlenfeld
+  image_field: Bildfeld
+  file_field: Dateifeld
+  checkbox_field: Checkboxveld
+  multiple_field: Meerkeuzeveld
+  radio_field: Radiogroepveld
+  cells_field: Zellenfeld
+  stamp_field: Stempelfeld
+  payment_field: Zahlungsfeld
+  completed_at: Abgeschlossen
+  at_least_one_field_must_be_filled: Mindestens ein Feld muss ausgefüllt werden.
+  seamlessly_automate_your_document_signing_process_with_make_com: Automatisieren
+    Sie Ihren Dokumentenunterzeichnungsprozess nahtlos mit Make.com.
+  your_pro_plan_payment_is_overdue: Ihre Zahlung für den Pro-Plan ist überfällig.
+  overdue_payment: Überfällige Zahlung
+  this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: Diese
+    Einreichung hat mehrere Unterzeichner, was die Nutzung eines Freigabelinks verhindert,
+    da unklar ist, welcher Unterzeichner für welche Felder verantwortlich ist. Um
+    dies zu lösen, folgen Sie dieser <a href="https://www.docuseal.com/resources/pre-filling-recipients"
+    class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">Anleitung</a>,
+    um die Standarddetails des Unterzeichners festzulegen.
+  specified_date: Angegebenes Datum
+  esignature_disclosure: Hinweis zur E‑Signatur
+  this_template_has_multiple_parties_which_prevents_the_use_of_a_sharing_link: Diese
+    Vorlage enthält mehrere Parteien, was die Verwendung eines Freigabelinks verhindert,
+    da unklar ist, welche Partei für bestimmte Felder verantwortlich ist. Um dies
+    zu beheben, definieren Sie die Standardparteidetails.
+  text: Text
+  template_name_has_been_completed_by_submitters_html: '"<strong>{template.name}</strong>"
+    wurde von <strong>{submission.submitters}</strong> abgeschlossen'
+  you_have_been_invited_to_sign_the_template_name_html: Sie wurden eingeladen, "<strong>{template.name}</strong>"
+    zu unterschreiben.
+  the_file_is_missing_make_sure_you_have_access_to_it_on_google_drive: Die Datei fehlt.
+    Stellen Sie sicher, dass Sie Zugriff darauf in Google Drive haben.

@@ -1,0 +1,754 @@
+---
+de:
+  add_from_google_drive: Aus Google Drive hinzufügen
+  or_add_from: Oder hinzufügen aus
+  hi_there: Hallo
+  thanks: Danke
+  select: Auswählen
+  enabled: Aktiviert
+  disabled: Deaktiviert
+  click_here_to_send_a_reset_password_email_html: <label class="link" for="resend_password_button">Klicken
+    Sie hier</label>, um eine E-Mail zum Zurücksetzen des Passworts zu senden.
+  edit_order: Bestellung bearbeiten
+  expirable_file_download_links: Ablaufbare Datei-Download-Links
+  invite_form_fields: Einladungsformular-Felder
+  authenticate_embedded_form_preview_with_token: Eingebettete Formularvorschau mit
+    Token authentifizieren
+  require_all_recipients: Alle Empfänger verpflichten
+  always_enforce_signing_order: Reihenfolge der Unterschriften immer erzwingen
+  create_templates_with_private_access_by_default: Vorlagen standardmäßig mit privatem
+    Zugriff erstellen
+  edit_per_party: Pro Partei bearbeiten
+  partially_completed: Teilweise fertig
+  require_phone_2fa_to_open: Telefon-2FA zum Öffnen erforderlich
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Der
+    Absender hat eine Zwei-Faktor-Authentifizierung per Einmalpasswort angefordert,
+    das an Ihre Telefonnummer <b>%{phone}</b> gesendet wurde.
+  remove_filter: Filter entfernen
+  add: Hinzufügen
+  adding: Wird hinzugefügt
+  select_user: Benutzer auswählen
+  document_download_filename_format: Format des Dateinamens beim Herunterladen von
+    Dokumenten
+  ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
+  : Unterzeichnen Sie Dokumente mit einem vertrauenswürdigen Zertifikat von DocuSeal.
+    Ihre Dokumente und Daten werden niemals mit DocuSeal geteilt. Eine PDF-Prüfsumme
+    wird bereitgestellt, um eine vertrauenswürdige Signatur zu generieren.
+  you_have_been_invited_to_submit_the_name_form: Sie wurden eingeladen, das Formular
+    "%{name}" einzureichen.
+  alternatively_you_can_review_and_download_your_copy_using_the_link_below: 'Alternativ
+    können Sie Ihre Kopie über den untenstehenden Link ansehen und herunterladen:'
+  please_check_the_copy_of_your_name_in_the_email_attachments: Bitte prüfen Sie die
+    Kopie von "%{name}" im E-Mail-Anhang.
+  review_and_sign: Prüfen und unterschreiben
+  review_and_submit: Prüfen und einreichen
+  you_are_invited_to_submit_a_form: Sie sind eingeladen, ein Formular einzureichen
+  your_document_copy: Ihre Dokumentkopie
+  submitter_documents_copy_email_body: |
+    Hallo,
+
+    Bitte prüfen Sie die Kopie von "{template.name}" im E-Mail-Anhang.
+    Alternativ können Sie Ihre Kopie über den untenstehenden Link ansehen und herunterladen:
+
+    [{template.name}]({documents.link})
+
+    Danke,
+    {account.name}
+  view: Anzeigen
+  form_expired_at_html: Formular abgelaufen am <span class="font-semibold">%{time}</span>
+  digitally_signed_by: Digital signiert von
+  provide_your_email_to_start: Geben Sie Ihre E-Mail-Adresse ein, um zu starten
+  provide_your_name_to_start: Geben Sie Ihren Namen ein, um zu starten
+  provide_your_phone_in_international_format_to_start: Geben Sie Ihre Telefonnummer
+    im internationalen Format ein, um zu starten
+  provide_your_phone_in_international_format: Geben Sie Ihre Telefonnummer im internationalen
+    Format ein
+  start: Starten
+  enforce_recipients_order: Empfängerreihenfolge durchsetzen
+  starting: Wird gestartet
+  you_have_been_invited_to_submit_a_form: Sie wurden eingeladen, ein Formular einzureichen
+  form_has_been_submitted_already: Das Formular wurde bereits eingereicht
+  send_copy_to_email: Kopie per E-Mail senden
+  sending: Wird gesendet
+  form_has_been_deleted_by_html: Das Formular wurde von <span class="font-semibold">%{name}</span>
+    gelöscht.
+  or: oder
+  download_documents: Dokumente herunterladen
+  downloading: Wird heruntergeladen
+  download: Download
+  notify_the_sender_with_the_reason_you_declined: Den Absender über den Grund Ihrer
+    Ablehnung benachrichtigen
+  form_has_been_declined_on_html: Das Formular wurde am <span class='font-semibold'>%{time}</span>
+    abgelehnt
+  completed_successfully: Erfolgreich abgeschlossen
+  password: Passwort
+  forgot_your_password_: Passwort vergessen?
+  create_free_account: Kostenloses Konto erstellen
+  by_creating_an_account_you_agree_to_our_html: Durch die Erstellung eines Kontos
+    stimmen Sie unseren <a target="_blank" href="https://www.docuseal.com/privacy">Datenschutzrichtlinien</a>
+    und <a target="_blank" href="https://www.docuseal.com/terms">Nutzungsbedingungen</a>
+    zu.
+  enter_email_to_continue: E-Mail eingeben, um fortzufahren
+  update: Aktualisieren
+  updating: Wird aktualisiert
+  force_2fa_with_authenticator_app: 2FA mit Authenticator-App erzwingen
+  add_signature_id_to_the_documents: Signatur-ID zu den Dokumenten hinzufügen
+  allow_typed_text_signatures: Getippte Unterschriften zulassen
+  allow_to_resubmit_completed_forms: Erneutes Einreichen abgeschlossener Formulare
+    zulassen
+  allow_to_decline_documents: Ablehnen von Dokumenten erlauben
+  remember_and_pre_fill_signatures: Signaturen merken und vorab ausfüllen
+  require_authentication_for_file_download_links: Authentifizierung für Dateidownload-Links
+    erforderlich
+  combine_completed_documents_and_audit_log: Abgeschlossene Dokumente und Prüfprotokoll
+    kombinieren
+  salesforce_integration: Salesforce-Integration
+  salesforce_has_been_connected: Salesforce wurde verbunden.
+  connect_salesforce_account_to_integrate_with_docuseal: Verbinden Sie Ihr Salesforce-Konto,
+    um es mit DocuSeal zu integrieren
+  re_connect_salesforce: Salesforce erneut verbinden
+  connect_salesforce: Salesforce verbinden
+  delete_my_account: Mein Konto löschen
+  ? you_are_scheduling_your_account_for_deletion_after_deletion_your_data_will_be_permanently_removed_and_cannot_be_recovered_click_ok_if_you_would_like_to_continue
+  : |-
+    Sie planen die Löschung Ihres Kontos. Nach der Löschung werden Ihre Daten dauerhaft entfernt und können nicht wiederhergestellt werden.
+
+    Klicken Sie auf OK, wenn Sie fortfahren möchten.
+  account_information_has_been_updated: Die Kontoinformationen wurden aktualisiert.
+  copy: Kopieren
+  copied: Kopiert
+  remove_existing_api_token_and_generated_a_new_one_are_you_sure_: Vorhandenen API-Token
+    entfernen und einen neuen generieren. Sind Sie sicher?
+  open_full_api_reference: Vollständige API-Referenz öffnen
+  api_token_has_been_updated: Der API-Token wurde aktualisiert.
+  change_your_password: Ändern Sie Ihr Passwort
+  new_password: Neues Passwort
+  minimum_password_length_characters_minimum: Mindestens %{minimum_password_length}
+    Zeichen
+  confirm_new_password: Neues Passwort bestätigen
+  change_my_password: Mein Passwort ändern
+  changing_password: Passwort wird geändert
+  reset_password: Passwort zurücksetzen
+  resetting_password: Passwort wird zurückgesetzt
+  two_factor_code_from_authenticator_app: Zwei-Faktor-Code aus der Authenticator-App
+  sign_up_in_docuseal_console_to_upgrade_on_premises_app_is_completely_standalone_console_is_used_only_to_manage_your_license: Melden
+    Sie sich in der DocuSeal-Konsole an, um ein Upgrade durchzuführen. Die lokale
+    App ist vollständig eigenständig; die Konsole wird nur zur Verwaltung Ihrer Lizenz
+    verwendet.
+  optional: optional
+  save: Speichern
+  saving: Wird gespeichert
+  changes_have_been_saved: Änderungen wurden gespeichert.
+  use_your_own_certificates_to_sign_and_verify_pdf_files: Verwenden Sie Ihre eigenen
+    Zertifikate, um PDF-Dateien zu signieren und zu verifizieren.
+  use_a_valid_der_p12_or_pfx_file: Verwenden Sie eine gültige .der-, .p12- oder .pfx-Datei.
+  click_to_upload_or_drag_and_drop_html: Klicken zum Hochladen oder per Drag & Drop
+    ablegen
+  click_to_upload_or_drag_and_drop_files_html: <span class="font-medium">Klicken zum
+    Hochladen</span> oder Dateien per Drag & Drop ablegen
+  remove: Entfernen
+  removing: Wird entfernt
+  delete: Löschen
+  remove_pdf_form_fillable_fields_from_the_signed_pdf_flatten_form: Ausfüllbare PDF-Formularfelder
+    aus dem signierten PDF entfernen (Formular abflachen)
+  certificate_has_been_successfully_added: Das Zertifikat wurde erfolgreich hinzugefügt.
+  default_certificate_has_been_selected: Das Standardzertifikat wurde ausgewählt.
+  certificate_has_been_removed: Das Zertifikat wurde entfernt.
+  set_password: Passwort festlegen
+  confirm_password: Passwort bestätigen
+  save_password_and_sign_in: Passwort speichern und anmelden
+  use_an_authenticator_mobile_app_like_google_authenticator_or_1password_to_scan_the_qr_code_below: Verwenden
+    Sie eine Authentifikator-App wie Google Authenticator oder 1Password, um den untenstehenden
+    QR-Code zu scannen.
+  remove_2fa: 2FA entfernen
+  2fa_has_been_removed: 2FA wurde entfernt.
+  email_notifications: E-Mail-Benachrichtigungen
+  receive_notification_emails_on_completed_submission: Benachrichtigungs-E-Mails bei
+    abgeschlossener Einreichung erhalten
+  completed_documents_notification_bcc_address: BCC-Adresse für Benachrichtigungen
+    zu abgeschlossenen Dokumenten
+  learn_more: Mehr erfahren
+  unable_to_save: Speichern nicht möglich.
+  completed_notification_email: E-Mail-Benachrichtigung bei Abschluss
+  submission_form: Einreichungsformular
+  completed_form_message: Nachricht zum abgeschlossenen Formular
+  completed_form_redirect_button: Weiterleitungsschaltfläche nach Formularabschluss
+  documents_copy_email: E-Mail mit Dokumentenkopie
+  form_custom_css: Benutzerdefiniertes CSS für Formular
+  show_confetti_on_successful_completion: Konfetti bei erfolgreichem Abschluss anzeigen
+  settings_have_been_saved: Die Einstellungen wurden gespeichert.
+  display_your_company_name_and_logo_when_signing_documents: Zeigen Sie den Namen
+    und das Logo Ihres Unternehmens beim Signieren von Dokumenten an.
+  update_signature: Unterschrift aktualisieren
+  unable_to_save_signature: Unterschrift konnte nicht gespeichert werden.
+  signature_has_been_saved: Unterschrift wurde gespeichert.
+  signature_has_been_removed: Unterschrift wurde entfernt.
+  update_initials: Initialen aktualisieren
+  unable_to_save_initials: Initialen konnten nicht gespeichert werden.
+  initials_has_been_saved: Initialen wurden gespeichert.
+  initials_has_been_removed: Initialen wurden entfernt.
+  change_password: Passwort ändern
+  two_factor_authentication: Zwei-Faktor-Authentifizierung
+  2fa_is_not_configured: 2FA ist nicht konfiguriert
+  contact_information_has_been_update: Die Kontaktinformationen wurden aktualisiert.
+  password_has_been_changed: Das Passwort wurde geändert.
+  but_not_activated: aber nicht aktiviert
+  close: Schließen
+  powered_by: Bereitgestellt von
+  storage: Speicher
+  notifications: Benachrichtigungen
+  background_jobs: Hintergrundaufgaben
+  discord_community: Discord-Community
+  webhook_settings: Webhook-Einstellungen
+  sending_sms: SMS wird gesendet
+  send_sms_via_webhook: SMS über Webhook senden
+  webhook_integration_allows_to_send_sms_using_any_provider: Webhook-Integration ermöglicht
+    das Senden von SMS mit jedem Anbieter
+  force_sso_disable_login_with_email_and_password: SSO erzwingen (Login mit E-Mail
+    und Passwort deaktivieren)
+  for_aws_s3_compatible_apis_like_minio: Für AWS S3-kompatible APIs wie Minio.
+  store_all_files_on_disk: Alle Dateien auf der Festplatte speichern
+  no_configs_are_needed_but_make_sure_your_disk_is_persistent: Keine Konfigurationen
+    erforderlich, aber stellen Sie sicher, dass Ihre Festplatte persistent ist
+  not_suitable_for_heroku_and_other_paas: Nicht geeignet für Heroku und andere PaaS
+  bulk_send_from_excel_xlsx_or_csv: Massenversand aus Excel (XLSX) oder CSV
+  add_new: Neu hinzufügen
+  add_recipients: Empfänger hinzufügen
+  add_new_recipients: Neue Empfänger hinzufügen
+  add_recipients_html: Empfänger
+  or_embed_on_your_website: Oder auf Ihrer Website einbetten
+  edit_message: Nachricht bearbeiten
+  smtp_not_configured: SMTP nicht konfiguriert
+  configure_smtp_settings_in_order_to_send_emails_: 'Konfigurieren Sie die SMTP-Einstellungen,
+    um E-Mails zu senden:'
+  save_as_default_template_message: Als Standardvorlagentext speichern
+  preserve_order: Reihenfolge beibehalten
+  ? when_checked_notifications_will_be_sent_to_the_second_party_once_the_form_is_completed_by_the_previous_party_uncheck_this_option_to_send_notifications_to_all_parties_simultaneously_right_away
+  : Wenn aktiviert, werden Benachrichtigungen an die zweite Partei gesendet, sobald
+    die vorherige Partei das Formular ausgefüllt hat. Deaktivieren Sie diese Option,
+    um Benachrichtigungen an alle Parteien gleichzeitig zu senden.
+  add_without_sending: Hinzufügen ohne zu senden
+  upgade_now: Jetzt upgraden
+  sms_not_configured: SMS nicht konfiguriert
+  configure_sms_settings_in_order_to_send_text_messages_: 'Konfigurieren Sie die SMS-Einstellungen,
+    um Textnachrichten zu senden:'
+  back_to_active: Zurück zu Aktiv
+  search: Suchen
+  submissions_not_found: Einreichungen nicht gefunden
+  create: Erstellen
+  view_archived: Archivierte anzeigen
+  all: Alle
+  primarily_opened_with_microsoft_excel_other_options_include_google_sheets_libreoffice_calc_and_openoffice_calc: Hauptsächlich
+    mit Microsoft Excel geöffnet. Weitere Optionen sind Google Sheets, LibreOffice
+    Calc und OpenOffice Calc.
+  can_be_opened_with_microsoft_excel_google_sheets_or_any_text_editor_like_notepad: Kann
+    mit Microsoft Excel, Google Sheets oder einem beliebigen Texteditor wie Notepad
+    geöffnet werden.
+  clear: Löschen
+  submission_deletion_is_irreversible_and_will_permanently_remove_all_associated_signed_documents_with_it_are_you_sure_: Das
+    Löschen der Einreichung ist unwiderruflich und entfernt alle zugehörigen signierten
+    Dokumente dauerhaft. Sind Sie sicher?
+  return_back_to_your_desktop_device_to_complete_the_form_or_continue_on_mobile_html: Wechseln
+    Sie zurück zu Ihrem Desktop-Gerät, um das Formular abzuschließen, oder <a class="link"
+    href="%{link}">fahren Sie auf dem Mobilgerät fort</a>
+  template_deletion_is_irreversible_and_will_permanently_remove_all_associated_signed_documents_with_it_are_you_sure_: Die
+    Löschung der Vorlage ist unwiderruflich und entfernt alle zugehörigen signierten
+    Dokumente dauerhaft. Sind Sie sicher?
+  templates_not_found: Vorlagen nicht gefunden
+  uploading: Wird hochgeladen
+  sign_now: Unterschreiben
+  restore: Wiederherstellen
+  restoring: Wird wiederhergestellt
+  edit: Bearbeiten
+  preview: Vorschau
+  export: Exportieren
+  there_are_no_submissions: Es gibt keine Einreichungen
+  send_an_invitation_to_fill_and_complete_the_form: Einladung zum Ausfüllen und Abschließen
+    des Formulars senden
+  api_and_embedding: API und Einbettung
+  share_template_with_all_tenants: Vorlage mit allen Mandanten teilen
+  ? users_count_total_users_count_pro_users_limit_was_reached_to_invite_additional_users_please_purchase_more_pro_user_seats_via_the_manage_plan_button
+  : "%{users_count}/%{total_users_count} Pro-Benutzerlimit erreicht. Um weitere Benutzer
+    einzuladen, kaufen Sie bitte zusätzliche Pro-Benutzerplätze über die Schaltfläche
+    „Plan verwalten“."
+  create_a_new_folder: Neuen Ordner erstellen
+  exit_preview: Vorschau beenden
+  form_preferences: Formulareinstellungen
+  send_emails_automatically_on_completion: E-Mails nach Abschluss automatisch senden
+  not_specified: Nicht angegeben
+  processing: Verarbeitung
+  editor: Redakteur
+  viewer: Betrachter
+  edit_user: Benutzer bearbeiten
+  unlock_more_user_roles_with_docuseal_pro: Weitere Benutzerrollen mit DocuSeal Pro
+    freischalten.
+  view_active: Aktive anzeigen
+  loading: Wird geladen
+  edit_account: Konto bearbeiten
+  remove_team: Team entfernen
+  remove_tenant: Mandant entfernen
+  allow_tenant_admins_to_invite_new_users: Mandantenadministratoren erlauben, neue
+    Benutzer einzuladen
+  back: Zurück
+  add_secret: Geheimnis hinzufügen
+  edit_secret: Geheimnis bearbeiten
+  there_are_no_signatures: Es gibt keine Unterschriften
+  setup_2fa_to_continue: Richten Sie 2FA ein, um fortzufahren.
+  create_a_new_account: Neues Konto erstellen.
+  not_found: Nicht gefunden
+  new_recipients_have_been_added: Neue Empfänger wurden hinzugefügt.
+  submission_has_been_removed: Die Einreichung wurde entfernt.
+  form_has_been_completed_already: Das Formular wurde bereits abgeschlossen.
+  form_has_been_archived: Das Formular wurde archiviert.
+  form_has_been_expired: Das Formular ist abgelaufen.
+  form_has_been_declined: Das Formular wurde abgelehnt.
+  folder_name_has_been_updated: Der Ordnername wurde aktualisiert.
+  template_has_been_removed: Die Vorlage wurde entfernt.
+  unable_to_update_file: Datei konnte nicht hochgeladen werden.
+  unable_to_update_user: Der Benutzer konnte nicht aktualisiert werden.
+  user_has_been_updated: Der Benutzer wurde aktualisiert.
+  unable_to_remove_user: Der Benutzer konnte nicht entfernt werden.
+  user_has_been_removed: Der Benutzer wurde entfernt.
+  webhook_secret_has_been_saved: Das Webhook-Geheimnis wurde gespeichert.
+  webhook_url_has_been_saved: Die Webhook-URL wurde gespeichert.
+  webhook_request_has_been_sent: Die Webhook-Anfrage wurde gesendet.
+  webhook_url_has_been_updated: Die Webhook-URL wurde aktualisiert.
+  webhook_url_has_been_deleted: Die Webhook-URL wurde gelöscht.
+  unable_to_resend_webhook_request: Webhook-Anfrage konnte nicht erneut gesendet werden.
+  new_webhook: Neuer Webhook
+  delete_webhook: Webhook löschen
+  count_submissions_have_been_created: "%{count} Einreichungen wurden erstellt."
+  connected_successfully: Erfolgreich verbunden.
+  user_nameid_not_found: Benutzer %{nameid} nicht gefunden.
+  sso_settings_have_been_updated: Die SSO-Einstellungen wurden aktualisiert.
+  account_has_been_created: Das Konto wurde erstellt.
+  account_has_been_updated: Das Konto wurde aktualisiert.
+  account_has_been_removed: Das Konto wurde entfernt.
+  upgrade_your_plan_to_invite_more_users_contact_email: Führen Sie ein Upgrade durch,
+    um mehr Benutzer einzuladen (Kontakt %{email}).
+  contact_your_admin_email_to_invite_more_users: Kontaktieren Sie Ihren Administrator
+    %{email}, um mehr Benutzer einzuladen.
+  contact_your_administrator_to_add_new_users: Kontaktieren Sie Ihren Administrator,
+    um neue Benutzer hinzuzufügen.
+  unlimited_documents_storage: Unbegrenzter Dokumentenspeicher
+  free_developer_testing_sandbox: Kostenlose Entwickler-Testumgebung
+  continue_with_free_basic: Mit Free Basic fortfahren
+  connect_own_email_address: Eigene E-Mail-Adresse verbinden
+  start_with_pro: Mit Pro starten
+  developer_sandbox: Entwickler-Sandbox.
+  upgrade_to_start_using_in_production_html: <a href="%{url}" target="_blank" class="link
+    font-semibold">Upgrade</a> durchführen, um die Produktionsnutzung zu starten.
+  download_combined_pdf: Kombiniertes PDF herunterladen
+  not_invited_yet: Noch nicht eingeladen
+  not_completed_yet: Noch nicht abgeschlossen
+  create_a_new_template_document_form_or_submit_the_existing_one_html: <a href="%{new_template_link}"
+    data-turbo-frame="modal" class="inline underline font-medium">Neue Vorlage erstellen</a>
+    oder <a href="%{start_form_link}" target="_blank" class="inline underline font-medium">bestehende
+    einreichen</a>
+  send_email_copy_with_completed_documents_to_a_specified_bcc_address: Senden Sie
+    eine E-Mail-Kopie mit abgeschlossenen Dokumenten an eine angegebene BCC-Adresse.
+  copy_share_link: Freigabelink kopieren
+  copied_to_clipboard: In die Zwischenablage kopiert
+  creating: Erstellen
+  open_source_documents_software: Open-Source-Dokumentensoftware
+  copy_link: Link kopieren
+  opened: Geöffnet
+  testing_log_not_for_production_use: Testprotokoll - Nicht für den Produktionseinsatz
+  original_sha256: Original-SHA256
+  select_field: Auswahlfeld
+  edit_recipient: Empfänger bearbeiten
+  update_recipient: Empfänger aktualisieren
+  use_international_format_1xxx_: 'Verwenden Sie das internationale Format: +1xxx...'
+  submitter_cannot_be_updated: Der Einreicher kann nicht aktualisiert werden.
+  view_embedding_users: Einbettende Benutzer anzeigen
+  webhook_secret: Webhook-Geheimnis
+  author: Autor
+  created_at: Erstellt am
+  yesterday: Gestern
+  privacy_policy: Datenschutzrichtlinie
+  use_otp_code_to_sign_in_or_click_the_link_below_html: 'Verwenden Sie den Code <b>%{code}</b>,
+    um sich anzumelden, oder klicken Sie auf den untenstehenden Link:'
+  docuseal_support: DocuSeal Support
+  use_the_edit_form_to_move_it_to_another_team: Verwenden Sie das Bearbeitungsformular,
+    um es in ein anderes Team zu verschieben.
+  find_suitable_zapier_templates_to_automate_your_workflow: Finden Sie passende Zapier-Vorlagen,
+    um Ihren Workflow zu automatisieren.
+  get_started: Loslegen
+  click_here_to_learn_more_about_user_roles_and_permissions_html: <a href="https://www.docuseal.com/resources/manage-users-and-roles"
+    class="link" rel="noopener noreferrer nofollow" target="_blank">Klicken Sie hier</a>,
+    um mehr über Benutzerrollen und -berechtigungen zu erfahren.
+  tell_us_more_about_your_experience: Erzählen Sie uns mehr über Ihre Erfahrung
+  click_here_to_update_your_payment_details_and_clear_the_invoice_to_ensure_uninterrupted_service_html: <a
+    href="%{url}" class="link">Klicken Sie hier</a>, um Ihre Zahlungsdaten zu aktualisieren
+    und die Rechnung zu begleichen, um einen unterbrechungsfreien Service sicherzustellen.
+  ? your_pro_plan_has_been_suspended_due_to_unpaid_invoices_you_can_update_your_payment_details_to_settle_the_invoice_and_continue_using_docuseal_or_cancel_your_subscription
+  : Ihr Pro-Plan wurde aufgrund unbezahlter Rechnungen ausgesetzt. Sie können Ihre
+    Zahlungsdaten aktualisieren, um die Rechnung zu begleichen und DocuSeal weiterhin
+    zu nutzen, oder Ihr Abonnement kündigen.
+  submission_created_by_email_html: "<b>Einreichung erstellt</b> von %{email}"
+  submission_created_by_email_via_source_html: "<b>Einreichung erstellt</b> von %{email}
+    über %{source}"
+  submission_created_via_source_html: "<b>Einreichung erstellt</b> über %{source}"
+  start_a_quick_tour_to_learn_how_to_create_an_send_your_first_document: Starten Sie
+    eine kurze Tour, um zu lernen, wie Sie Ihr erstes Dokument erstellen und versenden.
+  start_tour: Starten
+  none: Keine
+  please_enter_your_email_address_associated_with_the_completed_submission: Bitte
+    geben Sie Ihre E-Mail-Adresse ein, die mit der abgeschlossenen Einreichung verknüpft
+    ist.
+  share_link_is_currently_disabled: Freigabelink ist derzeit deaktiviert
+  select_data_residency: Datenstandort auswählen
+  ? account_name_has_invited_you_to_fill_and_sign_documents_online_effortlessly_with_a_secure_fast_and_user_friendly_digital_document_signing_solution
+  : "%{account_name} hat Sie eingeladen, Dokumente mühelos online mit einer sicheren,
+    schnellen und benutzerfreundlichen digitalen Signaturlösung auszufüllen und zu
+    unterschreiben."
+  ? review_or_download_completed_documents_fill_and_sign_documents_online_effortlessly_with_a_secure_fast_and_user_friendly_digital_document_signing_solution
+  : Überprüfen oder laden Sie abgeschlossene Dokumente herunter. Füllen und unterschreiben
+    Sie Dokumente mühelos online mit einer sicheren, schnellen und benutzerfreundlichen
+    digitalen Signaturlösung.
+  link_form_fields: Formularfelder verknüpfen
+  at_least_one_field_must_be_displayed_in_the_form: Mindestens ein Feld muss im Formular
+    angezeigt werden.
+  there_are_no_events: Es sind keine Ereignisse vorhanden
+  next_attempt_in_time_in_words: Nächster Versuch in %{time_in_words}
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: Bitte
+    kontaktieren Sie den Anforderer, um Ihre Telefonnummer für die Zwei-Faktor-Authentifizierung
+    anzugeben.
+  we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: Wir
+    haben einen einmaligen Verifizierungscode an Ihre E-Mail-Adresse gesendet. Bitte
+    geben Sie ihn unten ein, um fortzufahren.
+  connect_your_email_or_outlook_account_or_add_smtp_settings_to_send_custom_html_emails: Verbinden
+    Sie Ihr Gmail- oder Outlook-Konto oder fügen Sie SMTP-Einstellungen hinzu, um
+    benutzerdefinierte HTML-E-Mails zu senden.
+  connect_gmail_or_outlook: Gmail oder Outlook verbinden
+  connect_your_email_or_outlook_account_or_add_smtp_settings_to_bulk_send: Verbinden
+    Sie Ihr Gmail- oder Outlook-Konto oder fügen Sie SMTP-Einstellungen für den Massenversand
+    hinzu.
+  are_you_sure_you_want_to_add_recipients_without_sending_to_send_emails_it_requires_to_connect_gmail_or_outlook: Möchten
+    Sie wirklich Empfänger hinzufügen, ohne zu senden? Zum Senden von E-Mails ist
+    eine Verbindung zu Gmail oder Outlook erforderlich.
+  please_check_the_copy_of_your_template_name_in_the_email_attachments_html: Bitte
+    prüfen Sie die Kopie Ihres "<strong>{template.name}</strong>" in den E-Mail-Anhängen.
+  enter_your_password_to_reveal_the_api_key: Geben Sie Ihr Passwort ein, um den API-Schlüssel
+    anzuzeigen
+  wrong_password: Falsches Passwort.
+  current_password: Aktuelles Passwort
+  dont_remember_your_current_password_click_here_to_reset_it_html: Sie erinnern sich
+    nicht an Ihr aktuelles Passwort? <label class="link" for="resend_password_button">Klicken
+    Sie hier</label>, um es zurückzusetzen.
+  an_email_with_password_reset_instructions_has_been_sent: Eine E-Mail mit Anweisungen
+    zum Zurücksetzen Ihres Passworts wurde gesendet.
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: Ihr
+    Benutzerkonto wurde archiviert. Wenden Sie sich an Ihren Administrator, um den
+    Zugriff wiederherzustellen.
+  ? your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in
+  : Ihre E-Mail konnte nicht erreicht werden. Dies kann passieren, wenn sich ein Tippfehler
+    in Ihrer Adresse befindet oder Ihr Postfach nicht verfügbar ist. Bitte kontaktieren
+    Sie support@docuseal.com, um sich anzumelden.
+  efficient_search_with_search_index: Effiziente Suche mit Suchindex
+  build_search_index: Suchindex erstellen
+  ? require_two_factor_authentication_2fa_with_an_authenticator_app_e_g_google_authenticator_authy_all_users_signing_documents_must_pass_the_second_factor_verification_using_a_secure_code_in_addition_to_their_password
+  : Zwei-Faktor-Authentifizierung (2FA) mit einer Authentifizierungs-App (z. B. Google
+    Authenticator, Authy) erforderlich. Alle Benutzer, die Dokumente unterzeichnen,
+    müssen zusätzlich zu ihrem Passwort die zweite Faktorprüfung mit einem sicheren
+    Code bestehen.
+  ? add_a_unique_signature_id_and_timestamp_to_each_signature_for_audit_and_traceability_purposes_along_with_the_timestamp_part_of_docuseals_21_cfr_part_11_compliance_settings
+  : Fügen Sie jeder Signatur eine eindeutige Signatur-ID und einen Zeitstempel für
+    Prüf- und Nachverfolgbarkeitszwecke hinzu. Teil der DocuSeal-Einstellungen zur
+    21 CFR Part 11-Compliance.
+  ? require_signer_to_provide_a_reason_for_signing_before_completing_their_signature_e_g_approvals_certifications_part_of_docuseals_21_cfr_part_11_compliance_settings
+  : Unterzeichner müssen vor Abschluss ihrer Signatur einen Grund für die Unterzeichnung
+    angeben (z. B. Genehmigungen, Zertifizierungen). Teil der DocuSeal-Einstellungen
+    zur 21 CFR Part 11-Compliance.
+  allow_signers_to_create_signatures_by_typing_their_name_instead_of_drawing_or_uploading_one: Unterzeichner
+    dürfen Signaturen erstellen, indem sie ihren Namen eingeben, statt eine Signatur
+    zu zeichnen oder hochzuladen.
+  allow_signers_to_resubmit_forms_after_completion_useful_when_corrections_or_multiple_submissions_are_needed: Unterzeichner
+    dürfen Formulare nach Abschluss erneut einreichen – nützlich für Korrekturen oder
+    mehrere Einreichungen.
+  allow_recipients_to_decline_signing_a_document_the_decline_reason_notification_will_be_sent_to_the_signature_requester: Empfänger
+    dürfen die Unterzeichnung eines Dokuments ablehnen. Die Benachrichtigung mit dem
+    Ablehnungsgrund wird an den Anforderer der Signatur gesendet.
+  save_a_users_signature_and_automatically_pre_fill_it_in_future_signing_sessions: Die
+    Signatur eines Benutzers speichern und sie in zukünftigen Signatursitzungen automatisch
+    vorausfüllen.
+  make_document_download_links_expire_after_40_minutes_to_prevent_long_term_access_and_enhance_security: Download-Links
+    für Dokumente nach 40 Minuten ablaufen lassen, um langfristigen Zugriff zu verhindern
+    und die Sicherheit zu erhöhen.
+  require_authentication_with_user_login_or_api_key_to_access_the_document_download_links: Authentifizierung
+    mit Benutzeranmeldung oder API-Schlüssel erforderlich, um auf die Download-Links
+    für Dokumente zuzugreifen.
+  combine_signed_documents_and_the_audit_log_into_a_single_pdf_file_for_easier_recordkeeping_and_compliance: Unterzeichnete
+    Dokumente und das Prüfprotokoll in einer einzigen PDF-Datei kombinieren – für
+    einfachere Aufbewahrung und Compliance.
+  require_a_jwt_authorization_to_preview_embedded_forms_ensuring_only_authorized_users_can_view_them: JWT-Autorisierung
+    für die Vorschau eingebetteter Formulare erforderlich, sodass nur autorisierte
+    Benutzer sie ansehen können.
+  make_all_newly_created_templates_private_to_their_creator_by_default: Alle neu erstellten
+    Vorlagen standardmäßig nur für ihren Ersteller sichtbar machen.
+  ? make_the_recipients_signing_order_always_enforced_so_that_the_second_signer_can_start_signing_their_part_only_after_the_first_signer_has_completed_signing
+  : Die Unterzeichnungsreihenfolge der Empfänger immer erzwingen, sodass der zweite
+    Unterzeichner erst nach Abschluss durch den ersten beginnen kann.
+  unable_to_identify_reset_your_password_to_sign_in: Identifizierung nicht möglich.
+    Setzen Sie Ihr Passwort zurück, um sich anzumelden.
+  import_list:
+    select_worksheet: Arbeitsblatt auswählen
+    open: Öffnen
+    remove: Entfernen
+    recipient_field: Empfängerfeld
+    spreadsheet_column: Tabellenkalkulationsspalte
+    select_field: Feld auswählen
+    select_column: Spalte auswählen
+    new_field_mapping: Neue Feldzuordnung
+    total_entries: Gesamteinträge
+    upload_csv_or_xlsx_spreadsheet: CSV- oder XLSX-Tabelle hochladen
+    click_to_upload: Klicken Sie, um hochzuladen
+    or_drag_and_drop_files: oder Dateien hierher ziehen und ablegen.
+    or: Oder
+    download: Download
+    a_sample_spreadsheet_to_fill_and_import: Beispieltabelle zum Ausfüllen und Importieren
+      herunterladen
+  doorkeeper:
+    scopes:
+      write: Aktualisieren Sie Ihre Daten
+      read: Lesen Sie Ihre Daten
+  pro: Pro
+  private: Privat
+  default_parties: Standardparteien
+  reply_to: Antwortadresse
+  entire_team: Gesamtes Team
+  accessiable_by: Zugänglich für
+  hello_name: Hallo %{name}
+  reason: Grund
+  provide_your_name: Geben Sie Ihren Namen ein
+  decline: Ablehnen
+  decline_reason: Ablehnungsgrund
+  provide_a_reason: Geben Sie einen Grund an
+  signing_in: Anmeldung
+  already_have_an_account: Haben Sie bereits ein Konto?
+  signing_up: Registrierung
+  account: Konto
+  company_name: Firmenname
+  time_zone: Zeitzone
+  language: Sprache
+  app_url: App-URL
+  require_signing_reason: Grund für die Signatur erforderlich
+  danger_zone: Gefahrenzone
+  should_be_a_valid_url: sollte eine gültige URL sein
+  test_mode: Testmodus
+  rotate: Drehen
+  unlock_with_docuseal_pro: Mit DocuSeal Pro freischalten
+  name: Name
+  analyzing: Wird analysiert
+  valid_to: Gültig bis
+  status: Status
+  make_default: Als Standard festlegen
+  default: Standard
+  are_you_sure_: Sind Sie sicher?
+  timeserver_url: Zeitstempel-Server-URL
+  already_exists: existiert bereits.
+  welcome_to_product_name: Willkommen bei %{product_name}
+  developer_newsletters: Entwickler-Newsletter
+  skip: Überspringen
+  invalid_timeserver: Ungültiger Zeitstempelserver
+  company_logo: Firmenlogo
+  subject: Betreff
+  body: Inhalt
+  title: Titel
+  button_title: Schaltflächentitel
+  button_url: Schaltflächen-URL
+  attach_documents: Dokumente anhängen
+  activate_with_docuseal_pro: Mit DocuSeal Pro aktivieren
+  gmail_has_been_connected: Gmail wurde verbunden.
+  initial_setup: Ersteinrichtung
+  demo_environment: Demo-Umgebung
+  upgrade: Upgrade
+  console: Konsole
+  users: Benutzer
+  plans: Pläne
+  new: Neu
+  need_help_ask_a_question_: 'Brauchen Sie Hilfe? Stellen Sie eine Frage:'
+  exit: Beenden
+  leave: Verlassen
+  ask_ai: KI fragen
+  ai_assistant: KI-Assistent
+  teams: Teams
+  tenants: Mandanten
+  from: Von
+  test: Testen
+  single_sign_on_with_saml_2_0: Single Sign-On mit SAML 2.0
+  has_been_connected: wurde verbunden
+  submissions: Einreichungen
+  archived: Archiviert
+  rename: Umbenennen
+  home: Startseite
+  archive: Archivieren
+  archiving: Wird archiviert
+  move: Verschieben
+  moving: Wird verschoben
+  sign_it_yourself: Selbst unterschreiben
+  general: Allgemein
+  redirect_on_completion_url: URL zur Weiterleitung nach Abschluss
+  completion_message: Abschlussnachricht
+  same_as_name: Gleich wie %{name}
+  new_user: Neuer Benutzer
+  unarchive: Entarchivieren
+  documents: Dokumente
+  accounts: Konten
+  new_team: Neues Team
+  new_tenant: Neuer Mandant
+  replace: Ersetzen
+  logo: Logo
+  invalid_pdf: Ungültiges PDF
+  one_hour: 1 Stunde
+  two_hours: 2 Stunden
+  four_hours: 4 Stunden
+  eight_hours: 8 Stunden
+  twelve_hours: 12 Stunden
+  twenty_four_hours: 24 Stunden
+  two_days: 2 Tage
+  four_days: 4 Tage
+  eight_days: 8 Tage
+  fifteen_days: 15 Tage
+  twenty_one_days: 21 Tage
+  thirty_days: 30 Tage
+  free: Kostenlos
+  unlimited_sign_yourself: Unbegrenzt selbst unterschreiben
+  your_company_logo: Ihr Firmenlogo
+  bulk_send_from_spreadsheet: Massenversand aus Tabelle
+  expire_on_time: Läuft ab am %{time}
+  link: Link
+  detailed: Detailliert
+  result_sha256: Ergebnis-SHA256
+  generated_at: Generiert am
+  paid_price: Bezahlt %{price}
+  verified: Verifiziert
+  unverified: Nicht verifiziert
+  document: Dokument
+  archived_users: Archivierte Benutzer
+  key: Schlüssel
+  value: Wert
+  to: An
+  apply: Anwenden
+  applying: Anwenden
+  today: Heute
+  this_week: Diese Woche
+  last_week: Letzte Woche
+  this_month: Dieser Monat
+  last_month: Letzter Monat
+  this_year: Dieses Jahr
+  policy_links: Richtlinien-Links
+  markdown_content_e_g: Markdown-Inhalt, z. B.
+  too_many_attempts: Zu viele Versuche.
+  on_a_scale_of_1_to_10_how_satisfied_are_you_with_the_docuseal_product_: 'Auf einer
+    Skala von 1 bis 10: Wie zufrieden sind Sie mit dem DocuSeal-Produkt?'
+  extremely_dissatisfied: Extrem unzufrieden
+  extremely_satisfied: Extrem zufrieden
+  welcome_to_docuseal: Willkommen bei DocuSeal
+  name_a_z: Name A-Z
+  recently_used: Kürzlich verwendet
+  newest_first: Neueste zuerst
+  default_expiration: Standardablauf
+  one_day: 1 Tag
+  three_days: 3 Tage
+  five_days: 5 Tage
+  six_days: 6 Tage
+  seven_days: 7 Tage
+  nine_days: 9 Tage
+  ten_days: 10 Tage
+  two_weeks: 2 Wochen
+  three_weeks: 3 Wochen
+  four_weeks: 4 Wochen
+  one_month: 1 Monat
+  two_months: 2 Monate
+  three_months: 3 Monate
+  eu_data_residency: EU-Datenresidenz
+  events_log: Ereignisprotokoll
+  succeeded: Erfolgreich
+  failed: Fehlgeschlagen
+  resend: Erneut senden
+  reindex: Neu indexieren
+  google_drive_has_been_connected: Google Drive wurde verbunden
+  app_tour:
+    start: Start
+    previous: Zurück
+    next: Weiter
+    template_and_submissions: Vorlagen und Einreichungen
+    template_and_submissions_description: Sie können die Ansicht wählen, die am besten
+      zu Ihrem Arbeitsablauf passt. Wählen Sie die Ansicht 'Vorlagen', um wiederverwendbare
+      Dokumentvorlagen zu erstellen, oder 'Einreichungen', um einzelne Dokumente zu
+      unterschreiben oder den Status jeder Signaturanfrage zu überprüfen.
+    upload_a_pdf_file: PDF-Datei hochladen
+    upload_a_pdf_file_description: Laden Sie ein PDF-Dokument hoch, um eine Vorlage
+      für ein Signaturformular zu erstellen.
+    select_a_signer_party: Unterzeichner-Partei auswählen
+    select_a_signer_party_description: Dieses Dropdown-Menü ermöglicht es Ihnen, eine
+      Signaturrolle auszuwählen oder eine neue Partei zum Dokument hinzuzufügen, wenn
+      es zwei oder mehr Unterschriften erfordert.
+    available_parties: Verfügbare Parteien
+    available_parties_description: Diese Liste enthält alle verfügbaren Parteien mit
+      ihren Rollennamen. Nach der Auswahl können Sie Felder für die Unterzeichner-Partei
+      hinzufügen und konfigurieren.
+    available_field_types: Verfügbare Feldtypen
+    available_field_types_description: Dieser Bereich enthält alle verfügbaren Feldtypen,
+      die dem Dokument für Dateneingabe oder Signaturerfassung hinzugefügt werden
+      können.
+    text_input_field: Textfeld
+    text_input_field_description: Dieses Feld ermöglicht es Benutzern, textbasierte
+      Informationen wie Namen oder E-Mails einzugeben.
+    signature_field: Signaturfeld
+    signature_field_description: Dieses Feld wird verwendet, um die Unterschriften
+      der Unterzeichner zu erfassen.
+    added_fields: Hinzugefügte Felder
+    added_fields_description: Diese Liste zeigt alle dem Dokument hinzugefügten Felder.
+      Sie können sie neu anordnen, bearbeiten oder entfernen.
+    open_field_settings: Feldeinstellungen öffnen
+    open_field_settings_description: Rechts neben dem Feldnamen befindet sich ein
+      Einstellungssymbol, um die Feldeinstellungen zu öffnen.
+    field_settings: Feldeinstellungen
+    field_settings_description: Jedes Feld kann individuell angepasst werden, z. B.
+      durch Schriftgröße, Pflichtfeld-Option oder Beschreibung.
+    send_document: Dokument zum Unterschreiben senden
+    send_document_description: Bevor Sie das Dokument zum Unterschreiben senden, können
+      Sie Empfänger hinzufügen, ihre E-Mail-Adressen oder Telefonnummern eingeben
+      und den E-Mail-Inhalt anpassen.
+    sign_yourself: Dokument selbst unterschreiben
+    sign_yourself_description: Mit dieser Schaltfläche können Sie Ihre eigene Unterschrift
+      zu Dokumenten hinzufügen, die Ihre Signatur erfordern.
+    copy_and_share_link: Link kopieren und teilen
+    copy_and_share_link_description: Kopieren Sie diesen Link, um das Dokument zu
+      teilen. Jeder mit dem Link kann es unterschreiben, nachdem er seine E-Mail-Adresse
+      eingegeben hat.
+    sign_the_document: Dokument unterschreiben
+    sign_the_document_description: Wenn Sie einer der Unterzeichner sind, können Sie
+      das Dokument mit dieser Schaltfläche unterschreiben.
+    send_for_signing: Zum Unterschreiben senden
+    add_recipients: Empfänger hinzufügen
+    add_recipients_description: Fügen Sie neue Empfänger hinzu, indem Sie ihre E-Mail-Adressen
+      oder Telefonnummern eingeben, damit sie das Dokument unterschreiben können.
+    settings: Einstellungen
+    settings_account_description: Mit umfangreichen Kontoeinstellungen können Sie
+      das Signiererlebnis anpassen und weitere Benutzer einladen.
+    support: Support
+    support_description: Sie können unseren KI-Assistenten nutzen oder uns bei Fragen
+      an support@docuseal.com schreiben.
+    settings_template_description: Über diese Schaltfläche gelangen Sie zu den Kontoeinstellungen.
+  pagination:
+    submissions:
+      range_with_total: "%{from}-%{to} von %{count} Einreichungen"
+      range_without_total: "%{from}-%{to} Einreichungen"
+    templates:
+      range_with_total: "%{from}-%{to} von %{count} Vorlagen"
+      range_without_total: "%{from}-%{to} Vorlagen"
+    template_folders:
+      range_with_total: "%{from}-%{to} von %{count} Ordnern"
+      range_without_total: "%{from}-%{to} Ordner"
+    users:
+      range_with_total: "%{from}-%{to} von %{count} Benutzern"
+      range_without_total: "%{from}-%{to} Benutzer"
+    items:
+      range_with_total: "%{from}-%{to} von %{count} Elementen"
+      range_without_total: "%{from}-%{to} Elemente"
+    events:
+      range_with_total: "%{from}-%{to} von %{count} Ereignissen"
+      range_without_total: "%{from}-%{to} Ereignisse"

@@ -1,0 +1,28 @@
+---
+nl:
+  owner: Eigenaar
+  team_member_permissions: Machtigingen teamleden
+  admin_only: Alleen admin
+  team_access: Teamtoegang
+  role: Rol
+  your_account_removal_request_will_be_processed_within_2_months_please_contact_us_if_you_want_to_keep_your_account: Uw
+    verzoek tot verwijdering van uw account wordt binnen 2 maanden verwerkt. Neem
+    contact met ons op als u uw account wilt behouden.
+  microsoft_account_has_been_connected: Microsoft-account is verbonden.
+  impersonated_as: Geïmpersonificeerd als
+  account_sid: Account SID
+  admin: Beheerder
+  tenant_admin: Tenantbeheerder
+  member: Lid
+  agent: Agent
+  superadmin: Superbeheerder
+  team_account: Teamaccount
+  team_accounts: Teamaccounts
+  tenant_account: Tenantaccount
+  tenant_accounts: Tenantaccounts
+  impersonate: Impersoneren
+  users_management: Gebruikersbeheer
+  user_month: gebruiker / maand
+  manage_subscription: Abonnement beheren
+  pro_user_seats_used: Gebruikersplaatsen Pro gebruikt
+  manage_plan: Abonnement beheren

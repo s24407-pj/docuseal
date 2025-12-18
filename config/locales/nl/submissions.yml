@@ -1,0 +1,68 @@
+---
+nl:
+  bcc_recipients: BCC-ontvangers
+  resend_pending: Opnieuw verzenden in behandeling
+  ensure_unique_recipients: Unieke ontvangers afdwingen
+  pending_by_me: In afwachting van mij
+  signed: Ondertekend
+  you_are_invited_to_product_name: U bent uitgenodigd voor %{product_name}
+  sent_using_product_name_in_testing_mode_html: Verzonden met <a href="%{product_url}">%{product_name}</a>
+    in testmodus
+  sent_with_docuseal_pro_html: Verzonden met <a href="%{product_url}">DocuSeal Pro</a>
+  you_have_been_invited_to_sign_the_name: U bent uitgenodigd om "%{name}" te ondertekenen.
+  you_are_invited_to_sign_a_document: U bent uitgenodigd om een document te ondertekenen
+  you_are_invited_to_sign_documents: U bent uitgenodigd om documenten te ondertekenen
+  invited_by_html: Uitgenodigd door <span class="font-semibold">%{name}</span>
+  signed_on_time: Ondertekend op %{time}
+  first_reminder_in: Eerste herinnering over
+  second_reminder_in: Tweede herinnering over
+  third_reminder_in: Derde herinnering over
+  attach_audit_log_pdf: Auditlogboek-PDF bijvoegen
+  count_documents_signed_with_html: "<b>%{count}</b> documenten ondertekend met"
+  pending: In behandeling
+  expired: Verlopen
+  send_to_recipients: Verzenden naar ontvangers
+  recipients: Ontvangers
+  submission_requester: Aanvrager van inzending
+  invite_by_name: Uitnodigen door %{name}
+  submission_example_payload: Voorbeeldpayload inzending
+  signed_with_trusted_certificate: Ondertekend met vertrouwd certificaat
+  signed_with_external_certificate: Ondertekend met extern certificaat
+  you_are_already_signed_in: U bent al aangemeld.
+  submission_has_been_archived: Inzending is gearchiveerd.
+  submission_has_been_unarchived: Inzending is gedearchiveerd.
+  user_has_been_invited: Gebruiker is uitgenodigd.
+  sms_has_been_sent: SMS is verzonden.
+  automated_reminders: Geautomatiseerde herinneringen
+  audit_log: Auditlogboek
+  signers: Ondertekenaars
+  sent: Verzonden
+  awaiting: Wachten
+  envelope_id: Envelop-ID
+  event_log: Gebeurtenissenlogboek
+  submission_sources:
+    api: API
+    bulk: Bulkverzending
+    embed: Insluiten
+    invite: Uitnodiging
+    link: Link
+  submission_event_names:
+    send_email_to_html: "<b>E-mail verzonden</b> naar %{submitter_name}"
+    bounce_email_html: "<b>E-mail gebounced</b> %{submitter_name}"
+    complaint_email_html: "<b>Spamklacht</b> %{submitter_name}"
+    send_reminder_email_to_html: "<b>Herinneringsmail verzonden</b> naar %{submitter_name}"
+    send_sms_to_html: "<b>SMS verzonden</b> naar %{submitter_name}"
+    send_2fa_sms_to_html: "<b>Verificatie-SMS verzonden</b> naar %{submitter_name}"
+    open_email_by_html: "<b>E-mail geopend</b> door %{submitter_name}"
+    click_email_by_html: "<b>E-maillink aangeklikt</b> door %{submitter_name}"
+    click_sms_by_html: "<b>SMS-link aangeklikt</b> door %{submitter_name}"
+    phone_verified_by_html: "<b>Telefoon geverifieerd</b> door %{submitter_name}"
+    email_verified_by_html: "<b>E-mail geverifieerd</b> door %{submitter_name}"
+    start_form_by_html: "<b>Inzending gestart</b> door %{submitter_name}"
+    view_form_by_html: "<b>Formulier bekeken</b> door %{submitter_name}"
+    invite_party_by_html: "<b>Uitgenodigd</b> %{invited_submitter_name} door %{submitter_name}"
+    complete_form_by_html: "<b>Inzending voltooid</b> door %{submitter_name}"
+    start_verification_by_html: "<b>Identiteitsverificatie gestart</b> door %{submitter_name}"
+    complete_verification_by_html: "<b>Identiteitsverificatie voltooid</b> door %{submitter_name}
+      met %{provider}"
+    api_complete_form_by_html: "<b>Inzending via API voltooid</b> door %{submitter_name}"

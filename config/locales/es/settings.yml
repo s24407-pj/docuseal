@@ -1,0 +1,28 @@
+---
+es:
+  stripe_integration: Integración con Stripe
+  stripe_account_has_been_connected: La cuenta de Stripe ha sido conectada.
+  re_connect_stripe: Volver a conectar Stripe
+  preferences: Preferencias
+  signing_certificates: Certificados de firma
+  connect_gmail: Conectar Gmail
+  re_connect_gmail: Volver a conectar Gmail
+  connect_microsoft: Conectar Microsoft
+  re_connect_microsoft: Volver a conectar Microsoft
+  settings: Configuración
+  personalization: Personalización
+  integrations: Integraciones
+  twilio_settings: Configuración de Twilio
+  go_to_smtp_settings: Ir a la configuración de SMTP
+  re_send_sms: Reenviar SMS
+  send_sms: Enviar SMS
+  go_to_sms_settings: Ir a la configuración de SMS
+  integration: Integración
+  sms_length_cant_be_longer_than_120_bytes: La longitud del SMS no puede ser mayor
+    a 120 bytes.
+  too_many_sms_attempts_try_again_in_a_few_seconds: Demasiados intentos de SMS. Intenta
+    de nuevo en unos segundos.
+  make_com_integration: Integración con Make.com
+  sms_rate_limit_exceeded: Límite de SMS excedido
+  advanced_settings: Configuración avanzada
+  connect_google_drive: Conectar Google Drive

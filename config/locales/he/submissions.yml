@@ -1,0 +1,5 @@
+---
+he:
+  invited_by_html: הוזמן על ידי <span class="font-semibold">%{name}</span>
+  signed_on_time: חתום ב-%{time}
+  count_documents_signed_with_html: "<b>%{count}</b> מסמכים נחתמו באמצעות"

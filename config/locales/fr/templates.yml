@@ -1,0 +1,26 @@
+---
+fr:
+  party: Partie
+  awaiting_completion_by_the_other_party: En attente de finalisation par l’autre partie
+  first_party: Première partie
+  embedding: Embedding
+  templates: Modèles
+  rename_folder: Renommer le dossier
+  folder_name: Nom du dossier
+  clone: Cloner
+  clone_template: Cloner le modèle
+  change_folder: Changer de dossier
+  shared: partagé
+  embedding_url: URL d’embedding
+  move_into_folder: Déplacer dans le dossier
+  new_folder_name: Nouveau nom de dossier
+  new_subfolder_name: Nouveau nom de sous‑dossier
+  change_parent_folder: Changer le dossier parent
+  folder: Dossier
+  api_key: Clé API
+  unable_to_rename_folder: Impossible de renommer le dossier.
+  embedding_users: Utilisateurs d’embedding
+  zapier_integration: Intégration Zapier
+  share_link: Lien de partage
+  enable_shared_link: Activer le lien partagé
+  reveal_api_key: Révéler la clé API

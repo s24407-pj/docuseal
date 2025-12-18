@@ -1,0 +1,127 @@
+---
+nl:
+  send_verification_code: Verificatiecode verzenden
+  code_has_been_resent: Code is opnieuw verzonden.
+  invalid_code: Ongeldige code
+  you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'U
+    bent uitgenodigd voor %{account_name} %{product_name}. Meld u aan via de onderstaande
+    link:'
+  show_send_with_docuseal_pro_attribution_in_emails_html: Toon de vermelding 'Verzonden
+    met <span class="link">DocuSeal Pro</span>' in e-mails
+  please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Neem contact
+    met ons op door op deze e-mail te antwoorden als u vragen heeft.
+  verification_code_sms_body: 'Verificatiecode: {code}'
+  submitter_invitation_email_sign_body: |
+    Hallo,
+
+    U bent uitgenodigd om "{template.name}" te ondertekenen.
+
+    [Bekijken en ondertekenen]({submitter.link})
+
+    Neem contact met ons op door op deze e-mail te antwoorden als u vragen heeft.
+
+    Bedankt,
+    {account.name}
+  submitter_completed_email_body: |
+    Hallo,
+
+    "{template.name}" is voltooid door {submission.submitters}
+
+    {submission.link}
+  email: E-mail
+  verification_code_code: 'Verificatiecode: %{code}'
+  provide_your_email: Vul uw e-mailadres in
+  sign_in: Inloggen
+  sign_in_with_microsoft: Inloggen met Microsoft
+  sign_in_with_google: Inloggen met Google
+  first_name: Voornaam
+  last_name: Achternaam
+  sign_up: Registreren
+  profile_details: Profielgegevens
+  sign_up_with_google: Registreren met Google
+  sign_up_with_microsoft: Registreren met Microsoft
+  sign_in_with_name_account: Inloggen met %{name}-account
+  send_from_email: Verzenden vanaf e-mailadres
+  verify_signed_pdf: Ondertekende PDF verifiëren
+  setup_2fa: 2FA instellen
+  2fa_has_been_configured: 2FA is geconfigureerd.
+  code_is_invalid: Code is ongeldig
+  2fa_has_been_set_up_already: 2FA is al ingesteld.
+  sign_request_email_reminders: E-mailherinneringen voor ondertekenverzoeken
+  send_automatic_email_reminders_to_your_recipients: Stuur automatische e-mailherinneringen
+    naar uw ontvangers.
+  email_templates: E-mailsjablonen
+  signature_request_email: E-mail voor handtekeningverzoek
+  verification_code_sms: Verificatiecode-SMS
+  profile: Profiel
+  set_up_2fa: 2FA instellen
+  email_integration: E-mailintegratie
+  send_via_connected_email: Verzenden via gekoppeld e-mailaccount
+  send_signature_request_to_your_recipients_directly_from_your_email: Stuur een ondertekenverzoek
+    rechtstreeks vanuit uw eigen e-mail naar uw ontvangers
+  email_has_been_sent: E-mail is verzonden.
+  email_has_been_sent_already: E-mail is al verzonden.
+  verify_pdf: PDF verifiëren
+  sign_out: Afmelden
+  type_emails_here: Typ hier e-mailadressen
+  phone: Telefoon
+  send_emails: E-mails verzenden
+  send_signature_request_emails_without_limits_with_docuseal_pro: Verzend onbeperkt
+    e-mails voor ondertekenverzoeken met DocuSeal Pro
+  count_emails_used: "%{count} e-mails gebruikt"
+  email_subject: E-mailonderwerp
+  email_body: E-mailtekst
+  attach_audit_log_pdf_to_the_email: Auditlogboek-PDF aan de e-mail toevoegen
+  attach_documents_to_the_email: Documenten aan de e-mail toevoegen
+  specified_email: Opgegeven e-mail
+  default_email: Standaard e-mail
+  last_session: Laatste sessie
+  please_sign_in: Log in alstublieft.
+  ten_signature_request_emails_per_month: 10 e-mails met verzoeken/maand
+  unlimited_signature_request_emails: Onbeperkte ondertekenverzoeken
+  personalize_email_content: E-mailinhoud personaliseren
+  identify_verification_via_sms: Identiteitsverificatie via SMS
+  sign_in_person: In persoon ondertekenen
+  re_send_email: E-mail opnieuw verzenden
+  send_email: E-mail verzenden
+  via_email: via e-mail
+  via_phone: via telefoon
+  verify: Verifiëren
+  email_verification: E-mailverificatie
+  phone_verification: Telefoonverificatie
+  session_id: Sessie-ID
+  phone_field: Telefoonveld
+  verification_field: Identiteitsverificatie
+  identity_verification: Identiteitsverificatie
+  the_code_has_been_sent_to_your_email: De code is naar uw e-mail verzonden.
+  enter_the_verification_code_from_your_email: Voer de verificatiecode uit uw e-mail
+    in.
+  verification_code: Verificatiecode
+  resend_code: Code opnieuw verzenden
+  verify_new_sign_in: Nieuwe aanmelding verifiëren
+  complete_sign_in: Inloggen voltooien
+  please_reply_to_this_email_if_you_dont_recognize_this_sign_in_attempt: Reageer op
+    deze e-mail als u deze aanmeldpoging niet herkent.
+  number_phone_number_is_invalid: Telefoonnummer +%{number} is ongeldig
+  count_10_signature_request_emails_sent_this_month_upgrade_to_pro_to_send_unlimited_signature_request_email: "%{count}
+    / 10 e-mails voor ondertekenverzoeken deze maand verzonden. Upgrade naar Pro om
+    onbeperkt e-mails voor ondertekenverzoeken te verzenden."
+  test_mode_emails_limit_will_be_reset_within_24_hours: Limiet voor testmodus-e-mails
+    wordt binnen 24 uur opnieuw ingesteld.
+  request_email_otp_verification_with_shared_link: E-mail-OTP-verificatie vereisen
+    bij deellink
+  invalid_phone_number: Ongeldig telefoonnummer
+  re_send_code: Code opnieuw verzenden
+  your_verification_code_to_access_the_name: 'Uw verificatiecode om toegang te krijgen
+    tot "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: Reageer op deze e-mail als
+    u dit niet hebt aangevraagd.
+  code: Code
+  custom_html_emails: Aangepaste HTML-e-mails
+  connect_your_email_to_send_html_emails: Koppel uw e-mail om HTML-e-mails te verzenden
+  connect_your_email_to_bulk_send: Koppel uw e-mail om bulk te verzenden
+  api_key_access_code: Toegangscode API-sleutel
+  use_otp_code_to_access_the_api_key_html: Gebruik de code <b>%{code}</b> om toegang
+    te krijgen tot de API-sleutel.
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Reageer op deze e-mail
+    als u dit verzoek niet herkent.

@@ -1,0 +1,69 @@
+---
+uk:
+  require_phone_2fa_to_open: Вимагати двофакторну автентифікацію через телефон для
+    відкриття
+  the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Відправник
+    запросив двофакторну автентифікацію за допомогою одноразового пароля, відправленого
+    на ваш номер телефону <b>%{phone}</b>.
+  view: Переглянути
+  hi_there: Привіт,
+  download: Завантажити
+  notify_the_sender_with_the_reason_you_declined: Повідомте відправника про причину,
+    з якої ви відхилили
+  form_has_been_declined_on_html: Форму було відхилено о <span class="font-semibold">%{time}</span>
+  digitally_signed_by: Цифровий підпис від
+  provide_your_email_to_start: Введіть свій емейл, щоб почати
+  provide_your_name_to_start: Введіть своє ім’я, щоб почати
+  provide_your_phone_in_international_format_to_start: Введіть номер телефону у міжнародному
+    форматі, щоб почати
+  provide_your_phone_in_international_format: Введіть номер телефону у міжнародному
+    форматі
+  use_international_format_1xxx_: 'Використовуйте міжнародний формат: +1xxx...'
+  form_expired_at_html: Строк подачі завершився о <span class="font-semibold">%{time}</span>
+  start: Почати
+  starting: Початок
+  form_has_been_deleted_by_html: Форму було видалено користувачем <span class="font-semibold">%{name}</span>.
+  you_have_been_invited_to_submit_a_form: Вас запросили подати форму
+  form_has_been_submitted_already: Форма вже була подана
+  send_copy_to_email: Надіслати копію на Email
+  sending: Надсилання
+  or: або
+  download_documents: Завантажити документи
+  downloading: Завантаження
+  completed_successfully: Успішно завершено
+  password: Пароль
+  forgot_your_password_: Забули пароль?
+  create_free_account: Створити безкоштовний акаунт
+  by_creating_an_account_you_agree_to_our_html: Створюючи акаунт, ви погоджуєтесь
+    з нашою <a target="_blank" href="https://www.docuseal.com/privacy">Політикою конфіденційності</a>
+    і <a target="_blank" href="https://www.docuseal.com/terms">Умовами надання послуг</a>.
+  enter_email_to_continue: Введіть електронну пошту, щоб продовжити
+  powered_by: Працює на базі
+  open_source_documents_software: відкрите програмне забезпечення для документів
+  please_enter_your_email_address_associated_with_the_completed_submission: Введіть
+    адресу електронної пошти, пов'язану із завершеним поданням.
+  privacy_policy: Політика конфіденційності
+  select_data_residency: Виберіть місце зберігання даних
+  optional: необов’язково
+  please_contact_the_requester_to_specify_your_phone_number_for_two_factor_authentication: Зв’яжіться
+    з відправником, щоб вказати номер телефону для двофакторної автентифікації.
+  we_sent_a_one_time_verification_code_to_your_email_address_please_enter_the_code_below_to_continue: Ми
+    надіслали одноразовий код підтвердження на вашу електронну пошту. Введіть його
+    нижче, щоб продовжити.
+  your_user_account_has_been_archived_contact_your_administrator_to_restore_access_to_your_account: Ваш
+    обліковий запис було архівовано. Зверніться до адміністратора, щоб відновити доступ.
+  ? your_email_could_not_be_reached_this_may_happen_if_there_was_a_typo_in_your_address_or_if_your_mailbox_is_not_available_please_contact_support_email_to_log_in
+  : Не вдалося отримати доступ до вашої електронної пошти. Це може статися, якщо була
+    допущена помилка в адресі або ваша скринька недоступна. Зверніться до support@docuseal.com,
+    щоб увійти.
+  decline: Відхилити
+  decline_reason: Причина відхилення
+  provide_a_reason: Надайте причину
+  provide_your_name: Введіть своє ім’я
+  reason: Причина
+  signing_in: Вхід
+  already_have_an_account: Вже є акаунт?
+  signing_up: Реєстрація
+  too_many_attempts: Забагато спроб.
+  eu_data_residency: Зберігання даних в ЄС
+  company_name: Назва компанії

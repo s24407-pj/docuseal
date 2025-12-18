@@ -1,0 +1,126 @@
+---
+it:
+  send_verification_code: Invia codice di verifica
+  code_has_been_resent: Il codice è stato inviato di nuovo
+  invalid_code: Codice non valido
+  you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Sei
+    stato invitato a %{account_name} %{product_name}. Registrati utilizzando il link
+    qui sotto:'
+  show_send_with_docuseal_pro_attribution_in_emails_html: Mostra la dicitura "Inviato
+    con <span class="link">DocuSeal Pro</span>" nelle email
+  please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Per favore,
+    contattaci rispondendo a questa email se hai domande.
+  verification_code_sms_body: 'Codice di verifica: {code}'
+  submitter_invitation_email_sign_body: |
+    Ciao,
+
+    Sei stato invitato a firmare il "{template.name}".
+
+    [Rivedi e Firma]({submitter.link})
+
+    Per favore, contattaci rispondendo a questa email se hai domande.
+
+    Grazie,
+    {account.name}
+  submitter_completed_email_body: |
+    Ciao,
+
+    "{template.name}" è stato completato da {submission.submitters}
+
+    {submission.link}
+  email: Email
+  verification_code_code: 'Codice di verifica: %{code}'
+  provide_your_email: Fornisci la tua email
+  sign_in: Accedi
+  sign_in_with_microsoft: Accedi con Microsoft
+  sign_in_with_google: Accedi con Google
+  first_name: Nome
+  last_name: Cognome
+  sign_up: Registrati
+  profile_details: Dettagli del profilo
+  sign_up_with_google: Registrati con Google
+  sign_up_with_microsoft: Registrati con Microsoft
+  sign_in_with_name_account: Accedi con l'account %{name}
+  send_from_email: Invia da Email
+  verify_signed_pdf: Verifica PDF firmato
+  setup_2fa: Configura 2FA
+  2fa_has_been_configured: 2FA è stata configurata.
+  code_is_invalid: Il codice non è valido
+  2fa_has_been_set_up_already: 2FA è già stata configurata.
+  sign_request_email_reminders: Promemoria email di richiesta di firma
+  send_automatic_email_reminders_to_your_recipients: Invia promemoria email automatici
+    ai tuoi destinatari.
+  email_templates: Modelli email
+  signature_request_email: Email di richiesta di firma
+  verification_code_sms: SMS con codice di verifica
+  profile: Profilo
+  set_up_2fa: Configura 2FA
+  email_integration: Integrazione email
+  send_via_connected_email: Invia tramite email connessa
+  send_signature_request_to_your_recipients_directly_from_your_email: Invia la richiesta
+    di firma ai tuoi destinatari direttamente dalla tua email
+  email_has_been_sent: L'email è stata inviata.
+  email_has_been_sent_already: L'email è già stata inviata.
+  verify_pdf: Verifica PDF
+  sign_out: Esci
+  type_emails_here: Digita qui le email
+  phone: Telefono
+  send_emails: Invia email
+  send_signature_request_emails_without_limits_with_docuseal_pro: Invia email di richiesta
+    di firma senza limiti con DocuSeal Pro
+  count_emails_used: "%{count} email utilizzate"
+  email_subject: Oggetto dell'email
+  email_body: Corpo dell'email
+  attach_audit_log_pdf_to_the_email: Allega il PDF del registro di audit all'email
+  attach_documents_to_the_email: Allega documenti all'email
+  specified_email: Email specificata
+  default_email: Email predefinita
+  last_session: Ultima sessione
+  please_sign_in: Effettua l'accesso.
+  ten_signature_request_emails_per_month: 10 email di richiesta di firma al mese
+  unlimited_signature_request_emails: Email di richiesta di firma illimitate
+  personalize_email_content: Personalizza il contenuto dell'email
+  identify_verification_via_sms: Verifica dell'identità tramite SMS
+  sign_in_person: Firma di persona
+  re_send_email: Invia di nuovo l'email
+  send_email: Invia email
+  via_email: via e-mail
+  via_phone: via telefono
+  verify: Verifica
+  email_verification: Verifica email
+  phone_verification: Verifica telefono
+  session_id: ID della Sessione
+  phone_field: Campo Telefono
+  verification_field: Verifica dell'identità
+  identity_verification: Verifica dell'identità
+  the_code_has_been_sent_to_your_email: Il codice è stato inviato alla tua e-mail.
+  enter_the_verification_code_from_your_email: Inserisci il codice di verifica dalla
+    tua e-mail.
+  verification_code: Codice di Verifica
+  resend_code: Reinvia Codice
+  verify_new_sign_in: Verifica nuovo accesso
+  complete_sign_in: Completa l'Accesso
+  please_reply_to_this_email_if_you_dont_recognize_this_sign_in_attempt: Rispondi
+    a questa e-mail se non riconosci questo tentativo di accesso.
+  number_phone_number_is_invalid: Il numero di telefono +%{number} non è valido
+  count_10_signature_request_emails_sent_this_month_upgrade_to_pro_to_send_unlimited_signature_request_email: "%{count}
+    / 10 e-mail di richiesta di firma inviati questo mese. Passa a Pro per inviare
+    richieste di firma illimitate."
+  test_mode_emails_limit_will_be_reset_within_24_hours: Il limite di e-mail in modalità
+    di test verrà ripristinato entro 24 ore.
+  request_email_otp_verification_with_shared_link: Richiedi la verifica OTP tramite
+    email con link condiviso
+  invalid_phone_number: Numero di telefono non valido
+  re_send_code: Invia di nuovo il codice
+  your_verification_code_to_access_the_name: 'Il tuo codice per accedere a "%{name}":'
+  please_reply_to_this_email_if_you_didnt_request_this: Rispondi a questa email se
+    non hai richiesto questo.
+  code: Codice
+  custom_html_emails: Email HTML personalizzate
+  connect_your_email_to_send_html_emails: Collega la tua email per inviare email HTML
+  connect_your_email_to_bulk_send: Collega la tua email per invio multiplo
+  api_key_access_code: Codice di accesso della chiave API
+  use_otp_code_to_access_the_api_key_html: Usa il codice <b>%{code}</b> per accedere
+    alla chiave API.
+  please_reply_to_this_email_if_you_dont_recognize_this_request: Rispondi a questa
+    email se non riconosci questa richiesta.

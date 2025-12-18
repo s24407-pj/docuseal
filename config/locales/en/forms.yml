@@ -1,0 +1,116 @@
+---
+en:
+  upload_a_new_document: Upload a New Document
+  use_direct_file_attachment_links_in_the_documents: Use direct file attachment links
+    in the documents
+  docuseal_trusted_signature: DocuSeal Trusted Signature
+  sent_using_product_name_free_document_signing_html: Sent using <a href="%{product_url}">%{product_name}</a>
+    free document signing.
+  submitter_invitation_sms_body_sign: "{account.name} has invited you to sign a document:
+    {submitter.link}"
+  name_has_been_completed_by_submitters: '"%{name}" has been completed by %{submitters}.'
+  template_name_has_been_completed_by_submitters: "{template.name} has been completed
+    by {submission.submitters}"
+  completed_on_time: Completed on %{time}
+  document_has_been_signed_already: Document has been signed already
+  resubmit: Resubmit
+  declined: Declined
+  name_declined_by_submitter: '"%{name}" declined by %{submitter}'
+  name_declined_by_submitter_with_the_following_reason: '"%{name}" has been declined
+    by %{submitter} with the following reason:'
+  request_signature_multiple_submitters_with_default_values: Request signature, multiple
+    submitters with default values
+  request_signature_single_submitter: Request signature, single submitter
+  template_details: Template details
+  upload_certificate: Upload Certificate
+  file: File
+  submit: Submit
+  submitting: Submitting
+  pdf_signature: PDF Signature
+  upload_signed_pdf_file_to_validate_its_signature_: 'Upload signed PDF file to validate
+    its signature:'
+  upload_cert: Upload Cert
+  timestamp_server: Timestamp Server
+  url_of_the_trusted_rfc_3161_timeserver_to_be_used_to_generate_timestamp_signatures: URL
+    of the trusted RFC 3161 timeserver to be used to generate timestamp signatures.
+  apply_multiple_pdf_digital_signatures_in_the_document_per_each_signer: Apply multiple
+    PDF digital signatures in the document per each signer
+  signature_request_sms: Signature Request SMS
+  text_message: Text message
+  upload_logo: Upload Logo
+  signature: Signature
+  initials: Initials
+  page_number: Page %{number}
+  e_signature: E-Signature
+  send_signature_requests_via_sms: Send signature requests via SMS
+  upgrade_to_send_unlimited_signature_requests: Upgrade to send unlimited signature
+    requests
+  document_templates_html: <span class="hidden md:inline">Document</span> Templates
+  completed: Completed
+  draw_signature: Draw Signature
+  signature_uploaded: Signature Uploaded
+  upload_new_document: Upload New Document
+  upload: Upload
+  new_document_template: New Document Template
+  document_name: Document Name
+  template_id: Template ID
+  share_template_with_test_mode: Share template with Test mode
+  use_following_placeholders_text_: 'Use following placeholders text:'
+  upload_initials: Upload Initials
+  draw: Draw
+  upload_signature: Upload Signature
+  manage_multiple_teams: Manage Multiple Teams
+  file_is_missing: File is missing
+  template_has_been_archived: Template has been archived.
+  template_has_been_cloned: Template has been cloned.
+  document_template_has_been_moved: Document template has been moved.
+  unable_to_move_template_into_folder: Unable to move template into folder.
+  template_has_been_unarchived: Template has been unarchived.
+  logo_has_been_uploaded: Logo has been uploaded.
+  invalid_file_type: Invalid file type
+  upload_file: Upload file
+  ten_filed_types: 10 field types
+  multiple_signers: Multiple signers
+  automatic_esignature: Automatic eSignature
+  declined_on_time: Declined on %{time}
+  upload_list: Upload List
+  document_id: Document ID
+  option: Option
+  text_field: Text Field
+  signature_field: Signature Field
+  initials_field: Initials Field
+  date_field: Date Field
+  number_field: Number Field
+  image_field: Image Field
+  file_field: File Field
+  checkbox_field: Checkbox Field
+  multiple_field: Multiple Select Field
+  radio_field: Radio Group Field
+  cells_field: Cells Field
+  stamp_field: Stamp Field
+  payment_field: Payment Field
+  completed_at: Completed at
+  at_least_one_field_must_be_filled: At least one field must be filled.
+  seamlessly_automate_your_document_signing_process_with_make_com: Seamlessly automate
+    your document signing process with Make.com.
+  your_pro_plan_payment_is_overdue: Your Pro plan payment is overdue.
+  overdue_payment: Overdue Payment
+  this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: This
+    submission has multiple signers, which prevents the use of a sharing link as it's
+    unclear which signer is responsible for specific fields. To resolve this, follow
+    this <a href="https://www.docuseal.com/resources/pre-filling-recipients" class="link
+    font-bold" rel="noopener noreferrer nofollow" target="_blank">guide</a> to define
+    the default signer details.
+  specified_date: Specified date
+  esignature_disclosure: eSignature Disclosure
+  this_template_has_multiple_parties_which_prevents_the_use_of_a_sharing_link: This
+    template has multiple parties, which prevents the use of a shared link as it's
+    unclear which party is responsible for specific fields. To resolve this, define
+    the default party details.
+  text: Text
+  template_name_has_been_completed_by_submitters_html: '"<strong>{template.name}</strong>"
+    has been completed by <strong>{submission.submitters}</strong>'
+  you_have_been_invited_to_sign_the_template_name_html: You have been invited to sign
+    the "<strong>{template.name}</strong>".
+  the_file_is_missing_make_sure_you_have_access_to_it_on_google_drive: The file is
+    missing. Make sure you have access to it on Google Drive.

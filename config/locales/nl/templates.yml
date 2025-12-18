@@ -1,0 +1,27 @@
+---
+nl:
+  party: Partij
+  first_party: Eerste partij
+  awaiting_completion_by_the_other_party: In afwachting van voltooiing door de andere
+    partij
+  embedding: Insluiten
+  templates: Sjablonen
+  rename_folder: Map hernoemen
+  folder_name: Mapnaam
+  clone: Klonen
+  clone_template: Sjabloon klonen
+  change_folder: Map wijzigen
+  shared: gedeeld
+  embedding_url: Insluitings-URL
+  move_into_folder: Verplaatsen naar map
+  new_folder_name: Nieuwe mapnaam
+  new_subfolder_name: Nieuwe submapnaam
+  change_parent_folder: Bovenliggende map wijzigen
+  folder: Map
+  api_key: API-sleutel
+  unable_to_rename_folder: Kan map niet hernoemen.
+  embedding_users: Gebruikers voor insluiten
+  zapier_integration: Zapier-integratie
+  share_link: Deellink
+  enable_shared_link: Deellink inschakelen
+  reveal_api_key: API-sleutel tonen

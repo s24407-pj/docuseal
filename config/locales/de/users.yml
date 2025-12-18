@@ -1,0 +1,28 @@
+---
+de:
+  owner: Eigentümer
+  team_member_permissions: Berechtigungen für Teammitglieder
+  admin_only: Nur Admins
+  team_access: Teamzugang
+  role: Rolle
+  your_account_removal_request_will_be_processed_within_2_months_please_contact_us_if_you_want_to_keep_your_account: Ihre
+    Anfrage zur Kontolöschung wird innerhalb von 2 Monaten bearbeitet. Bitte kontaktieren
+    Sie uns, wenn Sie Ihr Konto behalten möchten.
+  microsoft_account_has_been_connected: Das Microsoft-Konto wurde verbunden.
+  impersonated_as: Angemeldet als
+  account_sid: Konto-SID
+  admin: Administrator
+  tenant_admin: Mandantenadministrator
+  member: Mitglied
+  agent: Agent
+  superadmin: Superadministrator
+  team_account: Teamkonto
+  team_accounts: Teamkonten
+  tenant_account: Mandantenkonto
+  tenant_accounts: Mandantenkonten
+  impersonate: Als Benutzer auftreten
+  users_management: Benutzerverwaltung
+  user_month: Benutzer / Monat
+  manage_subscription: Abonnement verwalten
+  pro_user_seats_used: Verwendete Pro-Benutzerplätze
+  manage_plan: Plan verwalten
