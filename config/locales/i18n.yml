@@ -478,161 +478,6 @@ en: &en
   send_email: Send Email
   copy_share_link: Copy Share Link
   copied_to_clipboard: Copied to Clipboard
-  redirect_on_completion_url: Redirect on completion URL
-  completion_message: Completion message
-  email_subject: Email subject
-  email_body: Email body
-  attach_audit_log_pdf_to_the_email: Attach Audit Log PDF to the email
-  send_emails_automatically_on_completion: Send emails automatically on completion
-  attach_documents_to_the_email: Attach documents to the email
-  not_specified: Not specified
-  submission_requester: Submission requester
-  specified_email: Specified email
-  invite_by_name: 'Invite by %{name}'
-  same_as_name: 'Same as %{name}'
-  default_email: Default Email
-  processing: Processing
-  upload_initials: Upload Initials
-  draw: Draw
-  upload_signature: Upload Signature
-  integration: Integration
-  admin: Admin
-  tenant_admin: Tenant Admin
-  editor: Editor
-  viewer: Viewer
-  member: Member
-  agent: Agent
-  superadmin: Superadmin
-  edit_user: Edit User
-  new_user: New User
-  unarchive: Unarchive
-  last_session: Last session
-  unlock_more_user_roles_with_docuseal_pro: Unlock more user roles with DocuSeal Pro.
-  view_active: View Active
-  team_account: Team account
-  team_accounts: Team Accounts
-  tenant_account: Tenant account
-  tenant_accounts: Tenant Accounts
-  impersonate: Impersonate
-  loading: Loading
-  documents: Documents
-  accounts: Accounts
-  edit_account: Edit Account
-  new_team: New Team
-  new_tenant: New Tenant
-  remove_team: Remove Team
-  remove_tenant: Remove Tenant
-  replace: Replace
-  allow_tenant_admins_to_invite_new_users: Allow tenant admins to invite new users
-  manage_multiple_teams: Manage Multiple Teams
-  api_key: API Key
-  logo: Logo
-  back: Back
-  add_secret: Add Secret
-  edit_secret: Edit Secret
-  submission_example_payload: Submission example payload
-  there_are_no_signatures: There are no signatures
-  signed_with_trusted_certificate: Signed with trusted certificate
-  signed_with_external_certificate: Signed with external certificate
-  setup_2fa_to_continue: Setup 2FA to continue.
-  create_a_new_account: Create a new account.
-  you_are_already_signed_in: You are already signed in.
-  please_sign_in: Please sign in.
-  not_found: Not found
-  new_recipients_have_been_added: New recipients have been added.
-  submission_has_been_removed: Submission has been removed.
-  submission_has_been_archived: Submission has been archived.
-  form_has_been_completed_already: Form has been completed already.
-  form_has_been_archived: Form has been archived.
-  form_has_been_expired: Form has been expired.
-  form_has_been_declined: Form has been declined.
-  file_is_missing: File is missing
-  folder_name_has_been_updated: Folder name has been updated.
-  unable_to_rename_folder: Unable to rename folder.
-  template_has_been_removed: Template has been removed.
-  template_has_been_archived: Template has been archived.
-  template_has_been_cloned: Template has been cloned.
-  document_template_has_been_moved: Document template has been moved.
-  unable_to_move_template_into_folder: Unable to move template into folder.
-  template_has_been_unarchived: Template has been unarchived.
-  submission_has_been_unarchived: Submission has been unarchived.
-  unable_to_update_file: Unable to upload file.
-  user_has_been_invited: User has been invited.
-  unable_to_update_user: Unable to update user.
-  user_has_been_updated: User has been updated.
-  unable_to_remove_user: Unable to remove user.
-  user_has_been_removed: User has been removed.
-  invalid_pdf: Invalid PDF
-  webhook_secret_has_been_saved: Webhook Secret has been saved.
-  webhook_url_has_been_saved: Webhook URL has been saved.
-  webhook_request_has_been_sent: Webhook request has been sent.
-  webhook_url_has_been_updated: Webhook URL has been updated.
-  webhook_url_has_been_deleted: Webhook URL has been deleted.
-  unable_to_resend_webhook_request: Unable to resend webhook request.
-  new_webhook: New Webhook
-  delete_webhook: Delete webhook
-  count_submissions_have_been_created: '%{count} submissions have been created.'
-  sms_length_cant_be_longer_than_120_bytes: SMS length can't be longer than 120 bytes
-  connected_successfully: Connected successfully.
-  user_nameid_not_found: 'User %{nameid} not found.'
-  sso_settings_have_been_updated: SSO settings have been updated.
-  sms_has_been_sent: SMS has been sent.
-  account_has_been_created: Account has been created.
-  account_has_been_updated: Account has been updated.
-  account_has_been_removed: Account has been removed.
-  logo_has_been_uploaded: Logo has been uploaded.
-  invalid_file_type: Invalid file type
-  upload_file: Upload file
-  upgrade_your_plan_to_invite_more_users_contact_email: 'Upgrade your plan to invite more users (contact %{email}).'
-  contact_your_admin_email_to_invite_more_users: 'Contact your admin %{email} to invite more users.'
-  contact_your_administrator_to_add_new_users: Contact your administrator to add new user
-  one_hour: 1 hour
-  two_hours: 2 hours
-  four_hours: 4 hours
-  eight_hours: 8 hours
-  twelve_hours: 12 hours
-  twenty_four_hours: 24 hours
-  two_days: 2 days
-  four_days: 4 days
-  eight_days: 8 days
-  fifteen_days: 15 days
-  twenty_one_days: 21 days
-  thirty_days: 30 days
-  free: Free
-  unlimited_documents_storage: Unlimited documents storage
-  users_management: Users management
-  ten_filed_types: 10 field types
-  multiple_signers: Multiple signers
-  automatic_esignature: Automatic eSignature
-  ten_signature_request_emails_per_month: 10 signature request emails per month
-  unlimited_sign_yourself: Unlimited sign yourself
-  free_developer_testing_sandbox: Free developer testing sandbox
-  continue_with_free_basic: Continue with Free Basic
-  unlimited_signature_request_emails: Unlimited signature request emails
-  your_company_logo: Your company logo
-  connect_own_email_address: Connect own email address
-  personalize_email_content: Personalize email content
-  automated_reminders: Automated reminders
-  bulk_send_from_spreadsheet: Bulk send from spreadsheet
-  identify_verification_via_sms: Identify verification via SMS
-  start_with_pro: Start with Pro
-  user_month: user / month
-  developer_sandbox: Developer Sandbox.
-  upgrade_to_start_using_in_production_html: '<a href="%{url}" target="_blank" class="link font-semibold">Upgrade</a> to start using in Production.'
-  download_combined_pdf: Download combined PDF
-  audit_log: Audit Log
-  signers: Signers
-  not_invited_yet:  Not invited yet
-  not_completed_yet: Not completed yet
-  declined_on_time: 'Declined on %{time}'
-  expire_on_time: 'Expire on %{time}'
-  sign_in_person: Sign In-person
-  create_a_new_template_document_form_or_submit_the_existing_one_html: <a href="%{new_template_link}" data-turbo-frame="modal" class="inline underline font-medium">Create a new template</a> document form or <a href="%{start_form_link}" target="_blank" class="inline underline font-medium">submit the existing one</a>
-  send_email_copy_with_completed_documents_to_a_specified_bcc_address: Send email copy with completed documents to a specified BCC address.
-  re_send_email: Re-send Email
-  send_email: Send Email
-  copy_share_link: Copy Share Link
-  copied_to_clipboard: Copied to Clipboard
   link: Link
   via_email: via Email
   via_phone: via Phone
@@ -5973,8 +5818,6 @@ pl: &pl
   start: Rozpocznij
   starting: Rozpoczynanie
   invited_by_html: 'Zaproszony przez <span class="font-semibold">%{name}</span>'
-  review_and_sign: Przejrzyj i podpisz
-  review_and_submit: Przejrzyj i wyślij
   send_copy_to_email: Wyślij kopię na e-mail
   downloading: Pobieranie
   download: Pobierz
@@ -6467,22 +6310,7 @@ pl: &pl
   code_has_been_resent: Kod został wysłany ponownie
   invalid_code: Niepoprawny kod
   awaiting_completion_by_the_other_party: "Oczekuje na dokończenie przez drugą stronę"
-  view: Widok
-  hi_there: Cześć,
-  download: Pobierz
-  decline: Odrzuć
-  declined: Odrzucono
-  decline_reason: Powód odrzucenia
-  provide_a_reason: Podaj powód
-  notify_the_sender_with_the_reason_you_declined: Powiadom nadawcę o powodzie, dla którego odrzuciłeś
-  form_has_been_declined_on_html: 'Formularz został odrzucony o <span class="font-semibold">%{time}</span>'
-  name_declined_by_submitter: '"%{name}" odrzucono przez %{submitter}'
-  name_declined_by_submitter_with_the_following_reason: '"%{name}" został odrzucony przez %{submitter} z następującym powodem:'
   email: E-mail
-  verification_code_code: 'Kod weryfikacyjny: %{code}'
-  digitally_signed_by: Podpis cyfrowy przez
-  form_expired_at_html: 'Formularz wygasł o <span class="font-semibold">%{time}</span>'
-  role: Rola
   provide_your_email_to_start: Podaj swój e-mail, aby rozpocząć
   provide_your_email: Podaj swój e-mail
   provide_your_name_to_start: Podaj swoje imię i nazwisko, aby rozpocząć
@@ -6490,30 +6318,22 @@ pl: &pl
   provide_your_phone_in_international_format_to_start: Podaj numer telefonu w formacie międzynarodowym, aby rozpocząć
   provide_your_phone_in_international_format: Podaj numer telefonu w formacie międzynarodowym
   use_international_format_1xxx_: 'Użyj formatu międzynarodowego: +1xxx...'
-  start: Rozpocznij
-  reason: Powód
-  starting: Rozpoczynanie
   form_has_been_deleted_by_html: 'Formularz został usunięty przez <span class="font-semibold">%{name}</span>.'
-  invited_by_html: 'Zaproszony przez <span class="font-semibold">%{name}</span>'
   you_have_been_invited_to_submit_a_form: Zostałeś zaproszony do przesłania formularza
   signed_on_time: 'Podpisano %{time}'
   completed_on_time: 'Zakończono %{time}'
   document_has_been_signed_already: 'Dokument został już podpisany'
   form_has_been_submitted_already: Formularz został już przesłany
-  re_send_email: Wyślij wiadomość e-mail ponownie
-  send_copy_to_email: Wyślij kopię na Email
   sending: Wysyłanie
   resubmit: Prześlij ponownie
   or: lub
   download_documents: Pobierz dokumenty
-  downloading: Pobieranie
   open_source_documents_software: 'oprogramowanie do dokumentów open source'
   eu_data_residency: Dane w UE
   please_enter_your_email_address_associated_with_the_completed_submission: Wprowadź adres e-mail powiązany z ukończonym zgłoszeniem.
   privacy_policy: Polityka Prywatności
   esignature_disclosure: Użycie e-podpisu
   select_data_residency: Wybierz lokalizację danych
-  company_name: Nazwa firmy
   optional: opcjonalne
   sms_rate_limit_exceeded: Przekroczono limit wiadomości SMS
   invalid_phone_number: Nieprawidłowy numer telefonu
