@@ -8,7 +8,7 @@
     :scroll-el="scrollEl"
     :with-signature-id="withSignatureId"
     :attachments-index="attachmentsIndex"
-    :with-label="!isAnonymousChecboxes && showFieldNames"
+    :with-label="withFieldLabels && !isAnonymousChecboxes && showFieldNames"
     :current-step="currentStepFields"
     :scroll-padding="scrollPadding"
     @focus-step="[saveStep(), currentField.type !== 'checkbox' ? isFormVisible = true : '', goToStep($event, false, true)]"
@@ -465,6 +465,17 @@
             @focus="scrollIntoField(currentField)"
             @submit="!isSubmitting && submitStep()"
           />
+          <KbaStep
+            v-else-if="currentField.type === 'kba'"
+            ref="currentStep"
+            :key="currentField.uuid"
+            :submitter="submitter"
+            :empty-value-required-step="emptyValueRequiredStep"
+            :field="currentField"
+            :submitter-slug="submitterSlug"
+            :values="values"
+            @submit="!isSubmitting && submitStep()"
+          />
           <VerificationStep
             v-else-if="currentField.type === 'verification'"
             ref="currentStep"
@@ -480,7 +491,7 @@
           />
         </div>
         <div
-          v-if="(currentField.type !== 'payment' && currentField.type !== 'verification') || submittedValues[currentField.uuid]"
+          v-if="(currentField.type !== 'payment' && currentField.type !== 'verification' && currentField.type !== 'kba') || submittedValues[currentField.uuid]"
           :class="currentField.type === 'signature' ? 'mt-2' : 'mt-4 md:mt-6'"
         >
           <button
@@ -569,6 +580,7 @@ import MultiSelectStep from './multi_select_step'
 import PhoneStep from './phone_step'
 import PaymentStep from './payment_step'
 import VerificationStep from './verification_step'
+import KbaStep from './kba_step'
 import TextStep from './text_step'
 import NumberStep from './number_step'
 import DateStep from './date_step'
@@ -613,6 +625,7 @@ export default {
     AttachmentStep,
     InitialsStep,
     VerificationStep,
+    KbaStep,
     InviteForm,
     MultiSelectStep,
     IconInnerShadowTop,
@@ -733,6 +746,11 @@ export default {
       default: false
     },
     reuseSignature: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    withFieldLabels: {
       type: Boolean,
       required: false,
       default: true
@@ -999,7 +1017,7 @@ export default {
       const verificationFields = []
 
       const sortedFields = this.fields.reduce((acc, f) => {
-        if (f.type === 'verification') {
+        if (f.type === 'verification' || f.type === 'kba') {
           verificationFields.push(f)
         } else if (!f.readonly) {
           acc.push(f)
@@ -1396,7 +1414,7 @@ export default {
 
       const submitStep = this.currentStep
 
-      const stepPromise = ['signature', 'phone', 'initials', 'payment', 'verification'].includes(this.currentField.type)
+      const stepPromise = ['signature', 'phone', 'initials', 'payment', 'verification', 'kba'].includes(this.currentField.type)
         ? this.$refs.currentStep.submit
         : () => Promise.resolve({})
 
