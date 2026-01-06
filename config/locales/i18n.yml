@@ -5845,6 +5845,9 @@ pl: &pl
     Dzięki,
     {account.name}
   view: Widok
+  knowledge_based_authentication: Uwierzytelnianie oparte na wiedzy
+  kba_field: Pole KBA
+  passed: Zaliczone
   form_expired_at_html: 'Formularz wygasł <span class="font-semibold">%{time}</span>'
   verification_code_code: 'Kod weryfikacyjny: %{code}'
   digitally_signed_by: Podpis cyfrowy przez
