@@ -130,9 +130,8 @@ module Submitters
         end
 
         ActiveStorage::Blob.create_and_upload!(io: file.open,
-                       filename: file.original_filename,
-                       content_type: file.content_type,
-                       checksum: nil)
+                                               filename: file.original_filename,
+                                               content_type: file.content_type)
       else
         ActiveStorage::Blob.find_signed(params[:blob_signed_id])
       end
