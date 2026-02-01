@@ -69,7 +69,7 @@
     id="expand_form_button"
     class="btn btn-neutral flex text-white absolute bottom-0 w-full mb-3 expand-form-button text-base"
     style="width: 96%; margin-left: 2%"
-    @click.prevent="[isFormVisible = true, scrollIntoField(currentField)]"
+    @click.prevent="[isFormVisible = true, $nextTick(() => scrollIntoField(currentField))]"
   >
     <template v-if="['initials', 'signature'].includes(currentField.type)">
       <IconWritingSign stroke-width="1.5" />
@@ -591,6 +591,18 @@ import { IconInnerShadowTop, IconArrowsDiagonal, IconWritingSign, IconArrowsDiag
 import AppearsOn from './appears_on'
 import i18n from './i18n'
 import { sanitizeUrl } from '@braintree/sanitize-url'
+
+if (typeof URL.canParse !== 'function') {
+  URL.canParse = function (url, base) {
+    try {
+      const parsed = new URL(url, base)
+
+      return !!parsed
+    } catch {
+      return false
+    }
+  }
+}
 
 const isEmpty = (obj) => {
   if (obj == null) return true
@@ -1244,17 +1256,31 @@ export default {
       } else if (['equal', 'contains'].includes(condition.action) && field) {
         if (field.options) {
           const option = field.options.find((o) => o.uuid === condition.value)
-          const values = [this.values[condition.field_uuid] ?? defaultValue].flat()
 
-          return values.includes(this.optionValue(option, field.options.indexOf(option)))
+          if (option) {
+            const values = [this.values[condition.field_uuid] ?? defaultValue].flat()
+
+            return values.includes(this.optionValue(option, field.options.indexOf(option)))
+          } else {
+            return false
+          }
         } else {
           return [this.values[condition.field_uuid] ?? defaultValue].flat().includes(condition.value)
         }
       } else if (['not_equal', 'does_not_contain'].includes(condition.action) && field) {
-        const option = field.options.find((o) => o.uuid === condition.value)
-        const values = [this.values[condition.field_uuid] ?? defaultValue].flat()
+        if (field.options) {
+          const option = field.options.find((o) => o.uuid === condition.value)
 
-        return !values.includes(this.optionValue(option, field.options.indexOf(option)))
+          if (option) {
+            const values = [this.values[condition.field_uuid] ?? defaultValue].flat()
+
+            return !values.includes(this.optionValue(option, field.options.indexOf(option)))
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
       } else {
         return true
       }

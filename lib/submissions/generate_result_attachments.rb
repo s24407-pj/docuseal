@@ -238,7 +238,7 @@ module Submissions
           width = page.box.width
           height = page.box.height
 
-          preferences_font_size = field.dig('preferences', 'font_size').then { |num| num.present? ? num.to_i : nil }
+          preferences_font_size = field.dig('preferences', 'font_size').then { |num| num.presence&.to_i }
 
           font_size   = preferences_font_size
           font_size ||= (([page.box.width, page.box.height].min / A4_SIZE[0].to_f) * FONT_SIZE).to_i
@@ -318,7 +318,7 @@ module Submissions
                 timezone = submitter.account.timezone
                 timezone = submitter.timezone || submitter.account.timezone if with_submitter_timezone
 
-                if with_signature_id_reason
+                if with_signature_id_reason || field.dig('preferences', 'reasons').present?
                   "#{"#{I18n.t('reason')}: " if reason_value}#{reason_value || I18n.t('digitally_signed_by')} " \
                     "#{submitter.name}#{" <#{submitter.email}>" if submitter.email.present?}\n" \
                     "#{I18n.l(attachment.created_at.in_time_zone(timezone), format: :long)} " \
