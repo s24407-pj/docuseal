@@ -10,7 +10,7 @@ class AccountsController < ApplicationController
     'de-DE' => 'Deutsch',
     'it-IT' => 'Italiano',
     'nl-NL' => 'Nederlands',
-    'pl' => 'Polski'
+    'pl-PL' => 'Polski'
   }.freeze
 
   before_action :load_account
