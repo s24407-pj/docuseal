@@ -50,7 +50,7 @@ jobs:
         run: |
           TAG="${{ steps.check.outputs.upstream_tag }}"
           git merge "${TAG}" --no-edit -m "chore: sync upstream ${TAG}"
-          git tag "${TAG}"
+          git tag -f "${TAG}"
           git push origin master
           git push origin "${TAG}"
 
