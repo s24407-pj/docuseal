@@ -57,7 +57,7 @@ jobs:
       - name: Create PR master -> pl
         if: steps.check.outputs.new_version == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           TAG="${{ steps.check.outputs.upstream_tag }}"
           gh pr create \
