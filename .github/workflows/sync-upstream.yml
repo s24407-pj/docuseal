@@ -1,0 +1,68 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream tags
+        run: |
+          git remote add upstream https://github.com/docusealco/docuseal.git
+          git fetch upstream --tags
+
+      - name: Check for new upstream version
+        id: check
+        run: |
+          UPSTREAM_TAG=$(git tag --sort=-v:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          echo "upstream_tag=$UPSTREAM_TAG" >> "$GITHUB_OUTPUT"
+
+          if git ls-remote --tags origin "refs/tags/$UPSTREAM_TAG" | grep -q .; then
+            echo "new_version=false" >> "$GITHUB_OUTPUT"
+            echo "Już zsynchronizowano: $UPSTREAM_TAG"
+          else
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
+            echo "Nowa wersja upstream: $UPSTREAM_TAG"
+          fi
+
+      - name: Merge upstream into master
+        if: steps.check.outputs.new_version == 'true'
+        run: |
+          TAG="${{ steps.check.outputs.upstream_tag }}"
+          git merge upstream/master --no-edit -m "chore: sync upstream ${TAG}"
+          git tag "${TAG}"
+          git push origin master
+          git push origin "${TAG}"
+
+      - name: Create PR master -> pl
+        if: steps.check.outputs.new_version == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.check.outputs.upstream_tag }}"
+          gh pr create \
+            --base pl \
+            --head master \
+            --title "chore: sync upstream ${TAG}" \
+            --body "Automatyczny sync upstream DocuSeal \`${TAG}\` do brancha pl." \
+          || echo "PR już istnieje lub brak różnic"
