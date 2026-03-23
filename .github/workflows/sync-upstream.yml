@@ -49,7 +49,7 @@ jobs:
         if: steps.check.outputs.new_version == 'true'
         run: |
           TAG="${{ steps.check.outputs.upstream_tag }}"
-          git merge upstream/master --no-edit -m "chore: sync upstream ${TAG}"
+          git merge "${TAG}" --no-edit -m "chore: sync upstream ${TAG}"
           git tag "${TAG}"
           git push origin master
           git push origin "${TAG}"
