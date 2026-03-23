@@ -29,7 +29,7 @@ jobs:
       - name: Fetch upstream tags
         run: |
           git remote add upstream https://github.com/docusealco/docuseal.git
-          git fetch upstream --tags
+          git fetch upstream --tags --force
 
       - name: Check for new upstream version
         id: check
