@@ -20,7 +20,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: docuseal/docuseal
+        images: miwoj/docuseal-fork
         tags: type=semver,pattern={{version}}
 
     - name: Set up QEMU
