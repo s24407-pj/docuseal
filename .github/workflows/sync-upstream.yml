@@ -65,4 +65,5 @@ jobs:
             --head master \
             --title "chore: sync upstream ${TAG}" \
             --body "Automatyczny sync upstream DocuSeal \`${TAG}\` do brancha pl." \
+          && gh pr merge --merge --delete-branch=false \
           || echo "PR już istnieje lub brak różnic"
