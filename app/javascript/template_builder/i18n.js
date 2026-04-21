@@ -1747,7 +1747,7 @@ const pl = {
   align_bottom: 'Wyrównaj dół',
   fields_selected: '{count} Wybrane pola',
   field_added: '{count} Pole dodane',
-  fields_added: '{count} Dodano pola',
+  fields_added: '{count} Dodano pola'
 }
 
 export { en, es, it, pt, fr, de, nl, pl }
