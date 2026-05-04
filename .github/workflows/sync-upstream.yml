@@ -1,0 +1,114 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      force_tag:
+        description: 'Force sync for a specific tag (for testing)'
+        required: false
+        type: string
+
+permissions: write-all
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout upstream-mirror
+        uses: actions/checkout@v4
+        with:
+          ref: upstream-mirror
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream tags
+        run: |
+          git remote add upstream https://github.com/docusealco/docuseal.git
+          git fetch upstream --tags --force
+
+      - name: Check for new upstream version
+        id: check
+        run: |
+          FORCE_TAG="${{ inputs.force_tag }}"
+          if [ -n "$FORCE_TAG" ]; then
+            echo "upstream_tag=$FORCE_TAG" >> "$GITHUB_OUTPUT"
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
+            echo "Wymuszony tag: $FORCE_TAG"
+            exit 0
+          fi
+
+          UPSTREAM_TAG=$(git tag --sort=-v:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          echo "upstream_tag=$UPSTREAM_TAG" >> "$GITHUB_OUTPUT"
+
+          if git ls-remote --tags origin "refs/tags/$UPSTREAM_TAG" | grep -q .; then
+            echo "new_version=false" >> "$GITHUB_OUTPUT"
+            echo "Już zsynchronizowano: $UPSTREAM_TAG"
+          else
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
+            echo "Nowa wersja upstream: $UPSTREAM_TAG"
+          fi
+
+      - name: Point upstream-mirror at upstream release tag (clean mirror)
+        if: steps.check.outputs.new_version == 'true'
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.check.outputs.upstream_tag }}"
+          git reset --hard "${TAG}"
+          git push origin upstream-mirror --force-with-lease
+
+          if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q .; then
+            echo "Tag ${TAG} already exists on origin, skipping tag push"
+          else
+            git tag "${TAG}"
+            git push origin "${TAG}"
+          fi
+
+      - name: Create PR upstream-mirror -> pl
+        if: steps.check.outputs.new_version == 'true'
+        id: create_pr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          branch: upstream-mirror
+          base: pl
+          title: "chore: sync upstream ${{ steps.check.outputs.upstream_tag }}"
+          body: "Automatyczny sync upstream DocuSeal `${{ steps.check.outputs.upstream_tag }}` do brancha pl."
+          delete-branch: false
+
+      - name: Auto-merge PR upstream-mirror -> pl
+        if: steps.check.outputs.new_version == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          PR_NUMBER="${{ steps.create_pr.outputs.pull-request-number }}"
+
+          if [ "${PR_NUMBER}" = "null" ] || [ -z "${PR_NUMBER}" ]; then
+            echo "No open PR upstream-mirror -> pl to merge"
+            exit 0
+          fi
+
+          set +e
+          OUT="$(gh pr merge "${PR_NUMBER}" --merge --delete-branch=false 2>&1)"
+          STATUS=$?
+          set -e
+
+          if [ "$STATUS" -eq 0 ]; then
+            echo "$OUT"
+            exit 0
+          fi
+
+          echo "$OUT" >&2
+          if echo "$OUT" | grep -qiE 'merge conflict|conflicting|not mergeable|Review required|blocked|required'; then
+            echo "Merge zatrzymany (konflikty albo branch protection). PR #${PR_NUMBER} zostaje otwarty do ręcznego dokończenia."
+            exit 0
+          fi
+
+          exit "$STATUS"
