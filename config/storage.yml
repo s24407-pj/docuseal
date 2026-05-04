@@ -16,6 +16,8 @@ aws_s3:
   public: <%= ENV['ACTIVE_STORAGE_PUBLIC'] == 'true' %>
   upload:
     cache_control: 'public, max-age=31536000'
+  request_checksum_calculation: "when_required"
+  response_checksum_validation: "when_required"
 
 google:
   service: GCS
