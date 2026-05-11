@@ -66,6 +66,9 @@ jobs:
 
           if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q .; then
             echo "Tag ${TAG} already exists on origin, skipping tag push"
+          elif git rev-parse "refs/tags/${TAG}" >/dev/null 2>&1; then
+            echo "Tag ${TAG} exists locally (from upstream fetch), pushing to origin"
+            git push origin "${TAG}"
           else
             git tag "${TAG}"
             git push origin "${TAG}"
