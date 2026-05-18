@@ -6515,6 +6515,9 @@ pl:
   document_has_been_signed_already: Dokument został już podpisany
   form_has_been_submitted_already: Formularz został już przesłany
   re_send_email: Wyślij e-mail ponownie
+  re_send_emails: Wyślij e-maile ponownie
+  are_you_sure_you_want_to_re_send_email_to_n_recipients: Czy na pewno chcesz ponownie wysłać e-mail z zaproszeniem do %{count} odbiorców?
+  emails_have_been_sent_to_n_recipients: E-maile zostały wysłane do %{count} odbiorców.
   send_copy_to_email: Wyślij kopię na e-mail
   sending: Wysyłanie
   resubmit: Prześlij ponownie
@@ -6609,7 +6612,6 @@ pl:
   click_here_to_send_a_reset_password_email_html: <label class="link" for="resend_password_button">Kliknij tutaj</label>, aby wysłać e-mail resetujący hasło.
   edit_order: Edytuj kolejność
   expirable_file_download_links: Linki pobierania plików z datą ważności
-  invite_form_fields: Pola formularza zaproszenia
   default_parties: Domyślne strony
   authenticate_embedded_form_preview_with_token: Uwierzytelnij podgląd osadzonego formularza tokenem
   stripe_integration: Integracja Stripe
@@ -6738,7 +6740,6 @@ pl:
     Kliknij OK, aby kontynuować.'
   account_information_has_been_updated: Informacje o koncie zostały zaktualizowane.
   should_be_a_valid_url: powinno być poprawnym adresem URL
-  your_account_removal_request_will_be_processed_within_2_months_please_contact_us_if_you_want_to_keep_your_account: Twoja prośba o usunięcie konta zostanie przetworzona w ciągu 2 miesięcy. Skontaktuj się z nami, jeśli chcesz zachować konto.
   test_mode: Tryb testowy
   copy: Kopiuj
   copied: Skopiowano
@@ -7106,6 +7107,12 @@ pl:
   unable_to_resend_webhook_request: Nie można ponownie wysłać żądania webhook.
   new_webhook: Nowy Webhook
   delete_webhook: Usuń webhook
+  security: Bezpieczeństwo
+  webhook_security: Bezpieczeństwo webhooków
+  secret: Sekret
+  hmac: HMAC
+  hmac_signing_secret: Sekret podpisywania HMAC
+  hmac_signature_header_hint_html: 'Każde żądanie jest podpisane nagłówkiem %{header}: &lt;timestamp&gt;.&lt;sha256&gt;.'
   count_submissions_have_been_created: '%{count} zgłoszeń zostało utworzonych.'
   sms_length_cant_be_longer_than_120_bytes: Długość SMS nie może przekraczać 120 bajtów
   connected_successfully: Połączono pomyślnie.
@@ -7136,7 +7143,7 @@ pl:
   free: Darmowy
   unlimited_documents_storage: Nielimitowane przechowywanie dokumentów
   users_management: Zarządzanie użytkownikami
-  ten_filed_types: 10 typów pól
+  ten_field_types: 10 typów pól
   multiple_signers: Wielu podpisujących
   automatic_esignature: Automatyczny e-podpis
   ten_signature_request_emails_per_month: 10 e-maili z prośbą o podpis miesięcznie
@@ -7284,7 +7291,7 @@ pl:
   manage_plan: Zarządzaj planem
   this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: To zgłoszenie ma wielu sygnatariuszy, co uniemożliwia użycie linku do udostępniania, ponieważ nie jest jasne, który sygnatariusz jest odpowiedzialny za określone pola. Aby rozwiązać ten problem, postępuj zgodnie z tym <a href="https://www.docuseal.com/resources/pre-filling-recipients" class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">guide</a>, aby zdefiniować domyślne szczegóły osoby podpisującej.
   welcome_to_docuseal: Witamy w DocuSeal
-  start_a_quick_tour_to_learn_how_to_create_an_send_your_first_document: Rozpocznij krótką prezentację, aby dowiedzieć się, jak utworzyć i wysłać swój pierwszy dokument
+  start_a_quick_tour_to_learn_how_to_create_and_send_your_first_document: Rozpocznij krótką prezentację, aby dowiedzieć się, jak utworzyć i wysłać swój pierwszy dokument
   start_tour: Rozpocznij wycieczkę
   name_a_z: Imię A-Z
   recently_used: Ostatnio używany
@@ -7444,6 +7451,7 @@ pl:
     embed: Osadzanie
     invite: Zapraszać
     link: Połączyć
+    mcp: MCP
   submission_event_names:
     send_email_to_html: <b>E-mail wysłany</b> do %{submitter_name}
     bounce_email_html: <b>E-mail odesłany</b> %{submitter_name}

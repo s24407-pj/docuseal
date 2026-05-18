@@ -1767,7 +1767,7 @@ const pl = {
   learn_more: 'Dowiedz się więcej',
   and: 'I',
   or: 'Lub',
-  start_a_quick_tour_to_learn_how_to_create_an_send_your_first_document: 'Rozpocznij krótką prezentację, aby dowiedzieć się, jak utworzyć i wysłać swój pierwszy dokument',
+  start_a_quick_tour_to_learn_how_to_create_and_send_your_first_document: 'Rozpocznij krótką prezentację, aby dowiedzieć się, jak utworzyć i wysłać swój pierwszy dokument',
   start_tour: 'Rozpocznij wycieczkę',
   or_add_from: 'Lub dodaj z',
   sync: 'Synchronizuj',
