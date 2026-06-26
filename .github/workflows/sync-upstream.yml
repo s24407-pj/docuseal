@@ -39,8 +39,24 @@ jobs:
       - name: Check for new upstream version
         id: check
         run: |
+          set -euo pipefail
+
+          resolve_tag() {
+            local tag="$1"
+            if ! git rev-parse "refs/tags/${tag}^{commit}" >/dev/null 2>&1; then
+              git fetch upstream "refs/tags/${tag}:refs/tags/${tag}" 2>/dev/null || true
+            fi
+            if ! git rev-parse "refs/tags/${tag}^{commit}" >/dev/null 2>&1; then
+              echo "::error::Tag ${tag} nie istnieje w docusealco/docuseal."
+              echo "Najnowsze tagi upstream:"
+              git tag -l | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -5
+              exit 1
+            fi
+          }
+
           FORCE_TAG="${{ inputs.force_tag }}"
           if [ -n "$FORCE_TAG" ]; then
+            resolve_tag "$FORCE_TAG"
             echo "upstream_tag=$FORCE_TAG" >> "$GITHUB_OUTPUT"
             echo "new_version=true" >> "$GITHUB_OUTPUT"
             echo "Wymuszony tag: $FORCE_TAG"
@@ -49,8 +65,9 @@ jobs:
 
           UPSTREAM_TAG=$(git tag --sort=-v:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
           echo "upstream_tag=$UPSTREAM_TAG" >> "$GITHUB_OUTPUT"
+          resolve_tag "$UPSTREAM_TAG"
 
-          TAG_COMMIT=$(git rev-parse "${UPSTREAM_TAG}^{commit}")
+          TAG_COMMIT=$(git rev-parse "refs/tags/${UPSTREAM_TAG}^{commit}")
           if git merge-base --is-ancestor "$TAG_COMMIT" pl; then
             echo "new_version=false" >> "$GITHUB_OUTPUT"
             echo "Już zsynchronizowano: $UPSTREAM_TAG (tag commit jest w pl)"
@@ -65,7 +82,7 @@ jobs:
           set -euo pipefail
           TAG="${{ steps.check.outputs.upstream_tag }}"
 
-          TAG_COMMIT=$(git rev-parse "${TAG}^{commit}")
+          TAG_COMMIT=$(git rev-parse "refs/tags/${TAG}^{commit}")
           git push origin "${TAG_COMMIT}:refs/heads/upstream-mirror" --force
 
       - name: Push upstream tag to origin
