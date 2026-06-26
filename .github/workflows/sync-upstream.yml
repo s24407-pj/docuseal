@@ -10,7 +10,9 @@ on:
         required: false
         type: string
 
-permissions: write-all
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   sync:
@@ -103,19 +105,35 @@ jobs:
             echo "Czysty merge upstream ${TAG} -> pl"
           fi
 
+          AHEAD=$(git rev-list --count pl..HEAD)
+          if [ "$AHEAD" -eq 0 ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "Brak nowych commitów względem pl — PR nie jest potrzebny"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Commity do merga: $AHEAD"
+          fi
+
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
           git push origin "${BRANCH}" --force-with-lease
 
+      - name: Skip PR (already up to date)
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'false'
+        run: |
+          echo "upstream-merge/${{ steps.check.outputs.upstream_tag }} nie różni się od pl — sync zakończony."
+
       - name: Open or update PR upstream-merge -> pl
-        if: steps.check.outputs.new_version == 'true'
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true'
         id: create_pr
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           set -euo pipefail
           TAG="${{ steps.check.outputs.upstream_tag }}"
           BRANCH="${{ steps.merge.outputs.branch }}"
           CONFLICTS="${{ steps.merge.outputs.conflicts }}"
+          REPO="${{ github.repository }}"
+          OWNER="${{ github.repository_owner }}"
 
           if [ "${CONFLICTS}" = "true" ]; then
             BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: wykryto konflikty — branch zawiera markery konfliktów. Rozwiąż ręcznie przed mergem.' "${TAG}")
@@ -123,26 +141,28 @@ jobs:
             BODY="Automatyczny sync upstream DocuSeal \`${TAG}\` do brancha pl."
           fi
 
-          EXISTING_PR=$(gh pr list --head "${BRANCH}" --base pl --state open --json number -q '.[0].number' || echo "")
+          EXISTING_PR=$(gh api "repos/${REPO}/pulls?head=${OWNER}:${BRANCH}&base=pl&state=open" --jq '.[0].number // empty')
 
           if [ -n "${EXISTING_PR}" ]; then
             PR_NUMBER="${EXISTING_PR}"
             echo "Istniejący PR #${PR_NUMBER} dla brancha ${BRANCH}"
           else
-            gh pr create \
-              --base pl \
-              --head "${BRANCH}" \
-              --title "chore: sync upstream ${TAG}" \
-              --body "${BODY}"
-            PR_NUMBER=$(gh pr list --head "${BRANCH}" --base pl --state open --json number -q '.[0].number')
+            PR_NUMBER=$(gh api "repos/${REPO}/pulls" \
+              --method POST \
+              -f title="chore: sync upstream ${TAG}" \
+              -f head="${BRANCH}" \
+              -f base="pl" \
+              -f body="${BODY}" \
+              --jq '.number')
+            echo "Utworzono PR #${PR_NUMBER}"
           fi
 
           echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
 
       - name: Auto-merge PR -> pl
-        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.conflicts == 'false'
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'false'
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           PR_NUMBER="${{ steps.create_pr.outputs.pr_number }}"
 
@@ -152,17 +172,21 @@ jobs:
           fi
 
           set +e
-          OUT="$(gh pr merge "${PR_NUMBER}" --merge --delete-branch 2>&1)"
+          OUT="$(gh api "repos/${{ github.repository }}/pulls/${PR_NUMBER}/merge" \
+            --method PUT \
+            -f merge_method="merge" 2>&1)"
           STATUS=$?
           set -e
 
           if [ "$STATUS" -eq 0 ]; then
             echo "$OUT"
+            BRANCH="${{ steps.merge.outputs.branch }}"
+            gh api --method DELETE "repos/${{ github.repository }}/git/refs/heads/${BRANCH}" 2>/dev/null || true
             exit 0
           fi
 
           echo "$OUT" >&2
-          if echo "$OUT" | grep -qiE 'merge conflict|conflicting|not mergeable|Review required|blocked|required'; then
+          if echo "$OUT" | grep -qiE 'merge conflict|conflicting|not mergeable|Review required|blocked|required|405'; then
             echo "Merge zatrzymany (konflikty albo branch protection). PR #${PR_NUMBER} zostaje otwarty do ręcznego dokończenia."
             exit 0
           fi
@@ -170,6 +194,6 @@ jobs:
           exit "$STATUS"
 
       - name: Note conflicts (no auto-merge)
-        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.conflicts == 'true'
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'true'
         run: |
           echo "PR #${{ steps.create_pr.outputs.pr_number }} otwarty z konfliktami — auto-merge pominięty."
