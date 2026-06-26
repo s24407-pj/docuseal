@@ -48,9 +48,10 @@ jobs:
           UPSTREAM_TAG=$(git tag --sort=-v:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
           echo "upstream_tag=$UPSTREAM_TAG" >> "$GITHUB_OUTPUT"
 
-          if git ls-remote --tags origin "refs/tags/$UPSTREAM_TAG" | grep -q .; then
+          TAG_COMMIT=$(git rev-parse "${UPSTREAM_TAG}^{commit}")
+          if git merge-base --is-ancestor "$TAG_COMMIT" pl; then
             echo "new_version=false" >> "$GITHUB_OUTPUT"
-            echo "Już zsynchronizowano: $UPSTREAM_TAG"
+            echo "Już zsynchronizowano: $UPSTREAM_TAG (tag commit jest w pl)"
           else
             echo "new_version=true" >> "$GITHUB_OUTPUT"
             echo "Nowa wersja upstream: $UPSTREAM_TAG"
@@ -109,7 +110,7 @@ jobs:
         if: steps.check.outputs.new_version == 'true'
         id: create_pr
         env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           TAG="${{ steps.check.outputs.upstream_tag }}"
@@ -141,7 +142,7 @@ jobs:
       - name: Auto-merge PR -> pl
         if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.conflicts == 'false'
         env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER="${{ steps.create_pr.outputs.pr_number }}"
 
