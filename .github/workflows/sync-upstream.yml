@@ -1,0 +1,204 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      force_tag:
+        description: 'Force sync for a specific tag (for testing)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pl
+        uses: actions/checkout@v4
+        with:
+          ref: pl
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream tags
+        run: |
+          git remote add upstream https://github.com/docusealco/docuseal.git
+          git fetch upstream --tags --force
+
+      - name: Check for new upstream version
+        id: check
+        run: |
+          set -euo pipefail
+
+          resolve_tag() {
+            local tag="$1"
+            if ! git rev-parse "refs/tags/${tag}^{commit}" >/dev/null 2>&1; then
+              git fetch upstream "refs/tags/${tag}:refs/tags/${tag}" 2>/dev/null || true
+            fi
+            if ! git rev-parse "refs/tags/${tag}^{commit}" >/dev/null 2>&1; then
+              echo "::error::Tag ${tag} nie istnieje w docusealco/docuseal."
+              echo "Najnowsze tagi upstream:"
+              git tag -l | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -5
+              exit 1
+            fi
+          }
+
+          FORCE_TAG="${{ inputs.force_tag }}"
+          if [ -n "$FORCE_TAG" ]; then
+            resolve_tag "$FORCE_TAG"
+            echo "upstream_tag=$FORCE_TAG" >> "$GITHUB_OUTPUT"
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
+            echo "Wymuszony tag: $FORCE_TAG"
+            exit 0
+          fi
+
+          UPSTREAM_TAG=$(git tag --sort=-v:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          echo "upstream_tag=$UPSTREAM_TAG" >> "$GITHUB_OUTPUT"
+          resolve_tag "$UPSTREAM_TAG"
+
+          TAG_COMMIT=$(git rev-parse "refs/tags/${UPSTREAM_TAG}^{commit}")
+          if git merge-base --is-ancestor "$TAG_COMMIT" pl; then
+            echo "new_version=false" >> "$GITHUB_OUTPUT"
+            echo "Już zsynchronizowano: $UPSTREAM_TAG (tag commit jest w pl)"
+          else
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
+            echo "Nowa wersja upstream: $UPSTREAM_TAG"
+          fi
+
+      - name: Point upstream-mirror at upstream release tag (clean mirror)
+        if: steps.check.outputs.new_version == 'true'
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.check.outputs.upstream_tag }}"
+
+          TAG_COMMIT=$(git rev-parse "refs/tags/${TAG}^{commit}")
+          git push origin "${TAG_COMMIT}:refs/heads/upstream-mirror" --force
+
+      - name: Merge upstream tag into upstream-merge branch
+        if: steps.check.outputs.new_version == 'true'
+        id: merge
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.check.outputs.upstream_tag }}"
+          BRANCH="upstream-merge/${TAG}"
+
+          git checkout -B "${BRANCH}" pl
+
+          set +e
+          git merge --no-ff --no-edit -m "chore: sync upstream ${TAG}" "refs/tags/${TAG}"
+          MERGE_STATUS=$?
+          set -e
+
+          if [ "$MERGE_STATUS" -ne 0 ]; then
+            git add -A
+            git commit -m "chore: sync upstream ${TAG} (conflicts — manual resolve)"
+            echo "conflicts=true" >> "$GITHUB_OUTPUT"
+            echo "Wykryto konflikty przy merge upstream ${TAG} -> pl"
+          else
+            echo "conflicts=false" >> "$GITHUB_OUTPUT"
+            echo "Czysty merge upstream ${TAG} -> pl"
+          fi
+
+          AHEAD=$(git rev-list --count pl..HEAD)
+          if [ "$AHEAD" -eq 0 ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "Brak nowych commitów względem pl — PR nie jest potrzebny"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Commity do merga: $AHEAD"
+          fi
+
+          echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
+          git push origin "${BRANCH}" --force-with-lease
+
+      - name: Skip PR (already up to date)
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'false'
+        run: |
+          echo "upstream-merge/${{ steps.check.outputs.upstream_tag }} nie różni się od pl — sync zakończony."
+
+      - name: Open or update PR upstream-merge -> pl
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true'
+        id: create_pr
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.check.outputs.upstream_tag }}"
+          BRANCH="${{ steps.merge.outputs.branch }}"
+          CONFLICTS="${{ steps.merge.outputs.conflicts }}"
+          REPO="${{ github.repository }}"
+          OWNER="${{ github.repository_owner }}"
+
+          if [ "${CONFLICTS}" = "true" ]; then
+            BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: wykryto konflikty — branch zawiera markery konfliktów. Rozwiąż ręcznie przed mergem.' "${TAG}")
+          else
+            BODY="Automatyczny sync upstream DocuSeal \`${TAG}\` do brancha pl."
+          fi
+
+          EXISTING_PR=$(gh api "repos/${REPO}/pulls?head=${OWNER}:${BRANCH}&base=pl&state=open" --jq '.[0].number // empty')
+
+          if [ -n "${EXISTING_PR}" ]; then
+            PR_NUMBER="${EXISTING_PR}"
+            echo "Istniejący PR #${PR_NUMBER} dla brancha ${BRANCH}"
+          else
+            PR_NUMBER=$(gh api "repos/${REPO}/pulls" \
+              --method POST \
+              -f title="chore: sync upstream ${TAG}" \
+              -f head="${BRANCH}" \
+              -f base="pl" \
+              -f body="${BODY}" \
+              --jq '.number')
+            echo "Utworzono PR #${PR_NUMBER}"
+          fi
+
+          echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+
+      - name: Auto-merge PR -> pl
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          PR_NUMBER="${{ steps.create_pr.outputs.pr_number }}"
+
+          if [ "${PR_NUMBER}" = "null" ] || [ -z "${PR_NUMBER}" ]; then
+            echo "No open PR to merge"
+            exit 0
+          fi
+
+          set +e
+          OUT="$(gh api "repos/${{ github.repository }}/pulls/${PR_NUMBER}/merge" \
+            --method PUT \
+            -f merge_method="merge" 2>&1)"
+          STATUS=$?
+          set -e
+
+          if [ "$STATUS" -eq 0 ]; then
+            echo "$OUT"
+            BRANCH="${{ steps.merge.outputs.branch }}"
+            gh api --method DELETE "repos/${{ github.repository }}/git/refs/heads/${BRANCH}" 2>/dev/null || true
+            exit 0
+          fi
+
+          echo "$OUT" >&2
+          if echo "$OUT" | grep -qiE 'merge conflict|conflicting|not mergeable|Review required|blocked|required|405'; then
+            echo "Merge zatrzymany (konflikty albo branch protection). PR #${PR_NUMBER} zostaje otwarty do ręcznego dokończenia."
+            exit 0
+          fi
+
+          exit "$STATUS"
+
+      - name: Note conflicts (no auto-merge)
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'true'
+        run: |
+          echo "PR #${{ steps.create_pr.outputs.pr_number }} otwarty z konfliktami — auto-merge pominięty."
