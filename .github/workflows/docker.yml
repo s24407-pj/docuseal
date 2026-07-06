@@ -17,6 +17,11 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Fetch upstream tags
+      run: |
+        git remote add upstream https://github.com/docusealco/docuseal.git
+        git fetch upstream --tags --force
+
     - name: Get version
       id: version
       run: |
