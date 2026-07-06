@@ -87,6 +87,7 @@ en:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'You have been invited to %{account_name} %{product_name}. Please sign up using the link below:'
   sent_using_product_name_in_testing_mode_html: Sent using <a href="%{product_url}">%{product_name}</a> in testing mode
   sent_using_product_name_free_document_signing_html: Sent using <a href="%{product_url}">%{product_name}</a> free document signing.
+  sent_using_product_name_open_source_software_html: Sent using <a href="%{product_url}">%{product_name}</a> open-source software.
   sent_with_docuseal_pro_html: Sent with <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Show "Sent with <span class="link">DocuSeal Pro</span>" attribution in emails
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
@@ -1170,6 +1171,7 @@ es:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Has sido invitado a %{account_name} %{product_name}. Por favor, regístrate usando el enlace a continuación:'
   sent_using_product_name_in_testing_mode_html: Enviado usando <a href="%{product_url}">%{product_name}</a> en Modo de Prueba
   sent_using_product_name_free_document_signing_html: Enviado usando la firma de documentos gratuita de <a href="%{product_url}">%{product_name}</a>.
+  sent_using_product_name_open_source_software_html: Enviado usando el software de código abierto de <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Enviado con <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Mostrar el mensaje "Enviado con <span class="link">DocuSeal Pro</span>" en los correos electrónicos
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
@@ -2250,6 +2252,7 @@ it:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Sei stato invitato a %{account_name} %{product_name}. Registrati utilizzando il link qui sotto:'
   sent_using_product_name_in_testing_mode_html: Inviato utilizzando <a href="%{product_url}">%{product_name}</a> in Modalità di Test
   sent_using_product_name_free_document_signing_html: Inviato utilizzando la firma di documenti gratuita di <a href="%{product_url}">%{product_name}</a>.
+  sent_using_product_name_open_source_software_html: Inviato utilizzando il software open source di <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Inviato con <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Mostra la dicitura "Inviato con <span class="link">DocuSeal Pro</span>" nelle email
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
@@ -3330,6 +3333,7 @@ fr:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Vous avez été invité à %{account_name} %{product_name}. Veuillez vous inscrire en utilisant le lien ci-dessous :'
   sent_using_product_name_in_testing_mode_html: Envoyé avec <a href="%{product_url}">%{product_name}</a> en mode test
   sent_using_product_name_free_document_signing_html: Envoyé avec <a href="%{product_url}">%{product_name}</a> signature de documents gratuite.
+  sent_using_product_name_open_source_software_html: Envoyé avec le logiciel open source <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Envoyé avec <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Afficher l’attribution "Envoyé avec <span class="link">DocuSeal Pro</span>" dans les e‑mails
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
@@ -4414,6 +4418,7 @@ pt:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Você foi convidado para %{account_name} %{product_name}. Inscreva-se usando o link abaixo:'
   sent_using_product_name_in_testing_mode_html: Enviado usando <a href="%{product_url}">%{product_name}</a> no Modo de Teste
   sent_using_product_name_free_document_signing_html: Enviado usando a assinatura gratuita de documentos de <a href="%{product_url}">%{product_name}</a>.
+  sent_using_product_name_open_source_software_html: Enviado usando o software de código aberto <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Enviado com <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Mostrar "Enviado com <span class="link">DocuSeal Pro</span>" nos e-mails
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
@@ -5479,6 +5484,7 @@ de:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Sie wurden zu %{account_name} %{product_name} eingeladen. Bitte registrieren Sie sich über den folgenden Link:'
   sent_using_product_name_in_testing_mode_html: Gesendet über <a href="%{product_url}">%{product_name}</a> im Testmodus
   sent_using_product_name_free_document_signing_html: Gesendet mit der kostenlosen Dokumentensignierung von <a href="%{product_url}">%{product_name}</a>.
+  sent_using_product_name_open_source_software_html: Gesendet mit der Open-Source-Software von <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Gesendet mit <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: '"Gesendet mit <span class="link">DocuSeal Pro</span>" in E-Mails anzeigen'
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
@@ -6664,6 +6670,7 @@ pl:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'Zaproszono Cię do %{account_name} %{product_name}. Zarejestruj się, korzystając z linku poniżej:'
   sent_using_product_name_in_testing_mode_html: Wysłano za pomocą <a href="%{product_url}">%{product_name}</a> w trybie testowym
   sent_using_product_name_free_document_signing_html: Wysłano za pomocą <a href="%{product_url}">%{product_name}</a> darmowego podpisywania dokumentów.
+  sent_using_product_name_open_source_software_html: Wysłano za pomocą oprogramowania open source <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Wysłano z <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Pokaż atrybucję „Wysłano z <span class="link">DocuSeal Pro</span>” w e-mailach
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
@@ -7963,6 +7970,7 @@ nl:
   you_have_been_invited_to_account_name_product_name_please_sign_up_using_the_link_below_: 'U bent uitgenodigd voor %{account_name} %{product_name}. Meld u aan via de onderstaande link:'
   sent_using_product_name_in_testing_mode_html: Verzonden met <a href="%{product_url}">%{product_name}</a> in testmodus
   sent_using_product_name_free_document_signing_html: Verzonden met <a href="%{product_url}">%{product_name}</a> gratis documentondertekening.
+  sent_using_product_name_open_source_software_html: Verzonden met de open-source software <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Verzonden met <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Toon de vermelding 'Verzonden met <span class="link">DocuSeal Pro</span>' in e-mails
   ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
