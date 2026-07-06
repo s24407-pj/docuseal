@@ -85,6 +85,14 @@ jobs:
           TAG_COMMIT=$(git rev-parse "refs/tags/${TAG}^{commit}")
           git push origin "${TAG_COMMIT}:refs/heads/upstream-mirror" --force
 
+      - name: Mirror upstream release tag to fork
+        if: steps.check.outputs.new_version == 'true'
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.check.outputs.upstream_tag }}"
+
+          git push origin "refs/tags/${TAG}:refs/tags/${TAG}" --force
+
       - name: Merge upstream tag into upstream-merge branch
         if: steps.check.outputs.new_version == 'true'
         id: merge
