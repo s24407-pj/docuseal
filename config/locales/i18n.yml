@@ -90,15 +90,6 @@ en:
   sent_using_product_name_open_source_software_html: Sent using <a href="%{product_url}">%{product_name}</a> open-source software.
   sent_with_docuseal_pro_html: Sent with <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: Show "Sent with <span class="link">DocuSeal Pro</span>" attribution in emails
-<<<<<<< HEAD
-  ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
-  : Sign documents with trusted certificate provided by DocuSeal. Your documents and data are never shared with DocuSeal. PDF checksum is provided to generate a trusted signature.
-  you_have_been_invited_to_submit_the_name_form: You have been invited to submit the "%{name}" form.
-  you_have_been_invited_to_sign_the_name: You have been invited to sign the "%{name}".
-  alternatively_you_can_review_and_download_your_copy_using_the_link_below: 'Alternatively, you can review and download your copy using the link below:'
-  please_check_the_copy_of_your_name_in_the_email_attachments: Please check the copy of your "%{name}" in the email attachments.
-  awaiting_completion_by_the_other_party: Awaiting completion by the other party
-=======
   sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature: Sign documents with trusted certificate provided by DocuSeal. Your documents and data are never shared with DocuSeal. PDF checksum is provided to generate a trusted signature.
   you_have_been_invited_to_submit_the_name_form: 'You have been invited to submit the "%{name}" form.'
   you_have_been_invited_to_sign_the_name: 'You have been invited to sign the "%{name}".'
@@ -106,7 +97,6 @@ en:
   alternatively_you_can_review_and_download_your_copy_using_the_link_below: "Alternatively, you can review and download your copy using the link below:"
   please_check_the_copy_of_your_name_in_the_email_attachments: 'Please check the copy of your "%{name}" in the email attachments.'
   awaiting_completion_by_the_other_party: "Awaiting completion by the other party"
->>>>>>> refs/tags/3.1.4
   review_and_sign: Review and Sign
   view_document: View Document
   review_and_submit: Review and Submit
@@ -114,18 +104,11 @@ en:
   submitter_invitation_sms_body_sign: '{account.name} has invited you to sign a document: {submitter.link}'
   submitter_invitation_sms_body_view: '{account.name} has invited you to view a document: {submitter.link}'
   verification_code_sms_body: 'Verification code: {code}'
-<<<<<<< HEAD
-  you_are_invited_to_submit_a_form: You are invited to submit a form
-  you_are_invited_to_sign_a_document: You are invited to sign a document
-  you_are_invited_to_sign_documents: You are invited to sign documents
-  your_document_copy: Your document copy
-=======
   you_are_invited_to_submit_a_form: 'You are invited to submit a form'
   you_are_invited_to_sign_a_document: 'You are invited to sign a document'
   you_are_invited_to_view_a_document: 'You are invited to view a document'
   you_are_invited_to_sign_documents: 'You are invited to sign documents'
   your_document_copy: 'Your document copy'
->>>>>>> refs/tags/3.1.4
   name_has_been_completed_by_submitters: '"%{name}" has been completed by %{submitters}.'
   template_name_has_been_completed_by_submitters: '{template.name} has been completed by {submission.submitters}'
   submitter_invitation_email_sign_body: 'Hi there,
@@ -143,12 +126,6 @@ en:
     Thanks,
 
     {account.name}
-<<<<<<< HEAD
-
-    '
-  submitter_completed_email_body: 'Hi,
-
-=======
   submitter_invitation_email_view_body: |
     Hi there,
 
@@ -162,7 +139,6 @@ en:
     {account.name}
   submitter_completed_email_body: |
     Hi,
->>>>>>> refs/tags/3.1.4
 
     "{template.name}" has been completed by {submission.submitters}
 
@@ -716,17 +692,12 @@ en:
   signers: Signers
   not_invited_yet: Not invited yet
   not_completed_yet: Not completed yet
-<<<<<<< HEAD
-  declined_on_time: Declined on %{time}
-  expire_on_time: Expire on %{time}
-=======
   not_completed: Not completed
   not_viewed_yet: Not viewed yet
   not_viewed: Not viewed
   viewed_on_time: 'Viewed on %{time}'
   declined_on_time: 'Declined on %{time}'
   expire_on_time: 'Expire on %{time}'
->>>>>>> refs/tags/3.1.4
   sign_in_person: Sign In-person
   create_a_new_template_document_form_or_submit_the_existing_one_html: <a href="%{new_template_link}" data-turbo-frame="modal" class="inline underline font-medium">Create a new template</a> document form or <a href="%{start_form_link}" target="_blank" class="inline underline font-medium">submit the existing one</a>
   send_email_copy_with_completed_documents_to_a_specified_bcc_address: Send email copy with completed documents to a specified BCC address.
@@ -1227,18 +1198,11 @@ es:
   : Firme documentos con un certificado de confianza proporcionado por DocuSeal. Sus documentos y datos nunca se comparten con DocuSeal. Se proporciona un checksum de PDF para generar una firma de confianza.
   hi_there: Hola
   thanks: Gracias
-<<<<<<< HEAD
-  you_have_been_invited_to_submit_the_name_form: Has sido invitado/a a enviar el formulario "%{name}".
-  you_have_been_invited_to_sign_the_name: Has sido invitado/a a firmar el "%{name}".
-  alternatively_you_can_review_and_download_your_copy_using_the_link_below: 'Alternativamente, puedes revisar y descargar tu copia usando el enlace a continuación:'
-  please_check_the_copy_of_your_name_in_the_email_attachments: Por favor, revisa la copia de tu "%{name}" en los archivos adjuntos del correo electrónico.
-=======
   you_have_been_invited_to_submit_the_name_form: 'Has sido invitado/a a enviar el formulario "%{name}".'
   you_have_been_invited_to_sign_the_name: 'Has sido invitado/a a firmar el "%{name}".'
   you_have_been_invited_to_view_the_name: 'Has sido invitado/a a ver el "%{name}".'
   alternatively_you_can_review_and_download_your_copy_using_the_link_below: "Alternativamente, puedes revisar y descargar tu copia usando el enlace a continuación:"
   please_check_the_copy_of_your_name_in_the_email_attachments: 'Por favor, revisa la copia de tu "%{name}" en los archivos adjuntos del correo electrónico.'
->>>>>>> refs/tags/3.1.4
   review_and_sign: Revisar y Firmar
   view_document: Ver documento
   review_and_submit: Revisar y Enviar
@@ -1246,18 +1210,11 @@ es:
   submitter_invitation_sms_body_sign: '{account.name} te ha invitado a firmar un documento: {submitter.link}'
   submitter_invitation_sms_body_view: '{account.name} te ha invitado a ver un documento: {submitter.link}'
   verification_code_sms_body: 'Código de verificación: {code}'
-<<<<<<< HEAD
-  you_are_invited_to_submit_a_form: Estás invitado/a a enviar un formulario
-  you_are_invited_to_sign_a_document: Estás invitado/a a firmar un documento
-  you_are_invited_to_sign_documents: Estás invitado/a a firmar documentos
-  your_document_copy: Tu copia del documento
-=======
   you_are_invited_to_submit_a_form: 'Estás invitado/a a enviar un formulario'
   you_are_invited_to_sign_a_document: 'Estás invitado/a a firmar un documento'
   you_are_invited_to_view_a_document: 'Estás invitado/a a ver un documento'
   you_are_invited_to_sign_documents: 'Estás invitado/a a firmar documentos'
   your_document_copy: 'Tu copia del documento'
->>>>>>> refs/tags/3.1.4
   name_has_been_completed_by_submitters: '"%{name}" ha sido completado por %{submitters}.'
   template_name_has_been_completed_by_submitters: '{template.name} ha sido completado por {submission.submitters}'
   submitter_invitation_email_sign_body: 'Hola,
@@ -1275,12 +1232,6 @@ es:
     Gracias,
 
     {account.name}
-<<<<<<< HEAD
-
-    '
-  submitter_completed_email_body: 'Hola,
-
-=======
   submitter_invitation_email_view_body: |
     Hola,
 
@@ -1294,7 +1245,6 @@ es:
     {account.name}
   submitter_completed_email_body: |
     Hola,
->>>>>>> refs/tags/3.1.4
 
     "{template.name}" ha sido completado por {submission.submitters}
 
@@ -1847,17 +1797,12 @@ es:
   signers: Firmantes
   not_invited_yet: Aún no invitado
   not_completed_yet: Aún no completado
-<<<<<<< HEAD
-  declined_on_time: Rechazado el %{time}
-  expire_on_time: Expira el %{time}
-=======
   not_completed: No completado
   not_viewed_yet: Aún no visto
   not_viewed: No visto
   viewed_on_time: 'Visto el %{time}'
   declined_on_time: 'Rechazado el %{time}'
   expire_on_time: 'Expira el %{time}'
->>>>>>> refs/tags/3.1.4
   sign_in_person: Firma en persona
   create_a_new_template_document_form_or_submit_the_existing_one_html: <a href="%{new_template_link}" data-turbo-frame="modal" class="inline underline font-medium">Crear una nueva plantilla</a> de documento o <a href="%{start_form_link}" target="_blank" class="inline underline font-medium">enviar el existente</a>
   send_email_copy_with_completed_documents_to_a_specified_bcc_address: Enviar una copia del correo electrónico con los documentos completados a una dirección BCC especificada.
@@ -2355,18 +2300,11 @@ it:
   : Firma documenti con un certificato di fiducia fornito da DocuSeal. I tuoi documenti e i tuoi dati non vengono mai condivisi con DocuSeal. Il checksum PDF è fornito per generare una firma di fiducia.
   hi_there: Ciao
   thanks: Grazie
-<<<<<<< HEAD
-  you_have_been_invited_to_submit_the_name_form: Sei stato invitato a inviare il modulo "%{name}".
-  you_have_been_invited_to_sign_the_name: Sei stato invitato a firmare il "%{name}".
-  alternatively_you_can_review_and_download_your_copy_using_the_link_below: 'In alternativa, puoi rivedere e scaricare la tua copia utilizzando il link qui sotto:'
-  please_check_the_copy_of_your_name_in_the_email_attachments: Per favore, controlla la copia del tuo "%{name}" negli allegati dell'email.
-=======
   you_have_been_invited_to_submit_the_name_form: 'Sei stato invitato a inviare il modulo "%{name}".'
   you_have_been_invited_to_sign_the_name: 'Sei stato invitato a firmare il "%{name}".'
   you_have_been_invited_to_view_the_name: 'Sei stato invitato a visualizzare il "%{name}".'
   alternatively_you_can_review_and_download_your_copy_using_the_link_below: "In alternativa, puoi rivedere e scaricare la tua copia utilizzando il link qui sotto:"
   please_check_the_copy_of_your_name_in_the_email_attachments: "Per favore, controlla la copia del tuo \"%{name}\" negli allegati dell'email."
->>>>>>> refs/tags/3.1.4
   review_and_sign: Rivedi e Firma
   view_document: Visualizza documento
   review_and_submit: Rivedi e Invia
@@ -2374,18 +2312,11 @@ it:
   submitter_invitation_sms_body_sign: '{account.name} ti ha invitato a firmare un documento: {submitter.link}'
   submitter_invitation_sms_body_view: '{account.name} ti ha invitato a visualizzare un documento: {submitter.link}'
   verification_code_sms_body: 'Codice di verifica: {code}'
-<<<<<<< HEAD
-  you_are_invited_to_submit_a_form: Sei stato invitato a inviare un modulo
-  you_are_invited_to_sign_a_document: Sei stato invitato a firmare un documento
-  you_are_invited_to_sign_documents: Sei stato invitato a firmare dei documenti
-  your_document_copy: La tua copia del documento
-=======
   you_are_invited_to_submit_a_form: 'Sei stato invitato a inviare un modulo'
   you_are_invited_to_sign_a_document: 'Sei stato invitato a firmare un documento'
   you_are_invited_to_view_a_document: 'Sei stato invitato a visualizzare un documento'
   you_are_invited_to_sign_documents: 'Sei stato invitato a firmare dei documenti'
   your_document_copy: 'La tua copia del documento'
->>>>>>> refs/tags/3.1.4
   name_has_been_completed_by_submitters: '"%{name}" è stato completato da %{submitters}.'
   template_name_has_been_completed_by_submitters: '{template.name} è stato completato da {submission.submitters}'
   submitter_invitation_email_sign_body: 'Ciao,
@@ -2403,12 +2334,6 @@ it:
     Grazie,
 
     {account.name}
-<<<<<<< HEAD
-
-    '
-  submitter_completed_email_body: 'Ciao,
-
-=======
   submitter_invitation_email_view_body: |
     Ciao,
 
@@ -2422,7 +2347,6 @@ it:
     {account.name}
   submitter_completed_email_body: |
     Ciao,
->>>>>>> refs/tags/3.1.4
 
     "{template.name}" è stato completato da {submission.submitters}
 
@@ -2975,17 +2899,12 @@ it:
   signers: Firmatari
   not_invited_yet: Non ancora invitato
   not_completed_yet: Non ancora completato
-<<<<<<< HEAD
-  declined_on_time: Rifiutato il %{time}
-  expire_on_time: Scade il %{time}
-=======
   not_completed: Non completato
   not_viewed_yet: Non ancora visualizzato
   not_viewed: Non visualizzato
   viewed_on_time: 'Visualizzato il %{time}'
   declined_on_time: 'Rifiutato il %{time}'
   expire_on_time: 'Scade il %{time}'
->>>>>>> refs/tags/3.1.4
   sign_in_person: Firma di persona
   create_a_new_template_document_form_or_submit_the_existing_one_html: <a href="%{new_template_link}" data-turbo-frame="modal" class="inline underline font-medium">Crea un nuovo modello</a> di documento o <a href="%{start_form_link}" target="_blank" class="inline underline font-medium">invia quello esistente</a>
   send_email_copy_with_completed_documents_to_a_specified_bcc_address: Invia una copia dell'email con i documenti completati a un indirizzo BCC specificato.
@@ -3492,12 +3411,8 @@ fr:
   view_document: Consulter le document
   review_and_submit: Examiner et soumettre
   please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Veuillez nous contacter en répondant à cet e‑mail si vous avez des questions.
-<<<<<<< HEAD
-  submitter_invitation_sms_body_sign: '{account.name} vous a invité à signer un document : {submitter.link}'
-=======
   submitter_invitation_sms_body_sign: "{account.name} vous a invité à signer un document : {submitter.link}"
   submitter_invitation_sms_body_view: "{account.name} vous a invité à consulter un document : {submitter.link}"
->>>>>>> refs/tags/3.1.4
   verification_code_sms_body: 'Code de vérification : {code}'
   you_are_invited_to_submit_a_form: Vous êtes invité à soumettre un formulaire
   you_are_invited_to_sign_a_document: Vous êtes invité à signer un document
@@ -3521,12 +3436,6 @@ fr:
     Merci,
 
     {account.name}
-<<<<<<< HEAD
-
-    '
-  submitter_completed_email_body: 'Bonjour,
-
-=======
   submitter_invitation_email_view_body: |
     Bonjour,
 
@@ -3540,7 +3449,6 @@ fr:
     {account.name}
   submitter_completed_email_body: |
     Bonjour,
->>>>>>> refs/tags/3.1.4
 
     "{template.name}" a été complété par {submission.submitters}
 
@@ -4600,14 +4508,9 @@ pt:
   : Assine documentos com certificado confiável fornecido pela DocuSeal. Seus documentos e dados nunca são compartilhados com a DocuSeal. O checksum do PDF é fornecido para gerar uma assinatura confiável.
   hi_there: Olá
   thanks: Obrigado
-<<<<<<< HEAD
-  you_have_been_invited_to_submit_the_name_form: Você foi convidado a submeter o formulário "%{name}".
-  you_have_been_invited_to_sign_the_name: Você foi convidado a assinar "%{name}".
-=======
   you_have_been_invited_to_submit_the_name_form: 'Você foi convidado a submeter o formulário "%{name}".'
   you_have_been_invited_to_sign_the_name: 'Você foi convidado a assinar "%{name}".'
   you_have_been_invited_to_view_the_name: 'Você foi convidado a visualizar "%{name}".'
->>>>>>> refs/tags/3.1.4
   alternatively_you_can_review_and_download_your_copy_using_the_link_below: 'Você pode revisar e baixar sua cópia usando o link abaixo:'
   please_check_the_copy_of_your_name_in_the_email_attachments: Por favor, verifique a cópia de "%{name}" nos anexos do e-mail.
   review_and_sign: Revisar e assinar
@@ -5191,17 +5094,12 @@ pt:
   signers: Signatários
   not_invited_yet: Ainda não convidado
   not_completed_yet: Ainda não concluído
-<<<<<<< HEAD
-  declined_on_time: Recusado em %{time}
-  expire_on_time: Expira em %{time}
-=======
   not_completed: Não concluído
   not_viewed_yet: Ainda não visualizado
   not_viewed: Não visualizado
   viewed_on_time: 'Visualizado em %{time}'
   declined_on_time: 'Recusado em %{time}'
   expire_on_time: 'Expira em %{time}'
->>>>>>> refs/tags/3.1.4
   sign_in_person: Assinar pessoalmente
   create_a_new_template_document_form_or_submit_the_existing_one_html: <a href="%{new_template_link}" data-turbo-frame="modal" class="inline underline font-medium">Criar um novo modelo</a> de documento ou <a href="%{start_form_link}" target="_blank" class="inline underline font-medium">submeter o existente</a>
   send_email_copy_with_completed_documents_to_a_specified_bcc_address: Envie uma cópia do e-mail com documentos concluídos para um endereço BCC especificado.
@@ -5695,17 +5593,10 @@ de:
   sent_using_product_name_open_source_software_html: Gesendet mit der Open-Source-Software von <a href="%{product_url}">%{product_name}</a>.
   sent_with_docuseal_pro_html: Gesendet mit <a href="%{product_url}">DocuSeal Pro</a>
   show_send_with_docuseal_pro_attribution_in_emails_html: '"Gesendet mit <span class="link">DocuSeal Pro</span>" in E-Mails anzeigen'
-<<<<<<< HEAD
-  ? sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature
-  : Unterzeichnen Sie Dokumente mit einem vertrauenswürdigen Zertifikat von DocuSeal. Ihre Dokumente und Daten werden niemals mit DocuSeal geteilt. Eine PDF-Prüfsumme wird bereitgestellt, um eine vertrauenswürdige Signatur zu generieren.
-  you_have_been_invited_to_submit_the_name_form: Sie wurden eingeladen, das Formular "%{name}" einzureichen.
-  you_have_been_invited_to_sign_the_name: Sie wurden eingeladen, "%{name}" zu unterschreiben.
-=======
   sign_documents_with_trusted_certificate_provided_by_docu_seal_your_documents_and_data_are_never_shared_with_docu_seal_p_d_f_checksum_is_provided_to_generate_a_trusted_signature: Unterzeichnen Sie Dokumente mit einem vertrauenswürdigen Zertifikat von DocuSeal. Ihre Dokumente und Daten werden niemals mit DocuSeal geteilt. Eine PDF-Prüfsumme wird bereitgestellt, um eine vertrauenswürdige Signatur zu generieren.
   you_have_been_invited_to_submit_the_name_form: 'Sie wurden eingeladen, das Formular "%{name}" einzureichen.'
   you_have_been_invited_to_sign_the_name: 'Sie wurden eingeladen, "%{name}" zu unterschreiben.'
   you_have_been_invited_to_view_the_name: 'Sie wurden eingeladen, "%{name}" anzusehen.'
->>>>>>> refs/tags/3.1.4
   alternatively_you_can_review_and_download_your_copy_using_the_link_below: 'Alternativ können Sie Ihre Kopie über den untenstehenden Link ansehen und herunterladen:'
   please_check_the_copy_of_your_name_in_the_email_attachments: Bitte prüfen Sie die Kopie von "%{name}" im E-Mail-Anhang.
   awaiting_completion_by_the_other_party: Warten auf die Fertigstellung durch die andere Partei
@@ -5738,12 +5629,6 @@ de:
     Danke,
 
     {account.name}
-<<<<<<< HEAD
-
-    '
-  submitter_completed_email_body: 'Hallo,
-
-=======
   submitter_invitation_email_view_body: |
     Hallo,
 
@@ -5757,7 +5642,6 @@ de:
     {account.name}
   submitter_completed_email_body: |
     Hallo,
->>>>>>> refs/tags/3.1.4
 
     "{template.name}" wurde von {submission.submitters} abgeschlossen.
 
@@ -6311,17 +6195,12 @@ de:
   signers: Unterzeichner
   not_invited_yet: Noch nicht eingeladen
   not_completed_yet: Noch nicht abgeschlossen
-<<<<<<< HEAD
-  declined_on_time: Abgelehnt am %{time}
-  expire_on_time: Läuft ab am %{time}
-=======
   not_completed: Nicht abgeschlossen
   not_viewed_yet: Noch nicht angesehen
   not_viewed: Nicht angesehen
   viewed_on_time: 'Angesehen am %{time}'
   declined_on_time: 'Abgelehnt am %{time}'
   expire_on_time: 'Läuft ab am %{time}'
->>>>>>> refs/tags/3.1.4
   sign_in_person: Vor Ort unterschreiben
   create_a_new_template_document_form_or_submit_the_existing_one_html: <a href="%{new_template_link}" data-turbo-frame="modal" class="inline underline font-medium">Neue Vorlage erstellen</a> oder <a href="%{start_form_link}" target="_blank" class="inline underline font-medium">bestehende einreichen</a>
   send_email_copy_with_completed_documents_to_a_specified_bcc_address: Senden Sie eine E-Mail-Kopie mit abgeschlossenen Dokumenten an eine angegebene BCC-Adresse.
@@ -7843,6 +7722,30 @@ pl:
   time:
     formats:
       detailed: '%B %d, %Y %H:%M:%S'
+
+  you_have_been_invited_to_view_the_name: 'Zaproszono Cię do wyświetlenia dokumentu „%{name}”.'
+  view_document: Wyświetl dokument
+  submitter_invitation_sms_body_view: '{account.name} zaprasza Cię do wyświetlenia dokumentu: {submitter.link}'
+  you_are_invited_to_view_a_document: Zaproszono Cię do wyświetlenia dokumentu
+  submitter_invitation_email_view_body: |
+    Dzień dobry,
+
+    Zaproszono Cię do wyświetlenia dokumentu „{template.name}”.
+
+    [Wyświetl dokument]({submitter.link})
+
+    W razie pytań odpowiedz na tę wiadomość.
+
+    Dziękujemy,
+    {account.name}
+  view_documents_email: Wiadomość e-mail do wyświetlania dokumentów
+  view_only: Tylko do wyświetlania
+  form_is_view_only: Ten formularz jest tylko do wyświetlania
+  not_completed: Nie ukończono
+  not_viewed_yet: Jeszcze nie wyświetlono
+  not_viewed: Nie wyświetlono
+  viewed_on_time: Wyświetlono %{time}
+  smtp_settings_have_been_reset: Ustawienia SMTP zostały zresetowane.
 uk:
   require_phone_2fa_to_open: Вимагати двофакторну автентифікацію через телефон для відкриття
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Відправник запитав двофакторну автентифікацію за допомогою одноразового пароля, надісланого на ваш номер телефону <b>%{phone}</b>.
@@ -8232,12 +8135,8 @@ nl:
   view_document: Document bekijken
   review_and_submit: Bekijken en indienen
   please_contact_us_by_replying_to_this_email_if_you_have_any_questions: Neem contact met ons op door op deze e-mail te antwoorden als u vragen heeft.
-<<<<<<< HEAD
-  submitter_invitation_sms_body_sign: '{account.name} heeft u uitgenodigd om een document te ondertekenen: {submitter.link}'
-=======
   submitter_invitation_sms_body_sign: "{account.name} heeft u uitgenodigd om een document te ondertekenen: {submitter.link}"
   submitter_invitation_sms_body_view: "{account.name} heeft u uitgenodigd om een document te bekijken: {submitter.link}"
->>>>>>> refs/tags/3.1.4
   verification_code_sms_body: 'Verificatiecode: {code}'
   you_are_invited_to_submit_a_form: U bent uitgenodigd om een formulier in te dienen
   you_are_invited_to_sign_a_document: U bent uitgenodigd om een document te ondertekenen
@@ -8261,12 +8160,6 @@ nl:
     Bedankt,
 
     {account.name}
-<<<<<<< HEAD
-
-    '
-  submitter_completed_email_body: 'Hallo,
-
-=======
   submitter_invitation_email_view_body: |
     Hallo,
 
@@ -8280,7 +8173,6 @@ nl:
     {account.name}
   submitter_completed_email_body: |
     Hallo,
->>>>>>> refs/tags/3.1.4
 
     "{template.name}" is voltooid door {submission.submitters}
 
