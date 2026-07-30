@@ -4264,16 +4264,6 @@ fr:
   a_confirmation_email_has_been_sent_to_the_new_email_address: Un e-mail de confirmation a été envoyé à la nouvelle adresse e-mail.
   email_address_is_awaiting_confirmation_follow_the_link_in_the_email_to_confirm: '%{email} est en attente de confirmation. Suivez le lien dans l''e-mail pour la confirmer.'
   please_confirm_your_email_address_using_the_link_below_: 'Veuillez confirmer votre adresse e-mail en utilisant le lien ci-dessous :'
-<<<<<<< HEAD
-  confirm_email: Confirmer l'e-mail
-  please_verify_your_email_address_to_continue: Veuillez vérifier votre adresse e-mail pour continuer.
-  verification_code_sent_click_link_or_enter_code: Un code de vérification a été envoyé à votre adresse e-mail. Vous pouvez cliquer sur le lien dans l'e-mail ou saisir le code ci-dessous.
-  use_otp_code_to_verify_email_or_click_link_below_html: 'Utilisez le code <b>%{code}</b> pour vérifier votre e-mail ou cliquez sur le lien ci-dessous :'
-  verify_your_email: Vérifier votre e-mail
-  your_email_has_been_confirmed: Votre adresse e-mail a été confirmée.
-  invalid_or_expired_verification_code: Code de vérification invalide ou expiré.
-  didnt_receive_an_email: Vous n'avez pas reçu d'e-mail ?
-=======
   confirm_email: "Confirmer l'e-mail"
   please_verify_your_email_address_to_continue: "Veuillez vérifier votre adresse e-mail pour continuer."
   verification_code_sent_click_link_or_enter_code: "Un code de vérification a été envoyé à votre adresse e-mail. Vous pouvez cliquer sur le lien dans l'e-mail ou saisir le code ci-dessous."
@@ -4283,7 +4273,6 @@ fr:
   your_email_has_been_confirmed: "Votre adresse e-mail a été confirmée."
   invalid_or_expired_verification_code: "Code de vérification invalide ou expiré."
   didnt_receive_an_email: "Vous n'avez pas reçu d'e-mail ?"
->>>>>>> refs/tags/3.1.6
   unconfirmed: Non confirmé
   you_requested_to_reset_your_password_use_the_link_below_to_continue: Vous avez demandé à réinitialiser votre mot de passe. Utilisez le lien ci-dessous pour continuer.
   if_you_didnt_request_this_you_can_ignore_this_email: Si vous n'avez pas fait cette demande, veuillez ignorer cet e-mail.
@@ -7575,6 +7564,7 @@ pl:
   please_verify_your_email_address_to_continue: Aby kontynuować, zweryfikuj swój adres e-mail.
   verification_code_sent_click_link_or_enter_code: Kod weryfikacyjny został wysłany na Twój adres e-mail. Kliknij link e-mailowy lub wprowadź jednorazowy kod, aby potwierdzić swój adres e-mail.
   use_otp_code_to_verify_email_or_click_link_below_html: 'Użyj kodu <b>%{code}</b>, aby zweryfikować swój adres e-mail lub kliknij poniższy link:'
+  use_otp_code_to_verify_email_html: 'Użyj kodu <b>%{code}</b>, aby zweryfikować swój adres e-mail:'
   verify_your_email: Zweryfikuj swój adres e-mail
   your_email_has_been_confirmed: Twój e-mail został potwierdzony.
   invalid_or_expired_verification_code: Nieprawidłowy lub wygasły kod weryfikacyjny.
