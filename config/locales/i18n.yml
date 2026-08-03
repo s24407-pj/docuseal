@@ -1113,9 +1113,16 @@ en: &en
     submission_submitters: Submitters list
     submission_link: Submission link
     documents_link: Documents link
+  date:
+    formats:
+      default: "%m/%d/%Y"
+      short: "%b %-d"
+      long: "%B %-d, %Y"
   time:
     formats:
-      detailed: "%B %d, %Y %H:%M:%S"
+      short: "%b %-d, %-I:%M %p"
+      long: "%B %-d, %Y at %-I:%M %p"
+      detailed: "%B %-d, %Y at %-I:%M:%S %p"
 
 es: &es
   knowledge_based_authentication: Autenticación basada en el conocimiento
@@ -2210,9 +2217,30 @@ es: &es
     submission_submitters: Lista de firmantes
     submission_link: Enlace del envío
     documents_link: Enlace de los documentos
+  date:
+    abbr_month_names:
+      -
+      - ene
+      - feb
+      - mar
+      - abr
+      - may
+      - jun
+      - jul
+      - ago
+      - sept
+      - oct
+      - nov
+      - dic
+    formats:
+      default: "%d/%m/%Y"
+      short: "%-d %b"
+      long: "%-d de %B de %Y"
   time:
     formats:
-      detailed: "%-d de %B de %Y %H:%M:%S"
+      short: "%-d %b, %-H:%M"
+      long: "%-d de %B de %Y a las %-H:%M"
+      detailed: "%-d de %B de %Y a las %-H:%M:%S"
 
 it: &it
   knowledge_based_authentication: Autenticazione basata sulla conoscenza
@@ -3307,9 +3335,16 @@ it: &it
     submission_submitters: Lista dei firmatari
     submission_link: Link dell'invio
     documents_link: Link dei documenti
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%-d %b"
+      long: "%-d %B %Y"
   time:
     formats:
-      detailed: "%d %B %Y %H:%M:%S"
+      short: "%-d %b, %H:%M"
+      long: "%-d %B %Y alle ore %H:%M"
+      detailed: "%-d %B %Y alle ore %H:%M:%S"
 
 fr: &fr
   knowledge_based_authentication: Authentification basée sur la connaissance
@@ -4401,9 +4436,29 @@ fr: &fr
     submission_submitters: Liste des signataires
     submission_link: Lien de la soumission
     documents_link: Lien des documents
+  date:
+    abbr_month_names:
+      -
+      - janv.
+      - févr.
+      - mars
+      - avr.
+      - mai
+      - juin
+      - juil.
+      - août
+      - sept.
+      - oct.
+      - nov.
+      - déc.
+    formats:
+      short: "%-d %b"
+      long: "%-d %B %Y"
   time:
     formats:
-      detailed: "%A %d %B %Y %Hh%Mm%Ss"
+      short: "%-d %b, %H:%M"
+      long: "%-d %B %Y à %H:%M"
+      detailed: "%-d %B %Y à %H:%M:%S"
 
 pt: &pt
   knowledge_based_authentication: Autenticação baseada em conhecimento
@@ -5498,9 +5553,29 @@ pt: &pt
     submission_submitters: Lista de signatários
     submission_link: Link da submissão
     documents_link: Link dos documentos
+  date:
+    abbr_month_names:
+      -
+      - jan.
+      - fev.
+      - mar.
+      - abr.
+      - mai.
+      - jun.
+      - jul.
+      - ago.
+      - set.
+      - out.
+      - nov.
+      - dez.
+    formats:
+      short: "%-d de %b"
+      long: "%-d de %B de %Y"
   time:
     formats:
-      detailed: "%A, %d de %B de %Y, %H:%M:%Sh"
+      short: "%-d de %b, %H:%M"
+      long: "%-d de %B de %Y às %H:%M"
+      detailed: "%-d de %B de %Y às %H:%M:%S"
 
 de: &de
   knowledge_based_authentication: Wissensbasierte Authentifizierung
@@ -6595,11 +6670,42 @@ de: &de
     submission_submitters: Liste der Unterzeichner
     submission_link: Link der Einreichung
     documents_link: Link der Dokumente
+  date:
+    abbr_month_names:
+      -
+      - Jan.
+      - Feb.
+      - März
+      - Apr.
+      - Mai
+      - Juni
+      - Juli
+      - Aug.
+      - Sept.
+      - Okt.
+      - Nov.
+      - Dez.
+    formats:
+      default: "%d.%m.%Y"
+      short: "%-d. %b"
+      long: "%-d. %B %Y"
   time:
     formats:
-      detailed: "%A, %d. %B %Y, %H:%M:%S Uhr"
+      short: "%-d. %b, %H:%M"
+      long: "%-d. %B %Y um %H:%M"
+      detailed: "%-d. %B %Y um %H:%M:%S"
 
 pl:
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%-d %b"
+      long: "%-d %B %Y"
+  time:
+    formats:
+      short: "%-d %b, %H:%M"
+      long: "%-d %B %Y %H:%M"
+      detailed: "%-d %B %Y %H:%M:%S"
   require_phone_2fa_to_open: Wymagaj uwierzytelniania telefonicznego 2FA do otwarcia
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Nadawca zażądał uwierzytelnienia dwuskładnikowego poprzez jednorazowe hasło wysłane na Twój numer telefonu <b>%{phone}</b>.
   send_verification_code: Wyślij kod weryfikacyjny
@@ -6701,6 +6807,44 @@ pl:
   too_many_requests_try_again_later: Zbyt wiele żądań. Spróbuj ponownie później.
 
 uk:
+  date:
+    month_names:
+      -
+      - січня
+      - лютого
+      - березня
+      - квітня
+      - травня
+      - червня
+      - липня
+      - серпня
+      - вересня
+      - жовтня
+      - листопада
+      - грудня
+    abbr_month_names:
+      -
+      - січ.
+      - лют.
+      - бер.
+      - квіт.
+      - трав.
+      - черв.
+      - лип.
+      - серп.
+      - вер.
+      - жовт.
+      - лист.
+      - груд.
+    formats:
+      default: "%d.%m.%Y"
+      short: "%-d %b"
+      long: "%-d %B %Y р."
+  time:
+    formats:
+      short: "%-d %b, %H:%M"
+      long: "%-d %B %Y р. о %H:%M"
+      detailed: "%-d %B %Y р. о %H:%M:%S"
   require_phone_2fa_to_open: Вимагати двофакторну автентифікацію через телефон для відкриття
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Відправник запитав двофакторну автентифікацію за допомогою одноразового пароля, надісланого на ваш номер телефону <b>%{phone}</b>.
   send_verification_code: Надіслати код перевірки
@@ -6802,6 +6946,44 @@ uk:
   too_many_requests_try_again_later: Забагато запитів. Спробуйте пізніше.
 
 cs:
+  date:
+    month_names:
+      -
+      - ledna
+      - února
+      - března
+      - dubna
+      - května
+      - června
+      - července
+      - srpna
+      - září
+      - října
+      - listopadu
+      - prosince
+    abbr_month_names:
+      -
+      - led
+      - úno
+      - bře
+      - dub
+      - kvě
+      - čvn
+      - čvc
+      - srp
+      - zář
+      - říj
+      - lis
+      - pro
+    formats:
+      default: "%d. %m. %Y"
+      short: "%-d. %-m."
+      long: "%-d. %B %Y"
+  time:
+    formats:
+      short: "%-d. %-m. %-H:%M"
+      long: "%-d. %B %Y v %-H:%M"
+      detailed: "%-d. %B %Y v %-H:%M:%S"
   require_phone_2fa_to_open: Vyžadovat otevření pomocí telefonního 2FA
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: Odesílatel požádal o dvoufaktorové ověření pomocí jednorázového hesla zaslaného na vaše telefonní číslo <b>%{phone}</b>.
   send_verification_code: Odeslat ověřovací kód
@@ -6903,6 +7085,30 @@ cs:
   too_many_requests_try_again_later: Příliš mnoho požadavků. Zkuste to později.
 
 he:
+  date:
+    abbr_month_names:
+      -
+      - ינו׳
+      - פבר׳
+      - מרץ
+      - אפר׳
+      - מאי
+      - יוני
+      - יולי
+      - אוג׳
+      - ספט׳
+      - אוק׳
+      - נוב׳
+      - דצמ׳
+    formats:
+      default: "%d.%m.%Y"
+      short: "%-d ב%b"
+      long: "%-d ב%B %Y"
+  time:
+    formats:
+      short: "%-d ב%b, %-H:%M"
+      long: "%-d ב%B %Y בשעה %-H:%M"
+      detailed: "%-d ב%B %Y בשעה %-H:%M:%S"
   require_phone_2fa_to_open: דרוש אימות דו-שלבי באמצעות טלפון לפתיחה
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: השולח ביקש אימות דו-שלבי באמצעות סיסמה חד פעמית שנשלחה למספר הטלפון שלך <b>%{phone}</b>.
   send_verification_code: שלח קוד אימות
@@ -8093,11 +8299,29 @@ nl: &nl
     submission_submitters: Lijst van ondertekenaars
     submission_link: Link van de inzending
     documents_link: Link van de documenten
+  date:
+    formats:
+      short: "%-d %b"
+      long: "%-d %B %Y"
   time:
     formats:
-      detailed: "%d %B %Y %H:%M:%S"
+      short: "%-d %b, %H:%M"
+      long: "%-d %B %Y om %H:%M"
+      detailed: "%-d %B %Y om %H:%M:%S"
 
 ar:
+  date:
+    formats:
+      default: "%d‏/%m‏/%Y"
+      short: "%-d %b"
+      long: "%-d %B %Y"
+  time:
+    am: "ص"
+    pm: "م"
+    formats:
+      short: "%-d %b، %-I:%M %p"
+      long: "%-d %B %Y في %-I:%M %p"
+      detailed: "%-d %B %Y في %-I:%M:%S %p"
   require_phone_2fa_to_open: "يتطلب المصادقة الثنائية عبر الهاتف للفتح"
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: "طلب المرسل المصادقة الثنائية عبر كلمة مرور لمرة واحدة مرسلة إلى رقم هاتفك <b>%{phone}</b>."
   send_verification_code: "إرسال رمز التحقق"
@@ -8199,6 +8423,16 @@ ar:
   too_many_requests_try_again_later: طلبات كثيرة جدًا. حاول مرة أخرى لاحقًا.
 
 ko:
+  date:
+    formats:
+      default: "%Y. %m. %d."
+      short: "%b %-d일"
+      long: "%Y년 %B %-d일"
+  time:
+    formats:
+      short: "%b %-d일 %p %-I:%M"
+      long: "%Y년 %B %-d일 %p %-I:%M"
+      detailed: "%Y년 %B %-d일 %p %-I:%M:%S"
   require_phone_2fa_to_open: 열려면 휴대폰 2FA 요구
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: 발신자가 <b>%{phone}</b> 전화번호로 전송된 일회용 비밀번호를 통해 2단계 인증을 요청했습니다.
   send_verification_code: 인증 코드 보내기
@@ -8300,6 +8534,16 @@ ko:
   too_many_requests_try_again_later: 요청이 너무 많습니다. 나중에 다시 시도하세요.
 
 ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%-m月%-d日"
+      long: "%Y年%-m月%-d日"
+  time:
+    formats:
+      short: "%-m月%-d日 %-H:%M"
+      long: "%Y年%-m月%-d日 %-H:%M"
+      detailed: "%Y年%-m月%-d日 %-H:%M:%S"
   require_phone_2fa_to_open: 電話による2段階認証が必要です
   the_sender_has_requested_a_two_factor_authentication_via_one_time_password_sent_to_your_html: 送信者は、<b>%{phone}</b> に送信されたワンタイムパスワードによる2段階認証を要求しました。
   send_verification_code: 認証コードを送信
@@ -8402,21 +8646,33 @@ ja:
 
 en-US:
   <<: *en
-  date:
-    formats:
-      default: "%m/%d/%Y"
-  time:
-    formats:
-      detailed: "%B %d, %Y %I:%M:%S %p"
 
 en-GB:
   <<: *en
   date:
+    abbr_month_names:
+      -
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sept
+      - Oct
+      - Nov
+      - Dec
     formats:
       default: "%d/%m/%Y"
+      short: "%-d %b"
+      long: "%-d %B %Y"
   time:
     formats:
-      detailed: "%d %B, %Y %H:%M:%S"
+      short: "%-d %b, %H:%M"
+      long: "%-d %B %Y at %H:%M"
+      detailed: "%-d %B %Y at %H:%M:%S"
 
 es-ES:
   <<: *es
