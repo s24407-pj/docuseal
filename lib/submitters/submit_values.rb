@@ -114,7 +114,7 @@ module Submitters
       end
 
       reason_field = submitter.submission.template_fields.find do |e|
-        e['uuid'] == reason_field_uuid && e['submitter_uuid'] == submitter.uuid
+        e['uuid'] == reason_field_uuid
       end
 
       if reason_field
