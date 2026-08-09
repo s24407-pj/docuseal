@@ -17,11 +17,11 @@ class SubmitFormCompletedDownloadController < ApplicationController
         @submitter = nil
       end
 
-    @submitter ||= Submitter.find_by!(slug: submitter_slug)
+    @submitter ||= Submitter.completed.find_by!(slug: submitter_slug)
 
     Submissions::EnsureResultGenerated.call(@submitter) if @submitter.completed_at?
 
-    last_submitter = @submitter.submission.submitters.where.not(completed_at: nil).order(:completed_at).last
+    last_submitter = @submitter.submission.submitters.completed.order(:completed_at).last
 
     return head :not_found unless last_submitter
 
