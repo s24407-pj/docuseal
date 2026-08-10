@@ -14,7 +14,11 @@ class SubmitFormCompletedDownloadController < ApplicationController
 
     @submitter = Submitter.find_by!(slug: submitter_slug) unless signature_valid
 
-    return head :not_found unless completed_submitter?(@submitter)
+    unless completed_submitter?(@submitter)
+      Rollbar.error("Not completed: #{@submitter.id}") if defined?(Rollbar)
+
+      return head :not_found
+    end
 
     Submissions::EnsureResultGenerated.call(@submitter) if @submitter.completed_at?
 
