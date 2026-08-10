@@ -264,7 +264,7 @@ module Templates
       [process_fields_array(pdf, fields_index.values), annots_index]
     end
 
-    def process_fields_array(pdf, array, acc = [])
+    def process_fields_array(pdf, array, acc = [], seen = Set.new.compare_by_identity)
       array.each_with_index do |field, index|
         next if field.nil?
 
@@ -272,10 +272,12 @@ module Templates
           array[index] = field = HexaPDF::Type::AcroForm::Field.wrap(pdf, field)
         end
 
+        next unless seen.add?(field.value)
+
         if field.terminal_field?
           acc << field
         else
-          process_fields_array(pdf, field[:Kids], acc)
+          process_fields_array(pdf, field[:Kids], acc, seen)
         end
       end
 
