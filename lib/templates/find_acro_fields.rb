@@ -251,7 +251,9 @@ module Templates
             fields_index[annot.hash] ||= HexaPDF::Type::AcroForm::Field.wrap(pdf, annot)
           elsif annot.key?(:Parent)
             field = annot[:Parent]
-            field = field[:Parent] while field[:Parent]
+            seen = Set.new.compare_by_identity
+
+            field = field[:Parent] while field[:Parent] && seen.add?(field.value)
 
             annots_index[field.hash] ||= page
             fields_index[field.hash] ||= HexaPDF::Type::AcroForm::Field.wrap(pdf, field)

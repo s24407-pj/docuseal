@@ -110,4 +110,32 @@ module HexaPDF
       end
     end
   end
+
+  module CycleSafeInheritedValue
+    def inherited_value(field, name)
+      seen = Set.new.compare_by_identity
+      seen << field.value
+
+      while field.value[name].nil? && (parent = field[:Parent]) && seen.add?(parent.value)
+        field = parent
+      end
+
+      field.value[name].nil? ? nil : field[name]
+    end
+  end
+
+  module CycleSafeFullFieldName
+    def full_field_name(seen = Set.new.compare_by_identity)
+      return field_name unless seen.add?(value)
+
+      if key?(:Parent)
+        [self[:Parent].full_field_name(seen), field_name].compact.join('.')
+      else
+        field_name
+      end
+    end
+  end
 end
+
+HexaPDF::Type::AcroForm::Field.singleton_class.prepend(HexaPDF::CycleSafeInheritedValue)
+HexaPDF::Type::AcroForm::Field.prepend(HexaPDF::CycleSafeFullFieldName)
