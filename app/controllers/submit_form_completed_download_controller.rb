@@ -10,14 +10,11 @@ class SubmitFormCompletedDownloadController < ApplicationController
   def index
     @submitter = Submitter.find_signed(params[:sig], purpose: :download_completed) if params[:sig].present?
 
-    signature_valid =
-      if @submitter&.slug == submitter_slug
-        true
-      else
-        @submitter = nil
-      end
+    signature_valid = @submitter&.slug == submitter_slug
 
-    @submitter ||= Submitter.completed.find_by!(slug: submitter_slug)
+    @submitter = Submitter.find_by!(slug: submitter_slug) unless signature_valid
+
+    return head :not_found unless completed_submitter?(@submitter)
 
     Submissions::EnsureResultGenerated.call(@submitter) if @submitter.completed_at?
 
@@ -58,6 +55,10 @@ class SubmitFormCompletedDownloadController < ApplicationController
     else
       head :not_found
     end
+  end
+
+  def completed_submitter?(submitter)
+    submitter.completed_at? || (submitter.viewer? && submitter.submission.completed_at?)
   end
 
   def current_user_submitter?(submitter)
