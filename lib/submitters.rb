@@ -93,7 +93,8 @@ module Submitters
   def plain_search(submitters, keyword)
     return submitters if keyword.blank?
 
-    term = "%#{keyword.downcase}%"
+    sanitized = ActiveRecord::Base.sanitize_sql_like(keyword.downcase)
+    term = "%#{sanitized}%"
 
     arel_table = Submitter.arel_table
 
