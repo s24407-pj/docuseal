@@ -109,12 +109,6 @@ class Pdfium
   attach_function :FPDF_GetTrailerEnds, %i[FPDF_DOCUMENT pointer ulong], :ulong
   attach_function :FPDF_DocumentHasValidCrossReferenceTable, [:FPDF_DOCUMENT], :int
 
-  attach_function :FPDFPage_GetAnnotCount, [:FPDF_PAGE], :int
-  attach_function :FPDFPage_GetAnnot, %i[FPDF_PAGE int], :FPDF_ANNOTATION
-  attach_function :FPDFPage_CloseAnnot, [:FPDF_ANNOTATION], :void
-  attach_function :FPDFAnnot_GetSubtype, [:FPDF_ANNOTATION], :int
-  attach_function :FPDFAnnot_GetRect, %i[FPDF_ANNOTATION pointer], :int
-
   attach_function :FPDFBookmark_GetFirstChild, %i[FPDF_DOCUMENT FPDF_BOOKMARK], :FPDF_BOOKMARK
   attach_function :FPDFBookmark_GetNextSibling, %i[FPDF_DOCUMENT FPDF_BOOKMARK], :FPDF_BOOKMARK
   attach_function :FPDFBookmark_GetTitle, %i[FPDF_BOOKMARK pointer ulong], :ulong
@@ -219,6 +213,14 @@ class Pdfium
   FPDF_PAGEOBJ_SHADING = 4
   FPDF_PAGEOBJ_FORM = 5
 
+  PAGE_OBJECT_TYPES = {
+    FPDF_PAGEOBJ_TEXT => :text,
+    FPDF_PAGEOBJ_PATH => :path,
+    FPDF_PAGEOBJ_IMAGE => :image,
+    FPDF_PAGEOBJ_SHADING => :shading,
+    FPDF_PAGEOBJ_FORM => :form
+  }.freeze
+
   # Path segment types
   FPDF_SEGMENT_UNKNOWN = -1
   FPDF_SEGMENT_LINETO = 0
@@ -272,6 +274,73 @@ class Pdfium
   attach_function :FPDFDOC_ExitFormFillEnvironment, [:FPDF_FORMHANDLE], :void
   attach_function :FPDF_FFLDraw, %i[FPDF_FORMHANDLE FPDF_BITMAP FPDF_PAGE int int int int int int], :void
 
+  attach_function :FORM_OnAfterLoadPage, %i[FPDF_PAGE FPDF_FORMHANDLE], :void
+  attach_function :FORM_OnBeforeClosePage, %i[FPDF_PAGE FPDF_FORMHANDLE], :void
+
+  attach_function :FPDFPage_GetAnnotCount, [:FPDF_PAGE], :int
+
+  begin
+    attach_function :FPDFPage_GetAnnotCountRaw, %i[FPDF_DOCUMENT int], :int
+  rescue FFI::NotFoundError
+    define_singleton_method(:FPDFPage_GetAnnotCountRaw) { |*| -1 } # rubocop:disable Naming/MethodName
+  end
+
+  attach_function :FPDFPage_GetAnnot, %i[FPDF_PAGE int], :FPDF_ANNOTATION
+  attach_function :FPDFPage_CloseAnnot, [:FPDF_ANNOTATION], :void
+  attach_function :FPDFAnnot_GetSubtype, [:FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetRect, %i[FPDF_ANNOTATION pointer], :int
+  attach_function :FPDFAnnot_GetNumberValue, %i[FPDF_ANNOTATION string pointer], :int
+  attach_function :FPDFAnnot_GetStringValue, %i[FPDF_ANNOTATION string pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFormFieldType, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetFormFieldFlags, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetFormFieldName, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFormFieldAlternateName, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFormFieldValue, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFormFieldExportValue, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFormControlCount, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetFormControlIndex, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetOptionCount, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetOptionLabel, %i[FPDF_FORMHANDLE FPDF_ANNOTATION int pointer ulong], :ulong
+  attach_function :FPDFAnnot_IsChecked, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetFormAdditionalActionJavaScript,
+                  %i[FPDF_FORMHANDLE FPDF_ANNOTATION int pointer ulong], :ulong
+
+  FPDF_ANNOT_LINK = 2
+  FPDF_ANNOT_WIDGET = 20
+
+  FPDF_FORMFIELD_UNKNOWN = 0
+  FPDF_FORMFIELD_PUSHBUTTON = 1
+  FPDF_FORMFIELD_CHECKBOX = 2
+  FPDF_FORMFIELD_RADIOBUTTON = 3
+  FPDF_FORMFIELD_COMBOBOX = 4
+  FPDF_FORMFIELD_LISTBOX = 5
+  FPDF_FORMFIELD_TEXTFIELD = 6
+  FPDF_FORMFIELD_SIGNATURE = 7
+
+  FPDF_FORMFLAG_REQUIRED = 1 << 1
+  FPDF_FORMFLAG_TEXT_PASSWORD = 1 << 13
+  FPDF_FORMFLAG_BUTTON_PUSH = 1 << 16
+  FPDF_FORMFLAG_TEXT_FILE_SELECT = 1 << 20
+  FPDF_FORMFLAG_TEXT_COMB = 1 << 24
+  FPDF_FORMFLAG_TEXT_RICH_TEXT = 1 << 25
+
+  TEXT_TYPE_FLAGS = FPDF_FORMFLAG_TEXT_FILE_SELECT |
+                    FPDF_FORMFLAG_TEXT_PASSWORD |
+                    FPDF_FORMFLAG_TEXT_RICH_TEXT
+
+  FPDF_ANNOT_AACTION_KEY_STROKE = 12
+  FPDF_ANNOT_AACTION_FORMAT = 13
+
+  typedef :pointer, :FPDF_LINK
+  typedef :pointer, :FPDF_ACTION
+
+  attach_function :FPDFAnnot_GetLink, [:FPDF_ANNOTATION], :FPDF_LINK
+  attach_function :FPDFLink_GetAction, [:FPDF_LINK], :FPDF_ACTION
+  attach_function :FPDFAction_GetType, [:FPDF_ACTION], :ulong
+  attach_function :FPDFAction_GetURIPath, %i[FPDF_DOCUMENT FPDF_ACTION pointer ulong], :ulong
+
+  PDFACTION_URI = 3
+
   attach_function :FPDFPage_Flatten, %i[FPDF_PAGE int], :int
 
   FLAT_NORMALDISPLAY = 0
@@ -303,6 +372,7 @@ class Pdfium
   attach_function :FPDFPage_SetRotation, %i[FPDF_PAGE int], :void
   attach_function :FPDFPage_TransFormWithClip, %i[FPDF_PAGE pointer pointer], :int
   attach_function :FPDFPage_TransformAnnots, %i[FPDF_PAGE double double double double double double], :void
+  attach_function :FPDF_GetPageBoundingBox, %i[FPDF_PAGE pointer], :int
   attach_function :FPDFPage_GetMediaBox, %i[FPDF_PAGE pointer pointer pointer pointer], :int
   attach_function :FPDFPage_SetMediaBox, %i[FPDF_PAGE float float float float], :void
   attach_function :FPDFPage_GetCropBox, %i[FPDF_PAGE pointer pointer pointer pointer], :int
@@ -383,6 +453,60 @@ class Pdfium
     yield instance
   end
 
+  def self.transform_rect(bounds, box:, rotation:)
+    x0, y0, x1, y1 = bounds
+    box_x0, box_y0, box_x1, box_y1 = box
+
+    box_width = box_x1 - box_x0
+    box_height = box_y1 - box_y0
+
+    left = x0 - box_x0
+    right = x1 - box_x0
+    bottom = y0 - box_y0
+    top = y1 - box_y0
+
+    case rotation
+    when 1
+      [bottom, left, top - bottom, right - left, box_height, box_width]
+    when 2
+      [box_width - right, bottom, right - left, top - bottom, box_width, box_height]
+    when 3
+      [box_height - top, box_width - right, top - bottom, right - left, box_height, box_width]
+    else
+      [left, box_height - top, right - left, top - bottom, box_width, box_height]
+    end
+  end
+
+  def self.read_wide_string
+    length = yield(FFI::Pointer::NULL, 0)
+
+    return if length <= 2
+
+    buffer = FFI::MemoryPointer.new(:uint8, length)
+
+    length = yield(buffer, length)
+
+    return if length <= 2
+
+    buffer.read_bytes(length - 2)
+          .force_encoding('UTF-16LE')
+          .encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
+  end
+
+  def self.read_byte_string
+    length = yield(FFI::Pointer::NULL, 0)
+
+    return if length <= 1
+
+    buffer = FFI::MemoryPointer.new(:uint8, length)
+
+    length = yield(buffer, length)
+
+    return if length <= 1
+
+    buffer.read_bytes(length - 1).force_encoding('UTF-8').scrub
+  end
+
   def self.check_last_error(context_message = 'PDFium operation failed')
     error_code = FPDF_GetLastError()
 
@@ -401,6 +525,7 @@ class Pdfium
       @document_ptr = document_ptr
 
       @pages = {}
+      @annot_counts = {}
       @closed = false
       @source_buffer = source_buffer
       @form_handle = FFI::Pointer::NULL
@@ -597,6 +722,14 @@ class Pdfium
       Pdfium.FPDF_DocumentHasValidCrossReferenceTable(@document_ptr) == 1
     end
 
+    def annot_count(page_index)
+      @annot_counts[page_index] ||= Pdfium.FPDFPage_GetAnnotCountRaw(@document_ptr, page_index)
+    end
+
+    def reset_annot_count(page_index)
+      @annot_counts.delete(page_index)
+    end
+
     def signature_count
       @signature_count ||= Pdfium.FPDF_GetSignatureCount(@document_ptr)
     end
@@ -757,8 +890,6 @@ class Pdfium
   end
 
   class Page
-    RECT_KEYS = %i[left top right bottom].freeze
-
     attr_reader :document, :page_index, :page_ptr
 
     def initialize(document, page_index)
@@ -789,30 +920,36 @@ class Pdfium
     end
 
     def annotations
-      (0...Pdfium.FPDFPage_GetAnnotCount(page_ptr)).filter_map do |index|
-        annotation = Pdfium.FPDFPage_GetAnnot(page_ptr, index)
+      ensure_not_closed!
 
-        next if annotation.null?
-
-        begin
-          rect = Pdfium::FS_RECTF.new
-          Pdfium.FPDFAnnot_GetRect(annotation, rect)
-
-          [Pdfium.FPDFAnnot_GetSubtype(annotation),
-           *RECT_KEYS.map { |key| rect[key].round(3) }]
-        ensure
-          Pdfium.FPDFPage_CloseAnnot(annotation)
+      @annotations ||=
+        (0...Pdfium.FPDFPage_GetAnnotCount(page_ptr)).filter_map do |index|
+          with_annotation(index) do |handle|
+            Annotation.new(page: self, index:, subtype: handle.subtype, rect: handle.rect)
+          end
         end
-      end
     end
 
     def objects
-      (0...Pdfium.FPDFPage_CountObjects(page_ptr)).map do |index|
-        object = Pdfium.FPDFPage_GetObject(page_ptr, index)
-        bounds = Array.new(4) { FFI::MemoryPointer.new(:float) }
-        Pdfium.FPDFPageObj_GetBounds(object, *bounds)
+      ensure_not_closed!
 
-        [Pdfium.FPDFPageObj_GetType(object), *bounds.map { |b| b.read_float.round(3) }]
+      @objects ||=
+        (0...Pdfium.FPDFPage_CountObjects(page_ptr)).map do |index|
+          PageObject.new(page: self, index:)
+        end
+    end
+
+    def with_annotation(index)
+      ensure_not_closed!
+
+      annot_ptr = Pdfium.FPDFPage_GetAnnot(page_ptr, index)
+
+      return if annot_ptr.null?
+
+      begin
+        yield AnnotationHandle.new(self, annot_ptr)
+      ensure
+        Pdfium.FPDFPage_CloseAnnot(annot_ptr)
       end
     end
 
@@ -824,6 +961,18 @@ class Pdfium
       Pdfium.FPDFPage_SetRotation(@page_ptr, value)
 
       @rotation = value
+    end
+
+    def box
+      @box ||= read_bounding_box || [0, 0, 612, 792]
+    end
+
+    def load_page_view
+      return if @page_view || form_handle.null?
+
+      Pdfium.FORM_OnAfterLoadPage(@page_ptr, form_handle)
+
+      @page_view = true
     end
 
     def closed?
@@ -987,7 +1136,7 @@ class Pdfium
 
       @document.add_presave_hook(:cleanup) { @document.cleanup }
 
-      reset_text_memoization
+      reset_memoization
 
       nil
     end
@@ -1085,7 +1234,7 @@ class Pdfium
 
       Pdfium.FPDFPage_GenerateContent(@page_ptr) if unwrapped
 
-      reset_text_memoization if unwrapped
+      reset_memoization if unwrapped
     end
 
     def find_form_object(rect_bounds = nil)
@@ -1202,12 +1351,14 @@ class Pdfium
       end
     end
 
-    def reset_text_memoization
+    def reset_memoization
       remove_instance_variable(:@text) if defined?(@text)
 
       @text_nodes = nil
       @text_objects = nil
       @line_nodes = nil
+      @annotations = nil
+      @objects = nil
     end
 
     def remove_page_object(object_ptr)
@@ -1603,23 +1754,32 @@ class Pdfium
     end
 
     def reload
+      close_page_view
       Pdfium.FPDF_ClosePage(@page_ptr)
 
       @page_ptr = Pdfium.FPDF_LoadPage(@document.document_ptr, @page_index)
 
       raise PdfiumError, "Failed to reload page #{page_index}" if @page_ptr.null?
 
+      @page_view = false
       @rotation = nil
       @width = nil
       @height = nil
+      @box = nil
 
-      reset_text_memoization
+      @document.reset_annot_count(@page_index)
+
+      reset_memoization
     end
 
     def close
       return if closed?
 
-      Pdfium.FPDF_ClosePage(@page_ptr) unless @page_ptr.null?
+      unless @page_ptr.null?
+        close_page_view
+
+        Pdfium.FPDF_ClosePage(@page_ptr)
+      end
 
       @page_ptr = FFI::Pointer::NULL
 
@@ -1627,6 +1787,25 @@ class Pdfium
     end
 
     private
+
+    def close_page_view
+      Pdfium.FORM_OnBeforeClosePage(@page_ptr, form_handle) unless form_handle.null?
+
+      @page_view = false
+    end
+
+    def read_bounding_box
+      rect = Pdfium::FS_RECTF.new
+
+      return unless Pdfium.FPDF_GetPageBoundingBox(page_ptr, rect) == 1
+
+      x0, x1 = [rect[:left], rect[:right]].minmax
+      y0, y1 = [rect[:bottom], rect[:top]].minmax
+
+      return if x1 - x0 <= 0 || y1 - y0 <= 0
+
+      [x0, y0, x1, y1]
+    end
 
     def calculate_render_dimensions(width_param, height_param, scale_param)
       if scale_param
@@ -1651,6 +1830,407 @@ class Pdfium
       end
 
       [render_width.clamp(1, MAX_SIZE), render_height.clamp(1, MAX_SIZE)]
+    end
+  end
+
+  class AnnotationHandle
+    attr_reader :page, :annot_ptr
+
+    delegate :form_handle, to: :page
+
+    def initialize(page, annot_ptr)
+      @page = page
+      @annot_ptr = annot_ptr
+    end
+
+    def subtype
+      Pdfium.FPDFAnnot_GetSubtype(annot_ptr)
+    end
+
+    def rect
+      rect = Pdfium::FS_RECTF.new
+
+      return unless Pdfium.FPDFAnnot_GetRect(annot_ptr, rect) == 1
+
+      left, right = [rect[:left], rect[:right]].minmax
+      bottom, top = [rect[:bottom], rect[:top]].minmax
+
+      [left, bottom, right, top]
+    end
+
+    def field_type
+      Pdfium.FPDFAnnot_GetFormFieldType(form_handle, annot_ptr)
+    end
+
+    def field_flags
+      Pdfium.FPDFAnnot_GetFormFieldFlags(form_handle, annot_ptr)
+    end
+
+    def field_name
+      read_wide { |buffer, length| Pdfium.FPDFAnnot_GetFormFieldName(form_handle, annot_ptr, buffer, length) }
+    end
+
+    def alternate_name
+      read_wide do |buffer, length|
+        Pdfium.FPDFAnnot_GetFormFieldAlternateName(form_handle, annot_ptr, buffer, length)
+      end
+    end
+
+    def field_value
+      read_wide { |buffer, length| Pdfium.FPDFAnnot_GetFormFieldValue(form_handle, annot_ptr, buffer, length) }
+    end
+
+    def export_value
+      read_wide { |buffer, length| Pdfium.FPDFAnnot_GetFormFieldExportValue(form_handle, annot_ptr, buffer, length) }
+    end
+
+    def control_count
+      Pdfium.FPDFAnnot_GetFormControlCount(form_handle, annot_ptr)
+    end
+
+    def control_index
+      Pdfium.FPDFAnnot_GetFormControlIndex(form_handle, annot_ptr)
+    end
+
+    def checked?
+      Pdfium.FPDFAnnot_IsChecked(form_handle, annot_ptr) == 1
+    end
+
+    def option_labels
+      count = Pdfium.FPDFAnnot_GetOptionCount(form_handle, annot_ptr)
+
+      return [] if count < 1
+
+      (0...count).map do |index|
+        read_wide do |buffer, length|
+          Pdfium.FPDFAnnot_GetOptionLabel(form_handle, annot_ptr, index, buffer, length)
+        end.to_s
+      end
+    end
+
+    def action_javascript(event)
+      read_wide do |buffer, length|
+        Pdfium.FPDFAnnot_GetFormAdditionalActionJavaScript(form_handle, annot_ptr, event, buffer, length)
+      end
+    end
+
+    def link_uri
+      link = Pdfium.FPDFAnnot_GetLink(annot_ptr)
+
+      return if link.null?
+
+      action = Pdfium.FPDFLink_GetAction(link)
+
+      return if action.null? || Pdfium.FPDFAction_GetType(action) != Pdfium::PDFACTION_URI
+
+      document_ptr = page.document.document_ptr
+
+      Pdfium.read_byte_string { |buffer, length| Pdfium.FPDFAction_GetURIPath(document_ptr, action, buffer, length) }
+    end
+
+    def number_value(key)
+      value = FFI::MemoryPointer.new(:float)
+
+      return unless Pdfium.FPDFAnnot_GetNumberValue(annot_ptr, key, value) == 1
+
+      value.read_float
+    end
+
+    def string_value(key)
+      read_wide { |buffer, length| Pdfium.FPDFAnnot_GetStringValue(annot_ptr, key, buffer, length) }
+    end
+
+    private
+
+    def read_wide(&)
+      Pdfium.read_wide_string(&)
+    end
+  end
+
+  class Annotation
+    FIELD_TYPES = {
+      Pdfium::FPDF_FORMFIELD_PUSHBUTTON => :pushbutton,
+      Pdfium::FPDF_FORMFIELD_CHECKBOX => :checkbox,
+      Pdfium::FPDF_FORMFIELD_RADIOBUTTON => :radio,
+      Pdfium::FPDF_FORMFIELD_COMBOBOX => :combobox,
+      Pdfium::FPDF_FORMFIELD_LISTBOX => :listbox,
+      Pdfium::FPDF_FORMFIELD_TEXTFIELD => :text,
+      Pdfium::FPDF_FORMFIELD_SIGNATURE => :signature
+    }.freeze
+
+    class Link
+      attr_reader :url
+
+      def initialize(url)
+        @url = url
+      end
+    end
+
+    attr_reader :page, :index, :subtype, :bounds
+
+    delegate :page_index, to: :page
+
+    def initialize(page:, index:, subtype:, rect: nil)
+      @page = page
+      @index = index
+      @subtype = subtype
+      @bounds = rect.to_a
+    end
+
+    def left
+      bounds[0]
+    end
+
+    def bottom
+      bounds[1]
+    end
+
+    def right
+      bounds[2]
+    end
+
+    def top
+      bounds[3]
+    end
+
+    def widget?
+      subtype == Pdfium::FPDF_ANNOT_WIDGET
+    end
+
+    def link?
+      subtype == Pdfium::FPDF_ANNOT_LINK
+    end
+
+    def rect?
+      bounds.any?
+    end
+
+    def width
+      right - left
+    end
+
+    def height
+      top - bottom
+    end
+
+    def link
+      @link = link? ? page.with_annotation(index) { |handle| Link.new(handle.link_uri) } : nil unless defined?(@link)
+
+      @link
+    end
+
+    def field
+      @field = widget? ? page.with_annotation(index) { |handle| Field.new(handle) } : nil unless defined?(@field)
+
+      @field
+    end
+
+    def to_a
+      [index, subtype, *bounds]
+    end
+
+    def ==(other)
+      other.is_a?(Annotation) && to_a == other.to_a
+    end
+
+    alias eql? ==
+
+    def hash
+      [Annotation, *to_a].hash
+    end
+  end
+
+  class Field
+    attr_reader :type, :flags, :name, :alternate_name, :value, :export_value, :control_index,
+                :control_count, :options, :checked, :max_len, :quadding, :format_js,
+                :keystroke_js, :dict_type, :partial_name
+
+    def initialize(handle)
+      code = handle.field_type
+
+      @detached = code.negative?
+      @dict_type = handle.string_value('FT')
+      @partial_name = handle.string_value('T')
+      @options = []
+
+      @detached ? read_detached(handle) : read_form(handle, code)
+    end
+
+    def checked?
+      checked == true
+    end
+
+    def detached?
+      @detached
+    end
+
+    def required?
+      flags.to_i.anybits?(Pdfium::FPDF_FORMFLAG_REQUIRED)
+    end
+
+    def comb?
+      flags.to_i.anybits?(Pdfium::FPDF_FORMFLAG_TEXT_COMB) && flags.to_i.nobits?(Pdfium::TEXT_TYPE_FLAGS)
+    end
+
+    def button?
+      type.in?(%i[checkbox radio])
+    end
+
+    def own?
+      dict_type.present? && partial_name.present?
+    end
+
+    private
+
+    def read_form(handle, code)
+      @type = Annotation::FIELD_TYPES.fetch(code, :unknown)
+      @flags = handle.field_flags
+      @name = handle.field_name.to_s
+      @alternate_name = handle.alternate_name
+      @value = handle.field_value
+      @control_index = handle.control_index
+      @control_count = handle.control_count
+
+      read_form_extras(handle)
+    end
+
+    def read_form_extras(handle)
+      case type
+      when :checkbox, :radio
+        handle.page.load_page_view
+
+        @checked = handle.checked?
+        @export_value = handle.export_value
+        @options = handle.option_labels if control_index.zero?
+      when :combobox, :listbox
+        @options = handle.option_labels
+      when :text
+        read_text_extras(handle)
+      end
+    end
+
+    def read_text_extras(handle)
+      @max_len = handle.number_value('MaxLen')
+      @quadding = handle.number_value('Q')
+      @format_js = handle.action_javascript(Pdfium::FPDF_ANNOT_AACTION_FORMAT)
+      @keystroke_js = handle.action_javascript(Pdfium::FPDF_ANNOT_AACTION_KEY_STROKE)
+    end
+
+    def read_detached(handle)
+      @flags = handle.number_value('Ff').to_i
+      @value = handle.string_value('V')
+      @name = partial_name.to_s
+      @alternate_name = handle.string_value('TU')
+      @control_index = 0
+      @control_count = 1
+      @type = detached_type
+
+      if type == :text
+        @max_len = handle.number_value('MaxLen')
+        @quadding = handle.number_value('Q')
+      else
+        @checked = value.present? && value != 'Off'
+      end
+    end
+
+    def detached_type
+      case dict_type
+      when 'Tx' then :text
+      when 'Sig' then :signature
+      when 'Btn' then flags.anybits?(Pdfium::FPDF_FORMFLAG_BUTTON_PUSH) ? :pushbutton : :checkbox
+      else :unknown
+      end
+    end
+  end
+
+  class PageObject
+    attr_reader :page, :index
+
+    def initialize(page:, index:)
+      @page = page
+      @index = index
+    end
+
+    def type
+      @type ||= Pdfium::PAGE_OBJECT_TYPES.fetch(Pdfium.FPDFPageObj_GetType(object_ptr), :unknown)
+    end
+
+    def bounds
+      @bounds ||= read_bounds
+    end
+
+    def left
+      bounds[0]
+    end
+
+    def bottom
+      bounds[1]
+    end
+
+    def right
+      bounds[2]
+    end
+
+    def top
+      bounds[3]
+    end
+
+    def rect?
+      bounds.any?
+    end
+
+    def width
+      right - left
+    end
+
+    def height
+      top - bottom
+    end
+
+    def text?
+      type == :text
+    end
+
+    def image?
+      type == :image
+    end
+
+    def path?
+      type == :path
+    end
+
+    def form?
+      type == :form
+    end
+
+    def to_a
+      [index, type, *bounds]
+    end
+
+    def ==(other)
+      other.is_a?(PageObject) && to_a == other.to_a
+    end
+
+    alias eql? ==
+
+    def hash
+      [PageObject, *to_a].hash
+    end
+
+    private
+
+    def object_ptr
+      page.ensure_not_closed!
+
+      Pdfium.FPDFPage_GetObject(page.page_ptr, index)
+    end
+
+    def read_bounds
+      buffer = Array.new(4) { FFI::MemoryPointer.new(:float) }
+
+      return [] unless Pdfium.FPDFPageObj_GetBounds(object_ptr, *buffer) == 1
+
+      buffer.map(&:read_float)
     end
   end
 
