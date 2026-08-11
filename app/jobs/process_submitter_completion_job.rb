@@ -143,7 +143,7 @@ class ProcessSubmitterCompletionJob
   end
 
   def enqueue_bcc_completed_emails(submitter, user, is_sent_to_user)
-    bcc_addresses = build_bcc_addresses(submitter.submission)
+    bcc_addresses = build_bcc_addresses(submitter.submission).uniq
 
     raise TooManyBcc, submitter.account_id if Docuseal.multitenant? && bcc_addresses.size > BCC_LIMIT
 
