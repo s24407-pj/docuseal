@@ -145,6 +145,8 @@ en:
     Thanks,
 
     {account.name}
+
+    '
   submitter_invitation_email_view_body: |
     Hi there,
 
@@ -6889,6 +6891,25 @@ pl:
   require_all_recipients: Wymagaj wszystkich odbiorców
   stripe_account_has_been_connected: Konto Stripe zostało połączone.
   re_connect_stripe: Połącz ponownie Stripe
+  paypal_integration: Integracja PayPal
+  paypal_account_has_been_connected: Konto PayPal zostało połączone.
+  re_connect_paypal: Połącz ponownie PayPal
+  disconnect: Odłącz
+  failed_to_connect_paypal: Nie udało się połączyć z PayPal. Spróbuj ponownie.
+  paypal_connect_not_completed: Połączenie z PayPal nie zostało ukończone.
+  payment_receipt: Potwierdzenie płatności
+  amount_paid: Zapłacona kwota
+  transaction: Transakcja
+  transaction_id: ID transakcji
+  order_id: ID zamówienia
+  payment_date: Data
+  paid_by: Zapłacono przez
+  paid_to: Zapłacono do
+  business: Firma
+  country: Kraj
+  payer_id: ID płatnika
+  merchant_id: ID sprzedawcy
+  breakdown: Rozbicie
   bcc_recipients: Odbiorcy BCC
   resend_pending: Oczekuje na ponowne wysłanie
   always_enforce_signing_order: Zawsze wymuszaj kolejność podpisów
@@ -7694,6 +7715,7 @@ pl:
   undo: Anulować
   redo: Przerobić
   add_variable: Dodaj zmienną
+  variable: Zmienna
   enter_a_url_or_variable_name: Wprowadź URL lub nazwę zmiennej
   new_token: Nowy token
   token: Znak

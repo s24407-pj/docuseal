@@ -101,10 +101,11 @@ jobs:
           set -e
 
           if [ "$MERGE_STATUS" -ne 0 ]; then
-            git add -A
-            git commit -m "chore: sync upstream ${TAG} (conflicts — manual resolve)"
+            git merge --abort
+            # Empty commit so a tracking PR can be opened without landing conflict markers.
+            git commit --allow-empty -m "chore: sync upstream ${TAG} (conflicts — manual resolve required)"
             echo "conflicts=true" >> "$GITHUB_OUTPUT"
-            echo "Wykryto konflikty przy merge upstream ${TAG} -> pl"
+            echo "Wykryto konflikty przy merge upstream ${TAG} -> pl (merge aborted; bez markerów)"
           else
             echo "conflicts=false" >> "$GITHUB_OUTPUT"
             echo "Czysty merge upstream ${TAG} -> pl"
@@ -120,7 +121,67 @@ jobs:
           fi
 
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
-          git push origin "${BRANCH}" --force-with-lease
+
+      - name: Guard against conflict markers
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.conflicts == 'false'
+        run: |
+          set -euo pipefail
+          if git grep -nE '^(<<<<<<<|>>>>>>>)' -- .; then
+            echo "::error::Wykryto markery konfliktów w drzewie po merge — przerywam."
+            exit 1
+          fi
+          echo "Brak markerów konfliktów"
+
+      - name: Verify en/pl i18n key parity
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.conflicts == 'false'
+        run: |
+          set -euo pipefail
+          pip install pyyaml --quiet
+          python3 <<'PY'
+          import sys
+          from pathlib import Path
+
+          import yaml
+
+          data = yaml.safe_load(Path("config/locales/i18n.yml").read_text())
+
+
+          def flatten(node, prefix=""):
+              keys = set()
+              if not isinstance(node, dict):
+                  return keys
+              for key, value in node.items():
+                  full = f"{prefix}.{key}" if prefix else str(key)
+                  if isinstance(value, dict):
+                      keys |= flatten(value, full)
+                  else:
+                      keys.add(full)
+              return keys
+
+
+          en = flatten(data["en"])
+          pl = flatten(data["pl"])
+          only_en = sorted(en - pl)
+          only_pl = sorted(pl - en)
+
+          print(f"en leaf keys: {len(en)}")
+          print(f"pl leaf keys: {len(pl)}")
+
+          if only_en or only_pl:
+              if only_en:
+                  print(f"only in en ({len(only_en)}): {', '.join(only_en)}", file=sys.stderr)
+              if only_pl:
+                  print(f"only in pl ({len(only_pl)}): {', '.join(only_pl)}", file=sys.stderr)
+              raise SystemExit("en/pl i18n key sets różnią się")
+
+          print("en/pl i18n key parity OK")
+          PY
+
+      - name: Push upstream-merge branch
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true'
+        run: |
+          set -euo pipefail
+          git push origin "${{ steps.merge.outputs.branch }}" --force-with-lease
 
       - name: Skip PR (already up to date)
         if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'false'
@@ -141,7 +202,7 @@ jobs:
           OWNER="${{ github.repository_owner }}"
 
           if [ "${CONFLICTS}" = "true" ]; then
-            BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: wykryto konflikty — branch zawiera markery konfliktów. Rozwiąż ręcznie przed mergem.' "${TAG}")
+            BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: wykryto konflikty przy merge tagu upstream — merge został przerwany (bez markerów w branchu). Zmerguj ręcznie `refs/tags/%s` do `pl` i rozwiąż konflikty lokalnie.' "${TAG}" "${TAG}")
           else
             BODY="Automatyczny sync upstream DocuSeal \`${TAG}\` do brancha pl."
           fi
@@ -151,6 +212,7 @@ jobs:
           if [ -n "${EXISTING_PR}" ]; then
             PR_NUMBER="${EXISTING_PR}"
             echo "Istniejący PR #${PR_NUMBER} dla brancha ${BRANCH}"
+            gh api "repos/${REPO}/pulls/${PR_NUMBER}" --method PATCH -f body="${BODY}" >/dev/null
           else
             PR_NUMBER=$(gh api "repos/${REPO}/pulls" \
               --method POST \
@@ -201,4 +263,4 @@ jobs:
       - name: Note conflicts (no auto-merge)
         if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'true'
         run: |
-          echo "PR #${{ steps.create_pr.outputs.pr_number }} otwarty z konfliktami — auto-merge pominięty."
+          echo "PR #${{ steps.create_pr.outputs.pr_number }} otwarty — konflikty wymagają ręcznego syncu (auto-merge pominięty)."
