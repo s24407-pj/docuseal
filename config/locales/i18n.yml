@@ -596,6 +596,9 @@ en: &en
   there_are_no_signatures: There are no signatures
   signed_with_trusted_certificate: Signed with trusted certificate
   signed_with_external_certificate: Signed with external certificate
+  signature_valid: Signature valid
+  signature_verification_failed: Signature verification failed
+  contains_unsigned_changes_after_the_last_signature: Contains unsigned changes after the last signature
   setup_2fa_to_continue: Setup 2FA to continue.
   create_a_new_account: Create a new account.
   you_are_already_signed_in: You are already signed in.
@@ -1706,6 +1709,9 @@ es: &es
   there_are_no_signatures: No hay firmas
   signed_with_trusted_certificate: Firmado con certificado de confianza
   signed_with_external_certificate: Firmado con certificado externo
+  signature_valid: Firma válida
+  signature_verification_failed: Verificación de firma fallida
+  contains_unsigned_changes_after_the_last_signature: Contiene cambios no firmados después de la última firma
   setup_2fa_to_continue: Configura 2FA para continuar.
   create_a_new_account: Crear una nueva cuenta.
   you_are_already_signed_in: Ya has iniciado sesión.
@@ -2827,6 +2833,9 @@ it: &it
   there_are_no_signatures: Non ci sono firme
   signed_with_trusted_certificate: Firmato con certificato affidabile
   signed_with_external_certificate: Firmato con certificato esterno
+  signature_valid: Firma valida
+  signature_verification_failed: Verifica della firma non riuscita
+  contains_unsigned_changes_after_the_last_signature: Contiene modifiche non firmate dopo l’ultima firma
   setup_2fa_to_continue: Configura 2FA per continuare.
   create_a_new_account: Crea un nuovo account.
   you_are_already_signed_in: "Hai già effettuato l'accesso."
@@ -3934,6 +3943,9 @@ fr: &fr
   there_are_no_signatures: Il n’y a pas de signatures
   signed_with_trusted_certificate: Signé avec un certificat de confiance
   signed_with_external_certificate: Signé avec un certificat externe
+  signature_valid: Signature valide
+  signature_verification_failed: Échec de la vérification de la signature
+  contains_unsigned_changes_after_the_last_signature: Contient des modifications non signées après la dernière signature
   setup_2fa_to_continue: Configurez la 2FA pour continuer.
   create_a_new_account: Créer un nouveau compte.
   you_are_already_signed_in: Vous êtes déjà connecté.
@@ -5051,6 +5063,9 @@ pt: &pt
   there_are_no_signatures: Não há assinaturas
   signed_with_trusted_certificate: Assinado com certificado confiável
   signed_with_external_certificate: Assinado com certificado externo
+  signature_valid: Assinatura válida
+  signature_verification_failed: Falha na verificação da assinatura
+  contains_unsigned_changes_after_the_last_signature: Contém alterações não assinadas após a última assinatura
   setup_2fa_to_continue: Configure 2FA para continuar.
   create_a_new_account: Criar uma nova conta.
   you_are_already_signed_in: Você já está conectado.
@@ -6171,6 +6186,9 @@ de: &de
   there_are_no_signatures: Es gibt keine Unterschriften
   signed_with_trusted_certificate: Signiert mit vertrauenswürdigem Zertifikat
   signed_with_external_certificate: Signiert mit externem Zertifikat
+  signature_valid: Signatur gültig
+  signature_verification_failed: Signaturprüfung fehlgeschlagen
+  contains_unsigned_changes_after_the_last_signature: Enthält nicht signierte Änderungen nach der letzten Signatur
   setup_2fa_to_continue: Richten Sie 2FA ein, um fortzufahren.
   create_a_new_account: Neues Konto erstellen.
   you_are_already_signed_in: Sie sind bereits angemeldet.
@@ -7807,6 +7825,9 @@ nl: &nl
   there_are_no_signatures: Er zijn geen handtekeningen
   signed_with_trusted_certificate: Ondertekend met vertrouwd certificaat
   signed_with_external_certificate: Ondertekend met extern certificaat
+  signature_valid: Handtekening geldig
+  signature_verification_failed: Verificatie van handtekening mislukt
+  contains_unsigned_changes_after_the_last_signature: Bevat niet-ondertekende wijzigingen na de laatste handtekening
   setup_2fa_to_continue: Stel 2FA in om door te gaan.
   create_a_new_account: Maak een nieuw account aan.
   you_are_already_signed_in: U bent al aangemeld.

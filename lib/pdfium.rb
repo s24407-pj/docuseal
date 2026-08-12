@@ -28,6 +28,10 @@ class Pdfium
   typedef :pointer, :FPDF_PAGEOBJECT
   typedef :pointer, :FPDF_PATHSEGMENT
   typedef :pointer, :FPDF_FONT
+  typedef :pointer, :FPDF_SIGNATURE
+  typedef :pointer, :FPDF_ANNOTATION
+  typedef :pointer, :FPDF_BOOKMARK
+  typedef :pointer, :FPDF_DEST
 
   MAX_SIZE = 32_767
 
@@ -102,6 +106,31 @@ class Pdfium
   attach_function :FPDF_CloseDocument, [:FPDF_DOCUMENT], :void
   attach_function :FPDF_GetPageCount, [:FPDF_DOCUMENT], :int
   attach_function :FPDF_GetLastError, [], :ulong
+  attach_function :FPDF_GetTrailerEnds, %i[FPDF_DOCUMENT pointer ulong], :ulong
+  attach_function :FPDF_DocumentHasValidCrossReferenceTable, [:FPDF_DOCUMENT], :int
+
+  attach_function :FPDFPage_GetAnnotCount, [:FPDF_PAGE], :int
+  attach_function :FPDFPage_GetAnnot, %i[FPDF_PAGE int], :FPDF_ANNOTATION
+  attach_function :FPDFPage_CloseAnnot, [:FPDF_ANNOTATION], :void
+  attach_function :FPDFAnnot_GetSubtype, [:FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_GetRect, %i[FPDF_ANNOTATION pointer], :int
+
+  attach_function :FPDFBookmark_GetFirstChild, %i[FPDF_DOCUMENT FPDF_BOOKMARK], :FPDF_BOOKMARK
+  attach_function :FPDFBookmark_GetNextSibling, %i[FPDF_DOCUMENT FPDF_BOOKMARK], :FPDF_BOOKMARK
+  attach_function :FPDFBookmark_GetTitle, %i[FPDF_BOOKMARK pointer ulong], :ulong
+  attach_function :FPDFBookmark_GetDest, %i[FPDF_DOCUMENT FPDF_BOOKMARK], :FPDF_DEST
+  attach_function :FPDFDest_GetDestPageIndex, %i[FPDF_DOCUMENT FPDF_DEST], :int
+  attach_function :FPDFDest_GetLocationInPage,
+                  %i[FPDF_DEST pointer pointer pointer pointer pointer pointer], :int
+
+  attach_function :FPDF_GetSignatureCount, [:FPDF_DOCUMENT], :int
+  attach_function :FPDF_GetSignatureObject, %i[FPDF_DOCUMENT int], :FPDF_SIGNATURE
+  attach_function :FPDFSignatureObj_GetContents, %i[FPDF_SIGNATURE pointer ulong], :ulong
+  attach_function :FPDFSignatureObj_GetByteRange, %i[FPDF_SIGNATURE pointer ulong], :ulong
+  attach_function :FPDFSignatureObj_GetSubFilter, %i[FPDF_SIGNATURE pointer ulong], :ulong
+  attach_function :FPDFSignatureObj_GetReason, %i[FPDF_SIGNATURE pointer ulong], :ulong
+  attach_function :FPDFSignatureObj_GetTime, %i[FPDF_SIGNATURE pointer ulong], :ulong
+  attach_function :FPDFSignatureObj_GetDocMDPPermission, [:FPDF_SIGNATURE], :uint
 
   attach_function :FPDF_LoadPage, %i[FPDF_DOCUMENT int], :FPDF_PAGE
   attach_function :FPDF_ClosePage, [:FPDF_PAGE], :void
@@ -253,6 +282,13 @@ class Pdfium
   FLATTEN_NOTHINGTODO = 2
 
   # rubocop:disable Naming/ClassAndModuleCamelCase
+  class FS_RECTF < FFI::Struct
+    layout :left, :float,
+           :top, :float,
+           :right, :float,
+           :bottom, :float
+  end
+
   class FS_MATRIX < FFI::Struct
     layout :a, :float,
            :b, :float,
@@ -519,6 +555,72 @@ class Pdfium
       @pages[page_index] ||= Page.new(self, page_index)
     end
 
+    def bookmarks(parent = nil, seen = Set.new)
+      acc = []
+      bookmark = Pdfium.FPDFBookmark_GetFirstChild(@document_ptr, parent)
+
+      until bookmark.null?
+        break unless seen.add?(bookmark.address)
+
+        acc << [bookmark_title(bookmark), *destination(Pdfium.FPDFBookmark_GetDest(@document_ptr, bookmark))]
+        acc.concat(bookmarks(bookmark, seen))
+
+        bookmark = Pdfium.FPDFBookmark_GetNextSibling(@document_ptr, bookmark)
+      end
+
+      acc
+    end
+
+    def bookmark_title(bookmark)
+      length = Pdfium.FPDFBookmark_GetTitle(bookmark, nil, 0)
+
+      return if length.zero?
+
+      buffer = FFI::MemoryPointer.new(:char, length)
+      Pdfium.FPDFBookmark_GetTitle(bookmark, buffer, length)
+
+      buffer.read_bytes(length).force_encoding('UTF-16LE').encode('UTF-8').delete("\u0000")
+    end
+
+    def destination(dest)
+      return [] if dest.nil? || dest.null?
+
+      flags = Array.new(3) { FFI::MemoryPointer.new(:int) }
+      coords = Array.new(3) { FFI::MemoryPointer.new(:float) }
+      Pdfium.FPDFDest_GetLocationInPage(dest, *flags, *coords)
+
+      [Pdfium.FPDFDest_GetDestPageIndex(@document_ptr, dest),
+       *coords.each_with_index.map { |c, i| c.read_float.round(3) if flags[i].read_int == 1 }]
+    end
+
+    def valid_cross_reference_table?
+      Pdfium.FPDF_DocumentHasValidCrossReferenceTable(@document_ptr) == 1
+    end
+
+    def signature_count
+      @signature_count ||= Pdfium.FPDF_GetSignatureCount(@document_ptr)
+    end
+
+    def signatures
+      @signatures ||= (0...signature_count).map { |index| Signature.new(self, index) }
+    end
+
+    def trailer_ends
+      @trailer_ends ||=
+        begin
+          count = Pdfium.FPDF_GetTrailerEnds(@document_ptr, nil, 0)
+
+          if count.zero?
+            []
+          else
+            buffer = FFI::MemoryPointer.new(:uint, count)
+            Pdfium.FPDF_GetTrailerEnds(@document_ptr, buffer, count)
+
+            buffer.read_array_of_uint(count)
+          end
+        end
+    end
+
     def save(io, flags: Pdfium::FPDF_NO_INCREMENTAL)
       ensure_not_closed!
 
@@ -589,7 +691,74 @@ class Pdfium
     end
   end
 
+  class Signature
+    attr_reader :document, :index, :signature_ptr
+
+    def initialize(document, index)
+      @document = document
+      @index = index
+      @signature_ptr = Pdfium.FPDF_GetSignatureObject(document.document_ptr, index)
+
+      raise PdfiumError, "Failed to load signature #{index}, pointer is NULL." if @signature_ptr.null?
+    end
+
+    def byte_range
+      @byte_range ||=
+        begin
+          count = Pdfium.FPDFSignatureObj_GetByteRange(signature_ptr, nil, 0)
+          buffer = FFI::MemoryPointer.new(:int, count)
+          Pdfium.FPDFSignatureObj_GetByteRange(signature_ptr, buffer, count)
+
+          buffer.read_array_of_int(count)
+        end
+    end
+
+    def signed_end
+      @signed_end ||= byte_range.last(2).sum
+    end
+
+    def contents
+      @contents ||= read_bytes(:FPDFSignatureObj_GetContents)
+    end
+
+    def sub_filter
+      @sub_filter ||= read_bytes(:FPDFSignatureObj_GetSubFilter).to_s.delete("\u0000")
+    end
+
+    def time
+      @time ||= read_bytes(:FPDFSignatureObj_GetTime).to_s.delete("\u0000")
+    end
+
+    def reason
+      @reason ||=
+        begin
+          bytes = read_bytes(:FPDFSignatureObj_GetReason)
+
+          bytes&.force_encoding('UTF-16LE')&.encode('UTF-8').to_s.delete("\u0000").presence
+        end
+    end
+
+    def doc_mdp_permission
+      @doc_mdp_permission ||= Pdfium.FPDFSignatureObj_GetDocMDPPermission(signature_ptr)
+    end
+
+    private
+
+    def read_bytes(function)
+      length = Pdfium.public_send(function, signature_ptr, nil, 0)
+
+      return if length.zero?
+
+      buffer = FFI::MemoryPointer.new(:char, length)
+      Pdfium.public_send(function, signature_ptr, buffer, length)
+
+      buffer.read_bytes(length)
+    end
+  end
+
   class Page
+    RECT_KEYS = %i[left top right bottom].freeze
+
     attr_reader :document, :page_index, :page_ptr
 
     def initialize(document, page_index)
@@ -617,6 +786,34 @@ class Pdfium
 
     def height
       @height ||= Pdfium.FPDF_GetPageHeightF(@page_ptr)
+    end
+
+    def annotations
+      (0...Pdfium.FPDFPage_GetAnnotCount(page_ptr)).filter_map do |index|
+        annotation = Pdfium.FPDFPage_GetAnnot(page_ptr, index)
+
+        next if annotation.null?
+
+        begin
+          rect = Pdfium::FS_RECTF.new
+          Pdfium.FPDFAnnot_GetRect(annotation, rect)
+
+          [Pdfium.FPDFAnnot_GetSubtype(annotation),
+           *RECT_KEYS.map { |key| rect[key].round(3) }]
+        ensure
+          Pdfium.FPDFPage_CloseAnnot(annotation)
+        end
+      end
+    end
+
+    def objects
+      (0...Pdfium.FPDFPage_CountObjects(page_ptr)).map do |index|
+        object = Pdfium.FPDFPage_GetObject(page_ptr, index)
+        bounds = Array.new(4) { FFI::MemoryPointer.new(:float) }
+        Pdfium.FPDFPageObj_GetBounds(object, *bounds)
+
+        [Pdfium.FPDFPageObj_GetType(object), *bounds.map { |b| b.read_float.round(3) }]
+      end
     end
 
     def rotation
