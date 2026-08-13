@@ -24,19 +24,19 @@ module PdfUtils
     decrypted_io.tap(&:rewind).read
   end
 
-  def merge(files)
-    merged_pdf = HexaPDF::Document.new
+  def merge(io_files)
+    merged_content = StringIO.new
 
-    files.each do |file|
-      pdf = HexaPDF::Document.new(io: file)
-      pdf.pages.each { |page| merged_pdf.pages << merged_pdf.import(page) }
+    Pdfium.with_instance do
+      Pdfium::Document.create do |merged_pdf|
+        io_files.each do |io|
+          Pdfium::Document.open_io(io) { |pdf| merged_pdf.import_pages(pdf) }
+        end
+
+        merged_pdf.save(merged_content)
+      end
     end
 
-    merged_content = StringIO.new
-    merged_pdf.validate(auto_correct: true)
-    merged_pdf.write(merged_content, validate: false)
-    merged_content.rewind
-
-    merged_content
+    merged_content.tap(&:rewind)
   end
 end
