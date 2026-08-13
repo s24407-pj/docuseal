@@ -11,8 +11,8 @@ RUN apk --no-cache add wget unzip && \
     wget -O /model.onnx "https://github.com/docusealco/fields-detection/releases/download/2.0.0/model_704_int8.onnx" && \
     wget -O pdfium-linux.zip "https://github.com/docusealco/pdfium-binaries/releases/download/20260813/pdfium-musl-$(uname -m).zip" && \
     case "$(uname -m)" in \
-      x86_64)  echo "077239c1ef9f0a9d592b4832daa6c733fa20a518dc3e6c1c7700994230b6f22c  pdfium-linux.zip" ;; \
-      aarch64) echo "a5320e0d569e60b20907e57ae25d69720e25adde74ceb1123c279cf1592f645c  pdfium-linux.zip" ;; \
+      x86_64)  echo "97c584564dfd1d772e98bf6695efc4f8da3ff5cf969460ebc92b3642d136e279  pdfium-linux.zip" ;; \
+      aarch64) echo "e004ba036b4dd36649f0116e14030b9216f762b3259d33035ee883659507c917  pdfium-linux.zip" ;; \
     esac | sha256sum -c - && \
     mkdir -p /pdfium-linux && \
     unzip -q pdfium-linux.zip -d /pdfium-linux

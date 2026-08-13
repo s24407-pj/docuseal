@@ -425,6 +425,12 @@ class Pdfium
     define_singleton_method(:FPDF_RemoveOrphanObjects) { |*| -1 } # rubocop:disable Naming/MethodName
   end
 
+  begin
+    attach_function :FPDF_ImportAcroForm, %i[FPDF_DOCUMENT FPDF_DOCUMENT], :int
+  rescue FFI::NotFoundError
+    define_singleton_method(:FPDF_ImportAcroForm) { |*| -1 } # rubocop:disable Naming/MethodName
+  end
+
   FPDF_ERR_SUCCESS = 0
   FPDF_ERR_UNKNOWN = 1
   FPDF_ERR_FILE = 2
@@ -559,6 +565,8 @@ class Pdfium
       result = Pdfium.FPDF_ImportPages(@document_ptr, src_doc.document_ptr, pages, index || page_count)
 
       raise PdfiumError, 'Failed to import pages' if result.zero?
+
+      Pdfium.FPDF_ImportAcroForm(@document_ptr, src_doc.document_ptr)
 
       @page_count = nil
 
