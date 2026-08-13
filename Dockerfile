@@ -9,10 +9,10 @@ RUN apk --no-cache add wget unzip && \
     wget https://raw.githubusercontent.com/impallari/DancingScript/master/OFL.txt && \
     wget https://raw.githubusercontent.com/notofonts/noto-fonts/refs/heads/main/LICENSE && \
     wget -O /model.onnx "https://github.com/docusealco/fields-detection/releases/download/2.0.0/model_704_int8.onnx" && \
-    wget -O pdfium-linux.zip "https://github.com/docusealco/pdfium-binaries/releases/download/20260613/pdfium-musl-$(uname -m).zip" && \
+    wget -O pdfium-linux.zip "https://github.com/docusealco/pdfium-binaries/releases/download/20260813/pdfium-musl-$(uname -m).zip" && \
     case "$(uname -m)" in \
-      x86_64)  echo "2c953ff72ee2dda07e7fc577e25841cc3d6464468a7c5adfaea574efcbc3b90b  pdfium-linux.zip" ;; \
-      aarch64) echo "23bbe287d2753fdb05741c7660647eb0ef0d2e4da2ce0722bfa9d9d455bd64e2  pdfium-linux.zip" ;; \
+      x86_64)  echo "077239c1ef9f0a9d592b4832daa6c733fa20a518dc3e6c1c7700994230b6f22c  pdfium-linux.zip" ;; \
+      aarch64) echo "a5320e0d569e60b20907e57ae25d69720e25adde74ceb1123c279cf1592f645c  pdfium-linux.zip" ;; \
     esac | sha256sum -c - && \
     mkdir -p /pdfium-linux && \
     unzip -q pdfium-linux.zip -d /pdfium-linux
