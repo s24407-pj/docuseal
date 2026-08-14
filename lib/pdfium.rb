@@ -108,6 +108,8 @@ class Pdfium
   attach_function :FPDF_GetLastError, [], :ulong
   attach_function :FPDF_GetTrailerEnds, %i[FPDF_DOCUMENT pointer ulong], :ulong
   attach_function :FPDF_DocumentHasValidCrossReferenceTable, [:FPDF_DOCUMENT], :int
+  attach_function :FPDF_GetSecurityHandlerRevision, [:FPDF_DOCUMENT], :int
+  attach_function :FPDF_GetFormType, [:FPDF_DOCUMENT], :int
 
   attach_function :FPDFBookmark_GetFirstChild, %i[FPDF_DOCUMENT FPDF_BOOKMARK], :FPDF_BOOKMARK
   attach_function :FPDFBookmark_GetNextSibling, %i[FPDF_DOCUMENT FPDF_BOOKMARK], :FPDF_BOOKMARK
@@ -279,12 +281,7 @@ class Pdfium
 
   attach_function :FPDFPage_GetAnnotCount, [:FPDF_PAGE], :int
 
-  begin
-    attach_function :FPDFPage_GetAnnotCountRaw, %i[FPDF_DOCUMENT int], :int
-  rescue FFI::NotFoundError
-    define_singleton_method(:FPDFPage_GetAnnotCountRaw) { |*| -1 } # rubocop:disable Naming/MethodName
-  end
-
+  attach_function :FPDFPage_GetAnnotCountRaw, %i[FPDF_DOCUMENT int], :int
   attach_function :FPDFPage_GetAnnot, %i[FPDF_PAGE int], :FPDF_ANNOTATION
   attach_function :FPDFPage_CloseAnnot, [:FPDF_ANNOTATION], :void
   attach_function :FPDFAnnot_GetSubtype, [:FPDF_ANNOTATION], :int
@@ -296,17 +293,30 @@ class Pdfium
   attach_function :FPDFAnnot_GetFormFieldName, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
   attach_function :FPDFAnnot_GetFormFieldAlternateName, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
   attach_function :FPDFAnnot_GetFormFieldValue, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFormFieldValueRaw, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
   attach_function :FPDFAnnot_GetFormFieldExportValue, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFormFieldExportValueRaw, %i[FPDF_FORMHANDLE FPDF_ANNOTATION pointer ulong], :ulong
   attach_function :FPDFAnnot_GetFormControlCount, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
   attach_function :FPDFAnnot_GetFormControlIndex, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
   attach_function :FPDFAnnot_GetOptionCount, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
   attach_function :FPDFAnnot_GetOptionLabel, %i[FPDF_FORMHANDLE FPDF_ANNOTATION int pointer ulong], :ulong
   attach_function :FPDFAnnot_IsChecked, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_IsCheckedRaw, %i[FPDF_FORMHANDLE FPDF_ANNOTATION], :int
+  attach_function :FPDFPage_FixFormFields, %i[FPDF_FORMHANDLE FPDF_PAGE], :void
   attach_function :FPDFAnnot_GetFormAdditionalActionJavaScript,
                   %i[FPDF_FORMHANDLE FPDF_ANNOTATION int pointer ulong], :ulong
+  attach_function :FPDFAnnot_GetFlags, [:FPDF_ANNOTATION], :int
+  attach_function :FPDFAnnot_SetFlags, %i[FPDF_ANNOTATION int], :int
+  attach_function :FPDFAnnot_GetAP, %i[FPDF_ANNOTATION int pointer ulong], :ulong
 
   FPDF_ANNOT_LINK = 2
   FPDF_ANNOT_WIDGET = 20
+
+  FPDF_ANNOT_FLAG_HIDDEN = 2
+
+  FPDF_ANNOT_APPEARANCEMODE_NORMAL = 0
+
+  FORMTYPE_NONE = 0
 
   FPDF_FORMFIELD_UNKNOWN = 0
   FPDF_FORMFIELD_PUSHBUTTON = 1
@@ -413,23 +423,9 @@ class Pdfium
 
   attach_function :FPDF_CreateNewDocument, [], :FPDF_DOCUMENT
 
-  begin
-    attach_function :FPDF_ImportPages, %i[FPDF_DOCUMENT FPDF_DOCUMENT string int], :int
-  rescue FFI::NotFoundError
-    define_singleton_method(:FPDF_ImportPages) { |*| raise PdfiumError, 'FPDF_ImportPages is not available' } # rubocop:disable Naming/MethodName
-  end
-
-  begin
-    attach_function :FPDF_RemoveOrphanObjects, [:FPDF_DOCUMENT], :int
-  rescue FFI::NotFoundError
-    define_singleton_method(:FPDF_RemoveOrphanObjects) { |*| -1 } # rubocop:disable Naming/MethodName
-  end
-
-  begin
-    attach_function :FPDF_ImportAcroForm, %i[FPDF_DOCUMENT FPDF_DOCUMENT], :int
-  rescue FFI::NotFoundError
-    define_singleton_method(:FPDF_ImportAcroForm) { |*| -1 } # rubocop:disable Naming/MethodName
-  end
+  attach_function :FPDF_ImportPages, %i[FPDF_DOCUMENT FPDF_DOCUMENT string int], :int
+  attach_function :FPDF_RemoveOrphanObjects, [:FPDF_DOCUMENT], :int
+  attach_function :FPDF_ImportAcroForm, %i[FPDF_DOCUMENT FPDF_DOCUMENT], :int
 
   FPDF_ERR_SUCCESS = 0
   FPDF_ERR_UNKNOWN = 1
@@ -557,6 +553,14 @@ class Pdfium
 
     def page_count
       @page_count ||= Pdfium.FPDF_GetPageCount(@document_ptr)
+    end
+
+    def encrypted?
+      Pdfium.FPDF_GetSecurityHandlerRevision(@document_ptr) >= 0
+    end
+
+    def form?
+      Pdfium.FPDF_GetFormType(@document_ptr) != Pdfium::FORMTYPE_NONE
     end
 
     def import_pages(src_doc, pages: nil, index: nil)
@@ -976,6 +980,14 @@ class Pdfium
 
     def box
       @box ||= read_bounding_box || [0, 0, 612, 792]
+    end
+
+    def fix_form_fields
+      return if @form_fields_fixed || form_handle.null?
+
+      @form_fields_fixed = true
+
+      Pdfium.FPDFPage_FixFormFields(form_handle, @page_ptr)
     end
 
     def load_page_view
@@ -1858,6 +1870,12 @@ class Pdfium
       Pdfium.FPDFAnnot_GetSubtype(annot_ptr)
     end
 
+    def hide!
+      flags = Pdfium.FPDFAnnot_GetFlags(annot_ptr)
+
+      Pdfium.FPDFAnnot_SetFlags(annot_ptr, flags | Pdfium::FPDF_ANNOT_FLAG_HIDDEN) == 1
+    end
+
     def rect
       rect = Pdfium::FS_RECTF.new
 
@@ -1888,11 +1906,15 @@ class Pdfium
     end
 
     def field_value
-      read_wide { |buffer, length| Pdfium.FPDFAnnot_GetFormFieldValue(form_handle, annot_ptr, buffer, length) }
+      read_wide do |buffer, length|
+        Pdfium.FPDFAnnot_GetFormFieldValueRaw(form_handle, annot_ptr, buffer, length)
+      end
     end
 
     def export_value
-      read_wide { |buffer, length| Pdfium.FPDFAnnot_GetFormFieldExportValue(form_handle, annot_ptr, buffer, length) }
+      read_wide do |buffer, length|
+        Pdfium.FPDFAnnot_GetFormFieldExportValueRaw(form_handle, annot_ptr, buffer, length)
+      end
     end
 
     def control_count
@@ -1904,7 +1926,7 @@ class Pdfium
     end
 
     def checked?
-      Pdfium.FPDFAnnot_IsChecked(form_handle, annot_ptr) == 1
+      Pdfium.FPDFAnnot_IsCheckedRaw(form_handle, annot_ptr) == 1
     end
 
     def option_labels
@@ -1949,6 +1971,12 @@ class Pdfium
 
     def string_value(key)
       read_wide { |buffer, length| Pdfium.FPDFAnnot_GetStringValue(annot_ptr, key, buffer, length) }
+    end
+
+    def appearance
+      read_wide do |buffer, length|
+        Pdfium.FPDFAnnot_GetAP(annot_ptr, Pdfium::FPDF_ANNOT_APPEARANCEMODE_NORMAL, buffer, length)
+      end
     end
 
     private
@@ -2108,7 +2136,7 @@ class Pdfium
     def read_form_extras(handle)
       case type
       when :checkbox, :radio
-        handle.page.load_page_view
+        handle.page.fix_form_fields
 
         @checked = handle.checked?
         @export_value = handle.export_value

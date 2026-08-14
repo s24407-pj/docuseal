@@ -4,10 +4,13 @@ module Templates
   module FindPdfiumAcroFields
     DATE_JS_PREFIX = 'AFDate_'
     SKIP_FIELD_TYPES = %i[unknown pushbutton].freeze
+    TEXT_OPERATOR_REGEXP = /\bT[jJ]\b/
 
     module_function
 
-    def call(attachment, doc)
+    def call(attachment, doc, data)
+      return [] if !doc.form? && data.exclude?('/Form')
+
       pages = {}
       widgets = []
 
@@ -30,6 +33,12 @@ module Templates
       end
 
       group_widgets(widgets).filter_map { |field_widgets| build_field(field_widgets, pages, attachment) }
+    rescue StandardError => e
+      Rollbar.error(e) if defined?(Rollbar)
+
+      raise if Rails.env.development?
+
+      []
     end
 
     def group_widgets(widgets)
@@ -110,7 +119,7 @@ module Templates
       when :checkbox, :radio
         build_button_properties(attrs, widgets)
       when :combobox
-        build_select_properties(attrs, field)
+        build_select_properties(attrs, widgets.first)
       when :text
         build_text_properties(attrs, field)
       when :signature
@@ -141,7 +150,7 @@ module Templates
           **attrs,
           type: 'radio',
           options: build_options(export_values.map(&:to_sym), 'radio'),
-          default_value: checked&.field&.export_value
+          default_value: checked&.field&.export_value.presence
         }
       else
         {
@@ -152,15 +161,25 @@ module Templates
       end
     end
 
-    def build_select_properties(attrs, field)
+    def build_select_properties(attrs, annotation)
+      field = annotation.field
+
       return {} if field.options.blank?
+
+      value = field.value.presence if renders_text?(annotation)
 
       {
         **attrs,
         type: 'select',
         options: build_options(field.options, 'select'),
-        default_value: field.value.to_s.match?(FindAcroFields::SELECT_PLACEHOLDER_REGEXP) ? nil : field.value
+        default_value: value.to_s.match?(FindAcroFields::SELECT_PLACEHOLDER_REGEXP) ? nil : value
       }
+    end
+
+    def renders_text?(annotation)
+      appearance = annotation.page.with_annotation(annotation.index, &:appearance)
+
+      appearance.to_s.match?(TEXT_OPERATOR_REGEXP)
     end
 
     def build_text_properties(attrs, field)
@@ -169,7 +188,7 @@ module Templates
       attrs = { **attrs, preferences: }
 
       if field.comb?
-        { **attrs, type: 'cells', default_value: field.value }
+        { **attrs, type: 'cells', default_value: field.value.presence }
       elsif date?(field)
         format = [field.format_js, field.keystroke_js].compact
                                                       .filter_map { |js| js[FindAcroFields::DATE_FORMAT_REGEXP] }
@@ -177,9 +196,9 @@ module Templates
 
         preferences[:format] = format.upcase if format
 
-        { **attrs, type: 'date', default_value: field.value }
+        { **attrs, type: 'date', default_value: field.value.presence }
       else
-        { **attrs, type: 'text', default_value: field.value }
+        { **attrs, type: 'text', default_value: field.value.presence }
       end
     end
 
@@ -203,7 +222,7 @@ module Templates
 
         {
           uuid: SecureRandom.uuid,
-          value: is_option_number || is_skip_single_value ? '' : option
+          value: is_option_number || is_skip_single_value ? '' : option.presence
         }
       end
     end

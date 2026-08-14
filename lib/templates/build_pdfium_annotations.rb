@@ -29,6 +29,12 @@ module Templates
       end
 
       annotations
+    rescue StandardError => e
+      Rollbar.error(e) if defined?(Rollbar)
+
+      raise if Rails.env.development?
+
+      []
     end
 
     def build_external_link_hash(url, area, geometry)
