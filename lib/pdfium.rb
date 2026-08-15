@@ -444,6 +444,7 @@ class Pdfium
   }.freeze
 
   class PdfiumError < StandardError; end
+  class PasswordError < PdfiumError; end
 
   def self.error_message(code)
     PDFIUM_ERRORS[code] || "Unknown error code: #{code}"
@@ -512,7 +513,9 @@ class Pdfium
 
     return if error_code == FPDF_ERR_SUCCESS
 
-    raise PdfiumError, "#{context_message}: #{error_message(error_code)} (Code: #{error_code})"
+    error_class = error_code == FPDF_ERR_PASSWORD ? PasswordError : PdfiumError
+
+    raise error_class, "#{context_message}: #{error_message(error_code)} (Code: #{error_code})"
   end
 
   # rubocop:disable Metrics

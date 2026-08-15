@@ -15,17 +15,11 @@ module PdfUtils
   end
 
   def decrypt(data, password)
-    encrypted_doc = HexaPDF::Document.new(io: StringIO.new(data), decryption_opts: { password: })
-
-    decrypted_doc = HexaPDF::Document.new
-
-    encrypted_doc.pages.each do |page|
-      decrypted_doc.pages << decrypted_doc.import(page)
-    end
-
     decrypted_io = StringIO.new
 
-    decrypted_doc.write(decrypted_io, validate: false)
+    Pdfium::Document.open_bytes(data, password) do |doc|
+      doc.save(decrypted_io, flags: Pdfium::FPDF_REMOVE_SECURITY)
+    end
 
     decrypted_io.tap(&:rewind).read
   end
