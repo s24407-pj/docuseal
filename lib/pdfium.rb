@@ -1763,6 +1763,20 @@ class Pdfium
     def flatten(flag = Pdfium::FLAT_NORMALDISPLAY)
       ensure_not_closed!
 
+      load_page_view
+
+      l_ptr, b_ptr, r_ptr, t_ptr = Array.new(4) { FFI::MemoryPointer.new(:float) }
+
+      left, bottom, right, top = box.map(&:to_f)
+
+      if Pdfium.FPDFPage_GetMediaBox(page_ptr, l_ptr, b_ptr, r_ptr, t_ptr).zero?
+        Pdfium.FPDFPage_SetMediaBox(page_ptr, left, bottom, right, top)
+      end
+
+      if Pdfium.FPDFPage_GetCropBox(page_ptr, l_ptr, b_ptr, r_ptr, t_ptr).zero?
+        Pdfium.FPDFPage_SetCropBox(page_ptr, left, bottom, right, top)
+      end
+
       result = Pdfium.FPDFPage_Flatten(page_ptr, flag)
 
       if result == Pdfium::FLATTEN_FAIL
