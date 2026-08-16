@@ -1,0 +1,125 @@
+# frozen_string_literal: true
+
+module Submitters
+  module StartForm
+    COOKIES_TTL = 12.hours
+    RESUBMIT_TTL = 8.days
+    COOKIES_DEFAULTS = { httponly: true, secure: Rails.env.production? }.freeze
+
+    NotSaved = Class.new(StandardError)
+
+    module_function
+
+    def can_resubmit?(submitter)
+      submitter.completed_at? && submitter.completed_at > RESUBMIT_TTL.ago &&
+        %w[api embed mcp].exclude?(submitter.submission.source) &&
+        submitter.account.account_configs.find_or_initialize_by(key: AccountConfig::ALLOW_TO_RESUBMIT).value != false
+    end
+
+    def can_reopen?(template, submitter, current_user:, ability:)
+      Docuseal.multitenant? || !submitter.persisted? || submitter.completed_at? ||
+        (current_user&.email == submitter.email && ability.can?(:read, submitter)) ||
+        template.preferences['shared_link_2fa'] == true || Accounts.can_send_emails?(template.account)
+    end
+
+    def find_or_initialize_submitter(template, submitter_params, exclude_completed:, current_user: nil, ability: nil)
+      required_fields = template.preferences.fetch('link_form_fields', ['email'])
+
+      required_params = required_fields.index_with { |key| submitter_params[key] }
+
+      find_params = required_params.except('name')
+
+      submitter = Submitter.new if find_params.compact_blank.blank?
+
+      submitter ||= build_submitters_scope(template, exclude_completed:).find_or_initialize_by(find_params)
+
+      submitter = Submitter.new(find_params) if submitter.persisted? && submitter.email.blank?
+
+      submitter = Submitter.new(find_params) if submitter.submission&.completed_at? && submitter.viewer?
+
+      submitter = Submitter.new(find_params) unless can_reopen?(template, submitter, current_user:, ability:)
+
+      submitter.name = required_params['name'] if submitter.new_record?
+
+      submitter
+    end
+
+    def build_submitters_scope(template, exclude_completed: false)
+      Submitter
+        .where(submission: template.submissions.non_expired.active)
+        .where(uuid: template.submitters.pluck('uuid').compact_blank)
+        .order(id: :desc)
+        .where(declined_at: nil)
+        .where(external_id: nil)
+        .then { |rel| exclude_completed ? rel.where(completed_at: nil) : rel }
+    end
+
+    def assign_submission_attributes(submitter, template, ip:, user_agent:, resubmit_submitter: nil)
+      submitter.assign_attributes(
+        uuid: first_submitter_uuid(template),
+        ip:,
+        ua: user_agent,
+        values: resubmit_submitter&.preferences&.fetch('default_values', nil) || {},
+        preferences: resubmit_submitter&.preferences.presence || { 'send_email' => true },
+        metadata: resubmit_submitter&.metadata.presence || {}
+      )
+
+      submitter.assign_attributes(resubmit_submitter.slice(:name, :email, :phone)) if resubmit_submitter
+
+      if submitter.values.present?
+        resubmit_submitter.attachments.each do |attachment|
+          submitter.attachments << attachment.dup if submitter.values.value?(attachment.uuid)
+        end
+      end
+
+      submitter.submission ||= Submission.new(template:,
+                                              account_id: template.account_id,
+                                              template_submitters: template.submitters,
+                                              expire_at: Templates.build_default_expire_at(template),
+                                              submitters: [submitter],
+                                              source: :link)
+
+      Submissions::CreateFromSubmitters.maybe_set_dynamic_documents(submitter.submission)
+
+      submitter.account_id = submitter.submission.account_id
+
+      submitter
+    end
+
+    def first_submitter_uuid(template)
+      (Templates.filter_undefined_submitters(template.submitters).first || template.submitters.first)['uuid']
+    end
+
+    def verify_2fa_and_save_submitter(submitter, request, is_new_record:)
+      is_otp_verified = Submitters.verify_link_otp!(request.params[:one_time_code], submitter)
+
+      return false if !is_otp_verified && request.cookie_jar.encrypted[:email_2fa_slug] != submitter.slug
+
+      raise NotSaved unless submitter.save
+
+      enqueue_new_submitter_jobs(submitter) if is_new_record
+
+      if is_otp_verified
+        SubmissionEvents.create_with_tracking_data(submitter, 'email_verified', request)
+
+        request.cookie_jar.encrypted[:email_2fa_slug] =
+          { value: submitter.slug, expires: COOKIES_TTL.from_now, **COOKIES_DEFAULTS }
+      end
+
+      true
+    end
+
+    def enqueue_new_submitter_jobs(submitter)
+      WebhookUrls.enqueue_events(submitter.submission, 'submission.created')
+
+      SearchEntries.enqueue_reindex(submitter)
+
+      expire_at = submitter.submission.expire_at
+
+      return unless expire_at
+
+      ProcessSubmissionExpiredJob.perform_at(expire_at, 'submission_id' => submitter.submission_id,
+                                                        'expire_at' => expire_at.to_i)
+    end
+  end
+end

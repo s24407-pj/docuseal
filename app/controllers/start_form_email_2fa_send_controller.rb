@@ -53,13 +53,7 @@ class StartFormEmail2faSendController < ApplicationController
 
     return false if email.blank?
 
-    Submitter
-      .where(submission: template.submissions.non_expired.active)
-      .where(uuid: template.submitters.pluck('uuid'))
-      .where(declined_at: nil)
-      .where(external_id: nil)
-      .where(completed_at: nil)
-      .exists?(email:)
+    Submitters::StartForm.build_submitters_scope(template, exclude_completed: true).exists?(email:)
   end
 
   def submitter_params
