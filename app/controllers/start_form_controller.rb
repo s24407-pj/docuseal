@@ -23,8 +23,7 @@ class StartFormController < ApplicationController
     if @template.shared_link?
       @submitter = @template.submissions.new(account_id: @template.account_id)
                             .submitters.new(account_id: @template.account_id,
-                                            uuid: (filter_undefined_submitters(@template).first ||
-                                                  @template.submitters.first)['uuid'])
+                                            uuid: first_submitter_uuid(@template))
       render :email_verification if params[:email_verification]
     else
       Rollbar.warning("Not shared template: #{@template.id}") if defined?(Rollbar)
@@ -55,7 +54,10 @@ class StartFormController < ApplicationController
         @submitter.assign_attributes(ip: request.remote_ip, ua: request.user_agent)
       end
 
-      if @template.preferences['shared_link_2fa'] == true
+      if @template.preferences['shared_link_2fa'] == true ||
+         (!is_new_record && @resubmit_submitter.blank? && !own_submitter?(@submitter))
+        Rollbar.info("2FA requested: #{@submitter.id}") if !is_new_record && defined?(Rollbar)
+
         handle_require_2fa(@submitter, is_new_record:)
       elsif @submitter.errors.blank? && @submitter.save
         enqueue_new_submitter_jobs(@submitter) if is_new_record
@@ -110,6 +112,10 @@ class StartFormController < ApplicationController
       end
   end
 
+  def own_submitter?(submitter)
+    current_user&.email == submitter.email && current_ability.can?(:read, submitter)
+  end
+
   def can_resubmit?(submitter)
     submitter.completed_at? && submitter.completed_at > 14.days.ago &&
       %w[api embed mcp].exclude?(submitter.submission.source) &&
@@ -139,17 +145,17 @@ class StartFormController < ApplicationController
 
     submitter = Submitter.new if find_params.compact_blank.blank?
 
-    submitter ||=
-      Submitter
-      .where(submission: template.submissions.non_expired.active)
-      .order(id: :desc)
-      .where(declined_at: nil)
-      .where(external_id: nil)
-      .where(template.preferences['shared_link_2fa'] == true ? {} : { ip: [nil, request.remote_ip] })
-      .then { |rel| params[:resubmit].present? || params[:selfsign].present? ? rel.where(completed_at: nil) : rel }
-      .find_or_initialize_by(find_params)
+    submitter ||= build_submitters_scope(template).find_or_initialize_by(find_params)
+
+    submitter = Submitter.new(find_params) if submitter.persisted? && submitter.email.blank?
 
     submitter = Submitter.new(find_params) if submitter.submission&.completed_at? && submitter.viewer?
+
+    if !Docuseal.multitenant? && submitter.persisted? && !submitter.completed_at? &&
+       @resubmit_submitter.blank? && !own_submitter?(submitter) &&
+       template.preferences['shared_link_2fa'] != true && !Accounts.can_send_emails?(template.account)
+      submitter = Submitter.new(find_params)
+    end
 
     submitter.name = required_params['name'] if submitter.new_record?
 
@@ -162,9 +168,19 @@ class StartFormController < ApplicationController
     submitter
   end
 
+  def build_submitters_scope(template)
+    Submitter
+      .where(submission: template.submissions.non_expired.active)
+      .where(uuid: template.submitters.pluck('uuid'))
+      .order(id: :desc)
+      .where(declined_at: nil)
+      .where(external_id: nil)
+      .then { |rel| params[:resubmit].present? || params[:selfsign].present? ? rel.where(completed_at: nil) : rel }
+  end
+
   def assign_submission_attributes(submitter, template)
     submitter.assign_attributes(
-      uuid: (filter_undefined_submitters(template).first || @template.submitters.first)['uuid'],
+      uuid: first_submitter_uuid(template),
       ip: request.remote_ip,
       ua: request.user_agent,
       values: @resubmit_submitter&.preferences&.fetch('default_values', nil) || {},
@@ -196,6 +212,10 @@ class StartFormController < ApplicationController
 
   def filter_undefined_submitters(template)
     Templates.filter_undefined_submitters(template.submitters)
+  end
+
+  def first_submitter_uuid(template)
+    (filter_undefined_submitters(template).first || template.submitters.first)['uuid']
   end
 
   def submitter_params

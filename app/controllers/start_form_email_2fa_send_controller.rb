@@ -13,6 +13,11 @@ class StartFormEmail2faSendController < ApplicationController
     @submitter = @template.submissions.new(account_id: @template.account_id)
                           .submitters.new(**submitter_params, account_id: @template.account_id)
 
+    if @submitter.email.blank?
+      return redirect_to start_form_path(@template.slug),
+                         alert: I18n.t(:provide_your_email_to_start), status: :unprocessable_content
+    end
+
     Submitters.send_shared_link_email_verification_code(@submitter, request:)
 
     redir_params = { notice: I18n.t(:code_has_been_resent) } if params[:resend]
@@ -36,11 +41,25 @@ class StartFormEmail2faSendController < ApplicationController
     return redirect_to start_form_path(@template.slug) if is_archived
 
     return if (@template.shared_link? || (current_user && current_ability.can?(:read, @template))) &&
-              @template.preferences['shared_link_2fa'] == true
+              (@template.preferences['shared_link_2fa'] == true || submitter_exists?(@template, params))
 
     Rollbar.warning("Not shared template: #{@template.id}") if defined?(Rollbar)
 
     redirect_to start_form_path(@template.slug)
+  end
+
+  def submitter_exists?(template, params)
+    email = Submissions.normalize_email(params.dig(:submitter, :email))
+
+    return false if email.blank?
+
+    Submitter
+      .where(submission: template.submissions.non_expired.active)
+      .where(uuid: template.submitters.pluck('uuid'))
+      .where(declined_at: nil)
+      .where(external_id: nil)
+      .where(completed_at: nil)
+      .exists?(email:)
   end
 
   def submitter_params
