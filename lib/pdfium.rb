@@ -640,7 +640,15 @@ class Pdfium
       end
     end
 
-    def self.open_io(io, password = nil)
+    def self.open_io(io, password = nil, &)
+      path = io.path if io.respond_to?(:path)
+
+      if path
+        io.flush
+
+        return open_file(path, password, &)
+      end
+
       io.binmode
 
       get_block = FFI::Function.new(:int, %i[pointer ulong pointer ulong]) do |_param, position, out, size|
