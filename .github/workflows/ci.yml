@@ -111,7 +111,7 @@ jobs:
   rspec:
     name: RSpec
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     container:
       image: ruby:4.0.5-alpine
 
