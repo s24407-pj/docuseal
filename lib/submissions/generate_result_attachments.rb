@@ -346,8 +346,11 @@ module Submissions
                   (with_signature_id_completed_at ? submitter.completed_at : nil) || attachment.created_at
 
                 if with_signature_id_reason || field.dig('preferences', 'reasons').present?
-                  "#{"#{I18n.t('reason')}: " if reason_value}#{reason_value || I18n.t('digitally_signed_by')} " \
-                    "#{submitter.name}#{" <#{submitter.email}>" if submitter.email.present?}\n" \
+                  reason_line =
+                    "#{"#{I18n.t('reason')}: " if reason_value}#{reason_value || I18n.t('digitally_signed_by')} " \
+                    "#{submitter.name}#{" <#{submitter.email}>" if submitter.email.present?}"
+
+                  "#{TextUtils.maybe_rtl_reverse(reason_line)}\n" \
                     "#{I18n.l(signature_timestamp.in_time_zone(timezone), format: time_format)} " \
                     "#{TimeUtils.timezone_abbr(timezone, signature_timestamp)}"
                 else
@@ -509,7 +512,9 @@ module Submissions
                 cv.image(PdfIcons.paperclip_io, at: [0, 0], width: box.content_width)
               end
 
-              acc << HexaPDF::Layout::TextFragment.create("#{attachment.filename}\n", font:, font_size:)
+              acc << HexaPDF::Layout::TextFragment.create(
+                "#{TextUtils.maybe_rtl_reverse(attachment.filename.to_s)}\n", font:, font_size:
+              )
             end
 
             lines = layouter.fit(items, area['w'] * width, height).lines
