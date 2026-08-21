@@ -1776,7 +1776,7 @@ export default {
         window.location.href = sanitizeUrl(this.completedRedirectUrl)
       } else {
         this.$nextTick(() => {
-          const root = this.$root.$el.parentNode.getRootNode()
+          const root = this.$root.$el.parentNode?.getRootNode() || document
           const completedEl = root.getElementById('form_completed')
 
           if (completedEl) {
