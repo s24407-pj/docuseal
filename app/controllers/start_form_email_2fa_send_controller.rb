@@ -42,7 +42,7 @@ class StartFormEmail2faSendController < ApplicationController
     return if (@template.shared_link? || (current_user && current_ability.can?(:read, @template))) &&
               (@template.preferences['shared_link_2fa'] == true || submitter_exists?(@template, params))
 
-    Rollbar.warning("Not shared template: #{@template.id}") if defined?(Rollbar)
+    Rollbar.warning("Not 2FA shared template: #{@template.id}") if defined?(Rollbar)
 
     redirect_to start_form_path(@template.slug)
   end
