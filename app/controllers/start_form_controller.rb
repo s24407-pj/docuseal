@@ -88,14 +88,21 @@ class StartFormController < ApplicationController
   private
 
   def find_or_initialize_submitter(template, submitter_params)
-    submitter = Submitters::StartForm.find_or_initialize_submitter(
-      template, submitter_params, exclude_completed: params[:resubmit].present?,
-                                  request:, current_user:, ability: current_user && current_ability
-    )
+    required_fields = template.preferences.fetch('link_form_fields', ['email'])
 
-    template.preferences.fetch('link_form_fields', ['email']).each do |key|
-      submitter.errors.add(key.to_sym, :blank) if submitter_params[key].blank?
-    end
+    blank_fields = required_fields.select { |key| submitter_params[key].blank? }
+
+    submitter =
+      if blank_fields.present?
+        Submitter.new(submitter_params)
+      else
+        Submitters::StartForm.find_or_initialize_submitter(
+          template, submitter_params, exclude_completed: params[:resubmit].present?,
+                                      request:, current_user:, ability: current_user && current_ability
+        )
+      end
+
+    blank_fields.each { |key| submitter.errors.add(key.to_sym, :blank) }
 
     submitter
   end
