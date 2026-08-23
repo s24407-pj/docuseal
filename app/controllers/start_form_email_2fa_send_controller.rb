@@ -14,8 +14,7 @@ class StartFormEmail2faSendController < ApplicationController
                           .submitters.new(**submitter_params, account_id: @template.account_id)
 
     if @submitter.email.blank?
-      return redirect_to start_form_path(@template.slug),
-                         alert: I18n.t(:provide_your_email_to_start), status: :unprocessable_content
+      return redirect_to start_form_path(@template.slug), alert: I18n.t(:provide_your_email_to_start)
     end
 
     Submitters.send_shared_link_email_verification_code(@submitter, request:)
