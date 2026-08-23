@@ -7,14 +7,14 @@ class StartFormSelfController < ApplicationController
   before_action :authorize_start!
 
   def update
-    @submitter = Submitters::StartForm.build_submitters_scope(@template, exclude_completed: true)
+    @submitter = Submitters::StartForm.build_submitters_scope(@template, exclude_completed: true, source: :self)
                                       .find_or_initialize_by(email: current_user.email)
 
     if (is_new_record = @submitter.new_record?)
       @submitter.name = current_user.full_name
 
       Submitters::StartForm.assign_submission_attributes(
-        @submitter, @template, ip: request.remote_ip, user_agent: request.user_agent
+        @submitter, @template, ip: request.remote_ip, user_agent: request.user_agent, source: :self
       )
 
       Submissions::AssignDefinedSubmitters.call(@submitter.submission)

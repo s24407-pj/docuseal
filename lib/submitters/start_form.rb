@@ -57,9 +57,12 @@ module Submitters
       submitter
     end
 
-    def build_submitters_scope(template, exclude_completed: false)
+    def build_submitters_scope(template, exclude_completed: false, source: nil)
+      submissions = template.submissions.non_expired.active
+      submissions = submissions.where(source:) if source
+
       Submitter
-        .where(submission: template.submissions.non_expired.active)
+        .where(submission: submissions)
         .where(uuid: template.submitters.pluck('uuid').compact_blank)
         .order(id: :desc)
         .where(declined_at: nil)
@@ -67,7 +70,7 @@ module Submitters
         .then { |rel| exclude_completed ? rel.where(completed_at: nil) : rel }
     end
 
-    def assign_submission_attributes(submitter, template, ip:, user_agent:, resubmit_submitter: nil)
+    def assign_submission_attributes(submitter, template, ip:, user_agent:, source: :link, resubmit_submitter: nil)
       submitter.assign_attributes(
         uuid: first_submitter_uuid(template),
         ip:,
@@ -90,7 +93,7 @@ module Submitters
                                               template_submitters: template.submitters,
                                               expire_at: Templates.build_default_expire_at(template),
                                               submitters: [submitter],
-                                              source: :link)
+                                              source:)
 
       Submissions::CreateFromSubmitters.maybe_set_dynamic_documents(submitter.submission)
 
