@@ -1014,6 +1014,7 @@ en: &en
     invite: Invite
     link: Link
     mcp: MCP
+    self: Sign Yourself
   submission_event_names:
     send_email_to_html: '<b>Email sent</b> to %{submitter_name}'
     bounce_email_html: '<b>Email bounced</b> %{submitter_name}'
@@ -2132,6 +2133,7 @@ es: &es
     invite: Invitación
     link: Enlace
     mcp: MCP
+    self: Firma tú mismo
   submission_event_names:
     send_email_to_html: '<b>Correo electrónico enviado</b> a %{submitter_name}'
     bounce_email_html: '<b>Correo electrónico rebotado</b> %{submitter_name}'
@@ -3264,6 +3266,7 @@ it: &it
     invite: Invito
     link: Link
     mcp: MCP
+    self: Firma te stesso
   submission_event_names:
     send_email_to_html: '<b>Email inviata</b> a %{submitter_name}'
     bounce_email_html: '<b>Email respinta</b> %{submitter_name}'
@@ -4379,6 +4382,7 @@ fr: &fr
     invite: Invitation
     link: Lien
     mcp: MCP
+    self: Signer vous-même
   submission_event_names:
     send_email_to_html: "<b>E‑mail envoyé</b> à %{submitter_name}"
     bounce_email_html: "<b>E‑mail rejeté</b> %{submitter_name}"
@@ -5510,6 +5514,7 @@ pt: &pt
     invite: Convite
     link: Link
     mcp: MCP
+    self: Assine você mesmo
   submission_event_names:
     send_email_to_html: '<b>Email enviado</b> para %{submitter_name}'
     bounce_email_html: '<b>Email não entregue</b> %{submitter_name}'
@@ -6641,6 +6646,7 @@ de: &de
     invite: Einladung
     link: Link
     mcp: MCP
+    self: Selbst unterschreiben
   submission_event_names:
     send_email_to_html: '<b>E-Mail gesendet</b> an %{submitter_name}'
     bounce_email_html: '<b>E-Mail unzustellbar</b> %{submitter_name}'
@@ -8288,6 +8294,7 @@ nl: &nl
     invite: Uitnodiging
     link: Link
     mcp: MCP
+    self: Zelf ondertekenen
   submission_event_names:
     send_email_to_html: "<b>E-mail verzonden</b> naar %{submitter_name}"
     bounce_email_html: "<b>E-mail geretourneerd</b> %{submitter_name}"
