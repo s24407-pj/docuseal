@@ -3,7 +3,8 @@
 module Submitters
   module StartForm
     COOKIES_TTL = 12.hours
-    RESUBMIT_TTL = 8.days
+    START_FORM_COOKIES_TTL = 7.days
+    RESUBMIT_TTL = 3.days
     COOKIES_DEFAULTS = { httponly: true, secure: Rails.env.production? }.freeze
 
     NotSaved = Class.new(StandardError)
@@ -16,28 +17,40 @@ module Submitters
         submitter.account.account_configs.find_or_initialize_by(key: AccountConfig::ALLOW_TO_RESUBMIT).value != false
     end
 
-    def can_reopen?(template, submitter, current_user:, ability:)
-      Docuseal.multitenant? || !submitter.persisted? || submitter.completed_at? ||
-        (current_user&.email == submitter.email && ability.can?(:read, submitter)) ||
-        template.preferences['shared_link_2fa'] == true || Accounts.can_send_emails?(template.account)
+    def can_reopen?(template, submitter, request:, current_user:, ability:)
+      return false if submitter.submission&.completed_at? && submitter.viewer?
+      return true if request.cookie_jar.encrypted[:start_form_slug] == submitter.slug
+      return false if submitter.email.blank?
+      return true if submitter.completed_at? || Docuseal.multitenant?
+      return true if current_user&.email == submitter.email && ability.can?(:read, submitter)
+      return true if template.preferences['shared_link_2fa'] == true
+
+      Accounts.can_send_emails?(template.account)
     end
 
-    def find_or_initialize_submitter(template, submitter_params, exclude_completed:, current_user: nil, ability: nil)
+    def assign_start_form_cookie(request, submitter)
+      request.cookie_jar.encrypted[:start_form_slug] =
+        { value: submitter.slug, expires: START_FORM_COOKIES_TTL.from_now, **COOKIES_DEFAULTS }
+    end
+
+    def find_or_initialize_submitter(template, submitter_params, exclude_completed:, request:,
+                                     current_user: nil, ability: nil)
       required_fields = template.preferences.fetch('link_form_fields', ['email'])
 
       required_params = required_fields.index_with { |key| submitter_params[key] }
 
       find_params = required_params.except('name')
 
-      submitter = Submitter.new if find_params.compact_blank.blank?
+      submitter =
+        if find_params.compact_blank.blank?
+          Submitter.new
+        else
+          build_submitters_scope(template, exclude_completed:).find_or_initialize_by(find_params)
+        end
 
-      submitter ||= build_submitters_scope(template, exclude_completed:).find_or_initialize_by(find_params)
-
-      submitter = Submitter.new(find_params) if submitter.persisted? && submitter.email.blank?
-
-      submitter = Submitter.new(find_params) if submitter.submission&.completed_at? && submitter.viewer?
-
-      submitter = Submitter.new(find_params) unless can_reopen?(template, submitter, current_user:, ability:)
+      if submitter.persisted? && !can_reopen?(template, submitter, request:, current_user:, ability:)
+        submitter = Submitter.new(find_params)
+      end
 
       submitter.name = required_params['name'] if submitter.new_record?
 
@@ -98,6 +111,8 @@ module Submitters
       raise NotSaved unless submitter.save
 
       enqueue_new_submitter_jobs(submitter) if is_new_record
+
+      assign_start_form_cookie(request, submitter)
 
       if is_otp_verified
         SubmissionEvents.create_with_tracking_data(submitter, 'email_verified', request)

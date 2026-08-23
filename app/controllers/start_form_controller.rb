@@ -59,6 +59,8 @@ class StartFormController < ApplicationController
       elsif @submitter.errors.blank? && @submitter.save
         Submitters::StartForm.enqueue_new_submitter_jobs(@submitter) if is_new_record
 
+        Submitters::StartForm.assign_start_form_cookie(request, @submitter)
+
         redirect_to submit_form_path(@submitter.slug)
       else
         render :show, status: :unprocessable_content
@@ -90,7 +92,7 @@ class StartFormController < ApplicationController
   def find_or_initialize_submitter(template, submitter_params)
     submitter = Submitters::StartForm.find_or_initialize_submitter(
       template, submitter_params, exclude_completed: params[:resubmit].present?,
-                                  current_user:, ability: current_user && current_ability
+                                  request:, current_user:, ability: current_user && current_ability
     )
 
     template.preferences.fetch('link_form_fields', ['email']).each do |key|
@@ -102,6 +104,7 @@ class StartFormController < ApplicationController
 
   def require_link_2fa?(submitter, is_new_record:)
     return true if @template.preferences['shared_link_2fa'] == true
+    return false if cookies.encrypted[:start_form_slug] == submitter.slug
 
     !is_new_record && (current_user&.email != submitter.email || !current_ability.can?(:read, submitter))
   end

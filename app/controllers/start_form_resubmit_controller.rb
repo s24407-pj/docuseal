@@ -13,7 +13,7 @@ class StartFormResubmitController < ApplicationController
 
   def update
     @submitter = Submitters::StartForm.find_or_initialize_submitter(
-      @template, submitter_params, exclude_completed: true
+      @template, submitter_params, exclude_completed: true, request:
     )
 
     if Templates.filter_undefined_submitters(@template.submitters).size > 1 && @submitter.new_record?
@@ -37,6 +37,8 @@ class StartFormResubmitController < ApplicationController
       handle_require_2fa(@submitter, is_new_record:)
     elsif @submitter.save
       Submitters::StartForm.enqueue_new_submitter_jobs(@submitter) if is_new_record
+
+      Submitters::StartForm.assign_start_form_cookie(request, @submitter)
 
       redirect_to submit_form_path(@submitter.slug)
     else
