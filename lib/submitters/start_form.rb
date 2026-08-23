@@ -17,13 +17,18 @@ module Submitters
         submitter.account.account_configs.find_or_initialize_by(key: AccountConfig::ALLOW_TO_RESUBMIT).value != false
     end
 
-    def can_reopen?(template, submitter, request:, current_user:, ability:)
+    def can_reopen?(template, submitter, request:, current_user:)
       return false if submitter.submission&.completed_at? && submitter.viewer?
       return true if request.cookie_jar.encrypted[:start_form_slug] == submitter.slug
+      return true if request.cookie_jar.encrypted[:email_2fa_slug] == submitter.slug
       return false if submitter.email.blank?
-      return true if submitter.completed_at? || Docuseal.multitenant?
-      return true if current_user&.email == submitter.email && ability.can?(:read, submitter)
+      return true if submitter.completed_at?
+      return false if submitter.submission.source_embed?
       return true if template.preferences['shared_link_2fa'] == true
+      return false if submitter.submission.source_link?
+      return true if Docuseal.multitenant?
+      return true if current_user && submitter.email == current_user.email &&
+                     current_user.account_id == submitter.account_id
 
       Accounts.can_send_emails?(template.account)
     end
@@ -33,8 +38,7 @@ module Submitters
         { value: submitter.slug, expires: START_FORM_COOKIES_TTL.from_now, **COOKIES_DEFAULTS }
     end
 
-    def find_or_initialize_submitter(template, submitter_params, exclude_completed:, request:,
-                                     current_user: nil, ability: nil)
+    def find_or_initialize_submitter(template, submitter_params, exclude_completed:, request:, current_user: nil)
       required_fields = template.preferences.fetch('link_form_fields', ['email'])
 
       required_params = required_fields.index_with { |key| submitter_params[key] }
@@ -48,7 +52,7 @@ module Submitters
           build_submitters_scope(template, exclude_completed:).find_or_initialize_by(find_params)
         end
 
-      if submitter.persisted? && !can_reopen?(template, submitter, request:, current_user:, ability:)
+      if submitter.persisted? && !can_reopen?(template, submitter, request:, current_user:)
         submitter = Submitter.new(find_params)
       end
 

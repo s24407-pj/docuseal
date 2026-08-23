@@ -52,8 +52,8 @@ class StartFormController < ApplicationController
         @submitter.assign_attributes(ip: request.remote_ip, ua: request.user_agent)
       end
 
-      if require_link_2fa?(@submitter, is_new_record:)
-        handle_require_2fa(@submitter, is_new_record:)
+      if require_link_2fa?(@template, @submitter)
+        handle_require_2fa(@template, @submitter)
       elsif @submitter.errors.blank? && @submitter.save
         Submitters::StartForm.enqueue_new_submitter_jobs(@submitter) if is_new_record
 
@@ -98,7 +98,7 @@ class StartFormController < ApplicationController
       else
         Submitters::StartForm.find_or_initialize_submitter(
           template, submitter_params, exclude_completed: params[:resubmit].present?,
-                                      request:, current_user:, ability: current_user && current_ability
+                                      request:, current_user:
         )
       end
 
@@ -107,11 +107,13 @@ class StartFormController < ApplicationController
     submitter
   end
 
-  def require_link_2fa?(submitter, is_new_record:)
-    return true if @template.preferences['shared_link_2fa'] == true
+  def require_link_2fa?(template, submitter)
+    return true if template.preferences['shared_link_2fa'] == true
     return false if cookies.encrypted[:start_form_slug] == submitter.slug
+    return false if current_user && submitter.email == current_user.email &&
+                    current_user.account_id == submitter.account_id
 
-    !is_new_record && (current_user&.email != submitter.email || !current_ability.can?(:read, submitter))
+    !submitter.new_record?
   end
 
   def authorize_start!
@@ -144,13 +146,13 @@ class StartFormController < ApplicationController
     end
   end
 
-  def handle_require_2fa(submitter, is_new_record:)
+  def handle_require_2fa(template, submitter)
     return render :show, status: :unprocessable_content if submitter.errors.present?
 
-    if Submitters::StartForm.verify_2fa_and_save_submitter(submitter, request, is_new_record:)
+    if Submitters::StartForm.verify_2fa_and_save_submitter(submitter, request, is_new_record: submitter.new_record?)
       redirect_to submit_form_path(submitter.slug)
     else
-      if defined?(Rollbar) && submitter.submission.template.preferences['shared_link_2fa'] != true
+      if defined?(Rollbar) && template.preferences['shared_link_2fa'] != true
         Rollbar.info("2FA link requested: #{submitter.id}")
       end
 
@@ -161,10 +163,10 @@ class StartFormController < ApplicationController
   rescue Submitters::StartForm::NotSaved
     render :show, status: :unprocessable_content
   rescue Submitters::UnableToSendCode, Submitters::InvalidOtp => e
-    redirect_to start_form_path(@template.slug, params: submitter_params.merge(email_verification: true)),
+    redirect_to start_form_path(template.slug, params: submitter_params.merge(email_verification: true)),
                 alert: e.message
   rescue RateLimit::LimitApproached
-    redirect_to start_form_path(@template.slug, params: submitter_params.merge(email_verification: true)),
+    redirect_to start_form_path(template.slug, params: submitter_params.merge(email_verification: true)),
                 alert: I18n.t(:too_many_attempts)
   end
 end

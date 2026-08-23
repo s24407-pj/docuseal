@@ -12,9 +12,7 @@ class StartFormResubmitController < ApplicationController
   before_action :authorize_start!
 
   def update
-    @submitter = Submitters::StartForm.find_or_initialize_submitter(
-      @template, submitter_params, exclude_completed: true, request:
-    )
+    @submitter = find_or_initialize_submitter(@template, @resubmit_submitter)
 
     if Templates.filter_undefined_submitters(@template.submitters).size > 1 && @submitter.new_record?
       @error_message = multiple_submitters_error_message
@@ -34,7 +32,7 @@ class StartFormResubmitController < ApplicationController
     end
 
     if @template.preferences['shared_link_2fa'] == true
-      handle_require_2fa(@submitter, is_new_record:)
+      handle_require_2fa(@submitter)
     elsif @submitter.save
       Submitters::StartForm.enqueue_new_submitter_jobs(@submitter) if is_new_record
 
@@ -47,6 +45,12 @@ class StartFormResubmitController < ApplicationController
   end
 
   private
+
+  def find_or_initialize_submitter(template, resubmit_submitter)
+    Submitters::StartForm.build_submitters_scope(template, exclude_completed: true)
+                         .find_by(slug: cookies.encrypted[:start_form_slug],
+                                  email: resubmit_submitter.email) || Submitter.new
+  end
 
   def load_resubmit_submitter
     @resubmit_submitter = Submitter.find_by(slug: params[:resubmit])
@@ -63,10 +67,6 @@ class StartFormResubmitController < ApplicationController
     redirect_to submit_form_path(@resubmit_submitter.slug) if @template.archived_at? || @template.account.archived_at?
   end
 
-  def submitter_params
-    @resubmit_submitter.slice(:name, :phone, :email)
-  end
-
   def multiple_submitters_error_message
     if current_user&.account_id == @template.account_id
       helpers.t('this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html')
@@ -75,8 +75,9 @@ class StartFormResubmitController < ApplicationController
     end
   end
 
-  def handle_require_2fa(submitter, is_new_record:)
-    if Submitters::StartForm.verify_2fa_and_save_submitter(submitter, request, is_new_record:)
+  def handle_require_2fa(submitter)
+    if Submitters::StartForm.verify_2fa_and_save_submitter(submitter, request,
+                                                           is_new_record: submitter.new_record?)
       redirect_to submit_form_path(submitter.slug)
     else
       Submitters.send_shared_link_email_verification_code(submitter, request:)
