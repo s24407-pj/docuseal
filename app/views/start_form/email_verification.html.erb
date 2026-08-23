@@ -49,6 +49,10 @@
         <%= f.button button_title(title: t('submit')), class: 'base-button' %>
       </toggle-submit>
     <% end %>
-    <%= button_to t(:re_send_email), start_form_email_2fa_send_index_path, params: { slug: @template.slug, resend: true, submitter: { name: params[:name] || params.dig(:submitter, :name), email: params[:email] || params.dig(:submitter, :email), phone: params[:phone] || params.dig(:submitter, :phone) } }.compact, method: :post, id: 'resend_code', class: 'hidden' %>
+    <% if @resubmit_submitter %>
+      <%= button_to t(:re_send_email), resubmit_form_path, params: { resubmit: @resubmit_submitter.slug }, method: :put, id: 'resend_code', class: 'hidden' %>
+    <% else %>
+      <%= button_to t(:re_send_email), start_form_email_2fa_send_index_path, params: { slug: @template.slug, resend: true, submitter: { name: params[:name] || params.dig(:submitter, :name), email: params[:email] || params.dig(:submitter, :email), phone: params[:phone] || params.dig(:submitter, :phone) } }.compact, method: :post, id: 'resend_code', class: 'hidden' %>
+    <% end %>
   </div>
 </main>

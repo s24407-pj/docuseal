@@ -86,10 +86,12 @@ class StartFormResubmitController < ApplicationController
   rescue Submitters::StartForm::NotSaved
     render 'start_form/show', status: :unprocessable_content
   rescue Submitters::UnableToSendCode, Submitters::InvalidOtp => e
-    redirect_to start_form_path(@template.slug, params: submitter_params.merge(email_verification: true)),
-                alert: e.message
+    flash.now[:alert] = e.message
+
+    render 'start_form/email_verification'
   rescue RateLimit::LimitApproached
-    redirect_to start_form_path(@template.slug, params: submitter_params.merge(email_verification: true)),
-                alert: I18n.t(:too_many_attempts)
+    flash.now[:alert] = I18n.t(:too_many_attempts)
+
+    render 'start_form/email_verification'
   end
 end
