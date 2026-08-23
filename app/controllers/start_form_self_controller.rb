@@ -10,6 +10,9 @@ class StartFormSelfController < ApplicationController
     @submitter = Submitters::StartForm.build_submitters_scope(@template, exclude_completed: true, source: :self)
                                       .find_or_initialize_by(email: current_user.email)
 
+    @submitter = Submitter.new(email: current_user.email) if @submitter.persisted? &&
+                                                             outdated_template_fields?(@submitter, @template)
+
     if (is_new_record = @submitter.new_record?)
       @submitter.name = current_user.full_name
 
@@ -32,6 +35,12 @@ class StartFormSelfController < ApplicationController
   end
 
   private
+
+  def outdated_template_fields?(submitter, template)
+    template_fields = submitter.submission.template_fields
+
+    template_fields.present? && template_fields != template.fields
+  end
 
   def authorize_start!
     authorize!(:read, @template)
