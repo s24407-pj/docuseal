@@ -67,7 +67,6 @@ module Submitters
 
       Submitter
         .where(submission: submissions)
-        .where(uuid: template.submitters.pluck('uuid').compact_blank)
         .order(id: :desc)
         .where(declined_at: nil)
         .where(external_id: nil)
