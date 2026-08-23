@@ -53,8 +53,6 @@ class StartFormController < ApplicationController
       end
 
       if require_link_2fa?(@submitter, is_new_record:)
-        Rollbar.info("2FA requested: #{@submitter.id}") if !is_new_record && defined?(Rollbar)
-
         handle_require_2fa(@submitter, is_new_record:)
       elsif @submitter.errors.blank? && @submitter.save
         Submitters::StartForm.enqueue_new_submitter_jobs(@submitter) if is_new_record
@@ -145,6 +143,10 @@ class StartFormController < ApplicationController
     if Submitters::StartForm.verify_2fa_and_save_submitter(submitter, request, is_new_record:)
       redirect_to submit_form_path(submitter.slug)
     else
+      if defined?(Rollbar) && submitter.submission.template.preferences['shared_link_2fa'] != true
+        Rollbar.info("2FA link requested: #{submitter.id}")
+      end
+
       Submitters.send_shared_link_email_verification_code(submitter, request:)
 
       render :email_verification
