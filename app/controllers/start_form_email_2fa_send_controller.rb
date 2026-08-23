@@ -56,6 +56,8 @@ class StartFormEmail2faSendController < ApplicationController
   end
 
   def submitter_params
-    params.require(:submitter).permit(:name, :email, :phone)
+    params.require(:submitter).permit(:name, :email, :phone).tap do |attrs|
+      attrs[:email] = Submissions.normalize_email(attrs[:email])
+    end
   end
 end
