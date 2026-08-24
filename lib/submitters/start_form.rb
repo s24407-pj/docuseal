@@ -26,14 +26,13 @@ module Submitters
       return false if submitter.submission.source_embed?
       return true if template.preferences['shared_link_2fa'] == true
       return false if submitter.submission.source_link?
-      return true if Docuseal.multitenant?
       return true if current_user && submitter.email == current_user.email &&
                      current_user.account_id == submitter.account_id
 
-      Accounts.can_send_emails?(template.account)
+      Docuseal.multitenant? || Accounts.can_send_emails?(template.account)
     end
 
-    def assign_start_form_cookie(request, submitter)
+    def assign_start_form_cookie(submitter, request)
       request.cookie_jar.encrypted[:start_form_slug] =
         { value: submitter.slug, expires: START_FORM_COOKIES_TTL.from_now, **COOKIES_DEFAULTS }
     end
@@ -118,7 +117,7 @@ module Submitters
 
       enqueue_new_submitter_jobs(submitter) if is_new_record
 
-      assign_start_form_cookie(request, submitter)
+      assign_start_form_cookie(submitter, request)
 
       if is_otp_verified
         SubmissionEvents.create_with_tracking_data(submitter, 'email_verified', request)

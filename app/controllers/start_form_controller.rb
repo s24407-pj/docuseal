@@ -57,7 +57,7 @@ class StartFormController < ApplicationController
       elsif @submitter.errors.blank? && @submitter.save
         Submitters::StartForm.enqueue_new_submitter_jobs(@submitter) if is_new_record
 
-        Submitters::StartForm.assign_start_form_cookie(request, @submitter)
+        Submitters::StartForm.assign_start_form_cookie(@submitter, request)
 
         redirect_to submit_form_path(@submitter.slug)
       else

@@ -23,7 +23,8 @@ class StartFormResubmitController < ApplicationController
     if (is_new_record = @submitter.new_record?)
       Submitters::StartForm.assign_submission_attributes(
         @submitter, @template,
-        ip: request.remote_ip, user_agent: request.user_agent, resubmit_submitter: @resubmit_submitter
+        ip: request.remote_ip, user_agent: request.user_agent, resubmit_submitter: @resubmit_submitter,
+        source: @resubmit_submitter.submission.source_self? ? :self : :link
       )
 
       Submissions::AssignDefinedSubmitters.call(@submitter.submission)
@@ -36,7 +37,7 @@ class StartFormResubmitController < ApplicationController
     elsif @submitter.save
       Submitters::StartForm.enqueue_new_submitter_jobs(@submitter) if is_new_record
 
-      Submitters::StartForm.assign_start_form_cookie(request, @submitter)
+      Submitters::StartForm.assign_start_form_cookie(@submitter, request)
 
       redirect_to submit_form_path(@submitter.slug)
     else
