@@ -142,7 +142,8 @@ Rails.application.routes.draw do
     get :completed
   end
 
-  resource :resubmit_form, controller: 'start_form', only: :update
+  resource :resubmit_form, controller: 'start_form_resubmit', only: :update
+  resources :start_form_self, only: :update
   resource :submit_form_email_2fa, only: %i[create update]
   resources :start_form_email_2fa_send, only: :create
 
