@@ -2,18 +2,31 @@
 name: upstream-sync-pl
 description: >-
   Resolves DocuSeal upstream tag syncs into the Polish pl fork, fixes
-  upstream-merge PR conflicts, enforces en/pl i18n key parity, and merges into
-  pl. Use when syncing upstream tags, resolving upstream-merge/* conflicts,
-  aligning en/pl locale keys, or finishing a manual sync for this Polish fork.
+  upstream-merge PR conflicts, aligns en/pl i18n keys, and merges into pl. Use
+  when syncing upstream tags, resolving upstream-merge/* conflicts, adding
+  missing Polish translations, or finishing a manual sync for this Polish fork.
 ---
 
 # Upstream sync (Polish fork)
 
 ## When to use
 
-Open `upstream-merge/<tag>` PR toward `pl`, especially when the sync workflow left an empty commit titled `conflicts — manual resolve required`.
+Open `upstream-merge/<tag>` PR toward `pl`, especially when the sync workflow left:
+
+- an empty commit titled `conflicts — manual resolve required`, or
+- a PR body warning that **brakuje polskich tłumaczeń** (missing en/pl i18n keys).
 
 Automation lives in [`.github/workflows/sync-upstream.yml`](../../../.github/workflows/sync-upstream.yml).
+
+## Sync workflow behavior
+
+| Outcome | PR opened? | Auto-merge? |
+|---------|------------|-------------|
+| Clean merge + en/pl parity OK | Yes | Yes |
+| Clean merge + missing `pl` keys | Yes (lists missing keys) | No — add translations first |
+| Merge conflicts | Yes (empty commit, no markers) | No — resolve conflicts first |
+
+Missing translations do **not** fail the workflow; they block auto-merge only.
 
 ## Workflow
 
@@ -38,11 +51,13 @@ Automation lives in [`.github/workflows/sync-upstream.yml`](../../../.github/wor
 4. **Preserve fork CI filters**
    - If [`.github/workflows/ci.yml`](../../../.github/workflows/ci.yml) merges, keep `on.push.branches` for `pl`, `upstream-mirror`, and `upstream-merge/**`, while accepting upstream job/runtime changes.
 
-5. **Verify en/pl parity (required)**
+5. **Verify en/pl parity (required before merge)**
    Reuse the checker from `sync-upstream.yml` (flatten leaf keys under `en` and `pl` in `i18n.yml`; fail on any set difference).
    Also confirm `en`/`pl` object key sets match in:
    - `app/javascript/submission_form/i18n.js`
    - `app/javascript/template_builder/i18n.js`
+
+   The scheduled sync opens a PR even when parity fails; fix keys on the `upstream-merge/<tag>` branch, push, then merge manually.
 
 6. **Finish the PR**
    ```bash
@@ -50,7 +65,7 @@ Automation lives in [`.github/workflows/sync-upstream.yml`](../../../.github/wor
    git push origin upstream-merge/<tag> --force-with-lease
    gh pr merge <number> --merge
    ```
-   Update the PR body to drop the “manual resolve” warning once conflicts are gone.
+   Update the PR body to drop the “manual resolve” or “brakuje tłumaczeń” warning once conflicts and locale parity are resolved.
 
 ## Locale rules (summary)
 

@@ -134,10 +134,12 @@ jobs:
 
       - name: Verify en/pl i18n key parity
         if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.conflicts == 'false'
+        id: i18n
         run: |
           set -euo pipefail
           pip install pyyaml --quiet
           python3 <<'PY'
+          import os
           import sys
           from pathlib import Path
 
@@ -167,14 +169,22 @@ jobs:
           print(f"en leaf keys: {len(en)}")
           print(f"pl leaf keys: {len(pl)}")
 
-          if only_en or only_pl:
-              if only_en:
-                  print(f"only in en ({len(only_en)}): {', '.join(only_en)}", file=sys.stderr)
-              if only_pl:
-                  print(f"only in pl ({len(only_pl)}): {', '.join(only_pl)}", file=sys.stderr)
-              raise SystemExit("en/pl i18n key sets różnią się")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write(f"missing_en_count={len(only_en)}\n")
+              out.write(f"missing_pl_count={len(only_pl)}\n")
+              out.write(f"missing_en_keys={','.join(only_en)}\n")
+              out.write(f"missing_pl_keys={','.join(only_pl)}\n")
 
-          print("en/pl i18n key parity OK")
+              if only_en or only_pl:
+                  if only_en:
+                      print(f"only in en ({len(only_en)}): {', '.join(only_en)}", file=sys.stderr)
+                  if only_pl:
+                      print(f"only in pl ({len(only_pl)}): {', '.join(only_pl)}", file=sys.stderr)
+                  print("en/pl i18n key sets różnią się — PR zostanie otwarty, auto-merge pominięty", file=sys.stderr)
+                  out.write("parity_ok=false\n")
+              else:
+                  print("en/pl i18n key parity OK")
+                  out.write("parity_ok=true\n")
           PY
 
       - name: Push upstream-merge branch
@@ -198,11 +208,26 @@ jobs:
           TAG="${{ steps.check.outputs.upstream_tag }}"
           BRANCH="${{ steps.merge.outputs.branch }}"
           CONFLICTS="${{ steps.merge.outputs.conflicts }}"
+          PARITY_OK="${{ steps.i18n.outputs.parity_ok }}"
+          MISSING_EN_COUNT="${{ steps.i18n.outputs.missing_en_count }}"
+          MISSING_PL_COUNT="${{ steps.i18n.outputs.missing_pl_count }}"
+          MISSING_EN_KEYS="${{ steps.i18n.outputs.missing_en_keys }}"
+          MISSING_PL_KEYS="${{ steps.i18n.outputs.missing_pl_keys }}"
           REPO="${{ github.repository }}"
           OWNER="${{ github.repository_owner }}"
 
           if [ "${CONFLICTS}" = "true" ]; then
             BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: wykryto konflikty przy merge tagu upstream — merge został przerwany (bez markerów w branchu). Zmerguj ręcznie `refs/tags/%s` do `pl` i rozwiąż konflikty lokalnie.' "${TAG}" "${TAG}")
+          elif [ "${PARITY_OK}" = "false" ]; then
+            BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: zestawy kluczy en/pl w `config/locales/i18n.yml` różnią się. Dodaj brakujące tłumaczenia w sekcji `pl:` przed mergem do `pl`.' "${TAG}")
+            if [ "${MISSING_EN_COUNT}" -gt 0 ]; then
+              FORMATTED_EN_KEYS=$(echo "${MISSING_EN_KEYS}" | tr ',' '\n' | sed 's/^/`/;s/$/`/' | paste -sd ', ' -)
+              BODY=$(printf '%s\n\nBrakuje w `pl` (%s): %s' "${BODY}" "${MISSING_EN_COUNT}" "${FORMATTED_EN_KEYS}")
+            fi
+            if [ "${MISSING_PL_COUNT}" -gt 0 ]; then
+              FORMATTED_PL_KEYS=$(echo "${MISSING_PL_KEYS}" | tr ',' '\n' | sed 's/^/`/;s/$/`/' | paste -sd ', ' -)
+              BODY=$(printf '%s\n\nTylko w `pl` (%s): %s' "${BODY}" "${MISSING_PL_COUNT}" "${FORMATTED_PL_KEYS}")
+            fi
           else
             BODY="Automatyczny sync upstream DocuSeal \`${TAG}\` do brancha pl."
           fi
@@ -227,7 +252,7 @@ jobs:
           echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
 
       - name: Auto-merge PR -> pl
-        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'false'
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'false' && steps.i18n.outputs.parity_ok == 'true'
         env:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
@@ -264,3 +289,8 @@ jobs:
         if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'true'
         run: |
           echo "PR #${{ steps.create_pr.outputs.pr_number }} otwarty — konflikty wymagają ręcznego syncu (auto-merge pominięty)."
+
+      - name: Note missing translations (no auto-merge)
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'false' && steps.i18n.outputs.parity_ok == 'false'
+        run: |
+          echo "PR #${{ steps.create_pr.outputs.pr_number }} otwarty — brakuje tłumaczeń pl (auto-merge pominięty)."
