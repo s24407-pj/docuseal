@@ -19,6 +19,7 @@ module Submissions
     }.freeze
 
     TESTING_FOOTER = GenerateResultAttachments::TESTING_FOOTER
+    UNSUPPORTED_IMAGE_TYPES = GenerateResultAttachments::UNSUPPORTED_IMAGE_TYPES
 
     RTL_REGEXP = TextUtils::RTL_REGEXP
     MAX_IMAGE_HEIGHT = 100
@@ -354,8 +355,9 @@ module Submissions
 
           field_type = field['type']
 
-          if field_type == 'image' &&
-             submitter.attachments.find { |a| a.uuid == value }.then { |a| !a.image? || a.content_type == 'image/heic' }
+          if (field_type == 'image' || field_type == 'stamp') &&
+             submitter.attachments.find { |a| a.uuid == value }
+                      .then { |a| !a.image? || a.content_type.in?(UNSUPPORTED_IMAGE_TYPES) }
             field_type = 'file'
           end
 
