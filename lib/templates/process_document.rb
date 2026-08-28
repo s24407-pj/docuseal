@@ -41,16 +41,24 @@ module Templates
       attachment
     end
 
-    def process(attachment, data, extract_fields: false)
+    def process(attachment, data, extract_fields: false, doc: nil)
       if attachment.content_type == PDF_CONTENT_TYPE && extract_fields && data.size < MAX_FLATTEN_FILE_SIZE
-        pdf = HexaPDF::Document.new(io: StringIO.new(data))
+        if doc
+          fields = Templates::FindPdfiumAcroFields.call(attachment, doc, data)
+        else
+          pdf = HexaPDF::Document.new(io: StringIO.new(data))
 
-        fields = Templates::FindAcroFields.call(pdf, attachment, data)
+          fields = Templates::FindAcroFields.call(pdf, attachment, data)
+        end
       end
 
-      pdf ||= HexaPDF::Document.new(io: StringIO.new(data))
+      if doc
+        number_of_pages = doc.page_count
+      else
+        pdf ||= HexaPDF::Document.new(io: StringIO.new(data))
 
-      number_of_pages = pdf.pages.size
+        number_of_pages = pdf.pages.size
+      end
 
       attachment.metadata['pdf'] ||= {}
       attachment.metadata['pdf']['number_of_pages'] = number_of_pages
