@@ -7794,6 +7794,13 @@ pl:
   open_file_from: 'Otwórz plik z'
   cancel: Anuluj
   open: Otwórz
+  signature_request_email_sent_to_recipients_with_a_link_to_review_and_sign: E-mail z prośbą o podpis wysyłany do odbiorców z linkiem do przejrzenia i podpisania dokumentów.
+  view_only_email_sent_to_recipients_that_need_to_only_review_the_documents: E-mail tylko do przeglądania wysyłany do odbiorców, którzy muszą jedynie przejrzeć dokumenty.
+  reminds_recipients_who_havent_completed_their_part_yet_to_sign_following_the_reminders_schedule: Przypomina o podpisaniu odbiorcom, którzy jeszcze nie ukończyli swojej części, zgodnie z harmonogramem przypomnień.
+  signature_request_sms_sent_to_recipients_with_a_link_to_review_and_sign: SMS z prośbą o podpis wysyłany do odbiorców z linkiem do przejrzenia i podpisania dokumentów.
+  phone_2fa_verification_text_message: Wiadomość tekstowa z kodem weryfikacyjnym 2FA wysłana na telefon.
+  notification_email_sent_to_the_sender_user_and_bcc_addresses_once_the_submission_is_completed_by_all_parties: E-mail z powiadomieniem wysyłany do użytkownika nadawcy oraz na adresy BCC po ukończeniu zgłoszenia przez wszystkie strony.
+  completed_documents_copy_email_sent_to_recipients_upon_completion_containing_their_documents: E-mail z kopią ukończonych dokumentów wysyłany do odbiorców po zakończeniu, zawierający ich dokumenty.
   devise:
     confirmations:
       confirmed: Twój adres e-mail został pomyślnie potwierdzony.
@@ -7809,6 +7816,7 @@ pl:
     invite: Zapraszać
     link: Link
     mcp: MCP
+    self: Podpisz samodzielnie
   submission_event_names:
     send_email_to_html: <b>E-mail wysłany</b> do %{submitter_name}
     bounce_email_html: <b>E-mail odesłany</b> %{submitter_name}
