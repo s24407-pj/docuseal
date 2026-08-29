@@ -236,10 +236,12 @@ module SearchEntries
   end
 
   def add_hyphens(entry, text)
+    text = text.tr('\\', ' ')
+
     hyphens = text.scan(/\b[^\s]*?\d-[^\s]+?\b/) + text.scan(/\b[^\s]+-\d[^\s]*?\b/)
 
     hyphens.uniq.each_with_index do |item, index|
-      entry.tsvector += " '#{item.delete("'\\")}':#{index + 1}" unless entry.tsvector.include?(item)
+      entry.tsvector += " '#{item.delete("'")}':#{index + 1}" unless entry.tsvector.include?(item)
     end
 
     entry
