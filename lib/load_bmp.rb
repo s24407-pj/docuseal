@@ -3,6 +3,9 @@
 module LoadBmp
   BPPS = [1, 4, 8, 24, 32].freeze
 
+  MAX_COORD = ENV.fetch('VIPS_MAX_COORD', '17000').to_i
+  MAX_PIXELS = 145_000_000
+
   module_function
 
   # rubocop:disable Metrics
@@ -98,6 +101,9 @@ module LoadBmp
 
     raise ArgumentError, 'BMP width must be positive.' if width <= 0
     raise ArgumentError, 'BMP height must be positive.' if height <= 0
+    if width > MAX_COORD || height > MAX_COORD || width * height > MAX_PIXELS
+      raise ArgumentError, "BMP dimensions are too large: #{width}x#{height}."
+    end
 
     if compression != 0
       raise ArgumentError,

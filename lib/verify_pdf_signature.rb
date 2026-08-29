@@ -144,7 +144,7 @@ module VerifyPdfSignature
 
     io.seek(0)
 
-    Pdfium::Document.open_bytes(io.read(signed_end)) do |signed_document|
+    Pdfium::Document.open_bytes(io.read([[signed_end, io.size].min, 0].max)) do |signed_document|
       next false unless signed_document.valid_cross_reference_table?
 
       serialized_document(signed_document) != serialized_document(document)
@@ -164,7 +164,7 @@ module VerifyPdfSignature
   def signed_data(io, byte_range)
     byte_range.each_slice(2).map do |offset, length|
       io.seek(offset)
-      io.read(length)
+      io.read([[length, io.size - offset].min, 0].max)
     end.join
   end
 end
