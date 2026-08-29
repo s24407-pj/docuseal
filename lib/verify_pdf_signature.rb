@@ -15,18 +15,28 @@ module VerifyPdfSignature
 
       next [] if signatures.blank?
 
-      has_unsigned_changes = unsigned_changes?(document, io)
+      verified_signatures = signatures.select { |e| verified_signature?(e, io, trusted_certs) }
+      last_signature = verified_signatures.max_by(&:signed_end)
+      has_unsigned_changes = last_signature && unsigned_changes?(document, io, last_signature.signed_end)
 
-      signatures.map.with_index do |signature, index|
-        build_signature(signature, io, trusted_certs,
-                        has_unsigned_changes && index == signatures.size - 1)
+      signatures.map do |signature|
+        build_signature(signature, trusted_certs,
+                        verified: verified_signatures.include?(signature),
+                        has_unsigned_changes: has_unsigned_changes && signature == last_signature)
       end
     end
   end
 
-  def build_signature(signature, io, trusted_certs, has_unsigned_changes)
+  def verified_signature?(signature, io, trusted_certs)
+    return false unless covers_signed_revision?(signature, io)
+
+    verify_contents(OpenSSL::PKCS7.new(signature.contents), signed_data(io, signature.byte_range), trusted_certs)
+  rescue OpenSSL::PKCS7::PKCS7Error
+    false
+  end
+
+  def build_signature(signature, trusted_certs, verified:, has_unsigned_changes:)
     pkcs7 = OpenSSL::PKCS7.new(signature.contents)
-    verified = verify_contents(pkcs7, signed_data(io, signature.byte_range), trusted_certs)
 
     SignatureStruct.new(
       messages: build_messages(pkcs7, verified, trusted_certs, has_unsigned_changes),
@@ -137,14 +147,21 @@ module VerifyPdfSignature
     Time.strptime("#{time.first(14)}#{offset.start_with?('+', '-') ? offset : '+0000'}", TIME_FORMAT)
   end
 
-  def unsigned_changes?(document, io)
-    signed_end = document.signatures.map(&:signed_end).max
+  def covers_signed_revision?(signature, io)
+    byte_range = signature.byte_range
 
+    return false if byte_range.size != 4 || byte_range.any?(&:negative?) || byte_range[0].positive?
+    return false if signature.signed_end > io.size
+
+    byte_range[2] == byte_range[1] + (signature.contents.bytesize * 2) + 2
+  end
+
+  def unsigned_changes?(document, io, signed_end)
     return false if document.trailer_ends.none? { |offset| offset > signed_end }
 
     io.seek(0)
 
-    Pdfium::Document.open_bytes(io.read([[signed_end, io.size].min, 0].max)) do |signed_document|
+    Pdfium::Document.open_bytes(io.read(signed_end)) do |signed_document|
       next false unless signed_document.valid_cross_reference_table?
 
       serialized_document(signed_document) != serialized_document(document)
@@ -164,7 +181,7 @@ module VerifyPdfSignature
   def signed_data(io, byte_range)
     byte_range.each_slice(2).map do |offset, length|
       io.seek(offset)
-      io.read([[length, io.size - offset].min, 0].max)
+      io.read(length.clamp(0, [io.size - offset, 0].max))
     end.join
   end
 end
