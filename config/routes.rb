@@ -175,8 +175,11 @@ Rails.application.routes.draw do
 
   resources :submitters, only: %i[] do
     resources :download, only: %i[index], controller: 'submitters_download', constraints: { submitter_id: /\d+/ }
-    resources :download, only: %i[index], controller: 'submit_form_completed_download'
     resources :send_email, only: %i[create], controller: 'submitters_send_email'
+  end
+
+  resources :submitters, only: %i[], param: 'slug' do
+    resources :download, only: %i[index], controller: 'submit_form_completed_download'
   end
 
   resources :settings, only: %i[index]
