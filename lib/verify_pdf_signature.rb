@@ -16,7 +16,8 @@ module VerifyPdfSignature
       next [] if signatures.blank?
 
       verified_signatures = signatures.select { |e| verified_signature?(e, io, trusted_certs) }
-      last_signature = verified_signatures.max_by(&:signed_end)
+      trusted_signatures = verified_signatures.select { |e| trusted_signature?(e, trusted_certs) }
+      last_signature = (trusted_signatures.presence || verified_signatures).max_by(&:signed_end)
       has_unsigned_changes = last_signature && unsigned_changes?(document, io, last_signature.signed_end)
 
       signatures.map do |signature|
@@ -72,13 +73,23 @@ module VerifyPdfSignature
   end
 
   def certificate_message(pkcs7, trusted_certs)
-    public_key = signer_certificate(pkcs7)&.public_key&.to_der
-
-    if trusted_certs.any? { |e| e.public_key.to_der == public_key }
+    if trusted_certificate?(pkcs7, trusted_certs)
       MessageStruct.new(text: I18n.t('signed_with_trusted_certificate'), status: :success)
     else
       MessageStruct.new(text: I18n.t('signed_with_external_certificate'), status: :error)
     end
+  end
+
+  def trusted_signature?(signature, trusted_certs)
+    trusted_certificate?(OpenSSL::PKCS7.new(signature.contents), trusted_certs)
+  rescue OpenSSL::PKCS7::PKCS7Error
+    false
+  end
+
+  def trusted_certificate?(pkcs7, trusted_certs)
+    public_key = signer_certificate(pkcs7)&.public_key&.to_der
+
+    trusted_certs.any? { |e| e.public_key.to_der == public_key }
   end
 
   def verify_contents(pkcs7, signed_data, trusted_certs)
