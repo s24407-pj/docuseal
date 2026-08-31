@@ -15,18 +15,29 @@ module VerifyPdfSignature
 
       next [] if signatures.blank?
 
-      has_unsigned_changes = unsigned_changes?(document, io)
+      verified_signatures = signatures.select { |e| verified_signature?(e, io, trusted_certs) }
+      trusted_signatures = verified_signatures.select { |e| trusted_signature?(e, trusted_certs) }
+      last_signature = (trusted_signatures.presence || verified_signatures).max_by(&:signed_end)
+      has_unsigned_changes = last_signature && unsigned_changes?(document, io, last_signature.signed_end)
 
-      signatures.map.with_index do |signature, index|
-        build_signature(signature, io, trusted_certs,
-                        has_unsigned_changes && index == signatures.size - 1)
+      signatures.map do |signature|
+        build_signature(signature, trusted_certs,
+                        verified: verified_signatures.include?(signature),
+                        has_unsigned_changes: has_unsigned_changes && signature == last_signature)
       end
     end
   end
 
-  def build_signature(signature, io, trusted_certs, has_unsigned_changes)
+  def verified_signature?(signature, io, trusted_certs)
+    return false unless covers_signed_revision?(signature, io)
+
+    verify_contents(OpenSSL::PKCS7.new(signature.contents), signed_data(io, signature.byte_range), trusted_certs)
+  rescue OpenSSL::PKCS7::PKCS7Error
+    false
+  end
+
+  def build_signature(signature, trusted_certs, verified:, has_unsigned_changes:)
     pkcs7 = OpenSSL::PKCS7.new(signature.contents)
-    verified = verify_contents(pkcs7, signed_data(io, signature.byte_range), trusted_certs)
 
     SignatureStruct.new(
       messages: build_messages(pkcs7, verified, trusted_certs, has_unsigned_changes),
@@ -62,13 +73,23 @@ module VerifyPdfSignature
   end
 
   def certificate_message(pkcs7, trusted_certs)
-    public_key = signer_certificate(pkcs7)&.public_key&.to_der
-
-    if trusted_certs.any? { |e| e.public_key.to_der == public_key }
+    if trusted_certificate?(pkcs7, trusted_certs)
       MessageStruct.new(text: I18n.t('signed_with_trusted_certificate'), status: :success)
     else
       MessageStruct.new(text: I18n.t('signed_with_external_certificate'), status: :error)
     end
+  end
+
+  def trusted_signature?(signature, trusted_certs)
+    trusted_certificate?(OpenSSL::PKCS7.new(signature.contents), trusted_certs)
+  rescue OpenSSL::PKCS7::PKCS7Error
+    false
+  end
+
+  def trusted_certificate?(pkcs7, trusted_certs)
+    public_key = signer_certificate(pkcs7)&.public_key&.to_der
+
+    trusted_certs.any? { |e| e.public_key.to_der == public_key }
   end
 
   def verify_contents(pkcs7, signed_data, trusted_certs)
@@ -137,9 +158,16 @@ module VerifyPdfSignature
     Time.strptime("#{time.first(14)}#{offset.start_with?('+', '-') ? offset : '+0000'}", TIME_FORMAT)
   end
 
-  def unsigned_changes?(document, io)
-    signed_end = document.signatures.map(&:signed_end).max
+  def covers_signed_revision?(signature, io)
+    byte_range = signature.byte_range
 
+    return false if byte_range.size != 4 || byte_range.any?(&:negative?) || byte_range[0].positive?
+    return false if signature.signed_end > io.size
+
+    byte_range[2] == byte_range[1] + (signature.contents.bytesize * 2) + 2
+  end
+
+  def unsigned_changes?(document, io, signed_end)
     return false if document.trailer_ends.none? { |offset| offset > signed_end }
 
     io.seek(0)
@@ -164,7 +192,7 @@ module VerifyPdfSignature
   def signed_data(io, byte_range)
     byte_range.each_slice(2).map do |offset, length|
       io.seek(offset)
-      io.read(length)
+      io.read(length.clamp(0, [io.size - offset, 0].max))
     end.join
   end
 end
