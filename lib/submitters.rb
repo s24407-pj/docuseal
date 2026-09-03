@@ -143,7 +143,7 @@ module Submitters
   def normalize_preferences(account, user, params)
     preferences = {}
 
-    message_params = params['message'].presence || params.slice('subject', 'body').presence
+    message_params = (params['message'].presence || params.slice('subject', 'body')).compact_blank
 
     if message_params.present?
       email_message = EmailMessages.find_or_create_for_account_user(account, user,
