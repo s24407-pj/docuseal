@@ -435,7 +435,9 @@ module Templates
     end
 
     def save_document(template, old_attachment, data)
-      annotations = data.size < ANNOTATIONS_SIZE_LIMIT ? Templates::BuildAnnotations.call(data) : []
+      doc = Pdfium::Document.open_io(StringIO.new(data))
+
+      annotations = data.size < ANNOTATIONS_SIZE_LIMIT ? Templates::BuildPdfiumAnnotations.call(doc) : []
       sha256 = Base64.urlsafe_encode64(Digest::SHA256.digest(data))
 
       blob = ActiveStorage::Blob.create_and_upload!(
@@ -448,7 +450,9 @@ module Templates
 
       document = template.documents.create!(blob:)
 
-      Templates::ProcessDocument.call(document, data)
+      Templates::ProcessDocument.call(document, data, doc:)
+    ensure
+      doc&.close
     end
 
     def remap_fields(template, mapping)
