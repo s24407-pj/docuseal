@@ -345,10 +345,7 @@ module Templates
 
       uuid = pdf_ref['attachment_uuid']
       source = sources[[uuid, nil]] ||= open_or_build_pdf(attachments_index[uuid])
-      page = source.get_page(pdf_ref['page'])
-
-      width = page.width
-      height = page.height
+      width, height = source.page_size(pdf_ref['page'])
 
       width, height = height, width unless (pdf_ref['rotate'].to_i % 180).zero?
 
