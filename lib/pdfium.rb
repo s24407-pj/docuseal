@@ -2306,13 +2306,13 @@ class Pdfium
       [PageObject, *to_a].hash
     end
 
-    private
-
     def object_ptr
       page.ensure_not_closed!
 
       Pdfium.FPDFPage_GetObject(page.page_ptr, index)
     end
+
+    private
 
     def read_bounds
       buffer = Array.new(4) { FFI::MemoryPointer.new(:float) }
