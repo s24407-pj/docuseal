@@ -1,5 +1,6 @@
-import { Editor, Extension, Node, Mark } from '@tiptap/core'
-import { Plugin, PluginKey } from '@tiptap/pm/state'
+import { Editor, Extension, Node, Mark, ResizableNodeView } from '@tiptap/core'
+import { Plugin, PluginKey, NodeSelection } from '@tiptap/pm/state'
+import { TableMap, tableEditing, findTable, selectedRect, addRowAfter, addRowBefore, addColumnAfter, addColumnBefore, deleteRow, deleteColumn, mergeCells, splitCell } from '@tiptap/pm/tables'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
@@ -92,6 +93,51 @@ img.ProseMirror-separator {
 .ProseMirror-focused .ProseMirror-gapcursor {
   display: block;
 }
+[data-resize-container][data-node="image"] {
+  display: inline-flex !important;
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+[data-resize-container][data-node="image"] [data-resize-wrapper] {
+  max-width: 100%;
+}
+
+[data-resize-handle] {
+  display: none;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border: 2px solid #3b82f6;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.ProseMirror-selectednode [data-resize-wrapper] {
+  outline: 2px solid #3b82f6;
+}
+
+.ProseMirror-selectednode [data-resize-handle] {
+  display: block;
+}
+
+[data-resize-handle="top-left"] { margin: -5px 0 0 -5px; cursor: nwse-resize; }
+[data-resize-handle="top-right"] { margin: -5px -5px 0 0; cursor: nesw-resize; }
+[data-resize-handle="bottom-left"] { margin: 0 0 -5px -5px; cursor: nesw-resize; }
+[data-resize-handle="bottom-right"] { margin: 0 -5px -5px 0; cursor: nwse-resize; }
+
+.ProseMirror .selectedCell {
+  position: relative;
+}
+
+.ProseMirror .selectedCell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 130, 246, 0.15);
+  pointer-events: none;
+}
+
 dynamic-variable {
   background-color: #fef3c7;
   word-break: break-all;
@@ -142,7 +188,7 @@ function collectSpanDomAttrs (dom) {
       temp.style.removeProperty('font-style')
     }
 
-    if (temp.style.textDecoration === 'underline') {
+    if (['underline', 'line-through'].includes(temp.style.textDecoration)) {
       temp.style.removeProperty('text-decoration')
     }
 
@@ -240,51 +286,102 @@ const ListItemNode = Node.create({
   }
 })
 
+function collectCellDomAttrs (dom) {
+  const { htmlAttrs } = collectDomAttrs(dom)
+  const colspan = parseInt(htmlAttrs.colspan) || 1
+  const rowspan = parseInt(htmlAttrs.rowspan) || 1
+
+  delete htmlAttrs.colspan
+  delete htmlAttrs.rowspan
+
+  return { htmlAttrs, colspan, rowspan }
+}
+
+function renderCellAttrs (node) {
+  const attrs = { ...node.attrs.htmlAttrs }
+
+  if (node.attrs.colspan > 1) attrs.colspan = node.attrs.colspan
+  if (node.attrs.rowspan > 1) attrs.rowspan = node.attrs.rowspan
+
+  return attrs
+}
+
+function isRemovableHiddenCell (dom) {
+  const isHidden = (cell) => cell.style.display === 'none'
+
+  return isHidden(dom) && [...dom.parentElement.children].some((cell) => !isHidden(cell))
+}
+
+function createTableCellNode (name, tag, tableRole) {
+  return Node.create({
+    name,
+    tableRole,
+    content: 'block*',
+    isolating: true,
+    addAttributes () {
+      return {
+        htmlAttrs: { default: {} },
+        colspan: { default: 1 },
+        rowspan: { default: 1 },
+        colwidth: { default: null }
+      }
+    },
+    parseHTML () {
+      return [
+        { tag, priority: 60, ignore: true, getAttrs: (dom) => isRemovableHiddenCell(dom) ? null : false },
+        { tag, getAttrs: collectCellDomAttrs }
+      ]
+    },
+    renderHTML ({ node }) {
+      return [tag, renderCellAttrs(node), 0]
+    }
+  })
+}
+
 const TableNode = Node.create({
   name: 'table',
   group: 'block',
-  content: '(colgroup | tableHead | tableBody | tableRow)+',
-  addAttributes () {
-    return { htmlAttrs: { default: {} } }
-  },
-  parseHTML () {
-    return [{ tag: 'table', getAttrs: collectDomAttrs }]
-  },
-  renderHTML ({ node }) {
-    return ['table', node.attrs.htmlAttrs, 0]
-  }
-})
-
-const TableHead = Node.create({
-  name: 'tableHead',
+  tableRole: 'table',
   content: 'tableRow+',
+  isolating: true,
   addAttributes () {
-    return { htmlAttrs: { default: {} } }
+    return {
+      htmlAttrs: { default: {} },
+      colgroupAttrs: { default: null },
+      cols: { default: [] }
+    }
   },
   parseHTML () {
-    return [{ tag: 'thead', getAttrs: collectDomAttrs }]
-  },
-  renderHTML ({ node }) {
-    return ['thead', node.attrs.htmlAttrs, 0]
-  }
-})
+    return [
+      {
+        tag: 'table',
+        getAttrs (dom) {
+          const colgroup = dom.querySelector(':scope > colgroup')
 
-const TableBody = Node.create({
-  name: 'tableBody',
-  content: 'tableRow+',
-  addAttributes () {
-    return { htmlAttrs: { default: {} } }
-  },
-  parseHTML () {
-    return [{ tag: 'tbody', getAttrs: collectDomAttrs }]
+          return {
+            ...collectDomAttrs(dom),
+            colgroupAttrs: colgroup ? collectDomAttrs(colgroup).htmlAttrs : null,
+            cols: colgroup ? [...colgroup.querySelectorAll(':scope > col')].map((col) => collectDomAttrs(col).htmlAttrs) : []
+          }
+        }
+      },
+      { tag: 'colgroup', ignore: true }
+    ]
   },
   renderHTML ({ node }) {
-    return ['tbody', node.attrs.htmlAttrs, 0]
+    const { htmlAttrs, colgroupAttrs, cols } = node.attrs
+
+    if (colgroupAttrs || cols.length) {
+      return ['table', htmlAttrs, ['colgroup', colgroupAttrs || {}, ...cols.map((col) => ['col', col])], ['tbody', 0]]
+    }
+
+    return ['table', htmlAttrs, ['tbody', 0]]
   }
 })
 
 const TableRow = Node.create({
   name: 'tableRow',
+  tableRole: 'row',
   content: '(tableCell | tableHeader)+',
   addAttributes () {
     return { htmlAttrs: { default: {} } }
@@ -297,33 +394,8 @@ const TableRow = Node.create({
   }
 })
 
-const TableCell = Node.create({
-  name: 'tableCell',
-  content: 'block*',
-  addAttributes () {
-    return { htmlAttrs: { default: {} } }
-  },
-  parseHTML () {
-    return [{ tag: 'td', getAttrs: collectDomAttrs }]
-  },
-  renderHTML ({ node }) {
-    return ['td', node.attrs.htmlAttrs, 0]
-  }
-})
-
-const TableHeader = Node.create({
-  name: 'tableHeader',
-  content: 'block*',
-  addAttributes () {
-    return { htmlAttrs: { default: {} } }
-  },
-  parseHTML () {
-    return [{ tag: 'th', getAttrs: collectDomAttrs }]
-  },
-  renderHTML ({ node }) {
-    return ['th', node.attrs.htmlAttrs, 0]
-  }
-})
+const TableCell = createTableCellNode('tableCell', 'td', 'cell')
+const TableHeader = createTableCellNode('tableHeader', 'th', 'header_cell')
 
 const ImageNode = Node.create({
   name: 'image',
@@ -338,36 +410,6 @@ const ImageNode = Node.create({
   },
   renderHTML ({ node }) {
     return ['img', node.attrs.htmlAttrs]
-  }
-})
-
-const ColGroupNode = Node.create({
-  name: 'colgroup',
-  group: 'block',
-  content: 'col*',
-  addAttributes () {
-    return { htmlAttrs: { default: {} } }
-  },
-  parseHTML () {
-    return [{ tag: 'colgroup', getAttrs: collectDomAttrs }]
-  },
-  renderHTML ({ node }) {
-    return ['colgroup', node.attrs.htmlAttrs, 0]
-  }
-})
-
-const ColNode = Node.create({
-  name: 'col',
-  group: 'block',
-  atom: true,
-  addAttributes () {
-    return { htmlAttrs: { default: {} } }
-  },
-  parseHTML () {
-    return [{ tag: 'col', getAttrs: collectDomAttrs }]
-  },
-  renderHTML ({ node }) {
-    return ['col', node.attrs.htmlAttrs]
   }
 })
 
@@ -561,6 +603,570 @@ const TabHandler = Extension.create({
   }
 })
 
+const NumberingKeymap = Extension.create({
+  name: 'numberingKeymap',
+  priority: 110,
+  addKeyboardShortcuts () {
+    const numberingAtCursor = () => {
+      const { empty, $from } = this.editor.state.selection
+
+      return empty && $from.parentOffset === 0 && !!findNumbering($from.parent)
+    }
+
+    return {
+      Tab: () => {
+        const { empty, $from } = this.editor.state.selection
+
+        return (!empty || $from.parentOffset === 0) && this.editor.commands.shiftNumberingLevel(1)
+      },
+      'Shift-Tab': () => this.editor.commands.shiftNumberingLevel(-1),
+      Enter: () => numberingAtCursor() && !this.editor.state.selection.$from.parent.content.size && this.editor.commands.unsetNumbering(),
+      Backspace: () => numberingAtCursor() && this.editor.commands.unsetNumbering()
+    }
+  }
+})
+
+const NUMBERING_CLASS_REGEXP = /^(doc-num-\d+|doc-list-(?:disc|dash|decimal))-(\d+)$/
+
+export function findNumbering (node) {
+  for (const className of (node.attrs.htmlAttrs?.class || '').split(' ')) {
+    const match = className.match(NUMBERING_CLASS_REGEXP)
+
+    if (match) return { prefix: match[1], level: parseInt(match[2]) }
+  }
+
+  return null
+}
+
+function withNumberingClass (htmlAttrs, className) {
+  const classNames = (htmlAttrs.class || '').split(' ').filter(Boolean)
+  const index = classNames.findIndex((name) => NUMBERING_CLASS_REGEXP.test(name))
+
+  if (index === -1) {
+    classNames.push(className)
+  } else {
+    classNames[index] = className
+  }
+
+  const attrs = { ...htmlAttrs, class: classNames.filter(Boolean).join(' ') }
+
+  if (!attrs.class) delete attrs.class
+
+  return attrs
+}
+
+function selectedTextblocks (state) {
+  const blocks = []
+
+  state.selection.ranges.forEach(({ $from, $to }) => state.doc.nodesBetween($from.pos, $to.pos, (node, pos) => {
+    if (!node.isTextblock) return
+
+    blocks.push({ node, pos, numbering: findNumbering(node) })
+
+    return false
+  }))
+
+  return blocks
+}
+
+export function numberingListStyle (view, pos) {
+  const { content } = getComputedStyle(view.nodeDOM(pos), '::before')
+
+  if (content.includes('counter(')) return 'decimal'
+
+  return /^"[–-]/.test(content) ? 'dash' : 'disc'
+}
+
+function hasNumberingLevel (view, { prefix }, level) {
+  if (prefix.startsWith('doc-list-')) return level >= 0 && level <= 8
+
+  const selector = `p.${prefix}-${level}`
+
+  return [...view.dom.getRootNode().styleSheets].some((sheet) => [...sheet.cssRules].some((rule) => rule.selectorText === selector))
+}
+
+function updateStyle (style, property, value) {
+  const el = document.createElement('span')
+
+  el.style.cssText = style || ''
+
+  if (value) {
+    el.style.setProperty(property, value)
+  } else {
+    el.style.removeProperty(property)
+  }
+
+  return el.style.cssText
+}
+
+function withStyle (htmlAttrs, property, value) {
+  const style = updateStyle(htmlAttrs.style, property, value)
+  const attrs = { ...htmlAttrs, style }
+
+  if (!style) delete attrs.style
+
+  return attrs
+}
+
+const Formatting = Extension.create({
+  name: 'formatting',
+  addCommands () {
+    return {
+      setSpanStyle: (property, value) => ({ state, tr, dispatch }) => {
+        const { empty, ranges } = state.selection
+        const type = state.schema.marks.span
+
+        if (empty) return false
+
+        if (dispatch) {
+          ranges.forEach(({ $from: { pos: from }, $to: { pos: to } }) => state.doc.nodesBetween(from, to, (node, pos) => {
+            if (!node.isInline) return
+
+            const start = Math.max(pos, from)
+            const end = Math.min(pos + node.nodeSize, to)
+            const spans = node.marks.filter((mark) => mark.type === type)
+            const hasProperty = (mark) => {
+              const el = document.createElement('span')
+
+              el.style.cssText = mark.attrs.htmlAttrs.style || ''
+
+              return !!el.style.getPropertyValue(property)
+            }
+
+            const updated = spans.map((mark, index) => {
+              let htmlAttrs = hasProperty(mark) ? withStyle(mark.attrs.htmlAttrs, property, null) : mark.attrs.htmlAttrs
+
+              if (value && index === spans.length - 1) {
+                htmlAttrs = withStyle(htmlAttrs, property, value)
+              }
+
+              return htmlAttrs
+            })
+
+            if (value && !spans.length) {
+              updated.push({ style: `${property}: ${value}` })
+            }
+
+            if (updated.length === spans.length && updated.every((htmlAttrs, index) => htmlAttrs === spans[index].attrs.htmlAttrs)) return
+
+            tr.removeMark(start, end, type)
+
+            updated.forEach((htmlAttrs) => tr.addMark(start, end, type.create({ htmlAttrs })))
+          }))
+        }
+
+        return true
+      },
+      setBlockStyle: (property, value) => ({ state, tr, dispatch }) => {
+        if (dispatch) {
+          state.selection.ranges.forEach(({ $from, $to }) => state.doc.nodesBetween($from.pos, $to.pos, (node, pos) => {
+            if (!node.isTextblock) return
+
+            tr.setNodeMarkup(pos, null, { ...node.attrs, htmlAttrs: withStyle(node.attrs.htmlAttrs, property, value) })
+
+            return false
+          }))
+        }
+
+        return true
+      },
+      shiftNumberingLevel: (delta) => ({ state, tr, dispatch, view }) => {
+        if (!findNumbering(state.selection.$from.parent)) return false
+
+        const blocks = selectedTextblocks(state).filter(({ numbering }) => numbering)
+
+        if (dispatch && blocks.every(({ numbering }) => hasNumberingLevel(view, numbering, numbering.level + delta))) {
+          blocks.forEach(({ node, pos, numbering }) => {
+            tr.setNodeMarkup(pos, null, { ...node.attrs, htmlAttrs: withNumberingClass(node.attrs.htmlAttrs, `${numbering.prefix}-${numbering.level + delta}`) })
+          })
+        }
+
+        return true
+      },
+      setListMarkerStyle: (property, value) => ({ state, tr, dispatch }) => {
+        const from = Math.min(...state.selection.ranges.map(({ $from }) => $from.pos))
+        const to = Math.max(...state.selection.ranges.map(({ $to }) => $to.pos))
+        const blocks = selectedTextblocks(state).filter(({ node, pos, numbering }) => numbering && from <= pos + 1 && to >= pos + node.nodeSize - 1)
+
+        if (!blocks.length) return false
+
+        if (dispatch) {
+          blocks.forEach(({ node, pos }) => tr.setNodeMarkup(pos, null, { ...node.attrs, htmlAttrs: withStyle(node.attrs.htmlAttrs, property, value) }))
+        }
+
+        return true
+      },
+      unsetNumbering: () => ({ state, tr, dispatch }) => {
+        const blocks = selectedTextblocks(state).filter(({ numbering }) => numbering)
+
+        if (!blocks.length) return false
+
+        if (dispatch) {
+          blocks.forEach(({ node, pos }) => tr.setNodeMarkup(pos, null, { ...node.attrs, htmlAttrs: withNumberingClass(node.attrs.htmlAttrs, null) }))
+        }
+
+        return true
+      },
+      toggleList: (listStyle) => ({ state, tr, dispatch, view, commands }) => {
+        const { $from } = state.selection
+
+        if (findNumbering($from.parent) && numberingListStyle(view, $from.before()) === listStyle) {
+          return commands.unsetNumbering()
+        }
+
+        if (dispatch) {
+          selectedTextblocks(state).forEach(({ node, pos, numbering }) => {
+            tr.setNodeMarkup(pos, null, { ...node.attrs, htmlAttrs: withNumberingClass(node.attrs.htmlAttrs, `doc-list-${listStyle}-${numbering?.level || 0}`) })
+          })
+        }
+
+        return true
+      }
+    }
+  }
+})
+
+function deleteTableNode (tr, table) {
+  const $table = tr.doc.resolve(table.pos)
+
+  if ($table.parent.childCount === 1) {
+    tr.replaceWith(table.pos, table.pos + table.node.nodeSize, tr.doc.type.schema.nodes.paragraph.create())
+  } else {
+    tr.delete(table.pos, table.pos + table.node.nodeSize)
+  }
+}
+
+export function isRegularTable (table) {
+  return !TableMap.get(table).problems
+}
+
+function findEditableTable (state) {
+  const table = findTable(state.selection.$head)
+
+  return table && isRegularTable(table.node) ? table : null
+}
+
+function tableCellNodes (table) {
+  const cells = new Set()
+
+  table.descendants((node) => {
+    if (node.type.spec.tableRole === 'cell' || node.type.spec.tableRole === 'header_cell') {
+      cells.add(node)
+
+      return false
+    }
+  })
+
+  return cells
+}
+
+function styleNewCells (tr, existingCells) {
+  const table = findTable(tr.selection.$head)
+
+  if (!table) return
+
+  const map = TableMap.get(table.node)
+  const cellPositions = [...new Set(map.map)]
+  const isNew = (pos) => !existingCells.has(table.node.nodeAt(pos))
+  const findReference = (pos) => {
+    const { left, top } = map.findCell(pos)
+
+    for (let distance = 1; distance < Math.max(map.width, map.height); distance++) {
+      const candidates = [
+        [top, left - distance], [top, left + distance],
+        [top - distance, left], [top + distance, left]
+      ]
+
+      for (const [row, col] of candidates) {
+        if (row < 0 || col < 0 || row >= map.height || col >= map.width) continue
+
+        const candidatePos = map.map[row * map.width + col]
+
+        if (!isNew(candidatePos)) return table.node.nodeAt(candidatePos)
+      }
+    }
+
+    return null
+  }
+
+  cellPositions.filter((pos) => isNew(pos) && !table.node.nodeAt(pos).childCount).sort((a, b) => b - a).forEach((pos) => {
+    const cell = table.node.nodeAt(pos)
+    const reference = findReference(pos)
+    const cellPos = table.start + pos
+
+    if (!reference) return
+
+    const paragraph = reference.firstChild?.type.name === 'paragraph' ? reference.firstChild : null
+
+    tr.insert(cellPos + 1, tr.doc.type.schema.nodes.paragraph.create(paragraph?.attrs))
+    tr.setNodeMarkup(cellPos, null, { ...cell.attrs, htmlAttrs: reference.attrs.htmlAttrs })
+  })
+}
+
+function updateTableCols (tr, tablePos, update) {
+  const table = tr.doc.nodeAt(tablePos)
+
+  if (!table.attrs.cols.length) return
+
+  tr.setNodeMarkup(tablePos, null, { ...table.attrs, cols: update([...table.attrs.cols]) })
+}
+
+function runTableCommand (command, { state, tr, dispatch }, { colsUpdate } = {}) {
+  const table = findEditableTable(state)
+
+  if (!table) return false
+
+  if (!dispatch) return command(state)
+
+  const rect = selectedRect(state)
+  const colsMatch = table.node.attrs.cols.length === rect.map.width
+  const existingCells = tableCellNodes(table.node)
+
+  if (!command(state, () => {})) return false
+
+  styleNewCells(tr, existingCells)
+
+  if (colsUpdate && colsMatch) {
+    updateTableCols(tr, tr.mapping.map(table.pos), (cols) => colsUpdate(cols, rect))
+  }
+
+  return true
+}
+
+const TableCommands = Extension.create({
+  name: 'tableCommands',
+  extendNodeSchema (extension) {
+    return extension.config.tableRole ? { tableRole: extension.config.tableRole } : {}
+  },
+  addProseMirrorPlugins () {
+    const plugin = tableEditing()
+
+    delete plugin.spec.appendTransaction
+
+    return [plugin]
+  },
+  addCommands () {
+    return {
+      addTableRow: (after) => (props) => runTableCommand(after ? addRowAfter : addRowBefore, props),
+      addTableColumn: (after) => (props) => runTableCommand(after ? addColumnAfter : addColumnBefore, props, {
+        colsUpdate: (cols, rect) => {
+          const index = after ? rect.right : rect.left
+
+          cols.splice(index, 0, { ...cols[after ? rect.right - 1 : rect.left] })
+
+          return cols
+        }
+      }),
+      deleteTableRow: () => (props) => {
+        const table = findEditableTable(props.state)
+
+        if (!table) return false
+
+        const rect = selectedRect(props.state)
+
+        if (rect.top === 0 && rect.bottom === rect.map.height) {
+          if (props.dispatch) deleteTableNode(props.tr, table)
+
+          return true
+        }
+
+        return runTableCommand(deleteRow, props)
+      },
+      deleteTableColumn: () => (props) => {
+        const table = findEditableTable(props.state)
+
+        if (!table) return false
+
+        const rect = selectedRect(props.state)
+
+        if (rect.left === 0 && rect.right === rect.map.width) {
+          if (props.dispatch) deleteTableNode(props.tr, table)
+
+          return true
+        }
+
+        return runTableCommand(deleteColumn, props, {
+          colsUpdate: (cols, { left, right }) => {
+            cols.splice(left, right - left)
+
+            return cols
+          }
+        })
+      },
+      mergeTableCells: () => (props) => runTableCommand(mergeCells, props),
+      splitTableCell: () => (props) => runTableCommand(splitCell, props),
+      setBlockAlign: (align) => ({ state, tr, dispatch, commands }) => {
+        if (state.selection.node?.type.name === 'image') {
+          return commands.setBlockStyle('text-align', align)
+        }
+
+        const table = findTable(state.selection.$from)
+
+        if (!table) return false
+
+        if (dispatch) {
+          const el = document.createElement('table')
+
+          el.style.cssText = table.node.attrs.htmlAttrs.style || ''
+
+          const isFloating = ['left', 'right'].includes(el.style.float)
+          let margins = { left: ['0', 'auto'], center: ['auto', 'auto'], right: ['auto', '0'] }[align]
+          let htmlAttrs = table.node.attrs.htmlAttrs
+
+          if (isFloating && align !== 'center') {
+            const gap = [el.style.marginLeft, el.style.marginRight].find((value) => value && value !== 'auto' && parseFloat(value)) || '0'
+
+            margins = align === 'left' ? ['0', gap] : [gap, '0']
+            htmlAttrs = withStyle(htmlAttrs, 'float', align)
+          } else {
+            htmlAttrs = withStyle(htmlAttrs, 'float', null)
+          }
+
+          htmlAttrs = withStyle(withStyle(htmlAttrs, 'margin-left', margins[0]), 'margin-right', margins[1])
+
+          delete htmlAttrs.align
+
+          tr.setNodeMarkup(table.pos, null, { ...table.node.attrs, htmlAttrs })
+        }
+
+        return true
+      },
+      deleteTable: () => ({ state, tr, dispatch }) => {
+        const table = findTable(state.selection.$from)
+
+        if (!table) return false
+
+        if (dispatch) deleteTableNode(tr, table)
+
+        return true
+      }
+    }
+  }
+})
+
+function pxToPt (px) {
+  return `${Math.round(px * 0.75 * 10) / 10}pt`
+}
+
+function tableColumnsRow (tableDom) {
+  const rows = [...tableDom.rows]
+  const columnsCount = Math.max(...rows.map((row) => [...row.cells].reduce((acc, cell) => acc + cell.colSpan, 0)))
+
+  return rows.find((row) => row.cells.length === columnsCount)
+}
+
+function tablePosFromDom (view, tableDom) {
+  return view.posAtDOM(tableDom.rows[0], 0) - 2
+}
+
+function setTableColumnWidths (view, tableDom, widths) {
+  const tablePos = tablePosFromDom(view, tableDom)
+  const table = view.state.doc.nodeAt(tablePos)
+  const cols = widths.map((width) => ({ style: `width: ${pxToPt(width)}` }))
+  const tableStyle = updateStyle(updateStyle(table.attrs.htmlAttrs.style, 'table-layout', 'fixed'), 'width', pxToPt(widths.reduce((acc, width) => acc + width, 0)))
+
+  view.dispatch(view.state.tr.setNodeMarkup(tablePos, null, { ...table.attrs, cols, htmlAttrs: { ...table.attrs.htmlAttrs, style: tableStyle } }))
+}
+
+function cellMinHeight (cellDom, zoom, withMargins) {
+  const style = getComputedStyle(cellDom)
+  const first = cellDom.firstElementChild
+  const last = cellDom.lastElementChild
+  const chrome = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + (parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth)) / 2
+
+  if (!first) return chrome * zoom
+
+  const margins = withMargins ? parseFloat(getComputedStyle(first).marginTop) + parseFloat(getComputedStyle(last).marginBottom) : 0
+
+  return last.getBoundingClientRect().bottom - first.getBoundingClientRect().top + (margins + chrome) * zoom
+}
+
+export function tableRowMinHeights (tableDom, zoom, withMargins = true) {
+  return [...tableDom.rows].map((row) => Math.max(...[...row.cells].map((cell) => cellMinHeight(cell, zoom, withMargins))))
+}
+
+function scaleTableRows (view, tablePos, height, zoom) {
+  const tableDom = view.nodeDOM(tablePos)
+  const rows = [...tableDom.rows]
+  const heights = rows.map((row) => row.getBoundingClientRect().height / zoom)
+  const total = heights.reduce((acc, value) => acc + value, 0)
+  const tr = view.state.tr
+  let newHeights
+
+  if (height >= total) {
+    newHeights = heights.map((value) => value * height / total)
+  } else {
+    let mins = tableRowMinHeights(tableDom, zoom).map((value, index) => Math.min(value / zoom, heights[index]))
+    let minTotal = mins.reduce((acc, value) => acc + value, 0)
+
+    if (height < minTotal) {
+      mins = tableRowMinHeights(tableDom, zoom, false).map((value, index) => Math.min(value / zoom, heights[index]))
+      minTotal = mins.reduce((acc, value) => acc + value, 0)
+
+      tr.doc.nodeAt(tablePos).descendants((node, pos) => {
+        if (!node.isTextblock) return
+
+        const htmlAttrs = withStyle(withStyle(node.attrs.htmlAttrs, 'margin-top', '0'), 'margin-bottom', '0')
+
+        tr.setNodeMarkup(tablePos + 1 + pos, null, { ...node.attrs, htmlAttrs })
+
+        return false
+      })
+    }
+
+    const ratio = total > minTotal ? Math.max(height - minTotal, 0) / (total - minTotal) : 0
+
+    newHeights = heights.map((value, index) => mins[index] + (value - mins[index]) * ratio)
+  }
+
+  rows.forEach((rowDom, index) => {
+    const rowPos = view.posAtDOM(rowDom, 0) - 1
+    const row = tr.doc.nodeAt(rowPos)
+
+    tr.setNodeMarkup(rowPos, null, { ...row.attrs, htmlAttrs: withStyle(row.attrs.htmlAttrs, 'height', pxToPt(newHeights[index])) })
+  })
+
+  view.dispatch(tr)
+}
+
+export function resizeTable (view, tablePos, { width, height }, zoom) {
+  const tableDom = view.nodeDOM(tablePos)
+  const tableRect = tableDom.getBoundingClientRect()
+
+  if (Math.round(height) !== Math.round(tableRect.height / zoom)) {
+    scaleTableRows(view, tablePos, height, zoom)
+  }
+
+  if (Math.round(width) === Math.round(tableRect.width / zoom)) return
+
+  const columnsRow = tableColumnsRow(tableDom)
+
+  if (columnsRow) {
+    const widths = [...columnsRow.cells].map((cell) => cell.getBoundingClientRect().width / zoom)
+    const scale = width / widths.reduce((acc, value) => acc + value, 0)
+
+    setTableColumnWidths(view, tableDom, widths.map((value) => value * scale))
+  } else {
+    const table = view.state.doc.nodeAt(tablePos)
+
+    view.dispatch(view.state.tr.setNodeMarkup(tablePos, null, { ...table.attrs, htmlAttrs: withStyle(table.attrs.htmlAttrs, 'width', pxToPt(width)) }))
+  }
+}
+
+function resizeImage (view, pos, width) {
+  const image = view.state.doc.nodeAt(pos)
+  const htmlAttrs = { ...image.attrs.htmlAttrs }
+
+  delete htmlAttrs.width
+  delete htmlAttrs.height
+
+  htmlAttrs.style = updateStyle(updateStyle(htmlAttrs.style, 'width', pxToPt(width)), 'height', 'auto')
+
+  const tr = view.state.tr.setNodeMarkup(pos, null, { ...image.attrs, htmlAttrs })
+
+  view.dispatch(tr.setSelection(NodeSelection.create(tr.doc, pos)))
+}
+
 const variableHighlightKey = new PluginKey('variableHighlight')
 
 function buildDecorations (doc) {
@@ -750,6 +1356,149 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
     }
   })
 
+  const RESIZE_HANDLE_PX = 4
+  const MIN_SIZE_PX = 16
+
+  function findResizeTarget (event) {
+    const cellDom = event.target.closest?.('td, th')
+
+    if (!cellDom) return null
+
+    const rect = cellDom.getBoundingClientRect()
+    const tableDom = cellDom.closest('table')
+
+    if (Math.abs(event.clientY - rect.bottom) <= RESIZE_HANDLE_PX) {
+      return { type: 'row', rowDom: cellDom.parentElement, tableDom }
+    }
+
+    let boundaryCell = null
+
+    if (Math.abs(event.clientX - rect.right) <= RESIZE_HANDLE_PX) {
+      boundaryCell = cellDom
+    } else if (Math.abs(event.clientX - rect.left) <= RESIZE_HANDLE_PX) {
+      boundaryCell = cellDom.previousElementSibling
+    }
+
+    if (!boundaryCell || !tableColumnsRow(tableDom)) return null
+
+    let columnIndex = -1
+
+    for (let cell = boundaryCell; cell; cell = cell.previousElementSibling) columnIndex += cell.colSpan
+
+    return { type: 'column', columnIndex, tableDom }
+  }
+
+  function applyColumnResize (view, { tableDom, columnIndex }, delta) {
+    const zoom = dynamicAreaProps.getZoom()
+    const widths = [...tableColumnsRow(tableDom).cells].map((cell) => cell.getBoundingClientRect().width / zoom)
+
+    if (columnIndex + 1 < widths.length) {
+      const change = Math.max(Math.min(delta, widths[columnIndex + 1] - MIN_SIZE_PX), MIN_SIZE_PX - widths[columnIndex])
+
+      widths[columnIndex] += change
+      widths[columnIndex + 1] -= change
+    } else {
+      widths[columnIndex] = Math.max(widths[columnIndex] + delta, MIN_SIZE_PX)
+    }
+
+    setTableColumnWidths(view, tableDom, widths)
+  }
+
+  function applyRowResize (view, { rowDom }, delta) {
+    const height = Math.max(rowDom.getBoundingClientRect().height / dynamicAreaProps.getZoom() + delta, MIN_SIZE_PX)
+    const rowPos = view.posAtDOM(rowDom, 0) - 1
+    const row = view.state.doc.nodeAt(rowPos)
+
+    view.dispatch(view.state.tr.setNodeMarkup(rowPos, null, { ...row.attrs, htmlAttrs: withStyle(row.attrs.htmlAttrs, 'height', pxToPt(height)) }))
+  }
+
+  function startTableResize (view, event, target) {
+    const tableRect = target.tableDom.getBoundingClientRect()
+    const isColumn = target.type === 'column'
+    const guide = document.createElement('div')
+
+    guide.style.cssText = `position: fixed; z-index: 9999; pointer-events: none; background: #3b82f6; ${isColumn ? `top: ${tableRect.top}px; height: ${tableRect.height}px; width: 1px;` : `left: ${tableRect.left}px; width: ${tableRect.width}px; height: 1px;`}`
+
+    const moveGuide = (e) => {
+      if (isColumn) {
+        guide.style.left = `${e.clientX}px`
+      } else {
+        guide.style.top = `${e.clientY}px`
+      }
+    }
+
+    moveGuide(event)
+    document.body.appendChild(guide)
+    document.body.style.cursor = isColumn ? 'col-resize' : 'row-resize'
+
+    const onMouseUp = (e) => {
+      window.removeEventListener('mousemove', moveGuide)
+      window.removeEventListener('mouseup', onMouseUp)
+
+      guide.remove()
+      document.body.style.cursor = ''
+
+      const delta = ((isColumn ? e.clientX - event.clientX : e.clientY - event.clientY)) / dynamicAreaProps.getZoom()
+
+      if (!delta) return
+
+      if (isColumn) {
+        applyColumnResize(view, target, delta)
+      } else {
+        applyRowResize(view, target, delta)
+      }
+    }
+
+    window.addEventListener('mousemove', moveGuide)
+    window.addEventListener('mouseup', onMouseUp)
+  }
+
+  const TableResize = Extension.create({
+    name: 'tableResize',
+    addProseMirrorPlugins () {
+      return [
+        new Plugin({
+          key: new PluginKey('tableResize'),
+          props: {
+            handleDOMEvents: {
+              mousemove (view, event) {
+                const target = view.editable && findResizeTarget(event)
+
+                view.dom.style.cursor = target ? (target.type === 'column' ? 'col-resize' : 'row-resize') : ''
+
+                return false
+              },
+              mouseleave (view) {
+                view.dom.style.cursor = ''
+
+                return false
+              },
+              mousedown (view, event) {
+                const target = view.editable && event.button === 0 && findResizeTarget(event)
+
+                if (!target) return false
+
+                event.preventDefault()
+
+                startTableResize(view, event, target)
+
+                return true
+              }
+            }
+          }
+        })
+      ]
+    }
+  })
+
+  class ZoomedResizableNodeView extends ResizableNodeView {
+    handleResize (deltaX, deltaY) {
+      const zoom = dynamicAreaProps.getZoom()
+
+      super.handleResize(deltaX / zoom, deltaY / zoom)
+    }
+  }
+
   const DynamicImageNode = ImageNode.extend({
     renderHTML ({ node }) {
       const { loading, ...attrs } = node.attrs.htmlAttrs
@@ -757,8 +1506,8 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
       return ['img', attrs]
     },
     addNodeView () {
-      return ({ node }) => {
-        const dom = document.createElement('img')
+      return ({ node, getPos, editor }) => {
+        const img = document.createElement('img')
 
         const attrs = { ...node.attrs.htmlAttrs }
 
@@ -768,11 +1517,27 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
           attrs.src = attachmentsIndex[blobUuid]
         }
 
-        dom.setAttribute('loading', 'lazy')
+        img.setAttribute('loading', 'lazy')
 
-        Object.entries(attrs).forEach(([k, v]) => dom.setAttribute(k, v))
+        Object.entries(attrs).forEach(([k, v]) => img.setAttribute(k, v))
 
-        return { dom }
+        if (!editorOptions.editable) {
+          return { dom: img }
+        }
+
+        return new ZoomedResizableNodeView({
+          element: img,
+          node,
+          editor,
+          getPos,
+          onCommit: (width) => resizeImage(editor.view, getPos(), width),
+          onUpdate: (updatedNode) => updatedNode.attrs.htmlAttrs === node.attrs.htmlAttrs,
+          options: {
+            directions: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+            min: { width: 16, height: 16 },
+            preserveAspectRatio: true
+          }
+        })
       }
     }
   })
@@ -798,13 +1563,9 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
       BulletListNode,
       ListItemNode,
       TableNode,
-      TableHead,
-      TableBody,
       TableRow,
       TableCell,
       TableHeader,
-      ColGroupNode,
-      ColNode,
       DynamicImageNode,
       EmptySpanNode,
       LayoutSpanMark,
@@ -818,8 +1579,12 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
       SuperscriptMark,
       VariableHighlight,
       TabHandler,
+      NumberingKeymap,
+      Formatting,
+      TableCommands,
       FieldNode,
-      FieldDropPlugin
+      FieldDropPlugin,
+      TableResize
     ],
     editorProps: {
       attributes: {

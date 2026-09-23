@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import DynamicSection from './dynamic_section.vue'
 import { dynamicStylesheet, tiptapStylesheet } from './dynamic_editor.js'
 import { buildVariablesSchema, mergeSchemaProperties } from './dynamic_variables_schema.js'
@@ -61,6 +61,11 @@ export default {
     DynamicSection
   },
   inject: ['baseFetch', 'template'],
+  provide () {
+    return {
+      documentFonts: computed(() => this.documentFonts)
+    }
+  },
   props: {
     document: {
       type: Object,
@@ -133,6 +138,40 @@ export default {
     },
     styles () {
       return this.headDom.querySelectorAll('style')
+    },
+    documentFonts () {
+      const fonts = []
+      const firstFamily = (value) => value.split(',')[0].trim().replace(/^["']|["']$/g, '')
+      const add = (label, value) => {
+        if (label && !fonts.some((font) => font.label === label)) fonts.push({ label, value })
+      }
+
+      this.styles.forEach((style) => {
+        const css = style.textContent
+
+        for (const type of ['minor', 'major']) {
+          for (const [, name, value] of css.matchAll(new RegExp(`(--[\\w-]+-${type}HAnsi-font):\\s*([^;}]+)`, 'g'))) {
+            add(firstFamily(value), `var(${name})`)
+          }
+        }
+
+        for (const [, value] of css.matchAll(/@font-face\s*\{[^}]*?font-family:\s*([^;}]+)/g)) {
+          add(firstFamily(value), value.trim())
+        }
+      })
+
+      const skipFamilies = ['symbol', 'wingdings', 'wingdings 2', 'wingdings 3', 'webdings', 'serif', 'sans-serif', 'monospace', 'inherit', 'initial']
+      const addUsed = (value) => {
+        if (value && !value.startsWith('var(') && !skipFamilies.includes(firstFamily(value).toLowerCase())) add(firstFamily(value), value.trim())
+      }
+
+      this.styles.forEach((style) => {
+        for (const [, value] of style.textContent.replace(/@font-face\s*\{[^}]*\}/g, '').matchAll(/font-family:\s*([^;}]+)/g)) addUsed(value)
+      })
+
+      this.bodyDom.querySelectorAll('[style*="font-family"]').forEach((el) => addUsed(el.style.fontFamily))
+
+      return fonts
     },
     shadow () {
       if (this.isMounted) {

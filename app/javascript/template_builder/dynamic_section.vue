@@ -17,6 +17,13 @@
         :style="section.style.cssText"
       />
     </div>
+    <input
+      ref="imageInput"
+      type="file"
+      accept="image/*"
+      class="hidden"
+      @change="onImageSelected"
+    >
     <Teleport
       v-if="editor"
       :to="container"
@@ -45,6 +52,21 @@
         @add-variable="dynamicMenuCoords = null"
         @add-condition="dynamicMenuCoords = null"
       />
+      <DynamicInsertMenu
+        v-if="editable && insertMenuCoords && !isDrawMode && !selectedAreasRef.value.length"
+        :key="insertMenuCoords.top"
+        :coords="insertMenuCoords"
+        @insert-field="onInsertField"
+        @insert-table="onInsertTable"
+        @insert-variable="editor.chain().focus().insertContent('[[variable]]').run()"
+        @insert-image="$refs.imageInput.click()"
+      />
+      <DynamicBlockMenu
+        v-if="editable && blockMenuCoords && !isDrawMode"
+        :coords="blockMenuCoords"
+        @command="onBlockCommand"
+        @resize="onBlockResize"
+      />
       <FieldContextMenu
         v-if="contextMenu && contextMenuField"
         :context-menu="contextMenu"
@@ -64,16 +86,21 @@
 <script>
 import { shallowRef } from 'vue'
 import { DOMSerializer, Fragment } from '@tiptap/pm/model'
+import { findTable } from '@tiptap/pm/tables'
 import { v4 } from 'uuid'
 import FieldContextMenu from './field_context_menu.vue'
 import AreaTitle from './area_title.vue'
 import DynamicMenu from './dynamic_menu.vue'
-import { buildEditor } from './dynamic_editor.js'
+import DynamicInsertMenu from './dynamic_insert_menu.vue'
+import DynamicBlockMenu from './dynamic_block_menu.vue'
+import { buildEditor, isRegularTable, resizeTable, tableRowMinHeights } from './dynamic_editor.js'
 
 export default {
   name: 'DynamicSection',
   components: {
     DynamicMenu,
+    DynamicInsertMenu,
+    DynamicBlockMenu,
     FieldContextMenu,
     AreaTitle
   },
@@ -153,6 +180,8 @@ export default {
       isAreaDrag: false,
       areaToolbarCoords: null,
       dynamicMenuCoords: null,
+      insertMenuCoords: null,
+      blockMenuCoords: null,
       contextMenu: null,
       cursorHighlightCoords: null
     }
@@ -235,6 +264,14 @@ export default {
       if (this.dynamicMenuCoords && this.editor && !this.editor.state.selection.empty) {
         this.$nextTick(() => this.setDynamicMenuCoords(this.editor))
       }
+
+      if (this.insertMenuCoords && this.editor) {
+        this.$nextTick(() => this.setInsertMenuCoords(this.editor))
+      }
+
+      if (this.blockMenuCoords && this.editor) {
+        this.$nextTick(() => this.setBlockMenuCoords(this.editor))
+      }
     }
   },
   mounted () {
@@ -258,9 +295,20 @@ export default {
         element: this.$refs.editorElement,
         editable: this.editable,
         content: this.section.innerHTML,
-        onUpdate: (event) => this.$emit('update', event),
+        onUpdate: (event) => {
+          this.$emit('update', event)
+
+          if (this.blockMenuCoords) {
+            this.$nextTick(() => this.setBlockMenuCoords(this.editor))
+          }
+        },
         onSelectionUpdate: this.onSelectionUpdate,
-        onBlur: () => { this.dynamicMenuCoords = null }
+        onFocus: this.onSelectionUpdate,
+        onBlur: () => {
+          this.dynamicMenuCoords = null
+          this.insertMenuCoords = null
+          this.blockMenuCoords = null
+        }
       }
     })
 
@@ -402,16 +450,138 @@ export default {
             this.selectedAreasRef.value = [area]
           }
         }
+
+        this.insertMenuCoords = null
+        this.blockMenuCoords = null
       } else {
         this.areaToolbarCoords = null
         this.selectedAreasRef.value = []
 
-        if (editor.state.selection.empty) {
+        this.setBlockMenuCoords(editor)
+
+        if (selection.node) {
           this.dynamicMenuCoords = null
+          this.insertMenuCoords = null
+        } else if (selection.empty) {
+          this.dynamicMenuCoords = null
+
+          if (editor.isFocused) {
+            this.setInsertMenuCoords(editor)
+          }
         } else {
-          this.setDynamicMenuCoords(editor)
+          this.insertMenuCoords = null
+
+          if (editor.isFocused) {
+            this.setDynamicMenuCoords(editor)
+          } else {
+            this.dynamicMenuCoords = null
+          }
         }
       }
+    },
+    setInsertMenuCoords (editor) {
+      const coords = editor.view.coordsAtPos(editor.state.selection.head)
+      const containerRect = this.container.getBoundingClientRect()
+      const sectionEl = this.$refs.editorElement
+      const sectionRect = sectionEl.getBoundingClientRect()
+      const paddingLeft = parseFloat(getComputedStyle(sectionEl).paddingLeft) * this.zoom
+
+      this.insertMenuCoords = {
+        top: (coords.top + coords.bottom) / 2 - containerRect.top,
+        left: sectionRect.left - containerRect.left + Math.max(paddingLeft / 2, 14)
+      }
+    },
+    setBlockMenuCoords (editor) {
+      const { selection } = editor.state
+      const isImage = selection.node?.type.name === 'image'
+      const table = isImage ? null : findTable(selection.$from)
+
+      if (!isImage && !table) {
+        this.blockMenuCoords = null
+
+        return
+      }
+
+      const pos = isImage ? selection.from : table.pos
+      const dom = editor.view.nodeDOM(pos)
+      const rect = dom.getBoundingClientRect()
+      const containerRect = this.container.getBoundingClientRect()
+      const coords = {
+        type: isImage ? 'image' : 'table',
+        pos,
+        align: 'left',
+        top: rect.top - containerRect.top,
+        left: rect.left - containerRect.left,
+        width: rect.width,
+        height: rect.height
+      }
+
+      if (isImage) {
+        coords.align = getComputedStyle(dom.parentElement).textAlign.replace('start', 'left').replace('end', 'right')
+      } else {
+        const { marginLeft, marginRight, float } = dom.style
+
+        if (float === 'left' || float === 'right') {
+          coords.align = float
+        } else if (marginLeft === 'auto') {
+          coords.align = marginRight === 'auto' ? 'center' : 'right'
+        } else if (dom.getAttribute('align')) {
+          coords.align = dom.getAttribute('align')
+        }
+
+        coords.isRegular = isRegularTable(table.node)
+        coords.canMerge = editor.can().mergeTableCells()
+        coords.canSplit = editor.can().splitTableCell()
+        coords.minHeight = tableRowMinHeights(dom, this.zoom, false).reduce((acc, value) => acc + value, 0)
+      }
+
+      this.blockMenuCoords = coords
+    },
+    onBlockResize ({ width, height }) {
+      resizeTable(this.editor.view, this.blockMenuCoords.pos, { width: width / this.zoom, height: height / this.zoom }, this.zoom)
+
+      this.editor.commands.focus()
+
+      this.$nextTick(() => this.setBlockMenuCoords(this.editor))
+    },
+    onBlockCommand (command, arg) {
+      this.editor.chain().focus()[command](arg).run()
+
+      this.$nextTick(() => this.setBlockMenuCoords(this.editor))
+    },
+    onInsertField (type) {
+      this.insertFieldAtRange({ sourceField: { type }, from: this.editor.state.selection.head })
+    },
+    onInsertTable ({ rows, cols }) {
+      const $pos = this.editor.state.selection.$head
+      const cell = '<td style="border: 1px solid #000000; padding: 4pt; vertical-align: top"><p style="margin: 0"></p></td>'
+      const html = `<table style="width: 100%; border-collapse: collapse"><tbody>${`<tr>${cell.repeat(cols)}</tr>`.repeat(rows)}</tbody></table>`
+      const isEmpty = $pos.parent.isTextblock && !$pos.parent.content.size
+      const from = isEmpty ? $pos.before() : $pos.after()
+      const to = isEmpty ? $pos.after() : from
+
+      this.editor.chain().focus()
+        .insertContentAt({ from, to }, html)
+        .setTextSelection(from + 5)
+        .run()
+    },
+    onImageSelected (event) {
+      const file = event.target.files[0]
+      const pos = this.editor.state.selection.head
+
+      event.target.value = ''
+
+      if (!file) return
+
+      const reader = new FileReader()
+
+      reader.onload = () => {
+        this.editor.chain().focus()
+          .insertContentAt(pos, { type: 'image', attrs: { htmlAttrs: { src: reader.result, style: 'max-width: 100%' } } })
+          .run()
+      }
+
+      reader.readAsDataURL(file)
     },
     setDynamicMenuCoords (editor) {
       const { from, to } = editor.state.selection
@@ -419,11 +589,11 @@ export default {
       const start = view.coordsAtPos(from)
       const end = view.coordsAtPos(to)
       const containerRect = this.container.getBoundingClientRect()
-      const left = (start.left + end.right) / 2 - containerRect.left
 
       this.dynamicMenuCoords = {
-        top: Math.min(start.top, end.top) - containerRect.top,
-        left: Math.max(80, Math.min(left, containerRect.width - 80))
+        top: Math.max(start.bottom, end.bottom) - containerRect.top + 8,
+        left: (start.left + end.right) / 2 - containerRect.left,
+        width: containerRect.width
       }
     },
     onFieldDestroy (node) {
