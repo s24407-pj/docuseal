@@ -32,6 +32,7 @@
         <button
           class="flex items-center gap-2 w-full px-2 py-1 rounded-md"
           :class="{ 'bg-neutral-100': submenu === 'field' }"
+          @click="submenu = submenu === 'field' ? null : 'field'"
         >
           <IconForms
             :width="16"
@@ -72,6 +73,7 @@
         <button
           class="flex items-center gap-2 w-full px-2 py-1 rounded-md"
           :class="{ 'bg-neutral-100': submenu === 'table' }"
+          @click="submenu = submenu === 'table' ? null : 'table'"
         >
           <IconTable
             :width="16"
@@ -100,6 +102,7 @@
                 :key="col"
                 class="w-4 h-4 border rounded-sm"
                 :class="row <= tableSize.rows && col <= tableSize.cols ? 'bg-neutral-200 border-neutral-400' : 'bg-white border-neutral-200'"
+                :aria-label="`${row} × ${col}`"
                 @mouseenter="tableSize = { rows: row, cols: col }"
                 @click="[$emit('insert-table', { rows: row, cols: col }), isOpen = false]"
               />
