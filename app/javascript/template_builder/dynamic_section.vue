@@ -8,7 +8,7 @@
       class="absolute pointer-events-none z-10 bg-black"
       :style="{ width: '1px', height: cursorHighlightCoords.height + 'px', left: cursorHighlightCoords.x + 'px', top: cursorHighlightCoords.y + 'px' }"
     />
-    <div :style="{ zoom: containerWidth / sectionWidthPx }">
+    <div :style="{ zoom, '--zoom': zoom }">
       <section
         :id="section.id"
         ref="editorElement"

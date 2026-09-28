@@ -104,13 +104,22 @@ img.ProseMirror-separator {
 }
 
 [data-resize-handle] {
+  --handle-size: calc(10px / var(--zoom, 1));
   display: none;
-  width: 10px;
-  height: 10px;
+  width: var(--handle-size);
+  height: var(--handle-size);
   background: #ffffff;
-  border: 2px solid #3b82f6;
+  border: calc(2px / var(--zoom, 1)) solid #3b82f6;
   border-radius: 2px;
   z-index: 1;
+}
+
+@media (pointer: coarse) {
+  [data-resize-handle]::after {
+    content: "";
+    position: absolute;
+    inset: calc(-8px / var(--zoom, 1));
+  }
 }
 
 .ProseMirror-selectednode [data-resize-wrapper] {
@@ -121,10 +130,10 @@ img.ProseMirror-separator {
   display: block;
 }
 
-[data-resize-handle="top-left"] { margin: -5px 0 0 -5px; cursor: nwse-resize; }
-[data-resize-handle="top-right"] { margin: -5px -5px 0 0; cursor: nesw-resize; }
-[data-resize-handle="bottom-left"] { margin: 0 0 -5px -5px; cursor: nesw-resize; }
-[data-resize-handle="bottom-right"] { margin: 0 -5px -5px 0; cursor: nwse-resize; }
+[data-resize-handle="top-left"] { margin: calc(var(--handle-size) / -2) 0 0 calc(var(--handle-size) / -2); cursor: nwse-resize; }
+[data-resize-handle="top-right"] { margin: calc(var(--handle-size) / -2) calc(var(--handle-size) / -2) 0 0; cursor: nesw-resize; }
+[data-resize-handle="bottom-left"] { margin: 0 0 calc(var(--handle-size) / -2) calc(var(--handle-size) / -2); cursor: nesw-resize; }
+[data-resize-handle="bottom-right"] { margin: 0 calc(var(--handle-size) / -2) calc(var(--handle-size) / -2) 0; cursor: nwse-resize; }
 
 .ProseMirror .selectedCell {
   position: relative;

@@ -9,7 +9,7 @@
     <div class="flex items-center gap-0.5">
       <div class="relative">
         <button
-          class="flex items-center justify-between gap-1 w-36 h-7 px-2 border border-neutral-200 rounded-md hover:bg-neutral-100"
+          class="flex items-center justify-between gap-1 w-24 sm:w-36 h-7 px-2 border border-neutral-200 rounded-md hover:bg-neutral-100"
           :title="t('font')"
           @click="toggleDropdown('font')"
         >
@@ -51,7 +51,7 @@
       </div>
       <div class="relative">
         <button
-          class="flex items-center justify-between gap-1 w-16 h-7 px-2 border border-neutral-200 rounded-md hover:bg-neutral-100"
+          class="flex items-center justify-between gap-1 w-12 sm:w-16 h-7 px-2 border border-neutral-200 rounded-md hover:bg-neutral-100"
           :title="t('font_size')"
           @click="toggleDropdown('size')"
         >
@@ -305,9 +305,9 @@
         </div>
       </div>
       <template v-if="!isCellSelection">
-        <div class="w-px h-5 bg-neutral-200 mx-1" />
+        <div class="w-px h-5 bg-neutral-200 mx-1 sm:mx-0.5" />
         <button
-          class="inline-flex items-center justify-center text-xs h-7 rounded-md hover:bg-neutral-100"
+          class="inline-flex items-center justify-center text-xs h-7 px-1 rounded-md hover:bg-neutral-100"
           :title="t('create_variable')"
           @click="wrapVariable"
         >
@@ -316,12 +316,12 @@
             :height="16"
             :stroke-width="1.6"
           />
-          <span class="px-0.5">
+          <span class="hidden sm:inline px-0.5">
             {{ t('variable') }}
           </span>
         </button>
         <button
-          class="inline-flex items-center justify-center text-xs h-7 rounded-md hover:bg-neutral-100"
+          class="inline-flex items-center justify-center text-xs h-7 px-1 rounded-md hover:bg-neutral-100"
           :title="t('create_condition')"
           @click="wrapCondition"
         >
@@ -348,7 +348,7 @@
               font-family="ui-sans-serif, system-ui, sans-serif"
             >if</text>
           </svg>
-          <span class="px-0.5">
+          <span class="hidden sm:inline px-0.5">
             {{ t('condition') }}
           </span>
         </button>
