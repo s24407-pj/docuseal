@@ -683,7 +683,7 @@ en: &en
   thirty_days: 30 days
   free: Free
   unlimited_documents_storage: Unlimited documents storage
-  users_management: Users management
+  user_management: User management
   ten_field_types: 10 field types
   multiple_signers: Multiple signers
   automatic_esignature: Automatic eSignature
@@ -1840,7 +1840,7 @@ es: &es
   thirty_days: 30 días
   free: Gratis
   unlimited_documents_storage: Almacenamiento ilimitado
-  users_management: Gestión de usuarios
+  user_management: Gestión de usuarios
   ten_field_types: 10 tipos de campos
   multiple_signers: Múltiples firmantes
   automatic_esignature: Firma electrónica automática
@@ -3000,7 +3000,7 @@ it: &it
   thirty_days: 30 giorni
   free: Gratuito
   unlimited_documents_storage: Archiviazione illimitata di documenti
-  users_management: Gestione utenti
+  user_management: Gestione utenti
   ten_field_types: 10 tipi di campi
   multiple_signers: Firmatari multipli
   automatic_esignature: Firma elettronica automatica
@@ -4146,7 +4146,7 @@ fr: &fr
   thirty_days: 30 jours
   free: Gratuit
   unlimited_documents_storage: Stockage de documents illimité
-  users_management: Gestion des utilisateurs
+  user_management: Gestion des utilisateurs
   ten_field_types: 10 types de champs
   multiple_signers: Plusieurs signataires
   automatic_esignature: Signature électronique automatique
@@ -5302,7 +5302,7 @@ pt: &pt
   thirty_days: 30 dias
   free: Gratuito
   unlimited_documents_storage: Armazenamento ilimitado
-  users_management: Gerenciamento de usuários
+  user_management: Gerenciamento de usuários
   ten_field_types: 10 tipos de campo
   multiple_signers: Múltiplos signatários
   automatic_esignature: Assinatura eletrônica automática
@@ -6461,7 +6461,7 @@ de: &de
   thirty_days: 30 Tage
   free: Kostenlos
   unlimited_documents_storage: Unbegrenzter Dokumentenspeicher
-  users_management: Benutzerverwaltung
+  user_management: Benutzerverwaltung
   ten_field_types: 10 Feldtypen
   multiple_signers: Mehrere Unterzeichner
   automatic_esignature: Automatische E‑Signatur
@@ -8148,7 +8148,7 @@ nl: &nl
   thirty_days: 30 dagen
   free: Gratis
   unlimited_documents_storage: Onbeperkte documentopslag
-  users_management: Gebruikersbeheer
+  user_management: Gebruikersbeheer
   ten_field_types: 10 veldtypen
   multiple_signers: Meerdere ondertekenaars
   automatic_esignature: Automatische e-handtekening
