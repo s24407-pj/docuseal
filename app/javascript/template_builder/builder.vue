@@ -1644,14 +1644,14 @@ export default {
     this.redoStack = []
 
     this.$nextTick(() => {
-      this.onWindowResize()
+      this.resizeObserver = new ResizeObserver(this.onResize)
+      this.resizeObserver.observe(this.$el.getRootNode().querySelector('div[data-v-app]'))
     })
 
     document.addEventListener('keyup', this.onKeyUp)
     document.addEventListener('template-builder:apply-revision', this.onApplyRevisionEvent)
     window.addEventListener('keydown', this.onKeyDown)
 
-    window.addEventListener('resize', this.onWindowResize)
     window.addEventListener('dragleave', this.onWindowDragLeave)
 
     this.$nextTick(() => {
@@ -1675,7 +1675,7 @@ export default {
     document.removeEventListener('template-builder:apply-revision', this.onApplyRevisionEvent)
     window.removeEventListener('keydown', this.onKeyDown)
 
-    window.removeEventListener('resize', this.onWindowResize)
+    this.resizeObserver.disconnect()
     window.removeEventListener('dragleave', this.onWindowDragLeave)
   },
   beforeUpdate () {
@@ -2443,13 +2443,15 @@ export default {
         this.save()
       }
     },
-    onWindowResize (e) {
+    onResize () {
       const breakpointLg = 1024
       const breakpointMd = 768
       const width = this.$el.getRootNode().querySelector('div[data-v-app]').offsetWidth
 
-      this.isBreakpointLg = width < breakpointLg
-      this.isBreakpointMd = width < breakpointMd
+      if (width) {
+        this.isBreakpointLg = width < breakpointLg
+        this.isBreakpointMd = width < breakpointMd
+      }
     },
     onPagesWheel (event) {
       const isFastScroll = Math.abs(event.deltaY) > 1
