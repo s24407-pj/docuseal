@@ -626,6 +626,185 @@ const NumberingKeymap = Extension.create({
   }
 })
 
+export const listsCss = `[class*="doc-list-"]::before {
+  display: inline-block;
+  min-width: 0.25in;
+  text-indent: 0;
+  text-align: left;
+}
+
+.doc-list-disc-0,
+.doc-list-dash-0,
+.doc-list-decimal-0 {
+  margin-left: 0.5in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-1 0;
+}
+
+.doc-list-disc-1,
+.doc-list-dash-1,
+.doc-list-decimal-1 {
+  margin-left: 0.75in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-2 0;
+}
+
+.doc-list-disc-2,
+.doc-list-dash-2,
+.doc-list-decimal-2 {
+  margin-left: 1in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-3 0;
+}
+
+.doc-list-disc-3,
+.doc-list-dash-3,
+.doc-list-decimal-3 {
+  margin-left: 1.25in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-4 0;
+}
+
+.doc-list-disc-4,
+.doc-list-dash-4,
+.doc-list-decimal-4 {
+  margin-left: 1.5in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-5 0;
+}
+
+.doc-list-disc-5,
+.doc-list-dash-5,
+.doc-list-decimal-5 {
+  margin-left: 1.75in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-6 0;
+}
+
+.doc-list-disc-6,
+.doc-list-dash-6,
+.doc-list-decimal-6 {
+  margin-left: 2in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-7 0;
+}
+
+.doc-list-disc-7,
+.doc-list-dash-7,
+.doc-list-decimal-7 {
+  margin-left: 2.25in !important;
+  text-indent: -0.25in !important;
+  counter-set: doc-list-8 0;
+}
+
+.doc-list-disc-8,
+.doc-list-dash-8,
+.doc-list-decimal-8 {
+  margin-left: 2.5in !important;
+  text-indent: -0.25in !important;
+}
+
+.doc-list-disc-0::before,
+.doc-list-disc-3::before,
+.doc-list-disc-6::before {
+  content: "•";
+}
+
+.doc-list-disc-1::before,
+.doc-list-disc-4::before,
+.doc-list-disc-7::before {
+  content: "◦";
+}
+
+.doc-list-disc-2::before,
+.doc-list-disc-5::before,
+.doc-list-disc-8::before {
+  content: "▪";
+}
+
+[class*="doc-list-dash-"]::before {
+  content: "–";
+}
+
+.doc-list-decimal-0 {
+  counter-increment: doc-list-0;
+}
+
+.doc-list-decimal-1 {
+  counter-increment: doc-list-1;
+}
+
+.doc-list-decimal-2 {
+  counter-increment: doc-list-2;
+}
+
+.doc-list-decimal-3 {
+  counter-increment: doc-list-3;
+}
+
+.doc-list-decimal-4 {
+  counter-increment: doc-list-4;
+}
+
+.doc-list-decimal-5 {
+  counter-increment: doc-list-5;
+}
+
+.doc-list-decimal-6 {
+  counter-increment: doc-list-6;
+}
+
+.doc-list-decimal-7 {
+  counter-increment: doc-list-7;
+}
+
+.doc-list-decimal-8 {
+  counter-increment: doc-list-8;
+}
+
+.doc-list-decimal-0::before {
+  content: counter(doc-list-0) ".";
+}
+
+.doc-list-decimal-1::before {
+  content: counter(doc-list-1, lower-alpha) ".";
+}
+
+.doc-list-decimal-2::before {
+  content: counter(doc-list-2, lower-roman) ".";
+}
+
+.doc-list-decimal-3::before {
+  content: counter(doc-list-3) ".";
+}
+
+.doc-list-decimal-4::before {
+  content: counter(doc-list-4, lower-alpha) ".";
+}
+
+.doc-list-decimal-5::before {
+  content: counter(doc-list-5, lower-roman) ".";
+}
+
+.doc-list-decimal-6::before {
+  content: counter(doc-list-6) ".";
+}
+
+.doc-list-decimal-7::before {
+  content: counter(doc-list-7, lower-alpha) ".";
+}
+
+.doc-list-decimal-8::before {
+  content: counter(doc-list-8, lower-roman) ".";
+}
+
+:not([class*="doc-list-"]) + .doc-list-decimal-0,
+.doc-list-decimal-0:first-child,
+.doc-list-disc-0 + .doc-list-decimal-0,
+.doc-list-dash-0 + .doc-list-decimal-0 {
+  counter-set: doc-list-0 1 doc-list-1 0;
+}`
+
 const NUMBERING_CLASS_REGEXP = /^(doc-num-\d+|doc-list-(?:disc|dash|decimal))-(\d+)$/
 
 export function findNumbering (node) {

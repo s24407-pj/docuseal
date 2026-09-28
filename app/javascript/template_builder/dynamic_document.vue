@@ -22,6 +22,12 @@
       v-if="shadow"
       :to="shadow"
     >
+      <component
+        :is="'style'"
+        v-if="listsStyle"
+      >
+        {{ listsStyle }}
+      </component>
       <DynamicSection
         v-for="section in sections"
         :ref="setSectionRefs"
@@ -52,7 +58,7 @@
 <script>
 import { ref, computed } from 'vue'
 import DynamicSection from './dynamic_section.vue'
-import { dynamicStylesheet, tiptapStylesheet } from './dynamic_editor.js'
+import { dynamicStylesheet, tiptapStylesheet, listsCss } from './dynamic_editor.js'
 import { buildVariablesSchema, mergeSchemaProperties } from './dynamic_variables_schema.js'
 
 export default {
@@ -112,6 +118,7 @@ export default {
     return {
       containerWidth: 1040,
       isMounted: false,
+      listsStyle: null,
       sectionRefs: []
     }
   },
@@ -186,6 +193,10 @@ export default {
 
     this.shadow.adoptedStyleSheets.push(dynamicStylesheet, tiptapStylesheet)
 
+    this.listsStyle = this.bodyDom.querySelector('body > style[data-lists]')?.textContent || null
+
+    this.ensureListsStyle(this.bodyDom)
+
     this.containerWidth = this.$refs.container.clientWidth
 
     this.resizeObserver = new ResizeObserver(() => {
@@ -248,6 +259,8 @@ export default {
       })
     },
     onSectionUpdate (section, { editor }) {
+      this.ensureListsStyle(editor.view.dom)
+
       clearTimeout(this.saveTimer)
 
       this.saveTimer = setTimeout(async () => {
@@ -255,6 +268,18 @@ export default {
 
         delete this.saveTimer
       }, 1000)
+    },
+    ensureListsStyle (root) {
+      if (this.listsStyle || !root.querySelector('[class*="doc-list-"]')) return
+
+      const style = this.bodyDom.createElement('style')
+
+      style.dataset.lists = ''
+      style.textContent = listsCss
+
+      this.bodyDom.body.append(style)
+
+      this.listsStyle = listsCss
     },
     updateVariablesSchema () {
       this.document.variables_schema = buildVariablesSchema(this.bodyDom.body)
