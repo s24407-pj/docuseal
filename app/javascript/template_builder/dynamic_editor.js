@@ -101,6 +101,7 @@ img.ProseMirror-separator {
 
 [data-resize-container][data-node="image"] [data-resize-wrapper] {
   max-width: 100%;
+  text-indent: 0;
 }
 
 [data-resize-handle] {
