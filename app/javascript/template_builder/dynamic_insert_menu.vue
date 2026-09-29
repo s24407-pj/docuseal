@@ -27,7 +27,7 @@
     >
       <div
         class="relative"
-        @mouseenter="submenu = 'field'"
+        @pointerenter="$event.pointerType === 'mouse' ? submenu = 'field' : null"
       >
         <button
           class="flex items-center gap-2 w-full px-2 py-1 rounded-md"
@@ -68,7 +68,7 @@
       </div>
       <div
         class="relative"
-        @mouseenter="submenu = 'table'"
+        @pointerenter="$event.pointerType === 'mouse' ? submenu = 'table' : null"
       >
         <button
           class="flex items-center gap-2 w-full px-2 py-1 rounded-md"
@@ -90,9 +90,11 @@
         <div
           v-if="submenu === 'table'"
           class="absolute top-0 left-full w-max p-2 bg-white border border-neutral-200 rounded-lg shadow-lg"
-          @mouseleave="tableSize = { rows: 0, cols: 0 }"
         >
-          <div class="grid grid-cols-8 gap-0.5">
+          <div
+            v-if="!isMobile"
+            class="grid grid-cols-8 gap-0.5 mb-2"
+          >
             <template
               v-for="row in 8"
               :key="row"
@@ -103,14 +105,47 @@
                 class="w-4 h-4 border rounded-sm"
                 :class="row <= tableSize.rows && col <= tableSize.cols ? 'bg-neutral-200 border-neutral-400' : 'bg-white border-neutral-200'"
                 :aria-label="`${row} × ${col}`"
-                @mouseenter="tableSize = { rows: row, cols: col }"
+                @pointerenter="$event.pointerType === 'mouse' ? tableSize = { rows: row, cols: col } : null"
                 @click="[$emit('insert-table', { rows: row, cols: col }), isOpen = false]"
               />
             </template>
           </div>
-          <div class="mt-1 text-xs text-center text-base-content/60">
-            {{ tableSize.rows ? `${tableSize.rows} × ${tableSize.cols}` : t('table_size') }}
+          <div class="flex items-center justify-center gap-1 text-xs">
+            <template
+              v-for="key in ['rows', 'cols']"
+              :key="key"
+            >
+              <span v-if="key === 'cols'">×</span>
+              <div class="flex items-center border border-neutral-200 rounded-md">
+                <button
+                  class="inline-flex items-center justify-center w-6 h-6 rounded-md hover:bg-neutral-100"
+                  @click="tableSize[key] = Math.max(tableSize[key] - 1, 1)"
+                >
+                  <IconMinus
+                    :width="12"
+                    :height="12"
+                  />
+                </button>
+                <span class="w-5 text-center">{{ tableSize[key] }}</span>
+                <button
+                  class="inline-flex items-center justify-center w-6 h-6 rounded-md hover:bg-neutral-100"
+                  @click="tableSize[key] = Math.min(tableSize[key] + 1, 20)"
+                >
+                  <IconPlus
+                    :width="12"
+                    :height="12"
+                  />
+                </button>
+              </div>
+            </template>
           </div>
+          <button
+            v-if="isMobile || tableSize.rows > 8 || tableSize.cols > 8"
+            class="w-full mt-2 px-2 py-1 rounded-md bg-neutral-100 hover:bg-neutral-200"
+            @click="[$emit('insert-table', { ...tableSize }), isOpen = false]"
+          >
+            {{ t('insert') }}
+          </button>
         </div>
       </div>
       <button
@@ -142,13 +177,14 @@
 </template>
 
 <script>
-import { IconPlus, IconX, IconForms, IconTable, IconPhoto, IconChevronRight, IconBracketsContain } from '@tabler/icons-vue'
+import { IconPlus, IconMinus, IconX, IconForms, IconTable, IconPhoto, IconChevronRight, IconBracketsContain } from '@tabler/icons-vue'
 import FieldType from './field_type.vue'
 
 export default {
   name: 'DynamicInsertMenu',
   components: {
     IconPlus,
+    IconMinus,
     IconX,
     IconForms,
     IconTable,
@@ -156,7 +192,7 @@ export default {
     IconChevronRight,
     IconBracketsContain
   },
-  inject: ['withPhone', 'withPayment', 'withVerification', 'withKba', 't', 'fieldTypes'],
+  inject: ['withPhone', 'withPayment', 'withVerification', 'withKba', 't', 'fieldTypes', 'isMobile'],
   props: {
     coords: {
       type: Object,
@@ -168,7 +204,7 @@ export default {
     return {
       isOpen: false,
       submenu: null,
-      tableSize: { rows: 0, cols: 0 }
+      tableSize: { rows: 3, cols: 3 }
     }
   },
   computed: {

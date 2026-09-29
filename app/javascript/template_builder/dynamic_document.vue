@@ -66,7 +66,7 @@ export default {
   components: {
     DynamicSection
   },
-  inject: ['baseFetch', 'template'],
+  inject: ['baseFetch', 'template', 'nativePlatform'],
   provide () {
     return {
       documentFonts: computed(() => this.documentFonts)
@@ -197,20 +197,28 @@ export default {
 
     this.ensureListsStyle(this.bodyDom)
 
-    this.containerWidth = this.$refs.container.clientWidth
+    this.updateContainerWidth()
 
     this.resizeObserver = new ResizeObserver(() => {
       if (this.$refs.container) {
-        this.containerWidth = this.$refs.container.clientWidth
+        this.updateContainerWidth()
       }
     })
 
     this.resizeObserver.observe(this.$refs.container)
 
     window.addEventListener('beforeunload', this.onBeforeUnload)
+
+    if (this.nativePlatform === 'ios') {
+      this.viewportMeta = document.querySelector('meta[name="viewport"]')
+      this.viewportContent = this.viewportMeta.getAttribute('content')
+      this.viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0')
+    }
   },
   beforeUnmount () {
     window.removeEventListener('beforeunload', this.onBeforeUnload)
+
+    this.viewportMeta?.setAttribute('content', this.viewportContent)
 
     this.resizeObserver.unobserve(this.$refs.container)
   },
@@ -219,6 +227,9 @@ export default {
   },
   methods: {
     mergeSchemaProperties,
+    updateContainerWidth () {
+      this.containerWidth = this.$refs.container.clientWidth
+    },
     removeArea (area) {
       this.sectionRefs.forEach((sectionRef) => {
         const pos = sectionRef.findAreaNodePos(area.uuid)

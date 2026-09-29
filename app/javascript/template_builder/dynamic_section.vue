@@ -8,7 +8,10 @@
       class="absolute pointer-events-none z-10 bg-black"
       :style="{ width: '1px', height: cursorHighlightCoords.height + 'px', left: cursorHighlightCoords.x + 'px', top: cursorHighlightCoords.y + 'px' }"
     />
-    <div :style="{ zoom, '--zoom': zoom }">
+    <div
+      :style="{ zoom, '--zoom': zoom }"
+      :data-zoomed-out="zoom < 0.75 || null"
+    >
       <section
         :id="section.id"
         ref="editorElement"
@@ -533,6 +536,7 @@ export default {
         coords.canMerge = editor.can().mergeTableCells()
         coords.canSplit = editor.can().splitTableCell()
         coords.minHeight = tableRowMinHeights(dom, this.zoom, false).reduce((acc, value) => acc + value, 0)
+        coords.maxWidth = Math.max(this.$refs.editorElement.getBoundingClientRect().right - rect.left, rect.width)
       }
 
       this.blockMenuCoords = coords

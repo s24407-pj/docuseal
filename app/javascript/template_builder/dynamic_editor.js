@@ -104,12 +104,12 @@ img.ProseMirror-separator {
 }
 
 [data-resize-handle] {
-  --handle-size: calc(10px / var(--zoom, 1));
+  --handle-size: calc(10px / var(--zoom));
   display: none;
   width: var(--handle-size);
   height: var(--handle-size);
   background: #ffffff;
-  border: calc(2px / var(--zoom, 1)) solid #3b82f6;
+  border: calc(2px / var(--zoom)) solid #3b82f6;
   border-radius: 2px;
   z-index: 1;
 }
@@ -118,7 +118,7 @@ img.ProseMirror-separator {
   [data-resize-handle]::after {
     content: "";
     position: absolute;
-    inset: calc(-8px / var(--zoom, 1));
+    inset: calc(-8px / var(--zoom));
   }
 }
 
@@ -134,6 +134,12 @@ img.ProseMirror-separator {
 [data-resize-handle="top-right"] { margin: calc(var(--handle-size) / -2) calc(var(--handle-size) / -2) 0 0; cursor: nesw-resize; }
 [data-resize-handle="bottom-left"] { margin: 0 0 calc(var(--handle-size) / -2) calc(var(--handle-size) / -2); cursor: nesw-resize; }
 [data-resize-handle="bottom-right"] { margin: 0 calc(var(--handle-size) / -2) calc(var(--handle-size) / -2) 0; cursor: nwse-resize; }
+
+/* iOS 27 WebKit drops thin collapsed borders when zoomed out */
+[data-zoomed-out] .ProseMirror table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
 
 .ProseMirror .selectedCell {
   position: relative;
@@ -1586,7 +1592,9 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
       widths[columnIndex] += change
       widths[columnIndex + 1] -= change
     } else {
-      widths[columnIndex] = Math.max(widths[columnIndex] + delta, MIN_SIZE_PX)
+      const maxDelta = (view.dom.parentElement.getBoundingClientRect().right - tableDom.getBoundingClientRect().right) / zoom
+
+      widths[columnIndex] = Math.max(widths[columnIndex] + Math.min(delta, Math.max(maxDelta, 0)), MIN_SIZE_PX)
     }
 
     setTableColumnWidths(view, tableDom, widths)
@@ -1680,6 +1688,25 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
   })
 
   class ZoomedResizableNodeView extends ResizableNodeView {
+    constructor (options) {
+      super(options)
+
+      this.wrapper.addEventListener('touchstart', (event) => {
+        if (event.target.closest('[data-resize-handle]')) {
+          document.addEventListener('touchend', this.handleTouchEnd)
+          document.addEventListener('touchcancel', this.handleTouchEnd)
+        }
+      }, true)
+    }
+
+    handleTouchEnd = () => {
+      document.removeEventListener('touchend', this.handleTouchEnd)
+      document.removeEventListener('touchcancel', this.handleTouchEnd)
+      document.removeEventListener('touchmove', this.handleTouchMove)
+
+      this.handleMouseUp()
+    }
+
     handleResize (deltaX, deltaY) {
       const zoom = dynamicAreaProps.getZoom()
 
@@ -1688,6 +1715,15 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
   }
 
   const DynamicImageNode = ImageNode.extend({
+    addProseMirrorPlugins () {
+      return [
+        new Plugin({
+          props: {
+            attributes: (state) => state.selection.node?.type.name === this.name ? { inputmode: 'none', style: 'caret-color: transparent' } : {}
+          }
+        })
+      ]
+    },
     renderHTML ({ node }) {
       const { loading, ...attrs } = node.attrs.htmlAttrs
 

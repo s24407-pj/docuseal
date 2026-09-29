@@ -49,7 +49,7 @@
     />
     <div
       v-if="coords.type === 'table'"
-      class="absolute w-3 h-3 bg-white border-2 border-blue-500 rounded-sm pointer-events-auto cursor-nwse-resize touch-none before:absolute before:-inset-3 before:content-['']"
+      class="absolute w-3 h-3 bg-white border-2 border-blue-500 rounded-sm pointer-events-auto cursor-nwse-resize touch-none before:absolute before:-inset-3"
       :style="{ left: (size?.width ?? coords.width) - 6 + 'px', top: (size?.height ?? coords.height) - 6 + 'px' }"
       :title="t('resize')"
       @pointerdown.prevent.stop="startResize"
@@ -87,7 +87,7 @@ export default {
   data () {
     return {
       size: null,
-      toolbarHeight: 38
+      toolbarHeight: 0
     }
   },
   computed: {
@@ -150,7 +150,7 @@ export default {
     onResizeMove (event) {
       const { x, y, width, height } = this.resizeStart
       this.size = {
-        width: Math.max(width + event.clientX - x, 20),
+        width: Math.min(Math.max(width + event.clientX - x, 20), this.coords.maxWidth),
         height: Math.max(height + event.clientY - y, this.coords.minHeight)
       }
     },
