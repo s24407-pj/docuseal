@@ -192,13 +192,13 @@
           class="absolute z-10 top-full mt-1 w-28 p-1 bg-white border border-neutral-200 rounded-lg shadow-lg"
         >
           <button
-            v-for="(label, style) in listStyles"
+            v-for="({ label, marker }, style) in listStyles"
             :key="style"
-            class="flex items-center gap-2 w-full text-left px-2 py-1 rounded-md hover:bg-neutral-100"
+            class="flex items-center gap-2 w-full px-2 py-1 rounded-md hover:bg-neutral-100"
             :class="{ 'bg-neutral-200': style === listStyle }"
             @click="toggleList(style)"
           >
-            <span class="w-4 text-center">{{ listMarkers[style] }}</span>
+            <span class="w-4 text-center">{{ marker }}</span>
             {{ label }}
           </button>
         </div>
@@ -379,10 +379,7 @@ export default {
     IconList,
     IconX
   },
-  inject: {
-    t: 't',
-    documentFonts: { default: () => [] }
-  },
+  inject: ['t', 'documentFonts'],
   props: {
     editor: {
       type: Object,
@@ -445,16 +442,9 @@ export default {
     },
     listStyles () {
       return {
-        disc: this.t('dots'),
-        dash: this.t('dash'),
-        decimal: this.t('numbers')
-      }
-    },
-    listMarkers () {
-      return {
-        disc: '•',
-        dash: '–',
-        decimal: '1.'
+        disc: { label: this.t('dots'), marker: '•' },
+        dash: { label: this.t('dash'), marker: '–' },
+        decimal: { label: this.t('numbers'), marker: '1.' }
       }
     },
     colors () {
@@ -514,12 +504,12 @@ export default {
       })
     },
     toggleBold () {
-      this.toggleStyledMark('bold', 'font-weight', 'bold', this.isBold, (style) => parseInt(style.fontWeight) >= 600)
+      this.toggleStyledMark('bold', 'font-weight', this.isBold, (style) => parseInt(style.fontWeight) >= 600)
     },
     toggleItalic () {
-      this.toggleStyledMark('italic', 'font-style', 'italic', this.isItalic, (style) => style.fontStyle === 'italic')
+      this.toggleStyledMark('italic', 'font-style', this.isItalic, (style) => style.fontStyle === 'italic')
     },
-    toggleStyledMark (markName, property, value, isActive, isStyled) {
+    toggleStyledMark (markName, property, isActive, isStyled) {
       const isSegmentStyled = ({ from }) => isStyled(getComputedStyle(this.textElementAt(from)))
 
       if (isActive) {
@@ -540,7 +530,7 @@ export default {
 
         if (tr.docChanged) view.dispatch(tr)
 
-        this.editor.commands.setListMarkerStyle(property, value)
+        this.editor.commands.setListMarkerStyle(property, markName)
       }
     },
     selectedTextSegments () {

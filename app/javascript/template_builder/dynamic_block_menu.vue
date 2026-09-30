@@ -43,7 +43,7 @@
       </div>
     </div>
     <div
-      v-if="size && coords.type === 'table'"
+      v-if="size"
       class="absolute top-0 left-0 border border-dashed border-blue-500"
       :style="{ width: size.width + 'px', height: size.height + 'px' }"
     />
@@ -114,8 +114,8 @@ export default {
         ],
         [
           [
-            { command: 'mergeTableCells', icon: IconMergeCells, title: 'merge_cells', structural: true, enabled: 'canMerge' },
-            { command: 'splitTableCell', icon: IconSplitCell, title: 'split_cell', structural: true, enabled: 'canSplit' }
+            { command: 'mergeTableCells', icon: IconMergeCells, title: 'merge_cells', structural: true, disabled: !this.coords.canMerge },
+            { command: 'splitTableCell', icon: IconSplitCell, title: 'split_cell', structural: true, disabled: !this.coords.canSplit }
           ],
           [
             { command: 'deleteTableRow', icon: IconRowRemove, title: 'delete_row', danger: true, structural: true },
@@ -138,7 +138,7 @@ export default {
   },
   methods: {
     isDisabled (action) {
-      return (action.structural && !this.coords.isRegular) || (action.enabled && !this.coords[action.enabled])
+      return (action.structural && !this.coords.isRegular) || action.disabled
     },
     startResize (event) {
       this.resizeStart = { x: event.clientX, y: event.clientY, width: this.coords.width, height: this.coords.height }

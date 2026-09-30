@@ -1058,8 +1058,6 @@ function tableCellNodes (table) {
 function styleNewCells (tr, existingCells) {
   const table = findTable(tr.selection.$head)
 
-  if (!table) return
-
   const map = TableMap.get(table.node)
   const cellPositions = [...new Set(map.map)]
   const isNew = (pos) => !existingCells.has(table.node.nodeAt(pos))
@@ -1098,15 +1096,7 @@ function styleNewCells (tr, existingCells) {
   })
 }
 
-function updateTableCols (tr, tablePos, update) {
-  const table = tr.doc.nodeAt(tablePos)
-
-  if (!table.attrs.cols.length) return
-
-  tr.setNodeMarkup(tablePos, null, { ...table.attrs, cols: update([...table.attrs.cols]) })
-}
-
-function runTableCommand (command, { state, tr, dispatch }, { colsUpdate } = {}) {
+function runTableCommand (command, { state, tr, dispatch }, colsUpdate) {
   const table = findEditableTable(state)
 
   if (!table) return false
@@ -1122,7 +1112,13 @@ function runTableCommand (command, { state, tr, dispatch }, { colsUpdate } = {})
   styleNewCells(tr, existingCells)
 
   if (colsUpdate && colsMatch) {
-    updateTableCols(tr, tr.mapping.map(table.pos), (cols) => colsUpdate(cols, rect))
+    const tablePos = tr.mapping.map(table.pos)
+    const { attrs } = tr.doc.nodeAt(tablePos)
+    const cols = [...attrs.cols]
+
+    colsUpdate(cols, rect)
+
+    tr.setNodeMarkup(tablePos, null, { ...attrs, cols })
   }
 
   return true
@@ -1142,9 +1138,10 @@ const TableCommands = Extension.create({
     plugin.props.handlePaste = (view, event, slice) => {
       const table = findTable(view.state.selection.$head)
 
-      if (table && !isRegularTable(table.node)) return view.state.selection instanceof CellSelection
+      if (!table) return false
+      if (!isRegularTable(table.node)) return view.state.selection instanceof CellSelection
 
-      const existingCells = table ? tableCellNodes(table.node) : new Set()
+      const existingCells = tableCellNodes(table.node)
 
       const dispatch = (tr) => {
         styleNewCells(tr, existingCells)
@@ -1181,14 +1178,10 @@ const TableCommands = Extension.create({
   addCommands () {
     return {
       addTableRow: (after) => (props) => runTableCommand(after ? addRowAfter : addRowBefore, props),
-      addTableColumn: (after) => (props) => runTableCommand(after ? addColumnAfter : addColumnBefore, props, {
-        colsUpdate: (cols, rect) => {
-          const index = after ? rect.right : rect.left
+      addTableColumn: (after) => (props) => runTableCommand(after ? addColumnAfter : addColumnBefore, props, (cols, rect) => {
+        const index = after ? rect.right : rect.left
 
-          cols.splice(index, 0, { ...cols[after ? rect.right - 1 : rect.left] })
-
-          return cols
-        }
+        cols.splice(index, 0, { ...cols[after ? index - 1 : index] })
       }),
       deleteTableRow: () => (props) => {
         const table = findEditableTable(props.state)
@@ -1218,13 +1211,7 @@ const TableCommands = Extension.create({
           return true
         }
 
-        return runTableCommand(deleteColumn, props, {
-          colsUpdate: (cols, { left, right }) => {
-            cols.splice(left, right - left)
-
-            return cols
-          }
-        })
+        return runTableCommand(deleteColumn, props, (cols, { left, right }) => cols.splice(left, right - left))
       },
       mergeTableCells: () => (props) => runTableCommand(mergeCells, props),
       splitTableCell: () => (props) => runTableCommand(splitCell, props),
@@ -1247,7 +1234,7 @@ const TableCommands = Extension.create({
           let htmlAttrs = table.node.attrs.htmlAttrs
 
           if (isFloating && align !== 'center') {
-            const gap = [el.style.marginLeft, el.style.marginRight].find((value) => value && value !== 'auto' && parseFloat(value)) || '0'
+            const gap = [el.style.marginLeft, el.style.marginRight].find((value) => parseFloat(value)) || '0'
 
             margins = align === 'left' ? ['0', gap] : [gap, '0']
             htmlAttrs = withStyle(htmlAttrs, 'float', align)
@@ -1593,7 +1580,7 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
   const MIN_SIZE_PX = 16
 
   function findResizeTarget (view, event) {
-    const cellDom = event.target.closest?.('td, th')
+    const cellDom = event.target.closest('td, th')
 
     if (!cellDom) return null
 
@@ -1671,7 +1658,7 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
       guide.remove()
       document.body.style.cursor = ''
 
-      const delta = ((isColumn ? e.clientX - event.clientX : e.clientY - event.clientY)) / dynamicAreaProps.getZoom()
+      const delta = (isColumn ? e.clientX - event.clientX : e.clientY - event.clientY) / dynamicAreaProps.getZoom()
 
       if (!delta) return
 
@@ -1795,7 +1782,7 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
           onUpdate: (updatedNode) => updatedNode.attrs.htmlAttrs === node.attrs.htmlAttrs,
           options: {
             directions: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
-            min: { width: 16, height: 16 },
+            min: { width: MIN_SIZE_PX, height: MIN_SIZE_PX },
             preserveAspectRatio: true
           }
         })
