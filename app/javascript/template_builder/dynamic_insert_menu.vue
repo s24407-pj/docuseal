@@ -119,6 +119,7 @@
               <div class="flex items-center border border-neutral-200 rounded-md">
                 <button
                   class="inline-flex items-center justify-center w-6 h-6 rounded-md hover:bg-neutral-100"
+                  :aria-label="t(`decrease_${key}`)"
                   @click="tableSize[key] = Math.max(tableSize[key] - 1, 1)"
                 >
                   <IconMinus
@@ -129,6 +130,7 @@
                 <span class="w-5 text-center">{{ tableSize[key] }}</span>
                 <button
                   class="inline-flex items-center justify-center w-6 h-6 rounded-md hover:bg-neutral-100"
+                  :aria-label="t(`increase_${key}`)"
                   @click="tableSize[key] = Math.min(tableSize[key] + 1, 20)"
                 >
                   <IconPlus
