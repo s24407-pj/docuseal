@@ -7253,6 +7253,9 @@ pl:
   account_information_has_been_updated: Informacje o koncie zostały zaktualizowane.
   should_be_a_valid_url: powinno być poprawnym adresem URL
   test_mode: Tryb testowy
+  exit_test_mode: Wyłącz tryb testowy
+  enter_test_mode: Włącz tryb testowy
+  sort_by: Sortuj według
   copy: Kopiuj
   copied: Skopiowano
   rotate: Obróć
@@ -7465,6 +7468,8 @@ pl:
   document_templates_html: <span class="hidden md:inline">Dokument</span> Szablony
   archived: Zarchiwizowane
   search: Szukaj
+  no_results: Brak wyników
+  folders: Foldery
   submissions_not_found: Nie znaleziono zgłoszeń
   create: Utwórz
   view_archived: Zobacz zarchiwizowane
@@ -7506,8 +7511,12 @@ pl:
   export: Eksportuj
   there_are_no_submissions: Brak zgłoszeń
   send_an_invitation_to_fill_and_complete_the_form: Wyślij zaproszenie do wypełnienia i ukończenia formularza
+  send: Wyślij
   send_to_recipients: Wyślij do odbiorców
   sign_it_yourself: Podpisz samodzielnie
+  sign_yourself: Podpisz samodzielnie
+  revisions: Wersje
+  no_revisions_yet: Brak wersji
   api_and_embedding: API i osadzanie
   template_id: ID szablonu
   embedding_url: URL osadzania
@@ -7704,6 +7713,7 @@ pl:
   your_account_will_be_permanently_deleted_within_2_months_please_contact_us_if_you_want_to_keep_your_account: Twoje konto zostanie trwale usunięte w ciągu 2 miesięcy. Jeśli chcesz zachować swoje konto, skontaktuj się z nami.
   qr_code: QR Kod
   print: Wydrukować
+  scan: Skanuj
   scan_the_qr_code_above_with_your_phone_camera_to_open_and_sign_this_document: Zeskanuj powyższy kod QR za pomocą aparatu w telefonie, aby otworzyć i podpisać ten dokument.
   invite_via_form_field: Zaproś poprzez pole formularza
   link: Link
@@ -7754,6 +7764,7 @@ pl:
   submitter_cannot_be_updated: Nie można zaktualizować przesyłającego.
   at_least_one_field_must_be_filled: Przynajmniej jedno pole musi być wypełnione.
   archived_users: Zarchiwizowani użytkownicy
+  archived_submissions: Zarchiwizowane zgłoszenia
   embedding_users: Osadzanie użytkowników
   view_embedding_users: Wyświetl osadzanie użytkowników
   key: Klawisz
@@ -7799,10 +7810,13 @@ pl:
   ? your_pro_plan_has_been_suspended_due_to_unpaid_invoices_you_can_update_your_payment_details_to_settle_the_invoice_and_continue_using_docuseal_or_cancel_your_subscription
   : Twój plan Pro został zawieszony z powodu niezapłaconych faktur. Możesz zaktualizować szczegóły płatności, aby rozliczyć fakturę i kontynuować korzystanie z DocuSeal lub anulować subskrypcję.
   manage_subscription: Zarządzaj subskrypcją
+  docuseal_version_security_release_is_available: "Dostępna jest wersja bezpieczeństwa DocuSeal v%{version}."
+  click_here_to_view_the_instructions_and_update_your_app_html: '<a href="%{url}" class="link" target="_blank" rel="noopener noreferrer nofollow">Kliknij tutaj</a>, aby wyświetlić instrukcje i zaktualizować aplikację.'
   submission_created_by_email_html: <b>Zgłoszenie utworzone</b> przez %{email}
   submission_created_by_email_via_source_html: <b>Zgłoszenie utworzone</b> przez %{email} za pośrednictwem %{source}
   submission_created_via_source_html: <b>Zgłoszenie utworzone</b> za pośrednictwem %{source}
   pro_user_seats_used: Używane fotele użytkownika Pro
+  manage: Zarządzaj
   manage_plan: Zarządzaj planem
   this_submission_has_multiple_signers_which_prevents_the_use_of_a_sharing_link_html: To zgłoszenie ma wielu sygnatariuszy, co uniemożliwia użycie linku do udostępniania, ponieważ nie jest jasne, który sygnatariusz jest odpowiedzialny za określone pola. Aby rozwiązać ten problem, postępuj zgodnie z tym <a href="https://www.docuseal.com/resources/pre-filling-recipients" class="link font-bold" rel="noopener noreferrer nofollow" target="_blank">guide</a>, aby zdefiniować domyślne szczegóły osoby podpisującej.
   welcome_to_docuseal: Witamy w DocuSeal
@@ -7892,6 +7906,9 @@ pl:
   connect_google_drive: Połącz Dysk Google
   google_drive_has_been_connected: Dysk Google został podłączony
   unable_to_identify_reset_your_password_to_sign_in: Nie można zidentyfikować. Zresetuj hasło, aby się zalogować.
+  use_sso_to_sign_in: Użyj aplikacji SAML SSO, aby się zalogować.
+  contact_your_admin_to_invite_you: Skontaktuj się z administratorem, aby zaprosił Cię do zespołu.
+  too_many_sign_ups: Zbyt wiele rejestracji. Spróbuj ponownie później.
   desktop: Pulpit
   mobile: Przenośny
   tablet: Tabletka
@@ -7964,6 +7981,15 @@ pl:
   phone_2fa_verification_text_message: Wiadomość tekstowa z kodem weryfikacyjnym 2FA wysłana na telefon.
   notification_email_sent_to_the_sender_user_and_bcc_addresses_once_the_submission_is_completed_by_all_parties: E-mail z powiadomieniem wysyłany do użytkownika nadawcy oraz na adresy BCC po ukończeniu zgłoszenia przez wszystkie strony.
   completed_documents_copy_email_sent_to_recipients_upon_completion_containing_their_documents: E-mail z kopią ukończonych dokumentów wysyłany do odbiorców po zakończeniu, zawierający ich dokumenty.
+  fields: Pola
+  more: Więcej
+  ok: OK
+  failed_to_download_files: Nie udało się pobrać plików
+  failed_to_upload_files: Nie udało się przesłać plików
+  failed_to_save_the_scan: Nie udało się zapisać skanu
+  failed_to_scan_the_document: Nie udało się zeskanować dokumentu
+  document_scanning_is_not_available_on_this_device: Skanowanie dokumentów nie jest dostępne na tym urządzeniu
+  click_to_upload: Kliknij, aby przesłać
   devise:
     confirmations:
       confirmed: Twój adres e-mail został pomyślnie potwierdzony.
