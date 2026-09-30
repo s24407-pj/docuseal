@@ -1018,8 +1018,17 @@ const Formatting = Extension.create({
         }
 
         if (dispatch) {
-          selectedTextblocks(state).forEach(({ node, pos, numbering }) => {
-            tr.setNodeMarkup(pos, null, { ...node.attrs, htmlAttrs: withNumberingClass(node.attrs.htmlAttrs, `doc-list-${listStyle}-${numbering?.level || 0}`) })
+          const blocks = selectedTextblocks(state)
+          const $before = state.doc.resolve(blocks[0].pos)
+          const $after = state.doc.resolve(blocks.at(-1).pos + blocks.at(-1).node.nodeSize)
+          const adjacent = [[$before.nodeBefore, $before.pos - $before.nodeBefore?.nodeSize], [$after.nodeAfter, $after.pos]]
+            .map(([node, pos]) => node && findNumbering(node) && numberingListStyle(view, pos) === listStyle && findNumbering(node).prefix)
+            .find(Boolean)
+
+          blocks.forEach(({ node, pos, numbering }) => {
+            const className = numbering ? `doc-list-${listStyle}-${numbering.level}` : `${adjacent || `doc-list-${listStyle}`}-0`
+
+            tr.setNodeMarkup(pos, null, { ...node.attrs, htmlAttrs: withNumberingClass(node.attrs.htmlAttrs, className) })
           })
         }
 

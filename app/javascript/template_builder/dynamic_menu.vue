@@ -125,7 +125,7 @@
             :key="value"
             class="block w-full text-left px-2 py-1 rounded-md hover:bg-neutral-100"
             :class="{ 'bg-neutral-200': value === lineHeight }"
-            @click="setBlockStyle('line-height', value)"
+            @click="setBlockStyle('line-height', `calc(${value} * 1.15)`)"
           >
             {{ value }}
           </button>
@@ -665,7 +665,7 @@ export default {
         const align = blockStyle.textAlign.replace('start', 'left').replace('end', 'right')
 
         this.textAlign = this.alignIcons[align] ? align : 'left'
-        this.lineHeight = String(Math.round(parseFloat(blockStyle.lineHeight) / parseFloat(blockStyle.fontSize) * 100) / 100)
+        this.lineHeight = String(Math.round(parseFloat(blockStyle.lineHeight) / parseFloat(blockStyle.fontSize) / 1.15 * 100) / 100)
       }
 
       this.listStyle = findNumbering($from.parent) ? numberingListStyle(view, $from.before()) : null
