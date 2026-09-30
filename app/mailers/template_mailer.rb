@@ -9,6 +9,16 @@ class TemplateMailer < ApplicationMailer
 
     assign_message_metadata('otp_verification_email', template)
 
-    mail(to: email, subject: I18n.t('email_verification'))
+    from =
+      if Docuseal.multitenant? &&
+         AccountConfig.exists?(account_id: template.account_id, key: 'custom_otp_email', value: true)
+        put_metadata('from_user_id' => template.author_id)
+
+        template.author.friendly_name
+      else
+        default_params[:from]
+      end
+
+    mail(to: email, from:, subject: I18n.t('email_verification'))
   end
 end
