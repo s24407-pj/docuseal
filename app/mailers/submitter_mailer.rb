@@ -181,7 +181,8 @@ class SubmitterMailer < ApplicationMailer
   def otp_verification_email(submitter, locale: nil)
     @current_account = submitter.account
     @submitter = submitter
-    @otp_code = EmailVerificationCodes.generate([submitter.email.downcase.strip, submitter.slug].join(':'))
+    @otp_code = OtpChallenges.generate([submitter.email.downcase.squish, submitter.slug].join(':'),
+                                       purpose: 'form_email_2fa')
 
     assign_message_metadata('otp_verification_email', submitter)
 

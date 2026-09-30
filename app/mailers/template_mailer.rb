@@ -5,7 +5,7 @@ class TemplateMailer < ApplicationMailer
     @current_account = template.account
     @template = template
 
-    @otp_code = EmailVerificationCodes.generate([email.downcase.strip, template.slug].join(':'))
+    @otp_code = OtpChallenges.generate([email.downcase.squish, template.slug].join(':'), purpose: 'form_email_2fa')
 
     assign_message_metadata('otp_verification_email', template)
 
