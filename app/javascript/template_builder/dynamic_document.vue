@@ -188,14 +188,20 @@ export default {
       }
     }
   },
+  watch: {
+    bodyDom: {
+      immediate: true,
+      handler () {
+        this.listsStyle = this.bodyDom.querySelector('body > style[data-lists]')?.textContent || null
+
+        this.ensureListsStyle(this.bodyDom)
+      }
+    }
+  },
   mounted () {
     this.isMounted = true
 
     this.shadow.adoptedStyleSheets.push(dynamicStylesheet, tiptapStylesheet)
-
-    this.listsStyle = this.bodyDom.querySelector('body > style[data-lists]')?.textContent || null
-
-    this.ensureListsStyle(this.bodyDom)
 
     this.updateContainerWidth()
 

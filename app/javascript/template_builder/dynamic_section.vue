@@ -561,12 +561,12 @@ export default {
       const cell = '<td style="border: 1px solid #000000; padding: 4pt; vertical-align: top"><p style="margin: 0"></p></td>'
       const html = `<table style="width: 100%; border-collapse: collapse"><tbody>${`<tr>${cell.repeat(cols)}</tr>`.repeat(rows)}</tbody></table>`
       const isEmpty = $pos.parent.isTextblock && !$pos.parent.content.size
-      const from = isEmpty ? $pos.before() : $pos.after()
+      const from = !$pos.parent.isTextblock ? $pos.pos : isEmpty ? $pos.before() : $pos.after()
       const to = isEmpty ? $pos.after() : from
 
       this.editor.chain().focus()
         .insertContentAt({ from, to }, html)
-        .setTextSelection(from + 5)
+        .setTextSelection(from + 4)
         .run()
     },
     onImageSelected (event) {

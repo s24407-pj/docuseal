@@ -1,6 +1,6 @@
 import { Editor, Extension, Node, Mark, ResizableNodeView } from '@tiptap/core'
 import { Plugin, PluginKey, NodeSelection } from '@tiptap/pm/state'
-import { TableMap, tableEditing, findTable, selectedRect, addRowAfter, addRowBefore, addColumnAfter, addColumnBefore, deleteRow, deleteColumn, mergeCells, splitCell } from '@tiptap/pm/tables'
+import { TableMap, CellSelection, tableEditing, findTable, selectedRect, addRowAfter, addRowBefore, addColumnAfter, addColumnBefore, deleteRow, deleteColumn, mergeCells, splitCell } from '@tiptap/pm/tables'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
@@ -1135,10 +1135,48 @@ const TableCommands = Extension.create({
   },
   addProseMirrorPlugins () {
     const plugin = tableEditing()
+    const { handlePaste } = plugin.props
 
     delete plugin.spec.appendTransaction
 
+    plugin.props.handlePaste = (view, event, slice) => {
+      const table = findTable(view.state.selection.$head)
+
+      if (table && !isRegularTable(table.node)) return view.state.selection instanceof CellSelection
+
+      const existingCells = table ? tableCellNodes(table.node) : new Set()
+
+      const dispatch = (tr) => {
+        styleNewCells(tr, existingCells)
+
+        view.dispatch(tr)
+      }
+
+      return handlePaste({ state: view.state, dispatch }, event, slice)
+    }
+
     return [plugin]
+  },
+  addKeyboardShortcuts () {
+    const clearCells = () => {
+      const { state, view } = this.editor
+
+      if (!(state.selection instanceof CellSelection)) return false
+
+      const tr = state.tr
+
+      state.selection.forEachCell((cell, pos) => {
+        const paragraph = cell.firstChild?.type.name === 'paragraph' ? cell.firstChild : null
+
+        tr.replaceWith(tr.mapping.map(pos + 1), tr.mapping.map(pos + cell.nodeSize - 1), state.schema.nodes.paragraph.create(paragraph?.attrs))
+      })
+
+      view.dispatch(tr)
+
+      return true
+    }
+
+    return { Backspace: clearCells, Delete: clearCells, 'Mod-Backspace': clearCells, 'Mod-Delete': clearCells }
   },
   addCommands () {
     return {
@@ -1554,31 +1592,29 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
   const RESIZE_HANDLE_PX = 4
   const MIN_SIZE_PX = 16
 
-  function findResizeTarget (event) {
+  function findResizeTarget (view, event) {
     const cellDom = event.target.closest?.('td, th')
 
     if (!cellDom) return null
 
     const rect = cellDom.getBoundingClientRect()
+    const isRow = Math.abs(event.clientY - rect.bottom) <= RESIZE_HANDLE_PX
+    const isRight = Math.abs(event.clientX - rect.right) <= RESIZE_HANDLE_PX
+    const isLeft = Math.abs(event.clientX - rect.left) <= RESIZE_HANDLE_PX
+
+    if (!isRow && !isRight && !isLeft) return null
+
     const tableDom = cellDom.closest('table')
+    const tablePos = tablePosFromDom(view, tableDom)
+    const cell = TableMap.get(view.state.doc.nodeAt(tablePos)).findCell(view.posAtDOM(cellDom, 0) - tablePos - 2)
 
-    if (Math.abs(event.clientY - rect.bottom) <= RESIZE_HANDLE_PX) {
-      return { type: 'row', rowDom: cellDom.parentElement, tableDom }
+    if (isRow) {
+      return { type: 'row', rowDom: tableDom.rows[cell.bottom - 1], tableDom }
     }
 
-    let boundaryCell = null
+    const columnIndex = isRight ? cell.right - 1 : cell.left - 1
 
-    if (Math.abs(event.clientX - rect.right) <= RESIZE_HANDLE_PX) {
-      boundaryCell = cellDom
-    } else if (Math.abs(event.clientX - rect.left) <= RESIZE_HANDLE_PX) {
-      boundaryCell = cellDom.previousElementSibling
-    }
-
-    if (!boundaryCell || !tableColumnsRow(tableDom)) return null
-
-    let columnIndex = -1
-
-    for (let cell = boundaryCell; cell; cell = cell.previousElementSibling) columnIndex += cell.colSpan
+    if (columnIndex < 0 || !tableColumnsRow(tableDom)) return null
 
     return { type: 'column', columnIndex, tableDom }
   }
@@ -1659,7 +1695,7 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
           props: {
             handleDOMEvents: {
               mousemove (view, event) {
-                const target = view.editable && findResizeTarget(event)
+                const target = view.editable && findResizeTarget(view, event)
 
                 view.dom.style.cursor = target ? (target.type === 'column' ? 'col-resize' : 'row-resize') : ''
 
@@ -1671,7 +1707,7 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
                 return false
               },
               mousedown (view, event) {
-                const target = view.editable && event.button === 0 && findResizeTarget(event)
+                const target = view.editable && event.button === 0 && findResizeTarget(view, event)
 
                 if (!target) return false
 

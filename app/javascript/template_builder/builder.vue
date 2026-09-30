@@ -2529,7 +2529,6 @@ export default {
       if (nextZoom === this.zoomLevel) return
 
       const container = this.$refs.pagesContainer
-      const scrollContainer = container.scrollHeight > container.clientHeight ? container : document.scrollingElement
       const rect = this.$refs.documents.getBoundingClientRect()
 
       this.zoomLevel = nextZoom
@@ -2539,6 +2538,7 @@ export default {
 
         this.$nextTick(() => {
           const nextRect = this.$refs.documents.getBoundingClientRect()
+          const scrollContainer = container.scrollHeight > container.clientHeight ? container : document.scrollingElement
 
           container.scrollLeft += nextRect.left - clientX + (clientX - rect.left) * nextRect.width / rect.width
           scrollContainer.scrollTop += nextRect.top - clientY + (clientY - rect.top) * nextRect.height / rect.height
