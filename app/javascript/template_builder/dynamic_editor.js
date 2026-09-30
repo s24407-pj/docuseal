@@ -819,6 +819,14 @@ export const listsCss = `[class*="doc-list-"]::before {
 .doc-list-disc-0 + .doc-list-decimal-0,
 .doc-list-dash-0 + .doc-list-decimal-0 {
   counter-set: doc-list-0 1 doc-list-1 0;
+}
+
+[class*="doc-list-"]:has(+ [class*="doc-list-"]) {
+  margin-bottom: 0 !important;
+}
+
+[class*="doc-list-"] + [class*="doc-list-"] {
+  margin-top: 0 !important;
 }`
 
 const NUMBERING_CLASS_REGEXP = /^(doc-num-\d+|doc-list-(?:disc|dash|decimal))-(\d+)$/
