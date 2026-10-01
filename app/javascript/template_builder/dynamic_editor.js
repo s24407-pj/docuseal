@@ -1470,7 +1470,7 @@ const VariableHighlight = Extension.create({
   }
 })
 
-export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlForSaveRef, onFieldDrop, onFieldDestroy, editorOptions }) {
+export function buildEditor ({ dynamicAreaProps, getAttachmentsIndex, renderHtmlForSaveRef, onFieldDrop, onFieldDestroy, editorOptions }) {
   const FieldNode = Node.create({
     name: 'fieldNode',
     inline: true,
@@ -1777,9 +1777,10 @@ export function buildEditor ({ dynamicAreaProps, attachmentsIndex, renderHtmlFor
         const attrs = { ...node.attrs.htmlAttrs }
 
         const blobUuid = attrs.src?.startsWith('blob:') && attrs.src.slice(5)
+        const attachmentUrl = blobUuid && getAttachmentsIndex()[blobUuid]
 
-        if (blobUuid && attachmentsIndex[blobUuid]) {
-          attrs.src = attachmentsIndex[blobUuid]
+        if (attachmentUrl) {
+          attrs.src = attachmentUrl
         }
 
         img.setAttribute('loading', 'lazy')

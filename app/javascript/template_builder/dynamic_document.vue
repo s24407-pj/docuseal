@@ -50,6 +50,7 @@
         @draw="$emit('draw', $event)"
         @add-custom-field="$emit('add-custom-field', $event)"
         @set-draw="$emit('set-draw', $event)"
+        @add-attachment="document.attachments.push($event)"
       />
     </Teleport>
   </div>

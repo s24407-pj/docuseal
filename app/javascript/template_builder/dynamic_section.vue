@@ -107,7 +107,7 @@ export default {
     FieldContextMenu,
     AreaTitle
   },
-  inject: ['template', 'save', 't', 'fieldsDragFieldRef', 'customDragFieldRef', 'selectedAreasRef', 'getFieldTypeIndex', 'fieldTypes', 'withPhone', 'withPayment', 'withVerification', 'withKba', 'backgroundColor'],
+  inject: ['template', 'save', 'baseFetch', 't', 'fieldsDragFieldRef', 'customDragFieldRef', 'selectedAreasRef', 'getFieldTypeIndex', 'fieldTypes', 'withPhone', 'withPayment', 'withVerification', 'withKba', 'backgroundColor'],
   props: {
     section: {
       type: Object,
@@ -177,7 +177,7 @@ export default {
       default: null
     }
   },
-  emits: ['update', 'draw', 'set-draw', 'add-custom-field'],
+  emits: ['update', 'draw', 'set-draw', 'add-custom-field', 'add-attachment'],
   data () {
     return {
       isAreaDrag: false,
@@ -290,7 +290,7 @@ export default {
         onAreaResize: this.onAreaResize,
         onAreaDragStart: this.onAreaDragStart
       },
-      attachmentsIndex: this.attachmentsIndex,
+      getAttachmentsIndex: () => this.attachmentsIndex,
       onFieldDrop: this.onFieldDrop,
       onFieldDestroy: this.onFieldDestroy,
       renderHtmlForSaveRef: this.renderHtmlForSaveRef,
@@ -569,7 +569,7 @@ export default {
         .setTextSelection(from + 4)
         .run()
     },
-    onImageSelected (event) {
+    async onImageSelected (event) {
       const file = event.target.files[0]
       const pos = this.editor.state.selection.head
 
@@ -577,15 +577,26 @@ export default {
 
       if (!file) return
 
-      const reader = new FileReader()
+      const formData = new FormData()
 
-      reader.onload = () => {
-        this.editor.chain().focus()
-          .insertContentAt(pos, { type: 'image', attrs: { htmlAttrs: { src: reader.result, style: 'max-width: 100%' } } })
-          .run()
-      }
+      formData.append('file', file)
 
-      reader.readAsDataURL(file)
+      const response = await this.baseFetch(`/templates/${this.template.id}/dynamic_documents/${this.attachmentUuid}/attachments`, {
+        method: 'POST',
+        body: formData
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) return alert(data.error)
+
+      this.$emit('add-attachment', data)
+
+      await this.$nextTick()
+
+      this.editor.chain().focus()
+        .insertContentAt(pos, { type: 'image', attrs: { htmlAttrs: { src: `blob:${data.uuid}`, style: 'max-width: 100%' } } })
+        .run()
     },
     setDynamicMenuCoords (editor) {
       const { from, to } = editor.state.selection
