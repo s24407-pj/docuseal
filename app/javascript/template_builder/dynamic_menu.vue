@@ -28,25 +28,16 @@
           :class="isDropdownAlignedRight ? 'right-0' : 'left-0'"
           class="absolute z-10 top-full mt-1 w-48 p-1 bg-white border border-neutral-200 rounded-lg shadow-lg max-h-64 overflow-y-auto"
         >
-          <template
-            v-for="(group, index) in [documentFonts, standardFonts]"
-            :key="index"
+          <button
+            v-for="font in fonts"
+            :key="font.label"
+            class="block w-full text-left px-2 py-1 rounded-md hover:bg-neutral-100 truncate"
+            :class="{ 'bg-neutral-200': font.label === fontFamily }"
+            :style="{ fontFamily: font.value }"
+            @click="setSpanStyle('font-family', font.value)"
           >
-            <div
-              v-if="index && group.length && documentFonts.length"
-              class="my-1 border-t border-neutral-200"
-            />
-            <button
-              v-for="font in group"
-              :key="font.label"
-              class="block w-full text-left px-2 py-1 rounded-md hover:bg-neutral-100 truncate"
-              :class="{ 'bg-neutral-200': font.label === fontFamily }"
-              :style="{ fontFamily: font.value }"
-              @click="setSpanStyle('font-family', font.value)"
-            >
-              {{ font.label }}
-            </button>
-          </template>
+            {{ font.label }}
+          </button>
         </div>
       </div>
       <div class="relative">
@@ -316,10 +307,11 @@
             :height="16"
             :stroke-width="1.6"
           />
-          <span class="hidden sm:inline px-0.5">
+          <span class="hidden sm:inline px-0.5 font-mono">
             {{ t('variable') }}
           </span>
         </button>
+        <div class="w-px h-5 bg-neutral-200 mx-1 sm:mx-0.5" />
         <button
           class="inline-flex items-center justify-center text-xs h-7 px-1 rounded-md hover:bg-neutral-100"
           :title="t('create_condition')"
@@ -348,7 +340,7 @@
               font-family="ui-sans-serif, system-ui, sans-serif"
             >if</text>
           </svg>
-          <span class="hidden sm:inline px-0.5">
+          <span class="hidden sm:inline px-0.5 font-mono">
             {{ t('condition') }}
           </span>
         </button>
@@ -424,7 +416,13 @@ export default {
         { label: 'Arial', value: 'Arial' },
         { label: 'Times New Roman', value: "'Times New Roman'" },
         { label: 'Courier New', value: "'Courier New'" }
-      ].filter((font) => !this.documentFonts.some((documentFont) => documentFont.label === font.label))
+      ]
+    },
+    fonts () {
+      return [
+        ...this.documentFonts.filter((font) => !this.standardFonts.some((standardFont) => standardFont.label === font.label)),
+        ...this.standardFonts
+      ]
     },
     fontSizes () {
       return [8, 9, 10, 10.5, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 72]
