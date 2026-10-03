@@ -67,7 +67,7 @@ export default {
   components: {
     DynamicSection
   },
-  inject: ['baseFetch', 'template', 'nativePlatform'],
+  inject: ['baseFetch', 'template'],
   provide () {
     return {
       documentFonts: computed(() => this.documentFonts)
@@ -215,17 +215,9 @@ export default {
     this.resizeObserver.observe(this.$refs.container)
 
     window.addEventListener('beforeunload', this.onBeforeUnload)
-
-    if (this.nativePlatform === 'ios') {
-      this.viewportMeta = document.querySelector('meta[name="viewport"]')
-      this.viewportContent = this.viewportMeta.getAttribute('content')
-      this.viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    }
   },
   beforeUnmount () {
     window.removeEventListener('beforeunload', this.onBeforeUnload)
-
-    this.viewportMeta?.setAttribute('content', this.viewportContent)
 
     this.resizeObserver.unobserve(this.$refs.container)
   },

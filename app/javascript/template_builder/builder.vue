@@ -587,14 +587,9 @@
         class="w-full mt-0.5 pt-0.5"
         :class="[
           isMobile ? 'overflow-y-auto' : 'overflow-y-hidden md:overflow-y-auto',
-          zoomLevel > 1 ? 'overflow-x-auto' : 'overflow-x-hidden',
-          { 'touch-pan-x touch-pan-y': hasDynamicDocuments && !isVisualViewportZoomed }
+          zoomLevel > 1 ? 'overflow-x-auto' : 'overflow-x-hidden'
         ]"
         @wheel="onPagesWheel"
-        @touchstart="onPagesTouchStart"
-        @touchmove="onPagesTouchMove"
-        @touchend="onPagesTouchEnd"
-        @touchcancel="onPagesTouchEnd"
       >
         <div
           ref="documents"
@@ -898,14 +893,14 @@
       leave-to-class="translate-y-4 opacity-0"
     >
       <div
-        v-if="(pinchZoomLevel || zoomLevel) > 1"
+        v-if="zoomLevel > 1"
         class="sticky bottom-0 z-10 pointer-events-none"
       >
         <div class="absolute left-0 right-0 bottom-6 md:bottom-4 flex justify-center">
           <div class="join shadow pointer-events-auto">
             <span class="join-item bg-base-content text-white pl-2 pr-2.5 h-9 items-center text-sm font-medium cursor-default w-16 flex justify-end">
               <span>
-                {{ Math.round((pinchZoomLevel || zoomLevel) * 100) }}%
+                {{ Math.round(zoomLevel * 100) }}%
               </span>
             </span>
             <button
@@ -1399,15 +1394,10 @@ export default {
       editModalDocumentUuid: null,
       revisions: [],
       beforeRevisionSnapshot: null,
-      zoomLevel: 1,
-      pinchZoomLevel: null,
-      isVisualViewportZoomed: false
+      zoomLevel: 1
     }
   },
   computed: {
-    hasDynamicDocuments () {
-      return this.template.schema.some((item) => item.dynamic)
-    },
     submitterDefaultNames: FieldSubmitter.computed.names,
     isSelectModeRef: () => ref(false),
     isCmdKeyRef: () => ref(false),
@@ -1663,7 +1653,6 @@ export default {
     window.addEventListener('keydown', this.onKeyDown)
 
     window.addEventListener('dragleave', this.onWindowDragLeave)
-    window.visualViewport?.addEventListener('resize', this.onVisualViewportResize)
 
     this.$nextTick(() => {
       if (document.location.search?.includes('stripe_connect_success')) {
@@ -1688,7 +1677,6 @@ export default {
 
     this.resizeObserver.disconnect()
     window.removeEventListener('dragleave', this.onWindowDragLeave)
-    window.visualViewport?.removeEventListener('resize', this.onVisualViewportResize)
   },
   beforeUpdate () {
     this.documentRefs = []
@@ -2477,46 +2465,6 @@ export default {
       event.preventDefault()
 
       this.setZoomLevel(this.zoomLevel - event.deltaY * 0.006, event.clientX, event.clientY)
-    },
-    onVisualViewportResize () {
-      if (!this.hasDynamicDocuments) return
-
-      this.isVisualViewportZoomed = window.visualViewport.scale > 1.01
-    },
-    onPagesTouchStart (event) {
-      if (event.touches.length === 2 && this.hasDynamicDocuments && !this.isVisualViewportZoomed) {
-        const [a, b] = event.touches
-        const rect = this.$refs.documents.getBoundingClientRect()
-        const x = (a.clientX + b.clientX) / 2
-        const y = (a.clientY + b.clientY) / 2
-
-        this.pinch = { distance: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), zoomLevel: this.zoomLevel, x, y }
-        this.pinchZoomLevel = this.zoomLevel
-
-        this.$refs.documents.style.transformOrigin = `${x - rect.left}px ${y - rect.top}px`
-      }
-    },
-    onPagesTouchMove (event) {
-      if (!this.pinch || event.touches.length !== 2) return
-
-      event.preventDefault()
-
-      const [a, b] = event.touches
-
-      this.pinchZoomLevel = Math.max(1, Math.min(3, this.pinch.zoomLevel * Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) / this.pinch.distance))
-
-      this.$refs.documents.style.transform = `scale(${this.pinchZoomLevel / this.pinch.zoomLevel})`
-    },
-    onPagesTouchEnd (event) {
-      if (!this.pinch || event.touches.length === 2) return
-
-      this.$refs.documents.style.transform = ''
-      this.$refs.documents.style.transformOrigin = ''
-
-      this.setZoomLevel(this.pinchZoomLevel, this.pinch.x, this.pinch.y)
-
-      this.pinch = null
-      this.pinchZoomLevel = null
     },
     resetZoomLevel () {
       const rect = this.$refs.pagesContainer.getBoundingClientRect()

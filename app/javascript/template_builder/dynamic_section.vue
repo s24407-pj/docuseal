@@ -67,6 +67,7 @@
       <DynamicBlockMenu
         v-if="editable && blockMenuCoords && !isDrawMode"
         :coords="blockMenuCoords"
+        :get-resize-limits="getBlockResizeLimits"
         @command="onBlockCommand"
         @resize="onBlockResize"
       />
@@ -535,11 +536,18 @@ export default {
         coords.isRegular = isRegularTable(table.node)
         coords.canMerge = editor.can().mergeTableCells()
         coords.canSplit = editor.can().splitTableCell()
-        coords.minHeight = tableRowMinHeights(dom, this.zoom, false).reduce((acc, value) => acc + value, 0)
-        coords.maxWidth = Math.max(this.$refs.editorElement.getBoundingClientRect().right - rect.left, rect.width)
       }
 
       this.blockMenuCoords = coords
+    },
+    getBlockResizeLimits () {
+      const dom = this.editor.view.nodeDOM(this.blockMenuCoords.pos)
+      const rect = dom.getBoundingClientRect()
+
+      return {
+        minHeight: tableRowMinHeights(dom, this.zoom, false).reduce((acc, value) => acc + value, 0),
+        maxWidth: Math.max(this.$refs.editorElement.getBoundingClientRect().right - rect.left, rect.width)
+      }
     },
     onBlockResize ({ width, height }) {
       resizeTable(this.editor.view, this.blockMenuCoords.pos, { width: width / this.zoom, height: height / this.zoom }, this.zoom)

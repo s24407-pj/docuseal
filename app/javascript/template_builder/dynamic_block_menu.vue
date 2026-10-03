@@ -81,6 +81,10 @@ export default {
     coords: {
       type: Object,
       required: true
+    },
+    getResizeLimits: {
+      type: Function,
+      required: true
     }
   },
   emits: ['command', 'resize'],
@@ -141,17 +145,17 @@ export default {
       return (action.structural && !this.coords.isRegular) || action.disabled
     },
     startResize (event) {
-      this.resizeStart = { x: event.clientX, y: event.clientY, width: this.coords.width, height: this.coords.height }
+      this.resizeStart = { x: event.clientX, y: event.clientY, width: this.coords.width, height: this.coords.height, ...this.getResizeLimits() }
       this.size = { width: this.coords.width, height: this.coords.height }
 
       window.addEventListener('pointermove', this.onResizeMove)
       window.addEventListener('pointerup', this.onResizeEnd)
     },
     onResizeMove (event) {
-      const { x, y, width, height } = this.resizeStart
+      const { x, y, width, height, minHeight, maxWidth } = this.resizeStart
       this.size = {
-        width: Math.min(Math.max(width + event.clientX - x, 20), this.coords.maxWidth),
-        height: Math.max(height + event.clientY - y, this.coords.minHeight)
+        width: Math.min(Math.max(width + event.clientX - x, 20), maxWidth),
+        height: Math.max(height + event.clientY - y, minHeight)
       }
     },
     onResizeEnd () {
