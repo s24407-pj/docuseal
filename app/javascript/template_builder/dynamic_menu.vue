@@ -385,7 +385,7 @@ export default {
       default: null
     }
   },
-  emits: ['add-variable', 'add-condition'],
+  emits: ['add-variable', 'add-condition', 'add-list'],
   data () {
     return {
       isMouseDown: false,
@@ -575,6 +575,8 @@ export default {
     },
     toggleList (style) {
       this.dropdown = null
+
+      if (style !== this.listStyle) this.$emit('add-list')
 
       this.editor.chain().focus().toggleList(style).run()
     },

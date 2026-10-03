@@ -51,19 +51,44 @@
         v-if="editable"
         v-show="!selectedAreasRef.value.length"
         :editor="editor"
-        :coords="dynamicMenuCoords"
+        :coords="isInsertMenuOpen ? null : dynamicMenuCoords"
         @add-variable="dynamicMenuCoords = null"
         @add-condition="dynamicMenuCoords = null"
+        @add-list="$emit('add-list')"
       />
-      <DynamicInsertMenu
-        v-if="editable && insertMenuCoords && !isDrawMode && !selectedAreasRef.value.length"
-        :key="insertMenuCoords.top"
-        :coords="insertMenuCoords"
-        @insert-field="onInsertField"
-        @insert-table="onInsertTable"
-        @insert-variable="editor.chain().focus().insertContent('[[variable]]').run()"
-        @insert-image="$refs.imageInput.click()"
-      />
+      <div
+        v-if="editable && insertMenuCoords && !isDrawMode"
+        class="absolute z-10 select-none text-sm"
+        :style="{ top: insertMenuCoords.top - 12 + 'px', left: insertMenuCoords.left - 12 + 'px' }"
+        @mousedown.prevent
+      >
+        <button
+          class="flex items-center justify-center w-6 h-6 rounded-md border border-neutral-200"
+          :class="isInsertMenuOpen ? 'bg-neutral-100 text-base-content' : 'bg-white text-base-content/40 hover:bg-neutral-100 hover:text-base-content'"
+          :title="t('insert')"
+          @click="isInsertMenuOpen = !isInsertMenuOpen"
+        >
+          <IconX
+            v-if="isInsertMenuOpen"
+            :width="14"
+            :height="14"
+          />
+          <IconPlus
+            v-else
+            :width="14"
+            :height="14"
+          />
+        </button>
+        <DynamicInsertMenu
+          v-if="isInsertMenuOpen"
+          :key="insertMenuCoords.top"
+          @close="isInsertMenuOpen = false"
+          @insert-field="onInsertField"
+          @insert-table="onInsertTable"
+          @insert-variable="editor.chain().focus().insertContent('[[variable]]').run()"
+          @insert-image="$refs.imageInput.click()"
+        />
+      </div>
       <DynamicBlockMenu
         v-if="editable && blockMenuCoords && !isDrawMode"
         :coords="blockMenuCoords"
@@ -90,8 +115,9 @@
 <script>
 import { shallowRef } from 'vue'
 import { DOMSerializer, Fragment } from '@tiptap/pm/model'
-import { findTable } from '@tiptap/pm/tables'
+import { findTable, CellSelection } from '@tiptap/pm/tables'
 import { v4 } from 'uuid'
+import { IconPlus, IconX } from '@tabler/icons-vue'
 import FieldContextMenu from './field_context_menu.vue'
 import AreaTitle from './area_title.vue'
 import DynamicMenu from './dynamic_menu.vue'
@@ -106,7 +132,9 @@ export default {
     DynamicInsertMenu,
     DynamicBlockMenu,
     FieldContextMenu,
-    AreaTitle
+    AreaTitle,
+    IconPlus,
+    IconX
   },
   inject: ['template', 'save', 'baseFetch', 't', 'fieldsDragFieldRef', 'customDragFieldRef', 'selectedAreasRef', 'getFieldTypeIndex', 'fieldTypes', 'withPhone', 'withPayment', 'withVerification', 'withKba', 'backgroundColor'],
   props: {
@@ -178,13 +206,14 @@ export default {
       default: null
     }
   },
-  emits: ['update', 'draw', 'set-draw', 'add-custom-field', 'add-attachment'],
+  emits: ['update', 'draw', 'set-draw', 'add-custom-field', 'add-attachment', 'add-list'],
   data () {
     return {
       isAreaDrag: false,
       areaToolbarCoords: null,
       dynamicMenuCoords: null,
       insertMenuCoords: null,
+      isInsertMenuOpen: false,
       blockMenuCoords: null,
       contextMenu: null,
       cursorHighlightCoords: null
@@ -455,7 +484,6 @@ export default {
           }
         }
 
-        this.insertMenuCoords = null
         this.blockMenuCoords = null
       } else {
         this.areaToolbarCoords = null
@@ -463,24 +491,17 @@ export default {
 
         this.setBlockMenuCoords(editor)
 
-        if (selection.node) {
+        if (selection.node || selection.empty || !editor.isFocused) {
           this.dynamicMenuCoords = null
-          this.insertMenuCoords = null
-        } else if (selection.empty) {
-          this.dynamicMenuCoords = null
-
-          if (editor.isFocused) {
-            this.setInsertMenuCoords(editor)
-          }
         } else {
-          this.insertMenuCoords = null
-
-          if (editor.isFocused) {
-            this.setDynamicMenuCoords(editor)
-          } else {
-            this.dynamicMenuCoords = null
-          }
+          this.setDynamicMenuCoords(editor)
         }
+      }
+
+      if (selection instanceof CellSelection) {
+        this.insertMenuCoords = null
+      } else if (editor.isFocused) {
+        this.setInsertMenuCoords(editor)
       }
     },
     setInsertMenuCoords (editor) {
@@ -562,10 +583,12 @@ export default {
       this.$nextTick(() => this.setBlockMenuCoords(this.editor))
     },
     onInsertField (type) {
-      this.insertFieldAtRange({ sourceField: { type }, from: this.editor.state.selection.head })
+      const { from, to } = this.editor.state.selection
+
+      this.insertFieldAtRange({ sourceField: { type }, from, to })
     },
     onInsertTable ({ rows, cols }) {
-      const $pos = this.editor.state.selection.$head
+      const $pos = this.editor.state.tr.deleteSelection().selection.$head
       const cell = '<td style="border: 1px solid #000000; padding: 4pt; vertical-align: top"><p style="margin: 0"></p></td>'
       const html = `<table style="width: 100%; border-collapse: collapse"><tbody>${`<tr>${cell.repeat(cols)}</tr>`.repeat(rows)}</tbody></table>`
       const isEmpty = $pos.parent.isTextblock && !$pos.parent.content.size
@@ -573,13 +596,13 @@ export default {
       const to = isEmpty ? $pos.after() : from
 
       this.editor.chain().focus()
+        .deleteSelection()
         .insertContentAt({ from, to }, html)
         .setTextSelection(from + 4)
         .run()
     },
     async onImageSelected (event) {
       const file = event.target.files[0]
-      const pos = this.editor.state.selection.head
 
       event.target.value = ''
 
@@ -603,7 +626,7 @@ export default {
       await this.$nextTick()
 
       this.editor.chain().focus()
-        .insertContentAt(pos, { type: 'image', attrs: { htmlAttrs: { src: `blob:${data.uuid}`, style: 'max-width: 100%' } } })
+        .insertContent({ type: 'image', attrs: { htmlAttrs: { src: `blob:${data.uuid}`, style: 'max-width: 100%' } } })
         .run()
     },
     setDynamicMenuCoords (editor) {
@@ -834,6 +857,8 @@ export default {
       const html = clipboardData.getData('text/html')
       const text = clipboardData.getData('text/plain')
       const clipboardHtml = html || (text.includes('<dynamic-field') ? text : '')
+
+      if (/class="[^"]*doc-list-/.test(html)) this.$emit('add-list')
 
       if (!clipboardHtml || !clipboardHtml.includes('data-field=')) {
         return

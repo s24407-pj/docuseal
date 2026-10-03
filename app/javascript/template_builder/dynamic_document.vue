@@ -51,6 +51,7 @@
         @add-custom-field="$emit('add-custom-field', $event)"
         @set-draw="$emit('set-draw', $event)"
         @add-attachment="document.attachments.push($event)"
+        @add-list="ensureListsStyle"
       />
     </Teleport>
   </div>
@@ -189,15 +190,8 @@ export default {
       }
     }
   },
-  watch: {
-    bodyDom: {
-      immediate: true,
-      handler () {
-        this.listsStyle = this.bodyDom.querySelector('body > style[data-lists]')?.textContent || null
-
-        this.ensureListsStyle(this.bodyDom)
-      }
-    }
+  created () {
+    this.loadListsStyle()
   },
   mounted () {
     this.isMounted = true
@@ -244,6 +238,8 @@ export default {
       }
     },
     reloadContent () {
+      this.loadListsStyle()
+
       this.sectionRefs.forEach((ref) => ref.reloadContent())
     },
     onBeforeUnload (event) {
@@ -269,8 +265,6 @@ export default {
       })
     },
     onSectionUpdate (section, { editor }) {
-      this.ensureListsStyle(editor.view.dom)
-
       clearTimeout(this.saveTimer)
 
       this.saveTimer = setTimeout(async () => {
@@ -279,8 +273,11 @@ export default {
         delete this.saveTimer
       }, 1000)
     },
-    ensureListsStyle (root) {
-      if (this.listsStyle || !root.querySelector('[class*="doc-list-"]')) return
+    loadListsStyle () {
+      this.listsStyle = this.bodyDom.querySelector('body > style[data-lists]')?.textContent || null
+    },
+    ensureListsStyle () {
+      if (this.listsStyle) return
 
       const style = this.bodyDom.createElement('style')
 
