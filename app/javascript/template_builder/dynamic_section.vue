@@ -2,6 +2,7 @@
   <div
     class="relative bg-white select-none mb-4 before:border before:rounded before:top-0 before:bottom-0 before:left-0 before:right-0 before:absolute"
     :class="{ 'cursor-crosshair': isDrawMode && editable }"
+    @mousedown="onMarginMouseDown"
   >
     <div
       v-if="isDrawMode && editable && cursorHighlightCoords"
@@ -115,6 +116,7 @@
 <script>
 import { shallowRef } from 'vue'
 import { DOMSerializer, Fragment } from '@tiptap/pm/model'
+import { TextSelection } from '@tiptap/pm/state'
 import { findTable, CellSelection } from '@tiptap/pm/tables'
 import { v4 } from 'uuid'
 import { IconPlus, IconX } from '@tabler/icons-vue'
@@ -963,6 +965,48 @@ export default {
       this.customDragFieldRef.value = null
 
       return true
+    },
+    closestPosAtCoords ({ clientX, clientY }) {
+      const view = this.editor.view
+      const rect = view.dom.getBoundingClientRect()
+      const left = Math.min(Math.max(clientX, rect.left + 1), rect.right - 1)
+      const top = Math.min(Math.max(clientY, rect.top + 1), rect.bottom - 1)
+      const caret = document.caretPositionFromPoint?.(left, top, { shadowRoots: [view.root] })
+
+      if (caret && view.dom.contains(caret.offsetNode)) {
+        return view.posAtDOM(caret.offsetNode, caret.offset)
+      } else {
+        return view.posAtCoords({ left, top }).pos
+      }
+    },
+    onMarginMouseDown (event) {
+      const view = this.editor.view
+
+      if (event.button !== 0 || !this.editable || this.isDrawMode || view.dom.contains(event.target)) {
+        return
+      }
+
+      event.preventDefault()
+
+      const anchor = this.closestPosAtCoords(event)
+
+      const selectTo = (e) => {
+        const { doc, tr } = view.state
+
+        view.dispatch(tr.setSelection(TextSelection.between(doc.resolve(anchor), doc.resolve(this.closestPosAtCoords(e)))))
+      }
+
+      const onMouseUp = () => {
+        window.removeEventListener('mousemove', selectTo)
+        window.removeEventListener('mouseup', onMouseUp)
+      }
+
+      selectTo(event)
+
+      view.focus()
+
+      window.addEventListener('mousemove', selectTo)
+      window.addEventListener('mouseup', onMouseUp)
     },
     onEditorPointerDown (event) {
       if (!this.isDrawMode || !this.editable || this.isDraggingField) {

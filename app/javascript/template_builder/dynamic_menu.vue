@@ -468,7 +468,7 @@ export default {
     }
   },
   mounted () {
-    this.editor.view.dom.addEventListener('mousedown', this.onMouseDown)
+    this.editor.view.dom.parentElement.addEventListener('mousedown', this.onMouseDown)
 
     document.addEventListener('mouseup', this.onMouseUp)
 
@@ -476,7 +476,7 @@ export default {
   },
   beforeUnmount () {
     if (!this.editor.isDestroyed) {
-      this.editor.view.dom.removeEventListener('mousedown', this.onMouseDown)
+      this.editor.view.dom.parentElement.removeEventListener('mousedown', this.onMouseDown)
       this.editor.off('transaction', this.onTransaction)
     }
 
