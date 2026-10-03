@@ -27,7 +27,7 @@
             v-for="action in group"
             :key="action.title"
             class="inline-flex items-center justify-center w-7 h-7 rounded-md"
-            :class="[{ 'text-red-600': action.danger, 'bg-neutral-200': action.active }, isDisabled(action) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-100']"
+            :class="{ 'text-red-600': action.danger, 'bg-neutral-200': action.active, 'hover:bg-neutral-100': !action.active && !isDisabled(action), 'opacity-50 cursor-not-allowed': isDisabled(action) }"
             :title="action.structural && !coords.isRegular ? t('irregular_table_structure') : t(action.title)"
             :disabled="isDisabled(action)"
             @click="$emit('command', action.command, action.arg)"

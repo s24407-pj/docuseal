@@ -31,8 +31,8 @@
           <button
             v-for="font in fonts"
             :key="font.label"
-            class="block w-full text-left px-2 py-1 rounded-md hover:bg-neutral-100 truncate"
-            :class="{ 'bg-neutral-200': font.label === fontFamily }"
+            class="block w-full text-left px-2 py-1 rounded-md truncate"
+            :class="font.label === fontFamily ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
             :style="{ fontFamily: font.value }"
             @click="setSpanStyle('font-family', font.value)"
           >
@@ -61,8 +61,8 @@
           <button
             v-for="size in fontSizes"
             :key="size"
-            class="block w-full text-left px-2 py-1 rounded-md hover:bg-neutral-100"
-            :class="{ 'bg-neutral-200': size === fontSize }"
+            class="block w-full text-left px-2 py-1 rounded-md"
+            :class="size === fontSize ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
             @click="setFontSize(size)"
           >
             {{ size }}
@@ -114,8 +114,8 @@
           <button
             v-for="value in lineHeights"
             :key="value"
-            class="block w-full text-left px-2 py-1 rounded-md hover:bg-neutral-100"
-            :class="{ 'bg-neutral-200': value === lineHeight }"
+            class="block w-full text-left px-2 py-1 rounded-md"
+            :class="value === lineHeight ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
             @click="setBlockStyle('line-height', `calc(${value} * 1.15)`)"
           >
             {{ value }}
@@ -147,8 +147,8 @@
           <button
             v-for="(icon, align) in alignIcons"
             :key="align"
-            class="inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-neutral-100"
-            :class="{ 'bg-neutral-200': align === textAlign }"
+            class="inline-flex items-center justify-center w-7 h-7 rounded-md"
+            :class="align === textAlign ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
             :title="t(align)"
             @click="setBlockStyle('text-align', align)"
           >
@@ -162,8 +162,8 @@
       </div>
       <div class="relative">
         <button
-          class="inline-flex items-center justify-center h-7 px-1 rounded-md hover:bg-neutral-100"
-          :class="{ 'bg-neutral-200': listStyle }"
+          class="inline-flex items-center justify-center h-7 px-1 rounded-md"
+          :class="listStyle ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
           :title="t('bullet_list')"
           @click="toggleDropdown('list')"
         >
@@ -185,8 +185,8 @@
           <button
             v-for="({ label, marker }, style) in listStyles"
             :key="style"
-            class="flex items-center gap-2 w-full px-2 py-1 rounded-md hover:bg-neutral-100"
-            :class="{ 'bg-neutral-200': style === listStyle }"
+            class="flex items-center gap-2 w-full px-2 py-1 rounded-md"
+            :class="style === listStyle ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
             @click="toggleList(style)"
           >
             <span class="w-4 text-center">{{ marker }}</span>
@@ -197,8 +197,8 @@
     </div>
     <div class="flex items-center gap-0.5">
       <button
-        class="inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-neutral-100"
-        :class="{ 'bg-neutral-200': isBold }"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md"
+        :class="isBold ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
         :title="t('bold')"
         @click="toggleBold"
       >
@@ -208,8 +208,8 @@
         />
       </button>
       <button
-        class="inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-neutral-100"
-        :class="{ 'bg-neutral-200': isItalic }"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md"
+        :class="isItalic ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
         :title="t('italic')"
         @click="toggleItalic"
       >
@@ -219,8 +219,8 @@
         />
       </button>
       <button
-        class="inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-neutral-100"
-        :class="{ 'bg-neutral-200': isUnderline }"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md"
+        :class="isUnderline ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
         :title="t('underline')"
         @click="toggleUnderline"
       >
@@ -230,8 +230,8 @@
         />
       </button>
       <button
-        class="inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-neutral-100"
-        :class="{ 'bg-neutral-200': isStrike }"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md"
+        :class="isStrike ? 'bg-neutral-200' : 'hover:bg-neutral-100'"
         :title="t('strikethrough')"
         @click="toggleStrike"
       >
@@ -295,56 +295,58 @@
           </div>
         </div>
       </div>
-      <template v-if="!isCellSelection">
-        <div class="w-px h-5 bg-neutral-200 mx-1 sm:mx-0.5" />
-        <button
-          class="inline-flex items-center justify-center text-xs h-7 px-1 rounded-md hover:bg-neutral-100"
-          :title="t('create_variable')"
-          @click="wrapVariable"
-        >
-          <IconBracketsContain
-            :width="16"
-            :height="16"
-            :stroke-width="1.6"
-          />
-          <span class="hidden sm:inline px-0.5 font-mono">
-            {{ t('variable') }}
-          </span>
-        </button>
-        <div class="w-px h-5 bg-neutral-200 mx-1 sm:mx-0.5" />
-        <button
-          class="inline-flex items-center justify-center text-xs h-7 px-1 rounded-md hover:bg-neutral-100"
-          :title="t('create_condition')"
-          @click="wrapCondition"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="tabler-icon tabler-icon-brackets-contain"
-          ><path d="M7 4h-4v16h4" /><path d="M17 4h4v16h-4" />
-            <text
-              x="12"
-              y="16.5"
-              text-anchor="middle"
-              fill="currentColor"
-              stroke="none"
-              font-size="14"
-              font-weight="600"
-              font-family="ui-sans-serif, system-ui, sans-serif"
-            >if</text>
-          </svg>
-          <span class="hidden sm:inline px-0.5 font-mono">
-            {{ t('condition') }}
-          </span>
-        </button>
-      </template>
+      <div class="w-px h-5 bg-neutral-200 mx-1 sm:mx-0.5" />
+      <button
+        class="inline-flex items-center justify-center text-xs h-7 px-1 rounded-md"
+        :class="isCellSelection ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-100'"
+        :title="t('create_variable')"
+        :disabled="isCellSelection"
+        @click="wrapVariable"
+      >
+        <IconBracketsContain
+          :width="16"
+          :height="16"
+          :stroke-width="1.6"
+        />
+        <span class="hidden sm:inline px-0.5 font-mono">
+          {{ t('variable') }}
+        </span>
+      </button>
+      <div class="w-px h-5 bg-neutral-200 mx-1 sm:mx-0.5" />
+      <button
+        class="inline-flex items-center justify-center text-xs h-7 px-1 rounded-md"
+        :class="isCellSelection ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-100'"
+        :title="t('create_condition')"
+        :disabled="isCellSelection"
+        @click="wrapCondition"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="tabler-icon tabler-icon-brackets-contain"
+        ><path d="M7 4h-4v16h4" /><path d="M17 4h4v16h-4" />
+          <text
+            x="12"
+            y="16.5"
+            text-anchor="middle"
+            fill="currentColor"
+            stroke="none"
+            font-size="14"
+            font-weight="600"
+            font-family="ui-sans-serif, system-ui, sans-serif"
+          >if</text>
+        </svg>
+        <span class="hidden sm:inline px-0.5 font-mono">
+          {{ t('condition') }}
+        </span>
+      </button>
     </div>
   </div>
 </template>
