@@ -158,6 +158,11 @@ dynamic-variable {
   background-color: #fef3c7;
   word-break: break-all;
   overflow-wrap: anywhere;
+}
+
+.pageNumber:empty::before,
+.totalPages:empty::before {
+  content: "#";
 }`)
 
 const DROP_ATTRS = [
