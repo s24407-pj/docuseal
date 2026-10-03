@@ -4,42 +4,46 @@
     :style="{ top: coords.top + 'px', left: coords.left + 'px', width: coords.width + 'px', height: coords.height + 'px' }"
   >
     <div
-      ref="toolbar"
-      class="absolute left-0 flex flex-col sm:flex-row gap-0.5 p-1 bg-white border border-neutral-200 rounded-lg shadow-lg pointer-events-auto"
+      class="absolute left-0 bottom-0"
       :style="{ top: Math.max(coords.top - toolbarHeight - 2, 0) - coords.top + 'px' }"
-      @mousedown.prevent
     >
       <div
-        v-for="(row, rowIndex) in actionRows"
-        :key="rowIndex"
-        class="flex items-center gap-0.5"
+        ref="toolbar"
+        class="sticky top-1.5 flex flex-col sm:flex-row gap-0.5 p-1 bg-white border border-neutral-200 rounded-lg shadow-lg pointer-events-auto"
+        @mousedown.prevent
       >
-        <template
-          v-for="(group, groupIndex) in row"
-          :key="groupIndex"
+        <div
+          v-for="(row, rowIndex) in actionRows"
+          :key="rowIndex"
+          class="flex items-center gap-0.5"
         >
-          <div
-            v-if="rowIndex > 0 || groupIndex > 0"
-            class="w-px h-5 bg-neutral-200 mx-1"
-            :class="{ 'hidden sm:block': rowIndex > 0 && groupIndex === 0 }"
-          />
-          <button
-            v-for="action in group"
-            :key="action.title"
-            class="inline-flex items-center justify-center w-7 h-7 rounded-md"
-            :class="{ 'text-red-600': action.danger, 'bg-neutral-200': action.active, 'hover:bg-neutral-100': !action.active && !isDisabled(action), 'opacity-50 cursor-not-allowed': isDisabled(action) }"
-            :title="action.structural && !coords.isRegular ? t('irregular_table_structure') : t(action.title)"
-            :disabled="isDisabled(action)"
-            @click="$emit('command', action.command, action.arg)"
+          <template
+            v-for="(group, groupIndex) in row"
+            :key="groupIndex"
           >
-            <component
-              :is="action.icon"
-              :width="16"
-              :height="16"
-              :stroke-width="1.6"
+            <div
+              v-if="rowIndex > 0 || groupIndex > 0"
+              class="w-px h-5 bg-neutral-200 mx-1"
+              :class="{ 'hidden sm:block': rowIndex > 0 && groupIndex === 0 }"
             />
-          </button>
-        </template>
+            <button
+              v-for="action in group"
+              :key="action.title"
+              class="inline-flex items-center justify-center w-7 h-7 rounded-md"
+              :class="{ 'text-red-600': action.danger, 'bg-neutral-200': action.active, 'hover:bg-neutral-100': !action.active && !isDisabled(action), 'opacity-50 cursor-not-allowed': isDisabled(action) }"
+              :title="action.structural && !coords.isRegular ? t('irregular_table_structure') : t(action.title)"
+              :disabled="isDisabled(action)"
+              @click="$emit('command', action.command, action.arg)"
+            >
+              <component
+                :is="action.icon"
+                :width="16"
+                :height="16"
+                :stroke-width="1.6"
+              />
+            </button>
+          </template>
+        </div>
       </div>
     </div>
     <div
