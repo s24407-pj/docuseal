@@ -5,7 +5,6 @@ import { Decoration, DecorationSet } from '@tiptap/pm/view'
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import HardBreak from '@tiptap/extension-hard-break'
-import History from '@tiptap/extension-history'
 import Gapcursor from '@tiptap/extension-gapcursor'
 import Dropcursor from '@tiptap/extension-dropcursor'
 import { createApp, reactive } from 'vue'
@@ -1475,7 +1474,7 @@ const VariableHighlight = Extension.create({
   }
 })
 
-export function buildEditor ({ dynamicAreaProps, getAttachmentsIndex, renderHtmlForSaveRef, onFieldDrop, onFieldDestroy, editorOptions }) {
+export function buildEditor ({ dynamicAreaProps, getAttachmentsIndex, renderHtmlForSaveRef, onFieldDrop, onFieldDestroy, onUndo, onRedo, editorOptions }) {
   const FieldNode = Node.create({
     name: 'fieldNode',
     inline: true,
@@ -1592,6 +1591,51 @@ export function buildEditor ({ dynamicAreaProps, getAttachmentsIndex, renderHtml
           key: new PluginKey('fieldDrop'),
           props: {
             handleDrop: onFieldDrop
+          }
+        })
+      ]
+    }
+  })
+
+  const undo = () => {
+    onUndo()
+
+    return true
+  }
+
+  const redo = () => {
+    onRedo()
+
+    return true
+  }
+
+  const BuilderHistory = Extension.create({
+    name: 'builderHistory',
+    addKeyboardShortcuts () {
+      return {
+        'Mod-z': undo,
+        'Shift-Mod-z': redo,
+        'Mod-y': redo,
+        'Mod-я': undo,
+        'Shift-Mod-я': redo
+      }
+    },
+    addProseMirrorPlugins () {
+      return [
+        new Plugin({
+          key: new PluginKey('builderHistory'),
+          props: {
+            handleDOMEvents: {
+              beforeinput (_view, event) {
+                const command = { historyUndo: undo, historyRedo: redo }[event.inputType]
+
+                if (!command) return false
+
+                event.preventDefault()
+
+                return command()
+              }
+            }
           }
         })
       ]
@@ -1818,7 +1862,7 @@ export function buildEditor ({ dynamicAreaProps, getAttachmentsIndex, renderHtml
       Document,
       Text,
       HardBreak,
-      History,
+      BuilderHistory,
       Gapcursor,
       Dropcursor,
       CustomParagraph,

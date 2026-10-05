@@ -41,6 +41,7 @@
           :area="selectedArea"
           :field="selectedField"
           :editable="editable"
+          :is-mobile="isMobile"
           :template="template"
           :selected-areas-ref="selectedAreasRef"
           :get-field-type-index="getFieldTypeIndex"
@@ -116,7 +117,7 @@
 <script>
 import { shallowRef } from 'vue'
 import { DOMSerializer, Fragment } from '@tiptap/pm/model'
-import { TextSelection } from '@tiptap/pm/state'
+import { Selection, TextSelection } from '@tiptap/pm/state'
 import { findTable, CellSelection } from '@tiptap/pm/tables'
 import { v4 } from 'uuid'
 import { IconPlus, IconX } from '@tabler/icons-vue'
@@ -138,7 +139,7 @@ export default {
     IconPlus,
     IconX
   },
-  inject: ['template', 'save', 'baseFetch', 't', 'fieldsDragFieldRef', 'customDragFieldRef', 'selectedAreasRef', 'getFieldTypeIndex', 'fieldTypes', 'withPhone', 'withPayment', 'withVerification', 'withKba', 'backgroundColor'],
+  inject: ['template', 'save', 'pushUndo', 'undo', 'redo', 'baseFetch', 't', 'fieldsDragFieldRef', 'customDragFieldRef', 'selectedAreasRef', 'getFieldTypeIndex', 'fieldTypes', 'withPhone', 'withPayment', 'withVerification', 'withKba', 'backgroundColor', 'isMobile'],
   props: {
     section: {
       type: Object,
@@ -260,6 +261,9 @@ export default {
     editor () {
       return this.editorRef.value
     },
+    sectionKey () {
+      return `${this.attachmentUuid}:${this.section.id}`
+    },
     sectionWidthPx () {
       const pt = parseFloat(this.section.style.width)
 
@@ -310,6 +314,8 @@ export default {
     }
   },
   mounted () {
+    this.lastUpdateTime = 0
+
     this.editorRef.value = buildEditor({
       dynamicAreaProps: {
         template: this.template,
@@ -325,6 +331,8 @@ export default {
       getAttachmentsIndex: () => this.attachmentsIndex,
       onFieldDrop: this.onFieldDrop,
       onFieldDestroy: this.onFieldDestroy,
+      onUndo: this.undo,
+      onRedo: this.redo,
       renderHtmlForSaveRef: this.renderHtmlForSaveRef,
       editorOptions: {
         element: this.$refs.editorElement,
@@ -332,6 +340,12 @@ export default {
         content: this.section.innerHTML,
         onUpdate: (event) => {
           this.$emit('update', event)
+
+          if (event.transaction.getMeta('addToHistory') !== false) {
+            this.pushUndo({ amend: event.transaction.time - this.lastUpdateTime < 500 })
+
+            this.lastUpdateTime = event.transaction.time
+          }
 
           if (this.blockMenuCoords) {
             this.$nextTick(() => this.setBlockMenuCoords(this.editor))
@@ -352,6 +366,8 @@ export default {
     this.editor.view.dom.addEventListener('mousemove', this.onEditorMouseMove)
     this.editor.view.dom.addEventListener('mouseleave', this.onEditorMouseLeave)
     this.editor.view.dom.addEventListener('keydown', this.onEditorKeyDown)
+
+    this.$nextTick(() => this.pushUndo({ amend: true }))
   },
   beforeUnmount () {
     if (this.editor) {
@@ -366,6 +382,19 @@ export default {
   methods: {
     reloadContent () {
       this.editor.commands.setContent(this.section.innerHTML, { emitUpdate: false, parseOptions: this.editor.options.parseOptions })
+    },
+    restoreDoc (doc) {
+      const { state, view } = this.editor
+      const { content } = doc.type.schema === state.schema ? doc : state.schema.nodeFromJSON(doc.toJSON())
+      const diffEnd = content.findDiffEnd(state.doc.content)
+
+      if (diffEnd) {
+        const tr = state.tr.replaceWith(0, state.doc.content.size, content).setMeta('addToHistory', false)
+
+        view.dispatch(tr.setSelection(Selection.near(tr.doc.resolve(diffEnd.a))).scrollIntoView())
+
+        this.lastUpdateTime = 0
+      }
     },
     findAreaNodePos (areaUuid) {
       const el = this.editor.view.dom.querySelector(`[data-area-uuid="${areaUuid}"]`)
@@ -711,6 +740,8 @@ export default {
       if (event.key === 'Escape') {
         this.editor.chain().setNodeSelection(0).blur().run()
         this.deselectArea()
+      } else if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') {
+        event.stopPropagation()
       }
     },
     onEditorMouseMove (event) {
@@ -826,25 +857,23 @@ export default {
         }
       }
 
-      const newField = {
+      const newField = payload.parentField || {
         ...field,
         uuid: v4(),
         submitter_uuid: this.selectedSubmitter.uuid,
-        areas: [area]
+        areas: []
       }
 
+      newField.areas.push(area)
+
       if (['radio', 'multiple'].includes(field.type) && field.options?.length) {
-        const oldOptionUuid = area.option_uuid
-        const optionsMap = {}
+        const oldOptionIndex = field.options.findIndex((opt) => opt.uuid === area.option_uuid)
 
-        newField.options = field.options.map((opt) => {
-          const newUuid = v4()
-          optionsMap[opt.uuid] = newUuid
+        if (!payload.parentField) {
+          newField.options = field.options.map((opt) => ({ ...opt, uuid: v4() }))
+        }
 
-          return { ...opt, uuid: newUuid }
-        })
-
-        area.option_uuid = optionsMap[oldOptionUuid] || newField.options[0]?.uuid
+        area.option_uuid = (newField.options[oldOptionIndex] || newField.options[0]).uuid
       }
 
       return { field: newField, area }
@@ -882,10 +911,13 @@ export default {
 
       let lastArea = null
 
+      const parentFieldsIndex = {}
+
       fieldNodes.forEach((fieldNode) => {
         const fieldValue = fieldNode.dataset.field
         const areaValue = fieldNode.dataset.area
         const templateId = fieldNode.dataset.templateId
+        const sourceFieldUuid = fieldNode.getAttribute('uuid')
 
         if (!fieldValue || !areaValue) {
           return
@@ -894,11 +926,16 @@ export default {
         const { field, area } = this.buildCopiedField({
           field: JSON.parse(fieldValue),
           area: JSON.parse(areaValue),
-          templateId: Number(templateId)
+          templateId: Number(templateId),
+          parentField: parentFieldsIndex[sourceFieldUuid]
         })
 
-        this.insertFieldInTemplate(field, insertIndex)
-        insertIndex += 1
+        if (!parentFieldsIndex[sourceFieldUuid]) {
+          parentFieldsIndex[sourceFieldUuid] = field
+
+          this.insertFieldInTemplate(field, insertIndex)
+          insertIndex += 1
+        }
 
         fieldNode.setAttribute('uuid', field.uuid)
         fieldNode.setAttribute('area-uuid', area.uuid)

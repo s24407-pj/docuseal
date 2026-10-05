@@ -191,6 +191,8 @@ export default {
     }
   },
   created () {
+    this.updatedSectionEditors = new Map()
+
     this.loadListsStyle()
   },
   mounted () {
@@ -242,6 +244,14 @@ export default {
 
       this.sectionRefs.forEach((ref) => ref.reloadContent())
     },
+    getSectionDocs () {
+      return this.sectionRefs.map((ref) => [ref.sectionKey, ref.editor.state.doc])
+    },
+    restoreSectionDocs (sectionDocs) {
+      this.sectionRefs.forEach((ref) => {
+        if (sectionDocs.has(ref.sectionKey)) ref.restoreDoc(sectionDocs.get(ref.sectionKey))
+      })
+    },
     onBeforeUnload (event) {
       if (this.saveTimer) {
         event.preventDefault()
@@ -267,11 +277,9 @@ export default {
     onSectionUpdate (section, { editor }) {
       clearTimeout(this.saveTimer)
 
-      this.saveTimer = setTimeout(async () => {
-        await this.updateSectionAndSave(section, editor)
+      this.updatedSectionEditors.set(section.id, editor)
 
-        delete this.saveTimer
-      }, 1000)
+      this.saveTimer = setTimeout(() => this.updateSectionsAndSave(), 1000)
     },
     loadListsStyle () {
       this.listsStyle = this.bodyDom.querySelector('body > style[data-lists]')?.textContent || null
@@ -291,12 +299,16 @@ export default {
     updateVariablesSchema () {
       this.document.variables_schema = buildVariablesSchema(this.bodyDom.body)
     },
-    updateSectionAndSave (section, editor) {
-      const target = this.bodyDom.getElementById(section.id)
+    updateSectionsAndSave () {
+      this.updatedSectionEditors.forEach((editor, sectionId) => {
+        const target = this.bodyDom.getElementById(sectionId)
 
-      if (target) {
-        target.innerHTML = this.getHtmlForSave(editor)
-      }
+        if (target) {
+          target.innerHTML = this.getHtmlForSave(editor)
+        }
+      })
+
+      this.updatedSectionEditors.clear()
 
       this.document.body = this.bodyDom.body.innerHTML
 
@@ -315,6 +327,8 @@ export default {
       clearTimeout(this.saveTimer)
 
       delete this.saveTimer
+
+      this.updatedSectionEditors.clear()
 
       this.sectionRefs.forEach(({ section, editor }) => {
         const target = this.bodyDom.getElementById(section.id)

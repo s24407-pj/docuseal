@@ -1007,6 +1007,9 @@ export default {
     return {
       template: this.template,
       save: this.save,
+      pushUndo: this.pushUndo,
+      undo: this.undo,
+      redo: this.redo,
       t: this.t,
       assignDropAreaSize: this.assignDropAreaSize,
       currencies: this.currencies,
@@ -1640,8 +1643,10 @@ export default {
     this.selectedSubmitter = this.template.submitters[0]
   },
   mounted () {
-    this.undoStack = [JSON.stringify(this.template)]
+    this.undoStack = []
     this.redoStack = []
+
+    this.undoStack.push(this.buildUndoData())
 
     this.$nextTick(() => {
       this.resizeObserver = new ResizeObserver(this.onResize)
@@ -2287,6 +2292,8 @@ export default {
 
       const dynamicDocumentRefs = this.documentRefs.filter((ref) => ref.isDynamic)
 
+      this.pushUndo()
+
       dynamicDocumentRefs.forEach((ref) => ref.update())
 
       this.rebuildVariablesSchema({ disable: false })
@@ -2414,34 +2421,75 @@ export default {
       this.drawOption = null
     },
     undo () {
+      this.selectedAreasRef.value = []
+
       if (this.undoStack.length > 1) {
         this.undoStack.pop()
-        const stringData = this.undoStack[this.undoStack.length - 1]
-        const currentStringData = JSON.stringify(this.template)
+        const undoData = this.undoStack[this.undoStack.length - 1]
+        const currentUndoData = this.buildUndoData()
 
-        if (stringData && stringData !== currentStringData) {
-          this.redoStack.push(currentStringData)
+        if (!this.isSameUndoData(undoData, currentUndoData)) {
+          this.redoStack.push(currentUndoData)
 
-          Object.assign(this.template, JSON.parse(stringData))
-
-          this.save()
+          this.applyUndoData(undoData, currentUndoData)
         }
       }
     },
     redo () {
-      const stringData = this.redoStack.pop()
-      this.lastRedoData = stringData
-      const currentStringData = JSON.stringify(this.template)
+      this.selectedAreasRef.value = []
 
-      if (stringData && stringData !== currentStringData) {
-        if (this.undoStack[this.undoStack.length - 1] !== currentStringData) {
-          this.undoStack.push(currentStringData)
+      const undoData = this.redoStack.pop()
+      const currentUndoData = this.buildUndoData()
+
+      if (undoData && !this.isSameUndoData(undoData, currentUndoData)) {
+        if (!this.isSameUndoData(this.undoStack[this.undoStack.length - 1], currentUndoData)) {
+          this.undoStack.push(currentUndoData)
         }
 
-        Object.assign(this.template, JSON.parse(stringData))
+        this.undoStack.push(undoData)
 
-        this.save()
+        this.applyUndoData(undoData, currentUndoData)
       }
+    },
+    buildUndoData () {
+      const template = JSON.stringify(toRaw(this.template))
+      const lastUndoData = this.undoStack[this.undoStack.length - 1]
+
+      return { template: template === lastUndoData?.template ? lastUndoData.template : template, sectionDocs: this.buildSectionDocs() }
+    },
+    buildSectionDocs () {
+      return new Map(this.documentRefs.flatMap((ref) => ref.isDynamic ? ref.getSectionDocs() : []))
+    },
+    isSameUndoData (undoData, currentUndoData) {
+      return undoData.template === currentUndoData.template && this.isSameSectionDocs(undoData, currentUndoData)
+    },
+    isSameSectionDocs (undoData, currentUndoData) {
+      return [...currentUndoData.sectionDocs].every(([sectionKey, doc]) => undoData.sectionDocs.get(sectionKey)?.eq(doc))
+    },
+    applyUndoData (undoData, currentUndoData) {
+      const isTemplateChanged = undoData.template !== currentUndoData.template
+
+      if (isTemplateChanged) {
+        Object.assign(this.template, JSON.parse(undoData.template))
+      }
+
+      this.documentRefs.forEach((ref) => {
+        if (ref.isDynamic) ref.restoreSectionDocs(undoData.sectionDocs)
+      })
+
+      this.buildSectionDocs().forEach((doc, sectionKey) => undoData.sectionDocs.set(sectionKey, doc))
+
+      if (isTemplateChanged) {
+        this.save()
+
+        this.$nextTick(this.syncUndoTemplate)
+      }
+    },
+    syncUndoTemplate () {
+      const lastUndoData = this.undoStack[this.undoStack.length - 1]
+      const template = JSON.stringify(toRaw(this.template))
+
+      if (template !== lastUndoData.template) lastUndoData.template = template
     },
     onResize () {
       const breakpointLg = 1024
@@ -2609,14 +2657,10 @@ export default {
         event.stopImmediatePropagation()
         event.preventDefault()
 
-        this.selectedAreasRef.value = []
-
         this.redo()
       } else if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
         event.stopImmediatePropagation()
         event.preventDefault()
-
-        this.selectedAreasRef.value = []
 
         this.undo()
       } else if ((event.ctrlKey || event.metaKey) && event.key === 'c' && document.activeElement === document.body) {
@@ -2992,16 +3036,29 @@ export default {
         return false
       }
     },
-    pushUndo () {
-      const stringData = JSON.stringify(this.template)
+    pushUndo ({ amend = false } = {}) {
+      const undoData = this.buildUndoData()
+      const lastUndoData = this.undoStack[this.undoStack.length - 1]
+      const isTemplateChanged = undoData.template !== lastUndoData.template
+      const isSectionDocsChanged = !this.isSameSectionDocs(lastUndoData, undoData)
 
-      if (this.undoStack[this.undoStack.length - 1] !== stringData) {
-        this.undoStack.push(stringData)
+      if (this.isUndoBatch || (amend && (!isSectionDocsChanged || (!this.redoStack.length && !isTemplateChanged)))) {
+        this.undoStack[this.undoStack.length - 1] = undoData
+      } else if (isTemplateChanged || isSectionDocsChanged) {
+        this.undoStack.push(undoData)
 
-        if (this.lastRedoData !== stringData) {
-          this.redoStack = []
-        }
+        this.redoStack = []
+      } else {
+        return
       }
+
+      this.isUndoBatch = true
+
+      this.$nextTick(() => {
+        this.isUndoBatch = false
+
+        this.syncUndoTemplate()
+      })
     },
     setDefaultAreaSize (area, type) {
       const documentRef = this.documentRefs.find((e) => e.document.uuid === area.attachment_uuid)
@@ -3971,7 +4028,7 @@ export default {
 
       this.$nextTick(() => {
         if (this.$el.closest('template-builder')) {
-          this.$el.closest('template-builder').dataset.template = JSON.stringify(this.template)
+          this.$el.closest('template-builder').dataset.template = JSON.stringify(toRaw(this.template))
         }
       })
 
@@ -4004,9 +4061,11 @@ export default {
 
       this.$nextTick(() => {
         if (this.$el.closest('template-builder')) {
-          this.$el.closest('template-builder').dataset.dynamicDocuments = JSON.stringify(this.dynamicDocuments)
+          this.$el.closest('template-builder').dataset.dynamicDocuments = JSON.stringify(toRaw(this.dynamicDocuments))
         }
       })
+
+      this.pushUndo({ amend: true })
 
       this.save()
     },
