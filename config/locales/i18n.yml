@@ -7613,6 +7613,7 @@ pl:
   form_has_been_expired: Formularz wygasł.
   form_has_been_declined: Formularz został odrzucony.
   file_is_missing: Brakuje pliku
+  file_is_not_an_image: Plik nie jest obrazem
   folder_name_has_been_updated: Nazwa folderu została zaktualizowana.
   unable_to_rename_folder: Nie można zmienić nazwy folderu.
   template_has_been_removed: Szablon został usunięty.
@@ -7672,7 +7673,7 @@ pl:
   thirty_days: 30 dni
   free: Darmowy
   unlimited_documents_storage: Nielimitowane przechowywanie dokumentów
-  users_management: Zarządzanie użytkownikami
+  user_management: Zarządzanie użytkownikami
   ten_field_types: 10 typów pól
   multiple_signers: Wielu podpisujących
   automatic_esignature: Automatyczny e-podpis
