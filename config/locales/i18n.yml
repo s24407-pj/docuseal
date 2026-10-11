@@ -8052,7 +8052,7 @@ pl:
     click_to_upload: Kliknij, aby przesłać
     or_drag_and_drop_files: lub przeciągnij i upuść pliki.
     or: Lub
-    download: pobierać
+    download: pobierz
     a_sample_spreadsheet_to_fill_and_import: przykładowy arkusz kalkulacyjny do wypełnienia i zaimportowania
   app_tour:
     start: Start
@@ -8064,7 +8064,7 @@ pl:
     upload_a_pdf_file_description: Prześlij dokument PDF, aby utworzyć szablon formularza podpisu.
     select_a_signer_party: Wybierz stronę podpisującą
     select_a_signer_party_description: To menu rozwijane umożliwia wybranie roli strony podpisującej lub dodanie nowej strony do dokumentu, jeśli wymaga on co najmniej 2 podpisów.
-    available_parties: Dostępne imprezy
+    available_parties: Dostępne strony
     available_parties_description: Ta lista zawiera wszystkie dostępne strony wraz z ich nazwami ról. Po wybraniu możesz dodawać i konfigurować pola dla strony podpisującej.
     available_field_types: Dostępne typy pól
     available_field_types_description: W tej sekcji znajdują się wszystkie dostępne typy pól, które można dodać do dokumentu w celu wprowadzania danych lub zbierania podpisów.
