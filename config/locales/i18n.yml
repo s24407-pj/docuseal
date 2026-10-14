@@ -8167,7 +8167,8 @@ pl:
   not_viewed_yet: Jeszcze nie wyświetlono
   not_viewed: Nie wyświetlono
   viewed_on_time: Wyświetlono %{time}
-  smtp_settings_have_been_reset: Ustawienia SMTP zostały zresetowane.  download_event_log: Pobierz dziennik zdarzeń
+  smtp_settings_have_been_reset: Ustawienia SMTP zostały zresetowane.
+  download_event_log: Pobierz dziennik zdarzeń
   cc_view_only: DW — tylko podgląd
   bcc_completed: UDW — ukończone dokumenty
 
