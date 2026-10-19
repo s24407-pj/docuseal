@@ -11,6 +11,7 @@ on:
         type: string
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
 
@@ -76,15 +77,6 @@ jobs:
             echo "Nowa wersja upstream: $UPSTREAM_TAG"
           fi
 
-      - name: Point upstream-mirror at upstream release tag (clean mirror)
-        if: steps.check.outputs.new_version == 'true'
-        run: |
-          set -euo pipefail
-          TAG="${{ steps.check.outputs.upstream_tag }}"
-
-          TAG_COMMIT=$(git rev-parse "refs/tags/${TAG}^{commit}")
-          git push origin "${TAG_COMMIT}:refs/heads/upstream-mirror" --force
-
       - name: Merge upstream tag into upstream-merge branch
         if: steps.check.outputs.new_version == 'true'
         id: merge
@@ -121,6 +113,7 @@ jobs:
           fi
 
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Guard against conflict markers
         if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.conflicts == 'false'
@@ -251,10 +244,50 @@ jobs:
 
           echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
 
+      - name: Wait for CI before auto-merge
+        if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'false' && steps.i18n.outputs.parity_ok == 'true'
+        timeout-minutes: 25
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ steps.merge.outputs.branch }}
+          HEAD_SHA: ${{ steps.merge.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          DEADLINE=$((SECONDS + 1200))
+
+          while [ "$SECONDS" -lt "$DEADLINE" ]; do
+            STATE=$(gh api "repos/${REPO}/actions/workflows/ci.yml/runs" \
+              --method GET \
+              -f branch="$BRANCH" \
+              -f head_sha="$HEAD_SHA" \
+              -f event=push \
+              -f per_page=1 \
+              --jq '.workflow_runs[0] | if . == null then "pending" else "\(.status):\(.conclusion)" end')
+
+            case "$STATE" in
+              completed:success)
+                echo "CI passed for ${HEAD_SHA}"
+                exit 0
+                ;;
+              completed:*)
+                echo "::error::CI ended with ${STATE}; PR left open."
+                exit 1
+                ;;
+            esac
+
+            echo "Waiting for CI on ${HEAD_SHA}: ${STATE}"
+            sleep 15
+          done
+
+          echo "::error::Timed out waiting for CI; PR left open."
+          exit 1
+
       - name: Auto-merge PR -> pl
         if: steps.check.outputs.new_version == 'true' && steps.merge.outputs.has_changes == 'true' && steps.merge.outputs.conflicts == 'false' && steps.i18n.outputs.parity_ok == 'true'
         env:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          HEAD_SHA: ${{ steps.merge.outputs.head_sha }}
         run: |
           PR_NUMBER="${{ steps.create_pr.outputs.pr_number }}"
 
@@ -266,6 +299,7 @@ jobs:
           set +e
           OUT="$(gh api "repos/${{ github.repository }}/pulls/${PR_NUMBER}/merge" \
             --method PUT \
+            -f sha="$HEAD_SHA" \
             -f merge_method="merge" 2>&1)"
           STATUS=$?
           set -e
