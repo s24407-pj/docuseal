@@ -20,7 +20,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 4.0.5
+          ruby-version: 4.0.9
       - name: Cache gems
         uses: actions/cache@v4
         with:
@@ -45,7 +45,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 4.0.5
+          ruby-version: 4.0.9
       - name: Cache gems
         uses: actions/cache@v4
         with:
@@ -97,7 +97,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 4.0.5
+          ruby-version: 4.0.9
       - name: Cache gems
         uses: actions/cache@v4
         with:
@@ -121,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: ruby:4.0.5-alpine
+      image: ruby:4.0.9-alpine
 
     services:
       postgres:
