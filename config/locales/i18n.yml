@@ -7858,6 +7858,8 @@ pl:
   overdue_payment: Zaległa płatność
   ? your_pro_plan_has_been_suspended_due_to_unpaid_invoices_you_can_update_your_payment_details_to_settle_the_invoice_and_continue_using_docuseal_or_cancel_your_subscription
   : Twój plan Pro został zawieszony z powodu niezapłaconych faktur. Możesz zaktualizować szczegóły płatności, aby rozliczyć fakturę i kontynuować korzystanie z DocuSeal lub anulować subskrypcję.
+  get_the_docuseal_app_for_a_better_mobile_experience: Pobierz aplikację DocuSeal, aby wygodniej korzystać z niej na urządzeniu mobilnym.
+  install_app: Zainstaluj aplikację
   manage_subscription: Zarządzaj subskrypcją
   docuseal_version_security_release_is_available: "Dostępna jest wersja bezpieczeństwa DocuSeal v%{version}."
   click_here_to_view_the_instructions_and_update_your_app_html: '<a href="%{url}" class="link" target="_blank" rel="noopener noreferrer nofollow">Kliknij tutaj</a>, aby wyświetlić instrukcje i zaktualizować aplikację.'
@@ -8055,8 +8057,10 @@ pl:
     link: Link
     mcp: MCP
     self: Podpisz samodzielnie
+  error: Błąd
   submission_event_names:
     send_email_to_html: <b>E-mail wysłany</b> do %{submitter_name}
+    fail_sms_to_html: <b>Nie udało się wysłać SMS-a</b> do %{submitter_name}
     bounce_email_html: <b>E-mail odesłany</b> %{submitter_name}
     complaint_email_html: <b>Skarga dotycząca spamu</b> %{submitter_name}
     send_reminder_email_to_html: <b>Wysłano e-mail z przypomnieniem</b> do %{submitter_name}
