@@ -3,8 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - pl
       - 'upstream-merge/**'
+  pull_request:
+    branches:
+      - pl
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,19 +17,19 @@ jobs:
     name: Rubocop
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
+    container:
+      image: ruby:4.0.9-alpine
     steps:
+      - name: Install packages
+        run: apk add --no-cache build-base git yaml-dev tar zstd gzip
       - uses: actions/checkout@v4
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 4.0.9
       - name: Cache gems
         uses: actions/cache@v4
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          key: ${{ runner.os }}-musl-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-
+            ${{ runner.os }}-musl-gem-
       - name: Install gems
         run: |
           gem install bundler
@@ -40,19 +42,19 @@ jobs:
     name: Erblint
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
+    container:
+      image: ruby:4.0.9-alpine
     steps:
+      - name: Install packages
+        run: apk add --no-cache build-base git yaml-dev tar zstd gzip
       - uses: actions/checkout@v4
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 4.0.9
       - name: Cache gems
         uses: actions/cache@v4
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          key: ${{ runner.os }}-musl-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-
+            ${{ runner.os }}-musl-gem-
       - name: Install gems
         run: |
           gem install bundler
@@ -65,22 +67,22 @@ jobs:
     name: ESLint
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
+    container:
+      image: node:20.19.0-alpine
     steps:
+      - name: Install packages
+        run: apk add --no-cache git tar zstd gzip
       - uses: actions/checkout@v4
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 20.19.0
       - name: Cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@v4
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-musl-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-musl-yarn-
       - name: Install dependencies
         run: |
           yarn install
@@ -92,27 +94,25 @@ jobs:
     name: Brakeman
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
+    container:
+      image: ruby:4.0.9-alpine
     steps:
+      - name: Install packages
+        run: apk add --no-cache build-base git yaml-dev nodejs yarn tar zstd gzip vips leptonica
       - uses: actions/checkout@v4
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 4.0.9
       - name: Cache gems
         uses: actions/cache@v4
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          key: ${{ runner.os }}-musl-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-
+            ${{ runner.os }}-musl-gem-
       - name: Install gems
         run: |
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 4
           yarn install
-          sudo apt-get update
-          sudo apt-get install -y libvips libleptonica6 || sudo apt-get install -y libvips liblept5
       - name: Run Brakeman
         run: bundle exec brakeman -q --exit-on-warn
 
