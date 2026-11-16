@@ -16,22 +16,18 @@ jobs:
     timeout-minutes: 10
     container:
       image: ruby:4.0.9-alpine
+      volumes:
+        - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
+    env:
+      BUNDLE_PATH: /cache/bundle
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git yaml-dev tar zstd gzip
+        run: apk add --no-cache build-base git yaml-dev
       - uses: actions/checkout@v4
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-musl-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-musl-gem-
       - name: Install gems
         run: |
           gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 4
+          bundle check || bundle install --jobs 4 --retry 4
       - name: Run RuboCop
         run: bundle exec rubocop
 
@@ -41,22 +37,18 @@ jobs:
     timeout-minutes: 10
     container:
       image: ruby:4.0.9-alpine
+      volumes:
+        - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
+    env:
+      BUNDLE_PATH: /cache/bundle
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git yaml-dev tar zstd gzip
+        run: apk add --no-cache build-base git yaml-dev
       - uses: actions/checkout@v4
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-musl-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-musl-gem-
       - name: Install gems
         run: |
           gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 4
+          bundle check || bundle install --jobs 4 --retry 4
       - name: Run Erblint
         run: bundle exec erb_lint ./app
 
@@ -66,26 +58,18 @@ jobs:
     timeout-minutes: 10
     container:
       image: node:20.19.0-alpine
+      volumes:
+        - /home/michal/actions-runners/docuseal/local-cache/yarn:/cache/yarn
+    env:
+      YARN_CACHE_FOLDER: /cache/yarn
     steps:
       - name: Install packages
-        run: apk add --no-cache git tar zstd gzip
+        run: apk add --no-cache git
       - uses: actions/checkout@v4
-      - name: Cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache@v4
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-musl-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-musl-yarn-
       - name: Install dependencies
-        run: |
-          yarn install
+        run: yarn install --frozen-lockfile
       - name: Run eslint
-        run: |
-          ./node_modules/eslint/bin/eslint.js "app/javascript/**/*.js"
+        run: ./node_modules/eslint/bin/eslint.js "app/javascript/**/*.js"
 
   brakeman:
     name: Brakeman
@@ -93,23 +77,21 @@ jobs:
     timeout-minutes: 10
     container:
       image: ruby:4.0.9-alpine
+      volumes:
+        - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
+        - /home/michal/actions-runners/docuseal/local-cache/yarn:/cache/yarn
+    env:
+      BUNDLE_PATH: /cache/bundle
+      YARN_CACHE_FOLDER: /cache/yarn
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git yaml-dev nodejs yarn tar zstd gzip vips leptonica
+        run: apk add --no-cache build-base git yaml-dev nodejs yarn vips leptonica
       - uses: actions/checkout@v4
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-musl-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-musl-gem-
       - name: Install gems
         run: |
           gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 4
-          yarn install
+          bundle check || bundle install --jobs 4 --retry 4
+          yarn install --frozen-lockfile
       - name: Run Brakeman
         run: bundle exec brakeman -q --exit-on-warn
 
@@ -119,6 +101,12 @@ jobs:
     timeout-minutes: 15
     container:
       image: ruby:4.0.9-alpine
+      volumes:
+        - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
+        - /home/michal/actions-runners/docuseal/local-cache/yarn:/cache/yarn
+    env:
+      BUNDLE_PATH: /cache/bundle
+      YARN_CACHE_FOLDER: /cache/yarn
 
     services:
       postgres:
@@ -135,28 +123,15 @@ jobs:
 
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git libpq-dev yaml-dev nodejs yarn tar zstd gzip wget unzip vips leptonica chromium
+        run: apk add --no-cache build-base git libpq-dev yaml-dev nodejs yarn wget unzip vips leptonica chromium
       - uses: actions/checkout@v4
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-musl-node-${{ hashFiles('**/yarn.lock') }}
-      - name: Cache gems
-        uses: actions/cache@v4
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-musl-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-musl-gem-
       - name: Install dependencies
         env:
           RAILS_ENV: test
         run: |
           gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 4
-          yarn install
+          bundle check || bundle install --jobs 4 --retry 4
+          yarn install --frozen-lockfile
           wget -O pdfium-linux.zip "https://github.com/docusealco/pdfium-binaries/releases/latest/download/pdfium-musl-$(uname -m).zip"
           unzip -q pdfium-linux.zip -d /tmp/pdfium-linux
           cp /tmp/pdfium-linux/lib/libpdfium.so /usr/lib/libpdfium.so
