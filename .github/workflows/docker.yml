@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - pl
+    paths-ignore:
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/sync-upstream.yml'
+      - '**.md'
 
 concurrency:
   group: docker-publish
@@ -12,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
 
     steps:
@@ -42,9 +46,6 @@ jobs:
           type=raw,value=${{ steps.version.outputs.version }}
           type=raw,value=latest
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
@@ -64,5 +65,7 @@ jobs:
       with:
         context: .
         push: true
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64
         tags: ${{ steps.meta.outputs.tags }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
