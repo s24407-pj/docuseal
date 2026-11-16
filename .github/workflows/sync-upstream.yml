@@ -261,7 +261,7 @@ jobs:
               --method GET \
               -f branch="$BRANCH" \
               -f head_sha="$HEAD_SHA" \
-              -f event=push \
+              -f event=pull_request \
               -f per_page=1 \
               --jq '.workflow_runs[0] | if . == null then "pending" else "\(.status):\(.conclusion)" end')
 
