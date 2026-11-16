@@ -3,8 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - pl
       - 'upstream-merge/**'
+  pull_request:
+    branches:
+      - pl
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
