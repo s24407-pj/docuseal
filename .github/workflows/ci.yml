@@ -15,14 +15,14 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
     env:
       BUNDLE_PATH: /cache/bundle
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git yaml-dev
+        run: apk add --no-cache build-base git yaml-dev openssl-dev
       - uses: actions/checkout@v4
       - name: Install gems
         run: |
@@ -36,14 +36,14 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
     env:
       BUNDLE_PATH: /cache/bundle
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git yaml-dev
+        run: apk add --no-cache build-base git yaml-dev openssl-dev
       - uses: actions/checkout@v4
       - name: Install gems
         run: |
@@ -76,7 +76,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
         - /home/michal/actions-runners/docuseal/local-cache/yarn:/cache/yarn
@@ -85,7 +85,7 @@ jobs:
       YARN_CACHE_FOLDER: /cache/yarn
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git yaml-dev nodejs yarn vips leptonica
+        run: apk add --no-cache build-base git yaml-dev openssl-dev nodejs yarn vips leptonica
       - uses: actions/checkout@v4
       - name: Install gems
         run: |
@@ -100,7 +100,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 15
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
         - /home/michal/actions-runners/docuseal/local-cache/yarn:/cache/yarn
@@ -123,7 +123,7 @@ jobs:
 
     steps:
       - name: Install packages
-        run: apk add --no-cache build-base git libpq-dev yaml-dev nodejs yarn wget unzip vips leptonica chromium
+        run: apk add --no-cache build-base git libpq-dev yaml-dev openssl-dev nodejs yarn wget unzip vips leptonica chromium
       - uses: actions/checkout@v4
       - name: Install dependencies
         env:
