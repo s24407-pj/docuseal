@@ -15,7 +15,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
     env:
@@ -36,7 +36,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
     env:
@@ -76,7 +76,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 10
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
         - /home/michal/actions-runners/docuseal/local-cache/yarn:/cache/yarn
@@ -100,7 +100,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64, docuseal-ci]
     timeout-minutes: 15
     container:
-      image: ruby:4.0.9-alpine
+      image: ruby:4.0.10-alpine
       volumes:
         - /home/michal/actions-runners/docuseal/local-cache/bundle:/cache/bundle
         - /home/michal/actions-runners/docuseal/local-cache/yarn:/cache/yarn
