@@ -154,10 +154,28 @@ jobs:
               return keys
 
 
+          def polish_plural_keys(en, pl, prefix=""):
+              keys = set()
+              for key, value in en.items():
+                  translated = pl.get(key)
+                  if not isinstance(value, dict) or not isinstance(translated, dict):
+                      continue
+                  full = f"{prefix}.{key}" if prefix else str(key)
+                  if {"one", "other"} <= value.keys() <= {"zero", "one", "other"} and all(
+                      isinstance(form, str) for form in value.values()
+                  ):
+                      for category in ("few", "many"):
+                          if isinstance(translated.get(category), str):
+                              keys.add(f"{full}.{category}")
+                  else:
+                      keys.update(polish_plural_keys(value, translated, full))
+              return keys
+
+
           en = flatten(data["en"])
           pl = flatten(data["pl"])
           only_en = sorted(en - pl)
-          only_pl = sorted(pl - en)
+          only_pl = sorted(pl - en - polish_plural_keys(data["en"], data["pl"]))
 
           print(f"en leaf keys: {len(en)}")
           print(f"pl leaf keys: {len(pl)}")
@@ -212,7 +230,7 @@ jobs:
           if [ "${CONFLICTS}" = "true" ]; then
             BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: wykryto konflikty przy merge tagu upstream — merge został przerwany (bez markerów w branchu). Zmerguj ręcznie `refs/tags/%s` do `pl` i rozwiąż konflikty lokalnie.' "${TAG}" "${TAG}")
           elif [ "${PARITY_OK}" = "false" ]; then
-            BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: zestawy kluczy en/pl w `config/locales/i18n.yml` różnią się. Dodaj brakujące tłumaczenia w sekcji `pl:` przed mergem do `pl`.' "${TAG}")
+            BODY=$(printf 'Automatyczny sync upstream DocuSeal `%s` do brancha pl.\n\nUWAGA: sprawdź różnice kluczy tłumaczeń w `config/locales/i18n.yml` przed mergem do `pl`.' "${TAG}")
             if [ "${MISSING_EN_COUNT}" -gt 0 ]; then
               FORMATTED_EN_KEYS=$(echo "${MISSING_EN_KEYS}" | tr ',' '\n' | sed 's/^/`/;s/$/`/' | paste -sd ', ' -)
               BODY=$(printf '%s\n\nBrakuje w `pl` (%s): %s' "${BODY}" "${MISSING_EN_COUNT}" "${FORMATTED_EN_KEYS}")
